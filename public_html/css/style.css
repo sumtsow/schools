@@ -1,0 +1,326 @@
+* {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+}
+
+@font-face {
+    font-family: Calibri;
+    src: url(../fonts/calibri.ttf);
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    height: 100%;
+    _height: 100%;
+    width: 100%;    
+    font-family: "Calibri", Arial, sans-serif;
+    font-size: 16px;
+}
+
+.container {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
+nav {
+    height: 40px;
+    width: 100%;
+    background: url("../img/title.png") no-repeat scroll 400px 0 #f1f1f1;
+    border-bottom: 1px solid #e4e4e4;
+    position: fixed;
+}
+
+nav ul {
+    margin: 0 0 0 10px;
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav a {
+    text-decoration: none;
+    display: block;
+    width: 70px;    
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #434343;    
+    font-weight: bold;
+    font-size: 14px;
+}
+
+nav a.wide {
+    width: 130px;    
+}
+
+nav a:hover, a.active {
+    color: #131313;
+    background: #e4e4e4;
+    text-decoration: underline;
+}
+
+#content {
+    padding: 40px 0 0 0;
+}
+
+#content ol {
+    padding: 1em 2em;
+}
+
+.main,.band {
+    float: left; 
+    padding: 8px;
+}
+
+.main {
+    min-width: 70%;
+    width: 70%;
+    border-right: solid 1px #e4e4e4;
+}
+
+.main h1,h2,h3,h4,h5,h6 {
+    color: #29425e;
+}
+
+.main h1,h2,h3 {
+    text-align: center;
+}
+
+.main a {
+    text-decoration: none;
+    color: #1363A9;
+}
+
+.main a:hover {
+    text-decoration: underline;
+    color: #0433FE;    
+}
+
+.paginationControl a {
+    text-decoration: none;
+    color: #1363A9;
+}
+
+.paginationControl a:hover {
+    text-decoration: underline;
+    color: #0433FE;    
+}
+
+.edit {
+    background: url("../img/edit.png") no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin: 0 6px 0 10px;
+}
+
+.delete {
+    background: url("../img/delete.png") no-repeat;    
+    width: 16px;
+    height: 16px;
+    display: inline-block;    
+}
+
+div.comment_header {
+    background-color: #f1f1f1;
+    font-weight: bold;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border: 1px solid #e4e4e4;
+    border-bottom: none;
+    padding: 8px;
+}
+
+div.comment{
+    margin: 0 0 30px 0;
+    padding: 14px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border: 1px solid #e4e4e4;
+    border-top: none;    
+}
+
+textarea.comment{
+    width: 596px;
+}
+
+
+label input.login{
+    width: auto;
+    display: inline-block;
+}
+
+.commentCheckbox {
+    display: inline;
+    width: 20px;
+    vertical-align: top;
+}
+
+a.add,input[type='submit'] {
+    width: auto;
+    font-weight: bold;
+    margin: 5px 0 0 14px;
+    border: 1px solid #AAA;
+    padding: 3px 15px;
+    color: #111;
+    text-decoration: none;
+    border-radius: 12px;
+    text-shadow: 0px 1px 0px #FFF;
+    background: -moz-linear-gradient(top , #FFF, #AAA) repeat scroll 0% 0% transparent;
+    background: -ms-linear-gradient(top , #FFF, #AAA) repeat scroll 0% 0% transparent;
+    background: -webkit-linear-gradient(top , #FFF, #AAA) repeat scroll 0% 0% transparent;
+    background: -o-linear-gradient(top , #FFF, #AAA) repeat scroll 0% 0% transparent; 
+}
+
+a.add:hover,input[type='submit']:hover
+{
+    position: relative;
+    background: -moz-linear-gradient(top, #AAA, #DDD) repeat scroll 0% 0% transparent;
+    background: -ms-linear-gradient(top, #AAA, #DDD) repeat scroll 0% 0% transparent;
+    background: -webkit-linear-gradient(top, #AAA, #DDD) repeat scroll 0% 0% transparent;
+    background: -o-linear-gradient(top, #AAA, #DDD) repeat scroll 0% 0% transparent;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.delComment {
+    display: inline;
+    margin: 10px 0 0 0;
+}
+
+.delComment input[type='submit'] {
+    background: url("../img/delete.png") no-repeat;
+    width: 20px;
+    border: none;
+    text-indent: -9999px;
+
+}
+
+article h1,h2,h3,h4,h5,h6{
+    margin: 30px 0 0 0;
+}
+
+article h4{
+    font-size: 17px;
+}
+
+article p{
+    margin: 10px 0 0 0;
+}
+
+article table {
+    margin: -25px 0 0 0;
+}
+
+article table img {
+    margin-top: 30px;
+}
+
+div.lh {
+    margin: 0 0 0 10px;    
+}
+
+div.lh:first-child a {
+    font-size: large;
+}
+
+.small {
+    font-size: 0.9em;
+}
+
+#school {
+    width: 640px;
+    text-align: left;
+}
+
+form label {
+    display: block;
+    min-height: 30px;
+}
+
+form span {
+    display: inline-block;
+    width: 98px;
+    vertical-align: top;
+}
+
+form input,textarea,select{
+    border: 1px solid #DDD;
+    margin: 0 3px;
+    width: 498px;
+}
+
+form select{
+    width: auto;
+    font-family: "Calibri",Arial,sans-serif;
+    font-size: 1em;    
+}
+
+form input[type="checkbox"] {
+    width: 20px;
+    vertical-align: baseline;
+    margin: 0 10px 0 -12px;
+}
+
+form textarea{
+    min-height: 160px;
+}
+
+form#user {
+    min-width: 200px;
+    width: auto;
+    height: auto;    
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    margin: 30% 30%;
+    padding: 10px;
+    text-align: right;
+}
+
+ul.simple {
+    display: block;    
+    list-style: none;
+    padding: 0;
+}
+
+ul.simple li {
+    margin: 3px;
+}
+
+textarea.comment{
+    width: 596px;
+}
+
+
+label input.login{
+    width: auto;
+    display: inline-block;
+}
+
+footer {
+    clear: both;
+    background: #f2f2f2;
+    border-top: 1px solid #e4e4e4;
+    height: 50px;
+    padding: 10px 0;
+    margin-top: -71px;
+    text-align: center;
+}
+
+.wrap {
+    height: 70px;
+}

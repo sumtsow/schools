@@ -1,0 +1,149 @@
+<?php
+echo($this->headScript()->prependFile("/js/smile.js"));
+$title = $school->name;
+$this->headTitle($title);
+?>
+<h2><?php echo $title; ?></h2>
+<table class="table">
+<tr>
+    <th>Адрес</th>
+    <td><?php echo $school->address; ?></td>	
+</tr>	
+<tr>	
+    <th>Телефон</th>
+    <td><?php echo $school->phone; ?></td>
+</tr>	
+<tr>		
+    <th>E-mail</th>	
+    <td><a target="_blank" href="<?php echo('mailto://'.$school->email);?>"><?php echo $school->email;?></a></td>
+</tr>	
+<tr>		
+    <th>WWW</th>
+    <td><a target="_blank" href="<?php echo $school->http;?>"><?php echo substr($school->http,7);?></a></td>	
+</tr>
+<?php
+if($school->info) {
+echo("
+    <tr>	
+    <th>Информация</th>
+    <td>$school->info</td>	
+</tr>
+");}
+?>
+<tr>	
+    <th>Район</th>
+    <td><?php echo $school->area; ?></td>
+</tr>	
+<tr>	
+    <th>Карта</th>
+    <td><?php echo $school->map; ?></td>	
+</tr>
+</table>
+<h3>Отзывы пользователей</h3>
+<ul class="simple">
+<?php
+foreach ($comments as $comment) {
+    $text = $comment->insertSmile();
+    if(isset($username)) {
+?>
+<li><div class="comment_header">
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'school',
+    array(
+        'action' => 'delcomment',
+        'id'     => $comment->id,
+    )
+));
+
+$form->bind($comment);
+$form->setAttribute('name','delComment');
+$form->setAttribute('id','delComment');
+$form->setAttribute('class','delComment');
+
+$form->get('submit')->setAttribute('name','delComment');
+$form->get('submit')->setValue('Delete');
+
+$form->get('submit')->setAttribute('title','Удалить');
+$form->get('submit')->setAttribute('id','delComment');
+$form->get('id')->setValue($comment->id);
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>           
+            
+<?php
+// form $comment->visible on/off
+$form->setAttribute('action', $this->url(
+    'school',
+    array(
+        'action' => 'view',
+        'id'     => $school->id,
+    )
+));
+$form->setAttribute('name', 'disComment');
+$form->setAttribute('id','disComment');
+$form->get('visible')->setAttribute('class', 'commentCheckbox');
+$form->get('visible')->setAttribute('onchange', 'this.form.submit();');
+$form->get('visible')->setAttribute('title', 'Виден пользователям');
+$form->bind($comment);
+$form->get('id')->setValue($comment->id);
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formCheckbox($form->get('visible'));
+echo $this->form()->closeTag();
+$text =$comment->censorComment($text);?>
+<?php echo $comment->author;?> | <?php echo(strftime('%d %b %Y %X ',$comment->time));?>
+</div><div class="comment">
+    <?php echo $text; ?>
+</div></li>
+<?php
+    }
+    else {
+        if($comment->visible) {
+            $text = $comment->censorComment($text);?>
+<li><div class="comment_header">
+<?php echo $comment->author;?> | <?php echo(strftime('%d %b %Y %X ',$comment->time));?>
+</div><div class="comment"><?php echo $text; ?></div></li><?php
+        }
+    }
+}    
+?>
+</ul>
+<h4>Добавить отзыв</h4>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'school',
+    array(
+        'action' => 'view',
+        'id'     => $school->id,
+    )
+));
+$form->setAttribute('class','');
+$form->setAttribute('name', 'comment');
+$form->setAttribute('id','comment');
+$form->prepare();
+$form->get('id')->setValue(0);
+$form->get('text')->setValue('');
+$form->get('text')->setAttribute('class','comment');
+$form->get('submit')->setAttribute('id','submitbutton');
+$form->get('submit')->setValue('Сохранить');
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+if(isset($username)) {
+    $form->get('author')->setValue('Администратор');
+}
+echo $this->formRow($form->get('author'));
+include($docRoot.'/smile.html');
+?>
+<br />
+<?php echo $this->formRow($form->get('text')); ?>
+<br />
+<?php
+$form->get('submit') ->setAttribute('title','Сохранить');
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();

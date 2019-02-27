@@ -1,0 +1,27 @@
+<?php
+
+$title = 'Удалить комментарий';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<p>Вы действительно хотите удалить комментарий пользователя
+    <?php
+    echo $this->escapeHtml($comment->author.' - \'');
+    echo $this->escapeHtml($comment->text).'?'; ?>'
+</p>
+<?php
+$url = $this->url(
+    'school',
+    array(
+    'action' => 'delcomment',
+    'id'     => $this->id,
+));
+?>
+<form action="<?php echo $url; ?>" method="post">
+<div>
+    <input type="hidden" name="id" value="<?php echo $comment->id; ?>" />
+    <input type="submit" name="del" value="Да" />
+    <input type="submit" name="del" value="Нет" />
+</div>
+</form>

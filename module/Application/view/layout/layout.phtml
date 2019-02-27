@@ -1,0 +1,72 @@
+<?php
+$config = $this->__helpers->getServiceLocator()->get('config');
+echo $this->doctype();
+?>
+<html lang="<?php echo $config['language']; ?>">
+<head>
+<?php echo $this->headTitle('')->setSeparator(' - ')->setAutoEscape(false) ?>
+<meta charset="utf-8">    
+<?php
+echo $this->headMeta()
+->appendName('viewport', 'width=device-width, initial-scale=1.0')
+->appendName('description', $config['description'])
+->appendName('keywords', $config['description'])
+->appendName('viewport', 'width=device-width, initial-scale=1.0')        
+->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+->appendHttpEquiv('pragma', 'no-cache')
+->appendHttpEquiv('Cache-Control', 'no-cache')
+->appendHttpEquiv('Content-language', $config['language'])        
+?>
+
+<!-- Styles -->
+<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+->prependStylesheet($this->basePath() . '/css/style.css')?>
+<!-- Scripts -->
+<?php echo $this->headScript()
+//->prependFile($this->basePath() . '/js/bootstrap.min.js')
+->prependFile($this->basePath() . '/js/jquery.min.js')
+//->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+//->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+; ?>
+
+</head>
+<body>
+    <div class="container">
+        
+        <nav role="navigation">
+            <ul>
+                <li class="active"><a href="<?php echo $this->url('school') ?>"><?php echo $this->translate('Home') ?></a></li>
+                <li><a href="<?php echo $this->url('school',array('action' => 'schools', 'id' => 0));?>"><?php echo $this->translate('Schools') ?></a></li>
+                <li><a href="<?php echo $this->url('school',array('action' => 'schools', 'id' => 1));?>"><?php echo $this->translate('Universities') ?></a></li>
+                <?php
+                    if(isset($username)) {
+                       $updateNews = '<li><a class="wide" href="'.$this->url("school",array("action" => "updatenews")).'">'.$this->translate('Update news').'</a></li>';
+                       echo($updateNews);
+                    }
+                 ?>
+            </ul>            
+        </nav>
+        
+        <div id="content">
+            
+            <div class="main">
+            <?php echo $this->content; ?>                
+            </div>
+
+            <div class="band">
+               	    
+	    </div>
+            
+            <div class="wrap"></div>
+            
+        </div> <!-- /content -->
+    </div> <!-- /container -->
+    
+    <footer>
+        <p>&copy; <?php echo date('Y') ?> <a href="mailto://<?php echo $config['ServerAdmin'];?>">SuM</a> <?php echo $this->translate('All rights reserved.') ?></p>
+	<p><?php /*include_once('public_html/counters.html');*/ ?></p>
+    </footer>
+    
+<?php echo $this->inlineScript() ?>
+</body>
+</html>

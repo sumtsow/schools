@@ -1,0 +1,21 @@
+﻿<?php
+$title = $this->translate('Kharkov schools');
+$this->headTitle($title);
+if($username) {
+echo '<p><a class="wide" href="'.$this->url("school",array("action" => "updatenews")).'">'.$this->translate('Update news').'</a></p>';
+}
+$i = $news_max;
+foreach ($news['news'] as $item) {
+    if($i>0) {
+?>
+<article>
+    <h4><a target="_blank" href="<?php echo($item['link']); ?>"><?php echo($item['title']); ?></a></h4>
+    <?php echo($item['description']); ?>
+    <p>
+    <?php echo $this->translate('Published'); ?>: <?php echo($item['pubDate']['date']); ?> 
+    <a target="_blank" href="<?php echo($item['link']); ?>"><?php echo $this->translate('Details'); ?></a></p> 
+</article>
+    <?php }
+    $i--;
+    } ?>
+<h5><a target="_blank" href="<?php echo($news['link']); ?>"><?php echo($news['title']); ?></a></h5>
