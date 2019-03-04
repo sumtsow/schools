@@ -38,19 +38,42 @@ class SchoolController extends AbstractActionController
     {
             $reader = new XmlReader();
             $confArray = $this->getServiceLocator()->get('config');
+            $per_page = $confArray['per_page'];            
             $confRow = $confArray['rss'];
             $file = $confRow['file'];
             $news_max = $confRow['max'];
             $news = $reader->fromFile(User::getDocumentRoot().'/'.$file);
             $user = new User();
             $username = '';
+            $high = $this->params()->fromRoute('id', 0); 
+            $vm = new ViewModel();
+            $areas = $this->getSchoolTable()->fetchAreas();
+            $area = $this->params()->fromRoute('area', 0);
+            $newArea = $this->request->getPost('area');
+            if(isset($newArea)) {
+                $area = $newArea;
+            }
+            $result = $this->getSchoolTable()->fetchSchools($high,$area);
+            $adapter = new ArrayAdapter($result);
+            $paginator = new Paginator($adapter);
+            $paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
+            if(isset($newArea)) {
+                $paginator->setCurrentPageNumber(0);
+            }        
+            $paginator->setItemCountPerPage($per_page);
+            $paginator->setPageRange(ceil(count($result)/$per_page));
+            $vm->setVariable('paginator', $paginator);
+            $vm->setVariable('areas', $areas);
+            $vm->setVariable('high', (int) $high);
+            $vm->setVariable('area', $area);            
             if ($user->isValid()) {
                 $username = $user->__get('login');
             }
             return new ViewModel(array(
                 'news' => $news,
                 'news_max' => $news_max,
-                'username' => $username
+                'username' => $username,
+                
         ));
     }
 	

@@ -1,21 +1,92 @@
 ﻿<?php
+$paginator = $this->paginator;
 $title = $this->translate('Kharkov schools');
 $this->headTitle($title);
-if($username) {
-echo '<p><a class="wide" href="'.$this->url("school",array("action" => "updatenews")).'">'.$this->translate('Update news').'</a></p>';
+?>
+<div class="row">
+<div class="col-md-8">   
+<?php
+if($this->high) {
+    $title = $this->translate('Kharkov universities');
+    $this->headTitle($title);
 }
+else {
+    $title = $this->translate('Kharkov schools');
+    $this->headTitle($title); ?>
+    <form method='post'>
+        <label class="small">
+        <span>Показать район</span>
+        <select name='area' id='area' onchange=this.form.submit();>
+        <option value='0'>Все</option>
+    <?php
+    foreach($areas as $indx=>$areaName) {
+        if($this->area==($indx+1)) {
+            $selected = 'selected="selected"';
+        }
+        else {
+            $selected = '';
+        }        
+        ?>
+        <option value="<?= ($indx+1);?>" <?= $selected;?>><?= $areaName;?></option>
+        <?php
+        }
+        ?>
+        </select>
+        </label>
+    </form>
+<?php
+}
+?>
+<h1><?= $title;?></h1>
+<ol start="
+<?= (($paginator->getCurrentPageNumber()-1)*($paginator->getItemCountPerPage())+1);?>
+">
+<?php foreach ($paginator as $item): ?>
+<li><a href="
+<?= $this->url($this->route,array('action'=>'view','id'=>$item->id)); ?>
+">
+<?= $item->name;?>
+</a>
+<?php
+    if(isset($username)) {
+    ?>
+    <a class="edit" title="Редактировать" href="/edit/<?= $item->id;?>"></a>
+    <a class="delete" title="Удалить" href="/delete/<?= $item->id;?>"></a>
+    <?php
+    }
+?>
+    
+</li>
+<?php endforeach;?>
+</ol>
+<?php
+$url = $this->url($this->route,array('action'=>'schools','id'=>$this->high,'area'=>$this->area));
+echo $this->paginationControl($paginator,
+     'Sliding',
+     'school/school/page.phtml', array('high' => $this->high,'area'=>$this->area));
+if(isset($username)) : ?>
+<br /><a class="add" href="/add/<?= $this->high; ?>">Добавить</a>
+<?php endif; ?>
+</div>
+    <div class="col-md-4">
+<?php 
+if($username) : ?>
+<p><a class="wide" href="<?= $this->url('school',array('action' => 'updatenews')); ?>"><?= $this->translate('Update news'); ?></a></p>';
+<?php endif;
 $i = $news_max;
-foreach ($news['news'] as $item) {
-    if($i>0) {
+foreach ($news['news'] as $item) :
+    if($i>0) :
 ?>
 <article>
-    <h4><a target="_blank" href="<?php echo($item['link']); ?>"><?php echo($item['title']); ?></a></h4>
-    <?php echo($item['description']); ?>
+    <h4><a target="_blank" href="<?= $item['link']; ?>"><?= $item['title']; ?></a></h4>
+    <?= $item['description']; ?>
     <p>
-    <?php echo $this->translate('Published'); ?>: <?php echo($item['pubDate']['date']); ?> 
-    <a target="_blank" href="<?php echo($item['link']); ?>"><?php echo $this->translate('Details'); ?></a></p> 
+    <?= $this->translate('Published'); ?>: <?= $item['pubDate']['date']; ?> 
+    <a target="_blank" href="<?= $item['link']; ?>"><?= $this->translate('Details'); ?></a></p> 
 </article>
-    <?php }
+    <?php endif;
     $i--;
-    } ?>
-<h5><a target="_blank" href="<?php echo($news['link']); ?>"><?php echo($news['title']); ?></a></h5>
+    endforeach; ?>
+<h5><a target="_blank" href="<?= $news['link']; ?>"><?= $news['title']; ?></a></h5>
+    </div>
+</div>
