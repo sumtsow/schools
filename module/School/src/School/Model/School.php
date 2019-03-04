@@ -115,7 +115,7 @@ class School implements InputFilterAwareInterface
                 ),
             )));
 			
-			$inputFilter->add($factory->createInput(array(
+	$inputFilter->add($factory->createInput(array(
                 'name'     => 'email',
                 'required' => false,
                 'filters'  => array(
@@ -134,7 +134,7 @@ class School implements InputFilterAwareInterface
                 ),
             )));
 			
-			$inputFilter->add($factory->createInput(array(
+	$inputFilter->add($factory->createInput(array(
                 'name'     => 'http',
                 'required' => false,
                 'filters'  => array(
@@ -153,7 +153,7 @@ class School implements InputFilterAwareInterface
                 ),
             )));
 			
-			$inputFilter->add($factory->createInput(array(
+	$inputFilter->add($factory->createInput(array(
                 'name'     => 'info',
                 'required' => false,
                 'filters'  => array(
@@ -172,7 +172,7 @@ class School implements InputFilterAwareInterface
                 ),
             )));
 			
-			$inputFilter->add($factory->createInput(array(
+	$inputFilter->add($factory->createInput(array(
                 'name'     => 'area',
                 'required' => false,
                 'filters'  => array(
@@ -191,7 +191,7 @@ class School implements InputFilterAwareInterface
                 ),
             )));
 			
-			$inputFilter->add($factory->createInput(array(
+	$inputFilter->add($factory->createInput(array(
                 'name'     => 'high',
                 'required' => false,
                 'filters'  => array(
@@ -210,7 +210,7 @@ class School implements InputFilterAwareInterface
                 ),
             )));
 			
-			$inputFilter->add($factory->createInput(array(
+	$inputFilter->add($factory->createInput(array(
                 'name'     => 'map',
                 'required' => false,
                 'filters'  => array(

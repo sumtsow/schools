@@ -45,15 +45,15 @@ class SchoolController extends AbstractActionController
             $news = $reader->fromFile(User::getDocumentRoot().'/'.$file);
             $user = new User();
             $username = '';
-            $high = $this->params()->fromRoute('id', 0); 
             $vm = new ViewModel();
             $areas = $this->getSchoolTable()->fetchAreas();
+            $high = $this->params()->fromRoute('id', 0);
             $area = $this->params()->fromRoute('area', 0);
             $newArea = $this->request->getPost('area');
             if(isset($newArea)) {
                 $area = $newArea;
             }
-            $result = $this->getSchoolTable()->fetchSchools($high,$area);
+            $result = $this->getSchoolTable()->fetchSchools($high, $area);
             $adapter = new ArrayAdapter($result);
             $paginator = new Paginator($adapter);
             $paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
@@ -69,12 +69,10 @@ class SchoolController extends AbstractActionController
             if ($user->isValid()) {
                 $username = $user->__get('login');
             }
-            return new ViewModel(array(
-                'news' => $news,
-                'news_max' => $news_max,
-                'username' => $username,
-                
-        ));
+            $vm->setVariable('news', $news)
+               ->setVariable('news_max', $news_max)
+               ->setVariable('username', $username);
+            return $vm;
     }
 	
     public function schoolsAction()
@@ -89,7 +87,7 @@ class SchoolController extends AbstractActionController
             if(isset($newArea)) {
                 $area = $newArea;
             }
-            $result = $this->getSchoolTable()->fetchSchools($high,$area);
+            $result = $this->getSchoolTable()->fetchSchools($high, $area);
             $adapter = new ArrayAdapter($result);
             $paginator = new Paginator($adapter);
             $paginator->setCurrentPageNumber($this->params()->fromRoute('page'));

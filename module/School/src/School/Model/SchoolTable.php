@@ -26,7 +26,7 @@ class SchoolTable extends AbstractTableGateway
         return $resultSet = $this->select();
     }
     
-    public function fetchSchools($high,$areaIndex)
+    public function fetchSchools($high, $areaIndex)
     {
     	$high = (int) $high;
         $areaIndex = (int) $areaIndex;

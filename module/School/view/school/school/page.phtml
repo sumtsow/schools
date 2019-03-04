@@ -2,51 +2,42 @@
 
 if ($this->pageCount):
 ?>
-<div class="paginationControl">
+<div class="pagination mb-5">
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="<?php echo $this->url($this->route, array(
-      'action'=>'schools',
+<li class="page-item">
+  <a class="page-link" href="<?= $this->url($this->route, array(
+      'action'=>'index',
       'id'=>$this->high,
       'area'=>$this->area,
       'page' => $this->previous
-  )); ?>">
-    < Предыдущая
-  </a> |
-<?php else: ?>
-  <span class="hidden">< Предыдущая</span> |
+  )); ?>">Prev</a>
+</li>
 <?php endif; ?>
 
 <!-- Numbered page links -->
-<?php foreach ($this->pagesInRange as $page): ?>
-  <?php if ($page != $this->current): ?>
-    <a href="<?php echo $this->url($this->route, array(
-      'action'=>'schools',
-      'id'=>$this->high,
-      'area'=>$this->area,
-      'page' => $page
-    )); ?>">
-        <?php echo $page; ?>
-    </a> |
-  <?php else: ?>
-    <strong>
-    <?php echo $page; ?>
-    </strong> |
-  <?php endif; ?>
+<?php foreach ($this->pagesInRange as $page):
+    ($page == $this->current) ? $active = ' active' : $active = '' ?>
+<li class="page-item<?= $active; ?>">
+    <a class="page-link" href="<?= $this->url($this->route, [
+        'action'=>'index',
+        'id'=>$this->high,
+        'area'=>$this->area,
+        'page' => $page,
+    ]); ?>"><?= $page; ?></a>
+</li>    
 <?php endforeach; ?>
     
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
-  <a href="<?php echo $this->url($this->route, array(
-      'action'=>'schools',
+<li class="page-item">
+  <a class="page-link" href="<?= $this->url($this->route, array(
+      'action'=>'index',
       'id'=>$this->high,
       'area'=>$this->area,
       'page' => $this->next
-  )); ?>">
-    Следующая >
-  </a>
-<?php else: ?>
-  <span class="hidden">Следующая ></span>
+  )); ?>">Next</a>
+</li>
 <?php endif; ?>
 </div>
 <?php endif; ?>

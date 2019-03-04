@@ -1,60 +1,45 @@
 <?php
 $paginator = $this->paginator;
-if($this->high) {
+if($this->high) :
     $title = $this->translate('Kharkov universities');
     $this->headTitle($title);
-}
-else {
+else :
     $title = $this->translate('Kharkov schools');
     $this->headTitle($title); ?>
-    <form method='post'>
+    <form method="post">
         <label class="small">
         <span>Показать район</span>
-        <select name='area' id='area' onchange=this.form.submit();>
-        <option value='0'>Все</option>
+        <select name="area" id="area" onChange="this.form.submit();">
+        <option value="0">Все</option>
     <?php
-    foreach($areas as $indx=>$areaName) {
-        if($this->area==($indx+1)) {
-            $selected = 'selected="selected"';
-        }
-        else {
-            $selected = '';
-        }        
+    foreach($areas as $indx => $areaName) :
+        $selected = ($this->area == ($indx+1)) ? 'selected="selected"' : '';       
         ?>
         <option value="<?= ($indx+1);?>" <?= $selected;?>><?= $areaName;?></option>
-        <?php
-        }
-        ?>
+    <?php endforeach; ?>
         </select>
         </label>
     </form>
-<?php
-}
-?>
+<?php endif; ?>
 <h1><?= $title;?></h1>
-<ol start="
-<?= (($paginator->getCurrentPageNumber()-1)*($paginator->getItemCountPerPage())+1);?>
-">
+<ol start="<?= (($paginator->getCurrentPageNumber()-1)*($paginator->getItemCountPerPage())+1);?>">
 <?php foreach ($paginator as $item): ?>
 <li>
     <a href="<?= $this->url($this->route,array('action'=>'view','id'=>$item->id)); ?>"><?= $item->name;?></a>
-<?php
-    if(isset($username)) {
-    ?>
+<?php if(isset($username)) : ?>
     <a class="edit" title="Редактировать" href="/edit/<?= $item->id;?>"></a>
     <a class="delete" title="Удалить" href="/delete/<?= $item->id;?>"></a>
-    <?php
-    }
-?>
+<?php endif; ?>
 
 </li>
 <?php endforeach;?>
 </ol>
-<?php
-$url = $this->url($this->route,array('action'=>'schools','id'=>$this->high,'area'=>$this->area));
-echo $this->paginationControl($paginator,
+<?= $this->paginationControl($paginator,
      'Sliding',
-     'school/school/page.phtml', array('high' => $this->high,'area'=>$this->area));
+     'school/school/page.phtml', [
+         'high' => $this->high,
+         'area' => $this->area
+     ]);
 if(isset($username)) : ?>
 <br /><a class="add" href="/add/<?= $this->high; ?>">Добавить</a>
 <?php endif;
