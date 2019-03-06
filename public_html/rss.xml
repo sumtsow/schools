@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zend-config>
+    <title>Наука и технологии</title>
+    <link>https://fakty.ua/rss_feed/science</link>
+    <description>Последние статьи раздела</description>
+    <language>ru</language>
+    <image></image>
+    <news>
+        <title>Второй в истории человек вылечился от ВИЧ</title>
+        <link>https://fakty.ua/298219-vtoroj-v-istorii-chelovek-vylechilsya-ot-vich</link>
+        <description>У пациента нет никаких следов вируса спустя три года после пересадки костного мозга и 18 месяцев окончания приема лекарств</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/298219-vtoroj-v-istorii-chelovek-vylechilsya-ot-vich</guid>
+        <pubDate>Wed, 06 Mar 2019 05:20:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Помогает экономить заряд: в Facebook Messenger появилась новая функция</title>
+        <link>https://fakty.ua/298107-pomogaet-ekonomit-zaryad-v-facebook-messenger-poyavilas-novaya-funkciya</link>
+        <description>Новая функция доступна в последней версии приложения</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/298107-pomogaet-ekonomit-zaryad-v-facebook-messenger-poyavilas-novaya-funkciya</guid>
+        <pubDate>Tue, 05 Mar 2019 10:21:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Немецкие врачи в восторге от уникальной украинской разработки</title>
+        <link>https://fakty.ua/297998-ukrainskij-startap-umnaya-perchatka-vozvracshaet-rukam-podvizhnost-posle-travm-i-insultov</link>
+        <description>В Германии проходит тестирование созданного в Украине и не имеющего аналогов в мире приспособления для восстановления моторики рук</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297998-ukrainskij-startap-umnaya-perchatka-vozvracshaet-rukam-podvizhnost-posle-travm-i-insultov</guid>
+        <pubDate>Mon, 04 Mar 2019 19:12:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Украина создает собственный космодром: раскрыты новые детали</title>
+        <link>https://fakty.ua/297980-ukraina-sozdaet-sobstvennyj-kosmodrom-raskryty-novye-detali</link>
+        <description>Космодром сможет обеспечивать пуски на любые орбиты</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297980-ukraina-sozdaet-sobstvennyj-kosmodrom-raskryty-novye-detali</guid>
+        <pubDate>Mon, 04 Mar 2019 11:12:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Космический корабль Илона Маска успешно состыковался с МКС (видео)</title>
+        <link>https://fakty.ua/297928-kosmicheskij-korabl-ilona-maska-uspeshno-sostykovalsya-s-mks-video</link>
+        <description/>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297928-kosmicheskij-korabl-ilona-maska-uspeshno-sostykovalsya-s-mks-video</guid>
+        <pubDate>Sun, 03 Mar 2019 18:39:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>300 километров на одном заряде: Peugeot 208 появился в электроверсии</title>
+        <link>https://fakty.ua/297667-300-kilometrov-na-odnom-zaryade-peugeot-208-poyavilsya-v-elektroversii</link>
+        <description>Электрокар будет представлен на Женевском автосалоне в начале марта, а в продажу поступит в конце лета</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297667-300-kilometrov-na-odnom-zaryade-peugeot-208-poyavilsya-v-elektroversii</guid>
+        <pubDate>Sat, 02 Mar 2019 16:12:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Компания Илона Маска запустила новый пилотируемый космический корабль (фото, видео)</title>
+        <link>https://fakty.ua/297864-kompaniya-ilona-maska-zapustila-novyj-pilotiruemyj-kosmicheskij-korabl-foto-video</link>
+        <description>Crew Dragon впервые отправился на МКС</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297864-kompaniya-ilona-maska-zapustila-novyj-pilotiruemyj-kosmicheskij-korabl-foto-video</guid>
+        <pubDate>Sat, 02 Mar 2019 12:08:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Скончался лауреат Нобелевской премии Жорес Алферов</title>
+        <link>https://fakty.ua/297856-skonchalsya-laureat-nobelevskoj-premii-zhores-alferov</link>
+        <description>Ученый скончался в больнице, не дожив до 89-летия</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297856-skonchalsya-laureat-nobelevskoj-premii-zhores-alferov</guid>
+        <pubDate>Sat, 02 Mar 2019 09:49:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Сенсация в Санта-Барбаре: обнаружена гигантская рыба-«oбманщик» (фото)</title>
+        <link>https://fakty.ua/297838-sensaciya-v-santa-barbare-obnaruzhena-gigantskaya-ryba--obmancshik-foto</link>
+        <description>Исполинская солнечная рыба удивила ученых своим появлением и необычными размерами</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297838-sensaciya-v-santa-barbare-obnaruzhena-gigantskaya-ryba--obmancshik-foto</guid>
+        <pubDate>Sat, 02 Mar 2019 03:55:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Представлен смартфон толщиной два сантиметра, который может обходиться без подзарядки до 50 дней (фото)</title>
+        <link>https://fakty.ua/297727-predstavlen-smartfon-tolcshinoj-dva-santimetra-kotoryj-mozhet-obhoditsya-bez-podzaryadki-do-50-dnej-foto</link>
+        <description>«Можно будет использовать и как оружие самозащиты», - шутят в соцсетях</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297727-predstavlen-smartfon-tolcshinoj-dva-santimetra-kotoryj-mozhet-obhoditsya-bez-podzaryadki-do-50-dnej-foto</guid>
+        <pubDate>Fri, 01 Mar 2019 10:04:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>YouTube запретит комментарии к видео с детьми: что об этом известно</title>
+        <link>https://fakty.ua/297695-youtube-zapretit-kommentarii-k-video-s-detmi-chto-ob-etom-izvestno</link>
+        <description>К такому шагу побудила компанию деятельность педофилов</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297695-youtube-zapretit-kommentarii-k-video-s-detmi-chto-ob-etom-izvestno</guid>
+        <pubDate>Thu, 28 Feb 2019 23:10:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>«Снято на iPhone»: Apple выбрала лучшие снимки владельцев «яблочных» гаджетов (необычные фото)</title>
+        <link>https://fakty.ua/297580-snyato-na-iphone-apple-vybrala-desyat-luchshih-snimkov-sdelannyh-vladelcami-yablochnyh-gadzhetov-foto</link>
+        <description>Фотографии победителей появятся на баннерах и других рекламных материалах Apple, а их авторы получат гонорары</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297580-snyato-na-iphone-apple-vybrala-desyat-luchshih-snimkov-sdelannyh-vladelcami-yablochnyh-gadzhetov-foto</guid>
+        <pubDate>Thu, 28 Feb 2019 05:25:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Не Apple и не Samsung: эксперты назвали лучший смартфон 2018 года </title>
+        <link>https://fakty.ua/297576-ne-apple-i-ne-samsung-eksperty-nazvali-luchshij-smartfon-2018-goda</link>
+        <description>Годом ранее победа досталась iPhone X</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297576-ne-apple-i-ne-samsung-eksperty-nazvali-luchshij-smartfon-2018-goda</guid>
+        <pubDate>Thu, 28 Feb 2019 03:24:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Воду придется покупать за границей: зафиксировано резкое снижение стока Днепра</title>
+        <link>https://fakty.ua/297393-vodu-pridetsya-pokupat-za-granicej-zafiksirovano-rezkoe-snizhenie-stoka-dnepra</link>
+        <description>Глобальное потепление в Украине происходит на треть быстрее, чем в странах Западной Европы</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297393-vodu-pridetsya-pokupat-za-granicej-zafiksirovano-rezkoe-snizhenie-stoka-dnepra</guid>
+        <pubDate>Tue, 26 Feb 2019 16:00:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>В декабре 2019-го мы запустим в космос первую частную украинско-американскую ракету, — Макс Поляков</title>
+        <link>https://fakty.ua/297235-v-dekabre-2019-go-my-zapustim-v-kosmos-pervuyu-chastnuyu-ukrainsko-amerikanskuyu-raketu---maks-polyakov</link>
+        <description>Бизнесмен, владелец компании Firefly Aerospace пригласил на это событие президента Украины Петра Порошенко</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/297235-v-dekabre-2019-go-my-zapustim-v-kosmos-pervuyu-chastnuyu-ukrainsko-amerikanskuyu-raketu---maks-polyakov</guid>
+        <pubDate>Tue, 26 Feb 2019 08:07:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Японский «Сокол-Хаябуса» приземлился на астероид</title>
+        <link>https://fakty.ua/296944-yaponskij-sokol-hayabusa-prizemlilsya-na-asteroid-posle-chetyreh-let-poleta</link>
+        <description>Аппарат пробудет рядом с астероидом в течение полутора лет</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/296944-yaponskij-sokol-hayabusa-prizemlilsya-na-asteroid-posle-chetyreh-let-poleta</guid>
+        <pubDate>Fri, 22 Feb 2019 04:50:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Не "котики", а "котищи": нейросеть удивила ученых странными изображениями </title>
+        <link>https://fakty.ua/296941-milye-kotiki-i-koticshi-iz-nochnyh-koshmarov-nejroset-sozdaet-foto-nesucshestvuyucshih-zhivotnyh</link>
+        <description>Пока что новая разработка не всегда выдает изображения красивых животных</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/296941-milye-kotiki-i-koticshi-iz-nochnyh-koshmarov-nejroset-sozdaet-foto-nesucshestvuyucshih-zhivotnyh</guid>
+        <pubDate>Fri, 22 Feb 2019 03:15:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>Огромный астероид приближается к Земле: чего ждать от столкновения с Апофисом</title>
+        <link>https://fakty.ua/296867-ogromnyj-asteroid-priblizhaetsya-k-zemle-chego-zhdat-ot-stolknoveniya-s-apofisom</link>
+        <description>Известный астропсихолог рассказала, как небольшие небесные тела влияют на судьбу человека</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/296867-ogromnyj-asteroid-priblizhaetsya-k-zemle-chego-zhdat-ot-stolknoveniya-s-apofisom</guid>
+        <pubDate>Thu, 21 Feb 2019 21:03:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>YouTube будет наказывать нарушителей правил по-новому: что изменится</title>
+        <link>https://fakty.ua/296696-youtube-budet-nakazyvat-narushitelej-pravil-po-novomu-chto-izmenitsya</link>
+        <description>Система наказания будет смягчена</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/296696-youtube-budet-nakazyvat-narushitelej-pravil-po-novomu-chto-izmenitsya</guid>
+        <pubDate>Wed, 20 Feb 2019 11:30:00 +0200</pubDate>
+    </news>
+    <news>
+        <title>На IDEX-2019 в Эмиратах Украина показала суперБТР (фото, видео)</title>
+        <link>https://fakty.ua/296567-na-idex-2019-v-emiratah-ukraina-pokazala-superbtr-foto-video</link>
+        <description>Подписан важный меморандум</description>
+        <category>Наука и технологии</category>
+        <guid>https://fakty.ua/296567-na-idex-2019-v-emiratah-ukraina-pokazala-superbtr-foto-video</guid>
+        <pubDate>Tue, 19 Feb 2019 12:22:00 +0200</pubDate>
+    </news>
+</zend-config>

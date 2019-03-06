@@ -52,7 +52,7 @@ else :
     <div class="col-md-1"></div>
     <div class="col-md-3">
 <?php if($username) : ?>
-<p><a class="btn btn-primary" href="<?= $this->url('school',array('action' => 'updatenews')); ?>"><?= $this->translate('Update news'); ?></a></p>';
+<p><a class="btn btn-primary" href="<?= $this->url('school',array('action' => 'updatenews')); ?>"><?= $this->translate('Update news'); ?></a></p>
 <?php endif;
 $i = $news_max;
 foreach ($news['news'] as $item) :
@@ -62,7 +62,7 @@ foreach ($news['news'] as $item) :
     <a class="h6" target="_blank" href="<?= $item['link']; ?>"><?= $item['title']; ?></a>
     <?= $item['description']; ?>
     <p>
-    <?= $this->translate('Published'); ?>: <?= $item['pubDate']['date']; ?> 
+    <?= $this->translate('Published'); ?>: <?= $item['pubDate']; ?> 
     <a target="_blank" href="<?= $item['link']; ?>"><?= $this->translate('Details'); ?></a></p> 
 </article>
     <?php endif;

@@ -42,7 +42,8 @@ class Rss
                 'description' => $item->getDescription(),
                 'language'    => $this->myRss->getLanguage(),
                 'category' => $category,
-                'pubDate'     => $pubDateArray,
+                'pubDate'     => $pubDate,
+                //'pubDate'     => $pubDateArray,
                 );
             }
         }
