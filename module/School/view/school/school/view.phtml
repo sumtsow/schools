@@ -1,50 +1,52 @@
 <?php
-echo($this->headScript()->prependFile("/js/smile.js"));
+echo $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');
 $title = $school->name;
 $this->headTitle($title);
 ?>
-<h2><?php echo $title; ?></h2>
+<?= ($this->headScript()->prependFile("/js/smile.js")); ?>
+<h2 class="my-3"><?= $title; ?></h2>
 <table class="table">
-<tr>
-    <th>Адрес</th>
-    <td><?php echo $school->address; ?></td>	
-</tr>	
-<tr>	
-    <th>Телефон</th>
-    <td><?php echo $school->phone; ?></td>
-</tr>	
-<tr>		
-    <th>E-mail</th>	
-    <td><a target="_blank" href="<?php echo('mailto://'.$school->email);?>"><?php echo $school->email;?></a></td>
-</tr>	
-<tr>		
-    <th>WWW</th>
-    <td><a target="_blank" href="<?php echo $school->http;?>"><?php echo substr($school->http,7);?></a></td>	
-</tr>
-<?php
-if($school->info) {
-echo("
-    <tr>	
-    <th>Информация</th>
-    <td>$school->info</td>	
-</tr>
-");}
-?>
-<tr>	
-    <th>Район</th>
-    <td><?php echo $school->area; ?></td>
-</tr>	
-<tr>	
-    <th>Карта</th>
-    <td><?php echo $school->map; ?></td>	
-</tr>
+    <thead>
+        <tr>
+            <th>Адрес</th>
+            <td><?= $school->address; ?></td>	
+        </tr>
+    </thead>
+    <tbody>
+        <tr>	
+            <th>Телефон</th>
+            <td><?= $school->phone; ?></td>
+        </tr>	
+        <tr>		
+            <th>E-mail</th>	
+            <td><a target="_blank" href="mailto://<?= $school->email;?>"><?= $school->email;?></a></td>
+        </tr>	
+        <tr>		
+            <th>WWW</th>
+            <td><a target="_blank" href="<?= $school->http;?>"><?= substr($school->http,7);?></a></td>	
+        </tr>
+<?php if($school->info) : ?>
+        <tr>	
+            <th>Информация</th>
+            <td><?= $school->info; ?></td>	
+        </tr>
+<?php endif; ?>
+        <tr>	
+            <th>Район</th>
+            <td><?php echo $school->area; ?></td>
+        </tr>	
+        <tr>	
+            <th>Карта</th>
+            <td><?= $school->map; ?></td>	
+        </tr>
+    </tbody>
 </table>
 <h3>Отзывы пользователей</h3>
 <ul class="simple">
 <?php
-foreach ($comments as $comment) {
+foreach ($comments as $comment) :
     $text = $comment->insertSmile();
-    if(isset($username)) {
+    if(isset($username)) :
 ?>
 <li><div class="comment_header">
 <?php
@@ -58,21 +60,12 @@ $form->setAttribute('action', $this->url(
 ));
 
 $form->bind($comment);
-$form->setAttribute('name','delComment');
-$form->setAttribute('id','delComment');
-$form->setAttribute('class','delComment');
-
-$form->get('submit')->setAttribute('name','delComment');
-$form->get('submit')->setValue('Delete');
-
-$form->get('submit')->setAttribute('title','Удалить');
-$form->get('submit')->setAttribute('id','delComment');
 $form->get('id')->setValue($comment->id);
-$form->prepare();
-echo $this->form()->openTag($form);
-echo $this->formSubmit($form->get('submit'));
-echo $this->form()->closeTag();
-?>           
+$form->prepare(); ?>
+<?= $this->form()->openTag($form); ?>
+<?= $this->formSubmit($form->get('delComment')); ?>
+<?= $this->form()->closeTag(); ?>
+        
             
 <?php
 // form $comment->visible on/off
@@ -85,32 +78,33 @@ $form->setAttribute('action', $this->url(
 ));
 $form->setAttribute('name', 'disComment');
 $form->setAttribute('id','disComment');
-$form->get('visible')->setAttribute('class', 'commentCheckbox');
-$form->get('visible')->setAttribute('onchange', 'this.form.submit();');
-$form->get('visible')->setAttribute('title', 'Виден пользователям');
+$form->get('visible')->setAttribute('class', 'commentCheckbox')
+    ->setAttribute('onchange', 'this.form.submit();')
+    ->setAttribute('title', 'Виден пользователям');
 $form->bind($comment);
 $form->get('id')->setValue($comment->id);
 $form->prepare();
-echo $this->form()->openTag($form);
-echo $this->formHidden($form->get('id'));
-echo $this->formCheckbox($form->get('visible'));
-echo $this->form()->closeTag();
-$text =$comment->censorComment($text);?>
-<?php echo $comment->author;?> | <?php echo(strftime('%d %b %Y %X ',$comment->time));?>
+?>
+<?= $this->form()->openTag($form); ?>
+<?= $this->formHidden($form->get('id')); ?>
+<?= $this->formCheckbox($form->get('visible')); ?>
+<?= $this->form()->closeTag(); ?>
+<?php $text = $comment->censorComment($text); ?>
+<?= $comment->author;?> | <?= (strftime('%d %b %Y %X ',$comment->time));?>
 </div><div class="comment">
-    <?php echo $text; ?>
+    <?= $text; ?>
 </div></li>
 <?php
-    }
-    else {
-        if($comment->visible) {
+    else :
+        if($comment->visible) :
             $text = $comment->censorComment($text);?>
 <li><div class="comment_header">
-<?php echo $comment->author;?> | <?php echo(strftime('%d %b %Y %X ',$comment->time));?>
-</div><div class="comment"><?php echo $text; ?></div></li><?php
-        }
-    }
-}    
+<?= $comment->author;?> | <?= (strftime('%d %b %Y %X ',$comment->time));?>
+</div><div class="comment"><?=  $text; ?></div></li>
+<?php
+        endif;
+    endif;
+endforeach;   
 ?>
 </ul>
 <h4>Добавить отзыв</h4>
@@ -123,27 +117,28 @@ $form->setAttribute('action', $this->url(
         'id'     => $school->id,
     )
 ));
-$form->setAttribute('class','');
-$form->setAttribute('name', 'comment');
-$form->setAttribute('id','comment');
-$form->prepare();
+$form->setAttribute('class','')
+    ->setAttribute('name', 'comment')
+    ->setAttribute('id','comment')
+    ->prepare();
 $form->get('id')->setValue(0);
 $form->get('text')->setValue('');
 $form->get('text')->setAttribute('class','comment');
-$form->get('submit')->setAttribute('id','submitbutton');
-$form->get('submit')->setValue('Сохранить');
+$form->get('submit')->setAttribute('id','submitbutton')->setValue('Сохранить');
 echo $this->form()->openTag($form);
 echo $this->formHidden($form->get('id'));
-if(isset($username)) {
+if(isset($username)) :
     $form->get('author')->setValue('Администратор');
-}
-echo $this->formRow($form->get('author'));
-include($docRoot.'/smile.html');
+endif;
 ?>
+<?= $this->formRow($form->get('author')); ?>
+<?php include($docRoot.'/smile.html'); ?>
 <br />
-<?php echo $this->formRow($form->get('text')); ?>
+<?= $this->formRow($form->get('text')
+    ->setAttribute('class', 'w-100')); ?>
 <br />
 <?php
-$form->get('submit') ->setAttribute('title','Сохранить');
-echo $this->formSubmit($form->get('submit'));
-echo $this->form()->closeTag();
+$form->get('submit')->setAttribute('title', 'Сохранить')
+        ->setAttribute('class', 'btn btn-primary my-3'); ?>
+<?= $this->formSubmit($form->get('submit')); ?>
+<?= $this->form()->closeTag();

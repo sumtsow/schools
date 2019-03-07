@@ -27,5 +27,5 @@ echo $this->formRow($form->get('info'));
 echo $this->formRow($form->get('area'));
 echo $this->formRow($form->get('high'));
 echo $this->formRow($form->get('map'));
-echo $this->formSubmit($form->get('submit'));
+echo $this->formSubmit($form->get('submit')->setAttribute('class', 'btn btn-primary'));
 echo $this->form()->closeTag();

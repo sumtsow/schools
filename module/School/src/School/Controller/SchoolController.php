@@ -1,7 +1,7 @@
 <?php
 namespace School\Controller;
 
-if(isset($_COOKIE['PHPSESSID'])) {
+/*if(isset($_COOKIE['PHPSESSID'])) {
     $sid = $_COOKIE['PHPSESSID'];
 }
 else {
@@ -10,7 +10,7 @@ else {
 
 if ($sid!=='') {
     session_id($sid);
-}
+}*/
 
 session_start();
 setcookie('PHPSESSID',session_id(),0,'/');
@@ -36,75 +36,45 @@ class SchoolController extends AbstractActionController
 	
     public function indexAction()
     {
-            $reader = new XmlReader();
-            $confArray = $this->getServiceLocator()->get('config');
-            $per_page = $confArray['per_page'];            
-            $confRow = $confArray['rss'];
-            $file = $confRow['file'];
-            $news_max = $confRow['max'];
-            $news = $reader->fromFile(User::getDocumentRoot().'/'.$file);
-            $user = new User();
-            $username = '';
-            $vm = new ViewModel();
-            $areas = $this->getSchoolTable()->fetchAreas();
-            $high = $this->params()->fromRoute('id', 0);
-            $area = $this->params()->fromRoute('area', 0);
-            $newArea = $this->request->getPost('area');
-            if(isset($newArea)) {
-                $area = $newArea;
-            }
-            $result = $this->getSchoolTable()->fetchSchools($high, $area);
-            $adapter = new ArrayAdapter($result);
-            $paginator = new Paginator($adapter);
-            $paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
-            if(isset($newArea)) {
-                $paginator->setCurrentPageNumber(0);
-            }        
-            $paginator->setItemCountPerPage($per_page);
-            $paginator->setPageRange(ceil(count($result)/$per_page));
-            $vm->setVariable('paginator', $paginator);
-            $vm->setVariable('areas', $areas);
-            $vm->setVariable('high', (int) $high);
-            $vm->setVariable('area', $area);            
-            if ($user->isValid()) {
-                $username = $user->__get('login');
-            }
-            $vm->setVariable('news', $news)
-               ->setVariable('news_max', $news_max)
-               ->setVariable('username', $username);
-            return $vm;
+        $reader = new XmlReader();
+        $confArray = $this->getServiceLocator()->get('config');
+        $news = $reader->fromFile(User::getDocumentRoot().'/'.$confArray['rss']['file']);
+        $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
+        $result = $this->getSchoolTable()->fetchSchools($this->params()->fromRoute('id', 0), $area);
+        $paginator = new Paginator(new ArrayAdapter($result));
+        $page = ($this->request->getPost('area')) ? 0 : $this->params()->fromRoute('page');            
+        $paginator->setCurrentPageNumber($page)    
+            ->setItemCountPerPage($confArray['per_page'])
+            ->setPageRange(ceil(count($result)/$confArray['per_page']));
+        $user = new User();
+        $vm = new ViewModel();
+        return $vm->setVariable('paginator', $paginator)
+            ->setVariable('areas', $this->getSchoolTable()->fetchAreas())
+            ->setVariable('high', $this->params()->fromRoute('id', 0))
+            ->setVariable('area', $area)
+            ->setVariable('news', $news)
+            ->setVariable('news_max', $confArray['rss']['max'])
+            ->setVariable('username', ($user->isValid()) ? $user->__get('login') : '');
     }
 	
     public function schoolsAction()
     {
-            $high = $this->params()->fromRoute('id', 0);
-            $confArray = $this->getServiceLocator()->get('config');
-            $per_page = $confArray['per_page'];
-            $vm = new ViewModel();
-            $areas = $this->getSchoolTable()->fetchAreas();
-            $area = $this->params()->fromRoute('area', 0);
-            $newArea = $this->request->getPost('area');
-            if(isset($newArea)) {
-                $area = $newArea;
-            }
-            $result = $this->getSchoolTable()->fetchSchools($high, $area);
-            $adapter = new ArrayAdapter($result);
-            $paginator = new Paginator($adapter);
-            $paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
-            if(isset($newArea)) {
-                $paginator->setCurrentPageNumber(0);
-            }        
-            $paginator->setItemCountPerPage($per_page);
-            $paginator->setPageRange(ceil(count($result)/$per_page));
-            $vm->setVariable('paginator', $paginator);
-            $vm->setVariable('areas', $areas);
-            $vm->setVariable('high', (int) $high);
-            $vm->setVariable('area', $area);
+        $confArray = $this->getServiceLocator()->get('config');
+        $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
+        $result = $this->getSchoolTable()->fetchSchools($this->params()->fromRoute('id', 0), $area);
+            $paginator = new Paginator(new ArrayAdapter($result));
+            $paginator->setCurrentPageNumber(
+                    ($this->request->getPost('area')) ? 0 : $this->params()->fromRoute('page')
+                )
+                ->setItemCountPerPage($confArray['per_page'])
+                ->setPageRange(ceil(count($result)/$confArray['per_page']));
             $user = new User();
-            if ($user->isValid()) {
-                $vm->setVariable('username', $user->__get('login'));
-            }
-            return $vm;
+            $vm = new ViewModel();
+            return $vm->setVariable('paginator', $paginator)
+                ->setVariable('areas', $this->getSchoolTable()->fetchAreas())
+                ->setVariable('high', $this->params()->fromRoute('id', 0))
+                ->setVariable('area', $area)
+                ->setVariable('username', ($user->isValid()) ? $user->__get('login') : null);
     }
 	
     public function viewAction()
@@ -113,19 +83,15 @@ class SchoolController extends AbstractActionController
         $area = $this->params()->fromRoute('area', 0);
         $vm = new ViewModel();
         $user = new User();        
-        if ($user->isValid()) {
-            $vm->setVariable('username',$user->__get('login'));
-        }        
-	$vm->setVariable('school',$this->getSchoolTable()->getSchool($id));
-        $vm->setVariable('comments',$this->getCommentTable()->fetchComments($id));
-        $vm->setVariable('docRoot',User::getDocumentRoot());
+	$vm->setVariable('school',$this->getSchoolTable()->getSchool($id))
+            ->setVariable('comments',$this->getCommentTable()->fetchComments($id))
+            ->setVariable('docRoot',User::getDocumentRoot())
+            ->setVariable('username', ($user->isValid()) ? $user->__get('login') : null);
         $form = new CommentForm();
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $id_comment = $request->getPost('id');
-            $comment = $this->getCommentTable()->getComment($id_comment);
-            $filter = $comment->getInputFilter();
-            $form->setInputFilter($filter); 
+            $comment = $this->getCommentTable()->getComment($request->getPost('id'));
+            $form->setInputFilter($comment->getInputFilter()); 
             $formData = $request->getPost();
             $formData['id_school'] = $id;
             $form->setData($formData);
@@ -137,13 +103,11 @@ class SchoolController extends AbstractActionController
                 ));
             }
         }
-        $vm->setVariable('form',$form);
-        return $vm;
+        return $vm->setVariable('form',$form);
     }
 	
     public function addAction()
     {
-        $high = (int) $this->params()->fromRoute('id', 0);
         $user = new User();
         if (!$user->isValid()) {
             return $this->redirect()->toRoute('school', array(
@@ -151,9 +115,9 @@ class SchoolController extends AbstractActionController
             ));
         }
         $form = new SchoolForm();
-        $form->get('submit')->setValue('Добавить');
-        $form->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
-        $form->get('high')->setChecked($high);
+        $form->get('submit')->setValue('Добавить')
+            ->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas())
+            ->get('high')->setChecked($this->params()->fromRoute('id', 0));
         $request = $this->getRequest();
         if ($request->isPost()) {
             $school = new School();
@@ -190,12 +154,11 @@ class SchoolController extends AbstractActionController
         $form  = new SchoolForm();
         $form->bind($school);
         $form->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
-        $areaId = array_search($school->area,$form->get('area')->getValueOptions());
-        $form->get('area')->setValue($areaId);
+        $form->get('area')->setValue(array_search($school->area,$form->get('area')->getValueOptions()));
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setInputFilter($school->getInputFilter());
-            $form->setData($request->getPost());
+            $form->setInputFilter($school->getInputFilter())
+                ->setData($request->getPost());
             if ($form->isValid()) {
                 $this->getSchoolTable()->saveSchool($form->getData());
                 return $this->redirect()->toRoute('school', array(
@@ -260,16 +223,14 @@ class SchoolController extends AbstractActionController
         }
         $request = $this->getRequest();
         if ($request->isPost('delComment')) {
-            $del = $request->getPost('delComment');
             $comment = $this->getCommentTable()->getComment($id);
-            $id_school = $comment->id_school;            
-            if ($del == 'Delete') {
+            if ($request->getPost('delComment')) {
                 $this->getCommentTable()->deleteComment($id);
             }
             // Redirect to list of schools
             return $this->redirect()->toRoute('school', array(
-                'action'=>'view',
-                'id'=>$id_school
+                'action' => 'view',
+                'id'=> $comment->id_school
             ));            
         }
         return array(
@@ -280,19 +241,17 @@ class SchoolController extends AbstractActionController
 
     public function loginAction()
     {
-    $form  = new UserForm();
-    $form->get('submit')->setAttribute('value', 'Ok');
-    $request = $this->getRequest();
-    $user = new User();    
-    if ($request->isPost()) {
-        $form->setInputFilter($user->getInputFilter());
-        $form->setData($request->getPost());
-        if ($form->isValid()) {
-            $path = User::getDocumentRoot().'/admin';
-            $result = $user->login($request->getPost('login'), $request->getPost('passwd'),$path);
-            return $this->redirect()->toRoute('school');
+        $form  = new UserForm();
+        $request = $this->getRequest();
+        $user = new User();    
+        if ($request->isPost()) {
+            $form->setInputFilter($user->getInputFilter());
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $result = $user->login($request->getPost('login'), $request->getPost('passwd'), User::getDocumentRoot().'/admin');
+                return $this->redirect()->toRoute('school');
+            }
         }
-    }
     
     return array(
         'form' => $form,
@@ -308,34 +267,28 @@ class SchoolController extends AbstractActionController
         return $this->redirect()->toRoute('school');
     }    
 	
-	public function getSchoolTable()
-        {
+    public function getSchoolTable()
+    {
         if (!$this->schoolTable) {
             $sm = $this->getServiceLocator();
-            $this->schoolTable = $sm->get('School\Model\SchoolTable');
         }
-        return $this->schoolTable;
-        }
+    return $sm->get('School\Model\SchoolTable');
+    }
         
-	public function getCommentTable()
-        {
+    public function getCommentTable()
+    {
         if (!$this->commentTable) {
             $sm = $this->getServiceLocator();
-            $this->commentTable = $sm->get('School\Model\CommentTable');
         }
-        return $this->commentTable;
-        }
+        return $sm->get('School\Model\CommentTable');
+    }
         
-	public function updatenewsAction()
-        {
-            $confArray = $this->getServiceLocator()->get('config');
-            $confRow = $confArray['rss'];
-            $url = $confRow['url'];
-            $file = User::getDocumentRoot().'/'.$confRow['file'];
-            $rss = new Rss($url);
-            $writer = new XmlWriter();
-            $config = $rss->__get('channel');
-            $writer->toFile($file,$config);
-        return $this->redirect()->toRoute('school');
-        }        
+    public function updatenewsAction()
+    {
+        $confRow = $this->getServiceLocator()->get('config')['rss'];
+        $rss = new Rss($confRow['url']);
+        $writer = new XmlWriter();
+        $writer->toFile(User::getDocumentRoot().'/'.$confRow['file'], $rss->__get('channel'));
+    return $this->redirect()->toRoute('school');
+    }        
 }

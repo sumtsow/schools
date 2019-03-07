@@ -17,7 +17,7 @@ $url = $this->url('school',array(
 <form action="<?php echo $url; ?>" method="post">
 <div>
     <input type="hidden" name="id" value="<?php echo (int) $school->id; ?>" />
-    <input id="submitbutton" type="submit" name="del" value="Да" />
-    <input id="submitbutton" type="submit" name="del" value="Нет" />
+    <input class="btn btn-danger my-3 mr-1" id="submitbutton" type="submit" name="del" value="Да" />
+    <input class="btn btn-secondary" id="cancelbutton" type="submit" name="del" value="Нет" />
 </div>
 </form>

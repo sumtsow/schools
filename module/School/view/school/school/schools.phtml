@@ -1,4 +1,5 @@
 <?php
+echo $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');
 $paginator = $this->paginator;
 if($this->high) :
     $title = $this->translate('Kharkov universities');
@@ -27,8 +28,8 @@ else :
 <li>
     <a href="<?= $this->url($this->route,array('action'=>'view','id'=>$item->id)); ?>"><?= $item->name;?></a>
 <?php if(isset($username)) : ?>
-    <a class="edit" title="Редактировать" href="/edit/<?= $item->id;?>"></a>
-    <a class="delete" title="Удалить" href="/delete/<?= $item->id;?>"></a>
+    <a class="fa fa-edit" title="Редактировать" href="/edit/<?= $item->id;?>"></a>
+    <a class="fa fa-trash-alt" title="Удалить" href="/delete/<?= $item->id;?>"></a>
 <?php endif; ?>
 
 </li>
@@ -41,5 +42,5 @@ else :
          'area' => $this->area
      ]);
 if(isset($username)) : ?>
-<br /><a class="add" href="/add/<?= $this->high; ?>">Добавить</a>
-<?php endif;
+<br /><a class="btn btn-primary my-3" href="/add/<?= $this->high; ?>">Добавить</a>
+<?php endif; ?>

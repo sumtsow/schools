@@ -16,8 +16,6 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-		//return $this->redirect()->toRoute('school'); 
-		return $this->redirect()->toUrl('http://schools/.kharkov.ua/school'); 
-        //return new ViewModel();
+	return $this->redirect()->toRoute('school'); 
     }
 }

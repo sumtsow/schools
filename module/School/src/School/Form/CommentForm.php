@@ -61,5 +61,15 @@ class CommentForm extends Form
                 'id' => 'submitbutton',
             ),
         ));
+        $this->add(array(
+            'name' => 'delComment',
+            'attributes' => array(
+                'type'  => 'submit',
+                'value' => ' ',
+                'id' => 'delComment',
+                'class' => 'fa fa-trash-alt',
+                'title' => 'Удалить',
+            ),
+        ));
      }
 }

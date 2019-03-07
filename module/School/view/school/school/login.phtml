@@ -7,12 +7,36 @@ $form->setAttribute('action', $this->url(
     array(
         'action' => 'login',
     )
-));
+))
+     ->setAttribute('class', 'w-50 mt-3');
+
+$login = $form->get('login');
+$login->setAttribute('class', 'form-control');
+$login->setAttribute('placeholder', 'Login');
+
+$passwd = $form->get('passwd');
+$passwd->setAttribute('class', 'form-control');
+$passwd->setAttribute('placeholder', 'Password');
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary my-3')->setAttribute('value', 'Ok');
+
 $form->prepare();
-echo $this->form()->openTag($form);
-$form->get('login')->setAttribute('class','login');
-$form->get('passwd')->setAttribute('class','login');
-echo $this->formRow($form->get('login'));
-echo $this->formRow($form->get('passwd'));
-echo $this->formSubmit($form->get('submit'));
-echo $this->form()->closeTag();
+?>
+<div class="row align-items-center">
+    <div class="col-md-3"></div>
+    <div class="col-md-9 h-100">
+    <?= $this->form()->openTag($form); ?>
+
+                    <div class="form-group">
+                        <?= $this->formLabel($login) ?>
+                        <?= $this->formElement($login) ?>
+                        <?= $this->formElementErrors()->render($login, ['class' => 'help-block']) ?>
+                        <?= $this->formLabel($passwd) ?>
+                        <?= $this->formElement($passwd) ?>
+                        <?= $this->formElementErrors()->render($passwd, ['class' => 'help-block']) ?>
+                        <?= $this->formSubmit($submit); ?>
+                    </div>
+                <?= $this->form()->closeTag(); ?>
+    </div>
+</div>
