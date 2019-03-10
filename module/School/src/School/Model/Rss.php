@@ -26,29 +26,23 @@ class Rss
             'title'       => $this->myRss->getTitle(),
             'link'        => $this->myRss->getLink(),
             'description' => $this->myRss->getDescription(),
-            'news'        => array()
+            'items'        => array()
         );
 
         // Loop over each channel item/entry and store relevant data for each
         foreach ($this->myRss as $item) {
-        $pubDate = $item->getDateModified();
-        $pubDateArray = get_object_vars($pubDate);
-        if(isset($pubDateArray['date'])) {$pubDateArray['date'] = $pubDate->format('d-m-Y H:i:s');}
-        $category = '';
-        if(isset($item->category)) {$category = $item->getCategory();}
-            $this->channel['news'][] = array(
+            $this->channel['items'][] = [
                 'title'       => $item->getTitle(),
                 'link'        => $item->getLink(),
                 'description' => $item->getDescription(),
                 'language'    => $this->myRss->getLanguage(),
-                'category' => $category,
-                'pubDate'     => $pubDate,
-                //'pubDate'     => $pubDateArray,
-                );
-            }
+                'enclosure'   => ($item->getEnclosure()) ? $item->getEnclosure() : null,
+                'pubDate'     => get_object_vars($item->getDateModified()),
+                ];
         }
+    }
     
-        public function __get($attr) {
-            return $this->$attr;
-        }
+    public function __get($attr) {
+        return $this->$attr;
+    }
 }

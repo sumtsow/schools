@@ -3,7 +3,7 @@
 $title = 'Редактировать школу';
 $this->headTitle($title);
 ?>
-<h1><?php echo $this->escapeHtml($title); ?></h1>
+<h1><?= $this->escapeHtml($title); ?></h1>
 
 <?php
 $form = $this->form;
@@ -14,18 +14,27 @@ $form->setAttribute('action', $this->url(
         'id'     => $this->id,
     )
 ));
-$form->prepare();
-
-echo $this->form()->openTag($form);
-echo $this->formHidden($form->get('id'));
-echo $this->formRow($form->get('name'));
-echo $this->formRow($form->get('address'));
-echo $this->formRow($form->get('phone'));
-echo $this->formRow($form->get('email'));
-echo $this->formRow($form->get('http'));
-echo $this->formRow($form->get('info'));
-echo $this->formRow($form->get('area'));
-echo $this->formRow($form->get('high'));
-echo $this->formRow($form->get('map'));
-echo $this->formSubmit($form->get('submit')->setAttribute('class', 'btn btn-primary'));
-echo $this->form()->closeTag();
+$inputs = [
+    'name' => $form->get('name'),
+    'address' => $form->get('address'),
+    'phone' => $form->get('phone'),
+    'email' => $form->get('email'),
+    'http' => $form->get('http'),
+    'info' => $form->get('info'),
+    'area' => $form->get('area'),
+    'high' => $form->get('high'),
+    'map' => $form->get('map'),
+    'logo' => $form->get('logo'),
+];
+$form->prepare(); ?>
+<?= $this->form()->openTag($form); ?>
+<?= $this->formHidden($form->get('id'));?>
+<?php foreach($inputs as $input) : ?>
+<div class="form-group">
+    <?= $this->formLabel($input) ?>
+    <?= $this->formElement($input->setAttribute('class', 'form-control')) ?>
+    <?= $this->formElementErrors()->render($input, ['class' => 'help-block']) ?>
+</div>
+<?php endforeach; ?>
+<?= $this->formSubmit($form->get('submit')->setAttribute('class', 'btn btn-primary my-3'));?>
+<?= $this->form()->closeTag(); 

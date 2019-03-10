@@ -21,6 +21,7 @@ use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\Config\Reader\Xml as XmlReader;
 use Zend\Config\Writer\Xml as XmlWriter;
+use Zend\Feed\Reader\Reader;
 use School\Model\School;
 use School\Form\SchoolForm;
 use School\Model\Comment;
@@ -38,7 +39,7 @@ class SchoolController extends AbstractActionController
     {
         $reader = new XmlReader();
         $confArray = $this->getServiceLocator()->get('config');
-        $news = $reader->fromFile(User::getDocumentRoot().'/'.$confArray['rss']['file']);
+        $news = new Rss($this->request->getUri()->getScheme().'://'.$this->request->getUri()->getHost().'/'.$confArray['rss']['file']);
         $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
         $result = $this->getSchoolTable()->fetchSchools($this->params()->fromRoute('id', 0), $area);
         $paginator = new Paginator(new ArrayAdapter($result));
@@ -286,9 +287,7 @@ class SchoolController extends AbstractActionController
     public function updatenewsAction()
     {
         $confRow = $this->getServiceLocator()->get('config')['rss'];
-        $rss = new Rss($confRow['url']);
-        $writer = new XmlWriter();
-        $writer->toFile(User::getDocumentRoot().'/'.$confRow['file'], $rss->__get('channel'));
+        file_put_contents(User::getDocumentRoot().'/'.$confRow['file'], file_get_contents($confRow['url'].'/'.$confRow['file']));
     return $this->redirect()->toRoute('school');
     }        
 }

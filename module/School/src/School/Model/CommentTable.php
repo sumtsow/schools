@@ -40,9 +40,6 @@ class CommentTable extends AbstractTableGateway
             $row = $rowset->current();
         }
         else {
-            //$rowset = $this->select(array('id' => '1'));
-            //$rowset = new ResultSet();
-            //$row = $rowset->current();
             $row = $this->resultSetPrototype->getArrayObjectPrototype();
             $row->id = 0;
             $row->id_school = 0;

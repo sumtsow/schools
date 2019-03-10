@@ -109,6 +109,16 @@ class SchoolForm extends Form
         ));
         
         $this->add(array(
+            'name' => 'logo',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+            'options' => array(
+                'label' => 'Логотип URL',
+            ),
+        ));
+        
+        $this->add(array(
             'name' => 'submit',
             'attributes' => array(
                 'type'  => 'submit',

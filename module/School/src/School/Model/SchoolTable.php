@@ -82,7 +82,8 @@ class SchoolTable extends AbstractTableGateway
             'info'  => $school->info,
             'area'  => $school->area,
             'high' => $school->high,
-            'map'  => $school->map,	
+            'map'  => $school->map,
+            'logo'  => $school->logo,        
         );
         $data['area']++; 
         $id = (int) $school->id;

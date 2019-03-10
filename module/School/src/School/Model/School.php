@@ -31,7 +31,8 @@ class School implements InputFilterAwareInterface
         $this->info     = (isset($data['info'])) ? $data['info']  : null;
         $this->area     = (isset($data['area'])) ? $data['area']     : null;
         $this->high     = (isset($data['high'])) ? $data['high'] : null;
-        $this->map      = (isset($data['map'])) ? $data['map']  : null;		
+        $this->map      = (isset($data['map'])) ? $data['map']  : null;
+        $this->logo      = (isset($data['logo'])) ? $data['logo']  : null;
     }
 
     public function getArrayCopy()
@@ -71,7 +72,7 @@ class School implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 1,
-                            'max'      => 100,
+                            'max'      => 256,
                         ),
                     ),
                 ),
@@ -90,7 +91,7 @@ class School implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 0,
-                            'max'      => 300,
+                            'max'      => 256,
                         ),
                     ),
                 ),
@@ -109,7 +110,7 @@ class School implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 0,
-                            'max'      => 100,
+                            'max'      => 64,
                         ),
                     ),
                 ),
@@ -128,7 +129,7 @@ class School implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 0,
-                            'max'      => 100,
+                            'max'      => 64,
                         ),
                     ),
                 ),
@@ -147,7 +148,7 @@ class School implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 0,
-                            'max'      => 50,
+                            'max'      => 128,
                         ),
                     ),
                 ),
@@ -166,7 +167,7 @@ class School implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 0,
-                            'max'      => 300,
+                            'max'      => 512,
                         ),
                     ),
                 ),
@@ -223,7 +224,7 @@ class School implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 0,
-                            'max'      => 1000,
+                            'max'      => 1024,
                         ),
                     ),
                 ),

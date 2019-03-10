@@ -1,168 +1,174 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<zend-config>
-    <title>Наука и технологии</title>
-    <link>https://fakty.ua/rss_feed/science</link>
-    <description>Последние статьи раздела</description>
-    <language>ru</language>
-<image><link>https://fakty.ua/images/</link><url>https://fakty.ua/images/logo.png</url><title>Наука и технологии</title></image>
-<news>
-    <title>Второй в истории человек вылечился от ВИЧ</title>
-    <link>https://fakty.ua/298219-vtoroj-v-istorii-chelovek-vylechilsya-ot-vich</link>
-    <description>У пациента нет никаких следов вируса спустя три года после пересадки костного мозга и 18 месяцев окончания приема лекарств</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/298219-vtoroj-v-istorii-chelovek-vylechilsya-ot-vich</guid>
-    <pubDate>Wed, 06 Mar 2019 05:20:00 +0200</pubDate>
-</news>
-<news>
-    <title>Помогает экономить заряд: в Facebook Messenger появилась новая функция</title>
-    <link>https://fakty.ua/298107-pomogaet-ekonomit-zaryad-v-facebook-messenger-poyavilas-novaya-funkciya</link>
-    <description>Новая функция доступна в последней версии приложения</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/298107-pomogaet-ekonomit-zaryad-v-facebook-messenger-poyavilas-novaya-funkciya</guid>
-    <pubDate>Tue, 05 Mar 2019 10:21:00 +0200</pubDate>
-</news>
-<news>
-    <title>Немецкие врачи в восторге от уникальной украинской разработки</title>
-    <link>https://fakty.ua/297998-ukrainskij-startap-umnaya-perchatka-vozvracshaet-rukam-podvizhnost-posle-travm-i-insultov</link>
-    <description>В Германии проходит тестирование созданного в Украине и не имеющего аналогов в мире приспособления для восстановления моторики рук</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297998-ukrainskij-startap-umnaya-perchatka-vozvracshaet-rukam-podvizhnost-posle-travm-i-insultov</guid>
-    <pubDate>Mon, 04 Mar 2019 19:12:00 +0200</pubDate>
-</news>
-<news>
-    <title>Украина создает собственный космодром: раскрыты новые детали</title>
-    <link>https://fakty.ua/297980-ukraina-sozdaet-sobstvennyj-kosmodrom-raskryty-novye-detali</link>
-    <description>Космодром сможет обеспечивать пуски на любые орбиты</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297980-ukraina-sozdaet-sobstvennyj-kosmodrom-raskryty-novye-detali</guid>
-    <pubDate>Mon, 04 Mar 2019 11:12:00 +0200</pubDate>
-</news>
-<news>
-    <title>Космический корабль Илона Маска успешно состыковался с МКС (видео)</title>
-    <link>https://fakty.ua/297928-kosmicheskij-korabl-ilona-maska-uspeshno-sostykovalsya-s-mks-video</link>
-    <description/>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297928-kosmicheskij-korabl-ilona-maska-uspeshno-sostykovalsya-s-mks-video</guid>
-    <pubDate>Sun, 03 Mar 2019 18:39:00 +0200</pubDate>
-</news>
-<news>
-    <title>300 километров на одном заряде: Peugeot 208 появился в электроверсии</title>
-    <link>https://fakty.ua/297667-300-kilometrov-na-odnom-zaryade-peugeot-208-poyavilsya-v-elektroversii</link>
-    <description>Электрокар будет представлен на Женевском автосалоне в начале марта, а в продажу поступит в конце лета</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297667-300-kilometrov-na-odnom-zaryade-peugeot-208-poyavilsya-v-elektroversii</guid>
-    <pubDate>Sat, 02 Mar 2019 16:12:00 +0200</pubDate>
-</news>
-<news>
-    <title>Компания Илона Маска запустила новый пилотируемый космический корабль (фото, видео)</title>
-    <link>https://fakty.ua/297864-kompaniya-ilona-maska-zapustila-novyj-pilotiruemyj-kosmicheskij-korabl-foto-video</link>
-    <description>Crew Dragon впервые отправился на МКС</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297864-kompaniya-ilona-maska-zapustila-novyj-pilotiruemyj-kosmicheskij-korabl-foto-video</guid>
-    <pubDate>Sat, 02 Mar 2019 12:08:00 +0200</pubDate>
-</news>
-<news>
-    <title>Скончался лауреат Нобелевской премии Жорес Алферов</title>
-    <link>https://fakty.ua/297856-skonchalsya-laureat-nobelevskoj-premii-zhores-alferov</link>
-    <description>Ученый скончался в больнице, не дожив до 89-летия</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297856-skonchalsya-laureat-nobelevskoj-premii-zhores-alferov</guid>
-    <pubDate>Sat, 02 Mar 2019 09:49:00 +0200</pubDate>
-</news>
-<news>
-    <title>Сенсация в Санта-Барбаре: обнаружена гигантская рыба-«oбманщик» (фото)</title>
-    <link>https://fakty.ua/297838-sensaciya-v-santa-barbare-obnaruzhena-gigantskaya-ryba--obmancshik-foto</link>
-    <description>Исполинская солнечная рыба удивила ученых своим появлением и необычными размерами</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297838-sensaciya-v-santa-barbare-obnaruzhena-gigantskaya-ryba--obmancshik-foto</guid>
-    <pubDate>Sat, 02 Mar 2019 03:55:00 +0200</pubDate>
-</news>
-<news>
-    <title>Представлен смартфон толщиной два сантиметра, который может обходиться без подзарядки до 50 дней (фото)</title>
-    <link>https://fakty.ua/297727-predstavlen-smartfon-tolcshinoj-dva-santimetra-kotoryj-mozhet-obhoditsya-bez-podzaryadki-do-50-dnej-foto</link>
-    <description>«Можно будет использовать и как оружие самозащиты», - шутят в соцсетях</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297727-predstavlen-smartfon-tolcshinoj-dva-santimetra-kotoryj-mozhet-obhoditsya-bez-podzaryadki-do-50-dnej-foto</guid>
-    <pubDate>Fri, 01 Mar 2019 10:04:00 +0200</pubDate>
-</news>
-<news>
-    <title>YouTube запретит комментарии к видео с детьми: что об этом известно</title>
-    <link>https://fakty.ua/297695-youtube-zapretit-kommentarii-k-video-s-detmi-chto-ob-etom-izvestno</link>
-    <description>К такому шагу побудила компанию деятельность педофилов</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297695-youtube-zapretit-kommentarii-k-video-s-detmi-chto-ob-etom-izvestno</guid>
-    <pubDate>Thu, 28 Feb 2019 23:10:00 +0200</pubDate>
-</news>
-<news>
-    <title>«Снято на iPhone»: Apple выбрала лучшие снимки владельцев «яблочных» гаджетов (необычные фото)</title>
-    <link>https://fakty.ua/297580-snyato-na-iphone-apple-vybrala-desyat-luchshih-snimkov-sdelannyh-vladelcami-yablochnyh-gadzhetov-foto</link>
-    <description>Фотографии победителей появятся на баннерах и других рекламных материалах Apple, а их авторы получат гонорары</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297580-snyato-na-iphone-apple-vybrala-desyat-luchshih-snimkov-sdelannyh-vladelcami-yablochnyh-gadzhetov-foto</guid>
-    <pubDate>Thu, 28 Feb 2019 05:25:00 +0200</pubDate>
-</news>
-<news>
-    <title>Не Apple и не Samsung: эксперты назвали лучший смартфон 2018 года </title>
-    <link>https://fakty.ua/297576-ne-apple-i-ne-samsung-eksperty-nazvali-luchshij-smartfon-2018-goda</link>
-    <description>Годом ранее победа досталась iPhone X</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297576-ne-apple-i-ne-samsung-eksperty-nazvali-luchshij-smartfon-2018-goda</guid>
-    <pubDate>Thu, 28 Feb 2019 03:24:00 +0200</pubDate>
-</news>
-<news>
-    <title>Воду придется покупать за границей: зафиксировано резкое снижение стока Днепра</title>
-    <link>https://fakty.ua/297393-vodu-pridetsya-pokupat-za-granicej-zafiksirovano-rezkoe-snizhenie-stoka-dnepra</link>
-    <description>Глобальное потепление в Украине происходит на треть быстрее, чем в странах Западной Европы</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297393-vodu-pridetsya-pokupat-za-granicej-zafiksirovano-rezkoe-snizhenie-stoka-dnepra</guid>
-    <pubDate>Tue, 26 Feb 2019 16:00:00 +0200</pubDate>
-</news>
-<news>
-    <title>В декабре 2019-го мы запустим в космос первую частную украинско-американскую ракету, — Макс Поляков</title>
-    <link>https://fakty.ua/297235-v-dekabre-2019-go-my-zapustim-v-kosmos-pervuyu-chastnuyu-ukrainsko-amerikanskuyu-raketu---maks-polyakov</link>
-    <description>Бизнесмен, владелец компании Firefly Aerospace пригласил на это событие президента Украины Петра Порошенко</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/297235-v-dekabre-2019-go-my-zapustim-v-kosmos-pervuyu-chastnuyu-ukrainsko-amerikanskuyu-raketu---maks-polyakov</guid>
-    <pubDate>Tue, 26 Feb 2019 08:07:00 +0200</pubDate>
-</news>
-<news>
-    <title>Японский «Сокол-Хаябуса» приземлился на астероид</title>
-    <link>https://fakty.ua/296944-yaponskij-sokol-hayabusa-prizemlilsya-na-asteroid-posle-chetyreh-let-poleta</link>
-    <description>Аппарат пробудет рядом с астероидом в течение полутора лет</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/296944-yaponskij-sokol-hayabusa-prizemlilsya-na-asteroid-posle-chetyreh-let-poleta</guid>
-    <pubDate>Fri, 22 Feb 2019 04:50:00 +0200</pubDate>
-</news>
-<news>
-    <title>Не "котики", а "котищи": нейросеть удивила ученых странными изображениями </title>
-    <link>https://fakty.ua/296941-milye-kotiki-i-koticshi-iz-nochnyh-koshmarov-nejroset-sozdaet-foto-nesucshestvuyucshih-zhivotnyh</link>
-    <description>Пока что новая разработка не всегда выдает изображения красивых животных</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/296941-milye-kotiki-i-koticshi-iz-nochnyh-koshmarov-nejroset-sozdaet-foto-nesucshestvuyucshih-zhivotnyh</guid>
-    <pubDate>Fri, 22 Feb 2019 03:15:00 +0200</pubDate>
-</news>
-<news>
-    <title>Огромный астероид приближается к Земле: чего ждать от столкновения с Апофисом</title>
-    <link>https://fakty.ua/296867-ogromnyj-asteroid-priblizhaetsya-k-zemle-chego-zhdat-ot-stolknoveniya-s-apofisom</link>
-    <description>Известный астропсихолог рассказала, как небольшие небесные тела влияют на судьбу человека</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/296867-ogromnyj-asteroid-priblizhaetsya-k-zemle-chego-zhdat-ot-stolknoveniya-s-apofisom</guid>
-    <pubDate>Thu, 21 Feb 2019 21:03:00 +0200</pubDate>
-</news>
-<news>
-    <title>YouTube будет наказывать нарушителей правил по-новому: что изменится</title>
-    <link>https://fakty.ua/296696-youtube-budet-nakazyvat-narushitelej-pravil-po-novomu-chto-izmenitsya</link>
-    <description>Система наказания будет смягчена</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/296696-youtube-budet-nakazyvat-narushitelej-pravil-po-novomu-chto-izmenitsya</guid>
-    <pubDate>Wed, 20 Feb 2019 11:30:00 +0200</pubDate>
-</news>
-<news>
-    <title>На IDEX-2019 в Эмиратах Украина показала суперБТР (фото, видео)</title>
-    <link>https://fakty.ua/296567-na-idex-2019-v-emiratah-ukraina-pokazala-superbtr-foto-video</link>
-    <description>Подписан важный меморандум</description>
-    <category>Наука и технологии</category>
-    <guid>https://fakty.ua/296567-na-idex-2019-v-emiratah-ukraina-pokazala-superbtr-foto-video</guid>
-    <pubDate>Tue, 19 Feb 2019 12:22:00 +0200</pubDate>
-</news>
-</zend-config>
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0">
+<channel>
+<title>ЛІГА.Новости</title>
+<link>https://www.liga.net</link>
+<language>ru</language>
+<image><title>ЛІГА.Новости</title>
+<link>https://www.liga.net</link>
+<url>http://www.liga.net/design/images/ligalogo/liga-novosti.svg</url>
+</image>
+<lastBuildDate>Sun, 10 Mar 2019 21:51:01 +0200</lastBuildDate>
+<pubDate>Sun, 10 Mar 2019 21:51:00 +0200</pubDate>
+<item>
+<title>Выборы-2019: хроника избирательной кампании - все новости</title>
+<link>https://news.liga.net/politics/chronicle/vybory2019-hronika-izbiratelnoy-kampanii-vse-novosti</link>
+<description><![CDATA[Выборы президента состоятся в последний день марта, парламентариев - в конце октября]]></description>
+<pubDate>Sun, 10 Mar 2019 21:48:00 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/politics/chronicle/vybory2019-hronika-izbiratelnoy-kampanii-vse-novosti</guid>
+<enclosure length="10083" type="image/jpg" url="https://www.liga.net/images/general/2019/01/23/thumbnail-h-20190123104540-7181.jpg"></enclosure>
+</item>
+<item>
+<title>Стало известно, кого поддержит Меджлис на выборах президента</title>
+<link>https://news.liga.net/politics/news/stalo-izvestno-kogo-podderjal-medjlis-na-vyborah-prezidenta</link>
+<description><![CDATA[Меджлис призвал граждан Украины, проживающих на территории временно оккупированного Крыма, принять участие в выборах]]></description>
+<pubDate>Sun, 10 Mar 2019 21:21:42 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/politics/news/stalo-izvestno-kogo-podderjal-medjlis-na-vyborah-prezidenta</guid>
+<enclosure length="11301" type="image/jpg" url="https://www.liga.net/images/general/2019/02/15/thumbnail-h-20190215170422-9980.jpg"></enclosure>
+</item>
+<item>
+<title>&quot;Путин нам врет&quot;: в РФ прошли акции за свободу интернета - фото</title>
+<link>https://news.liga.net/world/news/v-rf-proshli-aktsii-za-svobodu-interneta-est-zaderjannye---foto</link>
+<description><![CDATA[Сегодня в Москве на проспекте Сахарова задержали восемь участников митинга]]></description>
+<pubDate>Sun, 10 Mar 2019 20:58:36 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/world/news/v-rf-proshli-aktsii-za-svobodu-interneta-est-zaderjannye---foto</guid>
+<enclosure length="14685" type="image/jpg" url="https://www.liga.net/images/general/2019/03/10/thumbnail-h-20190310204712-4187.jpg"></enclosure>
+</item>
+<item>
+<title>В больнице Туниса 11 новорожденных умерли от септического шока</title>
+<link>https://news.liga.net/world/news/v-bolnitse-tunisa-11-novorojdennyh-umerli-ot-septicheskogo-shoka</link>
+<description><![CDATA[Министр здравоохранения страны ушел в отставку]]></description>
+<pubDate>Sun, 10 Mar 2019 20:31:40 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/world/news/v-bolnitse-tunisa-11-novorojdennyh-umerli-ot-septicheskogo-shoka</guid>
+<enclosure length="10886" type="image/jpg" url="https://www.liga.net/images/general/2018/01/17/thumbnail-h-201801171857147564.jpg"></enclosure>
+</item>
+<item>
+<title>Масштабная катастрофа в Африке: что известно о погибших</title>
+<link>https://news.liga.net/world/news/masshtabnaya-katastrofa-v-afrike-chto-izvestno-o-pogibshih</link>
+<description><![CDATA[В авиакатастрофе в Эфиопии погибли семья словацкого депутата и политик из Сицилии]]></description>
+<pubDate>Sun, 10 Mar 2019 20:09:17 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/world/news/masshtabnaya-katastrofa-v-afrike-chto-izvestno-o-pogibshih</guid>
+<enclosure length="19237" type="image/jpg" url="https://www.liga.net/images/general/2019/03/10/thumbnail-h-20190310181316-4557.jpg"></enclosure>
+</item>
+<item>
+<title>В Ровенской области священники УПЦ МП устроили блокаду церкви</title>
+<link>https://news.liga.net/politics/news/v-rovenskoy-oblasti-svyaschenniki-upts-mp-ustroili-blokadu-tserkvi</link>
+<description><![CDATA[В Ровенской епархии отметили, что "около десятка священнослужителей русской церкви пытались спровоцировать межконфессиональный конфликт"]]></description>
+<pubDate>Sun, 10 Mar 2019 19:30:28 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/politics/news/v-rovenskoy-oblasti-svyaschenniki-upts-mp-ustroili-blokadu-tserkvi</guid>
+<enclosure length="6372" type="image/jpg" url="https://www.liga.net/images/general/2018/12/22/thumbnail-h-20181222135735-5773.jpg"></enclosure>
+</item>
+<item>
+<title>&quot;Хотели хардкора&quot;. Зачем Нацкорпус устроил побоище в Черкассах</title>
+<link>https://www.liga.net/politics/articles/hoteli-hardkora-zachem-natskorpus-ustroil-poboische-v-cherkassah</link>
+<description><![CDATA[В Нацкорпусе говорят, что приехали к Порошенко требовать ареста Гладковских. Президент их слушать не захотел. И вот - 22 полицейских травмированы]]></description>
+<pubDate>Sun, 10 Mar 2019 19:04:35 +0200</pubDate>
+<guid isPermaLink="true">https://www.liga.net/politics/articles/hoteli-hardkora-zachem-natskorpus-ustroil-poboische-v-cherkassah</guid>
+<enclosure length="12531" type="image/jpg" url="https://www.liga.net/images/general/2019/03/10/thumbnail-h-20190310181352-1326.jpg"></enclosure>
+</item>
+<item>
+<title>Биатлон: украинец впервые в истории стал чемпионом мира</title>
+<link>https://news.liga.net/sport/news/ukrainets-pidruchnyy-stal-chempionom-mira-po-biatlonu</link>
+<description><![CDATA[27-летний Дмитрий Пидручный стал чемпионом мира в гонке преследования на 12,5 км]]></description>
+<pubDate>Sun, 10 Mar 2019 18:48:36 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/sport/news/ukrainets-pidruchnyy-stal-chempionom-mira-po-biatlonu</guid>
+<enclosure length="13289" type="image/jpg" url="https://www.liga.net/images/general/2019/03/10/thumbnail-h-20190310184220-2575.jpg"></enclosure>
+</item>
+<item>
+<title>&quot;85 дней Славянска&quot; Жучковского: явка с повинной</title>
+<link>https://www.liga.net/politics/opinion/85-dney-slavyanska-juchkovskogo-yavka-s-povinnoy</link>
+<description><![CDATA[Боевик Жучковский открыто пишет об участии России в войне, как Москва снабжала "ополченцев" техникой и оружием и руководила действиями Стрелков]]></description>
+<pubDate>Sun, 10 Mar 2019 18:41:00 +0200</pubDate>
+<guid isPermaLink="true">https://www.liga.net/politics/opinion/85-dney-slavyanska-juchkovskogo-yavka-s-povinnoy</guid>
+<enclosure length="8931" type="image/jpg" url="https://www.liga.net/images/general/2019/03/10/thumbnail-h-20190310165500-9448.jpg"></enclosure>
+</item>
+<item>
+<title>Реактивный ховербайк, э-болид, дрон-динамик - новости технологий</title>
+<link>https://www.liga.net/society/articles/reaktivnyy-hoverbayk-e-bolid-dron-dinamik---novosti-tehnologiy</link>
+<description><![CDATA[Реактивный ховербайк, робот-маляр, гоночный электрокар, дроны-наушники и робот-проповедник - в обзоре LIGA]]></description>
+<pubDate>Sun, 10 Mar 2019 18:40:21 +0200</pubDate>
+<guid isPermaLink="true">https://www.liga.net/society/articles/reaktivnyy-hoverbayk-e-bolid-dron-dinamik---novosti-tehnologiy</guid>
+<enclosure length="12266" type="image/jpg" url="https://www.liga.net/images/general/2019/03/10/thumbnail-h-20190310181142-7492.jpg"></enclosure>
+</item>
+<item>
+<title>Хроника войны России против Украины: последние новости Донбасса</title>
+<link>https://news.liga.net/incidents/chronicle/hronika-voyny-rossii-protiv-ukrainy-poslednie-novosti-donbassa-4166440</link>
+<description><![CDATA[Что происходит в Крыму, Луганске, Донецке и других горячих точках Украины]]></description>
+<pubDate>Sun, 10 Mar 2019 18:32:00 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/incidents/chronicle/hronika-voyny-rossii-protiv-ukrainy-poslednie-novosti-donbassa-4166440</guid>
+<enclosure length="13742" type="image/jpg" url="https://www.liga.net/images/general/2018/12/05/thumbnail-h-20181205144319-9390.jpg"></enclosure>
+</item>
+<item>
+<title>Наев сообщил, привезут ли военным на передовой урны на выборы</title>
+<link>https://news.liga.net/politics/news/naev-soobschil-privezut-li-voennym-na-peredovoy-urny-na-vybory</link>
+<description><![CDATA[Командующий операцией объединенных сил рассказал, как будут проходить выборы президента на передовой в Донбассе]]></description>
+<pubDate>Sun, 10 Mar 2019 18:11:19 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/politics/news/naev-soobschil-privezut-li-voennym-na-peredovoy-urny-na-vybory</guid>
+<enclosure length="18169" type="image/jpg" url="https://www.liga.net/images/general/2018/08/02/thumbnail-h-20180802144941-5745.jpg"></enclosure>
+</item>
+<item>
+<title>Ульяна Супрун рассказала о необычных свойствах воды</title>
+<link>https://news.liga.net/society/news/ulyana-suprun-rasskazala-o-neobychnyh-svoystvah-vody</link>
+<description><![CDATA[И.о. министра здравоохранения отметила, что "именно вода, а не чай или кофе, переносит питательные вещества"]]></description>
+<pubDate>Sun, 10 Mar 2019 17:55:37 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/society/news/ulyana-suprun-rasskazala-o-neobychnyh-svoystvah-vody</guid>
+<enclosure length="7402" type="image/jpg" url="https://www.liga.net/images/general/2018/05/07/thumbnail-h-20180507184358-7523.jpg"></enclosure>
+</item>
+<item>
+<title>Катастрофа самолета в Африке: погибли граждане 35 стран</title>
+<link>https://news.liga.net/world/news/katastrofa-samoleta-v-afrike-pogibli-grajdane-33-stran</link>
+<description><![CDATA[По данным авиакомпании Ethiopian Airlines, больше всего погибло кенийцев - 32 человека]]></description>
+<pubDate>Sun, 10 Mar 2019 17:17:31 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/world/news/katastrofa-samoleta-v-afrike-pogibli-grajdane-33-stran</guid>
+<enclosure length="9310" type="image/jpg" url="https://www.liga.net/images/general/2019/03/10/thumbnail-h-20190310104847-4169.jpg"></enclosure>
+</item>
+<item>
+<title>Как выборы президента влияют на цены недвижимости в Луганске</title>
+<link>https://news.liga.net/society/news/kak-vybory-prezidenta-vliyayut-na-tseny-nedvijimosti-v-luganske</link>
+<description><![CDATA[Риэлторы рассказали LIGA.net  о ситуации с продажей квартир в ОРЛО накануне выборов президента]]></description>
+<pubDate>Sun, 10 Mar 2019 16:51:08 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/society/news/kak-vybory-prezidenta-vliyayut-na-tseny-nedvijimosti-v-luganske</guid>
+<enclosure length="19834" type="image/jpg" url="https://www.liga.net/images/general/2019/03/06/thumbnail-h-20190306132730-5368.jpg"></enclosure>
+</item>
+<item>
+<title>Столкновения в Черкассах: задержали двух организаторов - полиция</title>
+<link>https://news.liga.net/incidents/news/stolknoveniya-v-cherkassah-zaderjali-dvuh-organizatorov---politsiya</link>
+<description><![CDATA[В полиции отметили, что решается вопрос об объявлении двум гражданам подозрения]]></description>
+<pubDate>Sun, 10 Mar 2019 16:23:44 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/incidents/news/stolknoveniya-v-cherkassah-zaderjali-dvuh-organizatorov---politsiya</guid>
+<enclosure length="19581" type="image/jpg" url="https://www.liga.net/images/general/2019/03/09/thumbnail-h-20190309174541-3625.jpg"></enclosure>
+</item>
+<item>
+<title>В Виннице из-за ветра на ребенка упало дерево - полиция</title>
+<link>https://news.liga.net/incidents/news/v-vinnitse-iz-za-vetra-na-rebenka-upalo-derevo---politsiya</link>
+<description><![CDATA[12-летняя девочка скончалась в карете скорой помощи]]></description>
+<pubDate>Sun, 10 Mar 2019 16:07:34 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/incidents/news/v-vinnitse-iz-za-vetra-na-rebenka-upalo-derevo---politsiya</guid>
+<enclosure length="11210" type="image/jpg" url="https://www.liga.net/images/general/2019/03/10/thumbnail-h-20190310155258-1484.jpg"></enclosure>
+</item>
+<item>
+<title>Прощеное воскресенье-2019: что нужно знать</title>
+<link>https://news.liga.net/society/news/proschenoe-voskresene-2019-chto-nujno-znat</link>
+<description><![CDATA[В Прощенное воскресенье нельзя пить алкоголь, ссориться и сквернословить]]></description>
+<pubDate>Sun, 10 Mar 2019 16:06:23 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/society/news/proschenoe-voskresene-2019-chto-nujno-znat</guid>
+<enclosure length="12690" type="image/jpg" url="https://www.liga.net/images/general/2018/12/22/thumbnail-h-20181222135736-3658.jpg"></enclosure>
+</item>
+<item>
+<title>В Киеве могут ограничить вход на три станции метро из-за футбола</title>
+<link>https://news.liga.net/kiev/news/v-kieve-mogut-ogranichit-vhod-na-tri-stantsii-metro-iz-za-futbola</link>
+<description><![CDATA["Бело-синие" подопечные Александра Хацкевича проведут генеральную репетицию перед ответной игрой с "Челси" - сыграют с "Арсеналом"]]></description>
+<pubDate>Sun, 10 Mar 2019 15:27:42 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/kiev/news/v-kieve-mogut-ogranichit-vhod-na-tri-stantsii-metro-iz-za-futbola</guid>
+<enclosure length="11999" type="image/jpg" url="https://www.liga.net/images/general/2018/12/21/thumbnail-h-20181221153350-8942.jpg"></enclosure>
+</item>
+<item>
+<title>Экс-главарь боевиков Гиркин продает медаль за оккупацию Крыма</title>
+<link>https://news.liga.net/politics/news/eks-glavar-boevikov-girkin-prodaet-medal-za-okkupatsiyu-kryma</link>
+<description><![CDATA[Бывший террорист Игорь Гиркин говорит, что столкнулся с материальными трудностями]]></description>
+<pubDate>Sun, 10 Mar 2019 14:46:31 +0200</pubDate>
+<guid isPermaLink="true">https://news.liga.net/politics/news/eks-glavar-boevikov-girkin-prodaet-medal-za-okkupatsiyu-kryma</guid>
+<enclosure length="10488" type="image/jpg" url="https://www.liga.net/images/general/2018/09/06/thumbnail-h-20180906210048-8550.jpg"></enclosure>
+</item>
+</channel>
+</rss>

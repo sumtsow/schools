@@ -1,11 +1,17 @@
-<?php
+<?php   
 $paginator = $this->paginator;
-if($this->high) :
+if($this->high) {
     $title = $this->translate('Kharkov universities');
     $this->headTitle($title);
-else :
+}
+else {
     $title = $this->translate('Kharkov schools');
-    $this->headTitle($title); ?>
+    $this->headTitle($title);
+} ?>
+<h1><?= $title;?></h1>
+<div class="row">
+    <div class="col-md-8">
+<?php if(!$this->high) :?>
 <div class="d-inline-flex form-group mt-3 small">
     <form method="post">
         <label for="area">Показать район</label>
@@ -22,14 +28,14 @@ else :
     </form>
 </div>
 <?php endif; ?>
-<h1><?= $title;?></h1>
-<div class="row">
-    <div class="col-md-8">
         <div class="card-columns">
         <?php foreach ($paginator as $item): ?>
             <div class="card">
-                <div class="card-body">
-                    <a href="<?= $this->url($this->route,array('action'=>'view','id'=>$item->id)); ?>"><?= $item->name;?></a>
+                <div class="card-body">                
+                <?php if($item->logo) : ?>
+                <img class="card-img-top w-25" src="<?= $item->logo ?>" alt="logo" />
+                <?php endif; ?>
+                    <a class="align-bottom" href="<?= $this->url($this->route,array('action'=>'view','id'=>$item->id)); ?>"><?= $item->name;?></a>
                 <?php if(isset($username)) : ?>
                     <a class="edit" title="Редактировать" href="/edit/<?= $item->id;?>"></a>
                     <a class="delete" title="Удалить" href="/delete/<?= $item->id;?>"></a>
@@ -51,23 +57,31 @@ else :
     </div>    
     <div class="col-md-1"></div>
     <div class="col-md-3">
+      <h3>News</h3>  
 <?php if($username) : ?>
 <p><a class="btn btn-primary" href="<?= $this->url('school',array('action' => 'updatenews')); ?>"><?= $this->translate('Update news'); ?></a></p>
 <?php endif;
 $i = $news_max;
-foreach ($news['news'] as $item) :
+foreach ($news->channel['items'] as $item) :
     if($i>0) :
 ?>
-<article class="small">
-    <a class="h6" target="_blank" href="<?= $item['link']; ?>"><?= $item['title']; ?></a>
-    <?= $item['description']; ?>
+<article class="card border-light rounded small my-2 p-2">
+    <a class="h6" target="_blank" href="<?= $item['link']; ?>"><?= $item['title']; ?></a>    
+<?php if ($item['enclosure']) : ?>
+    <p class="mt-2"><img class="w-75" src="<?= $item['enclosure']->url; ?>" alt="<?= $item['title']; ?>" /></p>
+<?php endif; ?>
+    <p class="mb-1"><?= $item['description']; ?></p>
     <p>
-    <?= $this->translate('Published'); ?>: <?= $item['pubDate']; ?> 
+    <?= $this->translate('Published'); ?>: <?= $this->dateFormat(
+            new DateTime($item['pubDate']['date']),
+                IntlDateFormatter::MEDIUM,
+                IntlDateFormatter::MEDIUM,
+                Locale::getDefault()); ?> 
     <a target="_blank" href="<?= $item['link']; ?>"><?= $this->translate('Details'); ?></a></p> 
 </article>
     <?php endif;
     $i--;
 endforeach; ?>
-<h6><a target="_blank" href="<?= $news['link']; ?>"><?= $news['title']; ?></a></h6>
+<h6><a target="_blank" href="<?= $news->channel['link']; ?>"><?= $news->channel['title']; ?></a></h6>
     </div>
 </div>
