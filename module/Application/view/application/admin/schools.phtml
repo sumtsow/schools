@@ -23,21 +23,29 @@ else :
     </form>
 <?php endif; ?>
 <h1><?= $title;?></h1>
-<ol start="<?= (($paginator->getCurrentPageNumber()-1)*($paginator->getItemCountPerPage())+1);?>">
-<?php foreach ($paginator as $item): ?>
-<li>
-    <a href="<?= $this->url($this->route,array('action'=>'view','id'=>$item->id)); ?>"><?= $item->name;?></a>
+<table class="table table-striped">
+    <tbody>
+<?php foreach ($paginator as $item): ?>        
+        <tr>
+            <td class="col-md-1"><?= $item->id;?></td>
+            <td class="col-md-auto">
+                <a href="<?= $this->url($this->route,array('action'=>'view','id'=>$item->id)); ?>"><?= $item->name;?></a>
+            </td>
 <?php if(isset($username)) : ?>
-    <a class="fa fa-edit" title="Редактировать" href="/edit/<?= $item->id;?>"></a>
-    <a class="fa fa-trash-alt" title="Удалить" href="/delete/<?= $item->id;?>"></a>
+            <td class="col-md-2">
+                <a class="fa fa-edit pr-3" title="Редактировать" href="/edit/<?= $item->id;?>"></a>
+                <a class="fa fa-trash-alt" title="Удалить" href="/delete/<?= $item->id;?>"></a>
+            </td>
 <?php endif; ?>
-
-</li>
+        </tr>            
 <?php endforeach;?>
-</ol>
+    </tbody>
+</table>
+
+
 <?= $this->paginationControl($paginator,
      'Sliding',
-     'school/school/page.phtml', [
+     'application/index/page.phtml', [
          'high' => $this->high,
          'area' => $this->area
      ]);

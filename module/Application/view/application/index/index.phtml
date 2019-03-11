@@ -1,44 +1,87 @@
-<div class="jumbotron">
-    <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>
-    <p><?php echo sprintf($this->translate('Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version\Version::VERSION) ?></p>
-    <p><a class="btn btn-success btn-lg" href="https://github.com/zendframework/zf2" target="_blank"><?php echo $this->translate('Fork Zend Framework 2 on GitHub') ?> &raquo;</a></p>
-</div>
-
+<?php   
+$paginator = $this->paginator;
+if($this->high) {
+    $title = $this->translate('Kharkov universities');
+    $this->headTitle($title);
+}
+else {
+    $title = $this->translate('Kharkov schools');
+    $this->headTitle($title);
+} ?>
+<h1><?= $title;?></h1>
 <div class="row">
-
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $this->translate('Follow Development') ?></h3>
+    <div class="col-md-8">
+<?php if(!$this->high) :?>
+<div class="d-inline-flex form-group mt-3 small">
+    <form method="post">
+        <label for="area">Показать район</label>
+        <select class="custom-select custom-select-sm" name="area" id="area" onChange="this.form.submit();">
+        <option value="0">Все</option>
+    <?php
+    foreach($areas as $indx => $areaName) :
+        $selected = ($this->area == ($indx+1)) ? ' selected="selected"' : '';       
+        ?>
+        <option value="<?= ($indx+1);?>"<?= $selected;?>><?= $areaName;?></option>
+    <?php endforeach; ?>
+        </select>
+        </label>
+    </form>
+</div>
+<?php endif; ?>
+        <div class="card-columns">
+        <?php foreach ($paginator as $item): ?>
+            <div class="card">
+                <div class="card-body">                
+                <?php if($item->logo) : ?>
+                <img class="card-img-top w-25" src="<?= $item->logo ?>" alt="logo" />
+                <?php endif; ?>
+                    <a class="align-bottom" href="<?= $this->url($this->route,array('action'=>'view','id'=>$item->id)); ?>"><?= $item->name;?></a>
+                <?php if(isset($username)) : ?>
+                    <a class="edit" title="Редактировать" href="/edit/<?= $item->id;?>"></a>
+                    <a class="delete" title="Удалить" href="/delete/<?= $item->id;?>"></a>
+                <?php endif; ?>
+                </div>
             </div>
-            <div class="panel-body">
-                <p><?php echo sprintf($this->translate('Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!'), '<a href="http://framework.zend.com/wiki/display/ZFDEV2/Home">', '</a>', '<a href="http://framework.zend.com/zf2/blog">', '</a>', '<a href="https://github.com/zendframework/zf2/issues">', '</a>') ?></p>
-                <p><a class="btn btn-success pull-right" href="http://framework.zend.com/zf2" target="_blank"><?php echo $this->translate('ZF2 Development Portal') ?> &raquo;</a></p>
-            </div>
+        <?php endforeach;?>
         </div>
-    </div>
+<?= $this->paginationControl($paginator,
+     'Sliding',
+     'application/index/page.phtml', [
+         'high' => $this->high,
+         'area' => $this->area
+     ]); ?>
+<?php if($username) : ?>
+<br /><a class="btn btn-primary my-3" href="/add/<?= $this->high; ?>">Добавить</a>
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $this->translate('Discover Modules') ?></h3>
-            </div>
-            <div class="panel-body">
-                <p><?php echo sprintf($this->translate('The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2.'), '<a href="https://github.com/zendframework/modules.zendframework.com">', '</a>') ?></p>
-                <p><a class="btn btn-success pull-right" href="http://modules.zendframework.com/" target="_blank"><?php echo $this->translate('Explore ZF2 Modules') ?> &raquo;</a></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $this->translate('Help &amp; Support') ?></h3>
-            </div>
-            <div class="panel-body">
-                <p><?php echo sprintf($this->translate('If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We\'d love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s.'), '<a href="irc://irc.freenode.net/zftalk">', '</a>', '<a href="http://framework.zend.com/wiki/display/ZFDEV/Mailing+Lists">', '</a>') ?></p>
-                <p><a class="btn btn-success pull-right" href="http://webchat.freenode.net?channels=zftalk" target="_blank"><?php echo $this->translate('Ping us on IRC') ?> &raquo;</a></p>
-            </div>
-        </div>
+        <?php endif; ?>
+    </div>    
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+      <h3>News</h3>  
+<?php if($username) : ?>
+<p><a class="btn btn-primary" href="<?= $this->url('/admin',array('action' => 'updatenews')); ?>"><?= $this->translate('Update news'); ?></a></p>
+<?php endif;
+$i = $news_max;
+foreach ($news->channel['items'] as $item) :
+    if($i>0) :
+?>
+<article class="card border-light rounded small my-2 p-2">
+    <a class="h6" target="_blank" href="<?= $item['link']; ?>"><?= $item['title']; ?></a>    
+<?php if ($item['enclosure']) : ?>
+    <p class="mt-2"><img class="w-75" src="<?= $item['enclosure']->url; ?>" alt="<?= $item['title']; ?>" /></p>
+<?php endif; ?>
+    <p class="mb-1"><?= $item['description']; ?></p>
+    <p>
+    <?= $this->translate('Published'); ?>: <?= $this->dateFormat(
+            new DateTime($item['pubDate']['date']),
+                IntlDateFormatter::MEDIUM,
+                IntlDateFormatter::MEDIUM,
+                Locale::getDefault()); ?> 
+    <a target="_blank" href="<?= $item['link']; ?>"><?= $this->translate('Details'); ?></a></p> 
+</article>
+    <?php endif;
+    $i--;
+endforeach; ?>
+<h6><a target="_blank" href="<?= $news->channel['link']; ?>"><?= $news->channel['title']; ?></a></h6>
     </div>
 </div>

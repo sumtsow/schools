@@ -3,12 +3,11 @@ use Zend\Authentication\Storage\Session as SessionStorage;
 
 $form = $this->form;
 $form->setAttribute('action', $this->url(
-    'school',
+    'index',
     array(
         'action' => 'login',
     )
-))
-     ->setAttribute('class', 'w-50 mt-3');
+))->setAttribute('class', 'w-50 mt-5');
 
 $login = $form->get('login');
 $login->setAttribute('class', 'form-control');
@@ -23,9 +22,9 @@ $submit->setAttribute('class', 'btn btn-primary my-3')->setAttribute('value', 'O
 
 $form->prepare();
 ?>
-<div class="row align-items-center">
+<div class="row align-items-center h-100">
     <div class="col-md-3"></div>
-    <div class="col-md-9 h-100">
+    <div class="col-md-9">
     <?= $this->form()->openTag($form); ?>
 
                     <div class="form-group">

@@ -11,6 +11,8 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Application\Model\SchoolTable;
+use Application\Model\CommentTable;
 
 class Module
 {
@@ -33,6 +35,24 @@ class Module
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
+            ),
+        );
+    }
+    	
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'Application\Model\SchoolTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new SchoolTable($dbAdapter);
+                    return $table;
+                },
+                'Application\Model\CommentTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new CommentTable($dbAdapter);
+                    return $table;
+                },
             ),
         );
     }

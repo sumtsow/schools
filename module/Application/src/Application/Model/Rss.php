@@ -1,5 +1,5 @@
 <?php
-namespace School\Model;
+namespace Application\Model;
 
 use Zend\Feed\Reader\Reader;
 use Zend\Feed\Exception\Reader\RuntimeException;
