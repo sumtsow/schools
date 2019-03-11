@@ -69,7 +69,7 @@ class IndexController extends AbstractActionController
             if ($form->isValid()) {
                 $comment->exchangeArray($form->getData());
                 $this->getCommentTable()->saveComment($comment);
-                return $this->redirect()->toRoute('/', array(
+                return $this->redirect()->toRoute('index', array(
                     'action' => 'view', 'id' => $id
                 ));
             }
@@ -87,7 +87,7 @@ class IndexController extends AbstractActionController
             $form->setData($request->getPost());
             if ($form->isValid()) {
                 $result = $user->login($request->getPost('login'), $request->getPost('passwd'), User::getDocumentRoot().'/secure');
-                return $this->redirect()->toRoute('/');
+                return $this->redirect()->toRoute('index');
             }
         }
     
@@ -102,7 +102,7 @@ class IndexController extends AbstractActionController
     {
         $user = new User();
         $user->logout();
-        return $this->redirect()->toRoute('/');
+        return $this->redirect()->toRoute('index');
     } 
     
     public function getSchoolTable()
