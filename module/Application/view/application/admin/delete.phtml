@@ -9,7 +9,7 @@ $this->headTitle($title);
     '<?php echo $this->escapeHtml($school->name).'?'; ?>'
 </p>
 <?php
-$url = $this->url('admin',array(
+$url = $this->url('schools/admin',array(
     'action' => 'delete',
     'id'     => $this->id,
 ));

@@ -38,7 +38,7 @@ class AdminController extends AbstractActionController
     {
         $user = new User();
         if (!$user->isValid()) {
-            return $this->redirect()->toRoute('index', array(
+            return $this->redirect()->toRoute('schools', array(
                 'action' => 'index'
             ));
         }
@@ -169,6 +169,12 @@ class AdminController extends AbstractActionController
         
     public function updatenewsAction()
     {
+        $user = new User();
+        if (!$user->isValid()) {
+            return $this->redirect()->toRoute('schools', array(
+                'action' => 'index'
+            ));
+        }
         $confRow = $this->getServiceLocator()->get('config')['rss'];
         file_put_contents(User::getDocumentRoot().'/'.$confRow['file'], file_get_contents($confRow['url'].'/'.$confRow['file']));
     return $this->redirect()->toRoute('schools');

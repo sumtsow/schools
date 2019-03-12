@@ -26,11 +26,11 @@ class User implements InputFilterAwareInterface
     
     static function getDocumentRoot()
     {
-         preg_match("/[^\/\/]+$/", $_SERVER['DOCUMENT_ROOT'],$matches);
+         preg_match("/[^\/\/]+$/", $_SERVER['DOCUMENT_ROOT'], $matches);
          return $matches[0];
     }
     
-    public function login($login,$passwd,$dir) {
+    public function login($login, $passwd, $dir) {
         if($this->auth->hasIdentity()) {
             $result = $this->auth->getIdentity();
         }
@@ -41,9 +41,9 @@ class User implements InputFilterAwareInterface
             }
             foreach($config as $row) {
                 // Если строка содержит текст и не закомментирована
-                if ((!preg_match("/^#/", $row)) && preg_match("/AuthUserFile/",$row)) {
+                if ((!preg_match("/^#/", $row)) && preg_match("/AuthUserFile/", $row)) {
                     $row = trim($row);
-                    preg_match('/"(.*)"/',$row,$matches);
+                    preg_match('/"(.*)"/', $row, $matches);
                     $path = $matches[1]; 
                     break;
                 }
@@ -64,7 +64,7 @@ class User implements InputFilterAwareInterface
 	session_unset();
 	session_destroy();
 	session_start();
-	setcookie('PHPSESSID',NULL,0,'/');
+	setcookie('PHPSESSID', NULL, 0, '/');
         return true;
     }
     
@@ -77,10 +77,10 @@ class User implements InputFilterAwareInterface
         return $result;
     }
     
-    public function __get($property)
+    public function getLogin()
     {
-        return $this->$property;
-    }  
+        return $this->login;
+    } 
     
     public function exchangeArray($data)
     {

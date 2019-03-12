@@ -45,7 +45,7 @@ class IndexController extends AbstractActionController
             ->setVariable('area', $area)
             ->setVariable('news', $news)
             ->setVariable('news_max', $confArray['rss']['max'])
-            ->setVariable('username', ($user->isValid()) ? $user->__get('login') : '');
+            ->setVariable('username', ($user->isValid()) ? $user->getLogin() : '');
     }
 	
     public function viewAction()
@@ -57,7 +57,7 @@ class IndexController extends AbstractActionController
 	$vm->setVariable('school',$this->getSchoolTable()->getSchool($id))
             ->setVariable('comments',$this->getCommentTable()->fetchComments($id))
             ->setVariable('docRoot',User::getDocumentRoot())
-            ->setVariable('username', ($user->isValid()) ? $user->__get('login') : null);
+            ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
         $form = new CommentForm();
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -69,12 +69,10 @@ class IndexController extends AbstractActionController
             if ($form->isValid()) {
                 $comment->exchangeArray($form->getData());
                 $this->getCommentTable()->saveComment($comment);
-                return $this->redirect()->toRoute('index', array(
-                    'action' => 'view', 'id' => $id
-                ));
+                return $this->redirect()->toRoute('schools', array('action' => 'view', 'id' => $id));
             }
         }
-        return $vm->setVariable('form',$form);
+        return $vm->setVariable('form', $form);
     }
     
     public function loginAction()
@@ -87,13 +85,13 @@ class IndexController extends AbstractActionController
             $form->setData($request->getPost());
             if ($form->isValid()) {
                 $result = $user->login($request->getPost('login'), $request->getPost('passwd'), User::getDocumentRoot().'/secure');
-                return $this->redirect()->toRoute('index');
+                return $this->redirect()->toRoute('schools');
             }
         }
     
     return array(
         'form' => $form,
-        'username' => $user->__get('login'),
+        'username' => $user->getLogin(),
     );
     
     }
@@ -102,7 +100,7 @@ class IndexController extends AbstractActionController
     {
         $user = new User();
         $user->logout();
-        return $this->redirect()->toRoute('index');
+        return $this->redirect()->toRoute('schools');
     } 
     
     public function getSchoolTable()

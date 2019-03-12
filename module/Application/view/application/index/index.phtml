@@ -24,7 +24,6 @@ else {
         <option value="<?= ($indx+1);?>"<?= $selected;?>><?= $areaName;?></option>
     <?php endforeach; ?>
         </select>
-        </label>
     </form>
 </div>
 <?php endif; ?>
@@ -35,7 +34,7 @@ else {
                 <?php if($item->logo) : ?>
                 <img class="card-img-top w-25" src="<?= $item->logo ?>" alt="logo" />
                 <?php endif; ?>
-                    <a class="align-bottom" href="<?= $this->url($this->route,array('action'=>'view','id'=>$item->id)); ?>"><?= $item->name;?></a>
+                    <a class="align-bottom" href="<?= $this->url($this->route, array('action'=>'view', 'id'=>$item->id)); ?>"><?= $item->name;?></a>
                 <?php if(isset($username)) : ?>
                     <a class="edit" title="Редактировать" href="/edit/<?= $item->id;?>"></a>
                     <a class="delete" title="Удалить" href="/delete/<?= $item->id;?>"></a>
@@ -59,7 +58,7 @@ else {
     <div class="col-md-3">
       <h3>News</h3>  
 <?php if($username) : ?>
-<p><a class="btn btn-primary" href="<?= $this->url('/admin',array('action' => 'updatenews')); ?>"><?= $this->translate('Update news'); ?></a></p>
+<p><a class="btn btn-primary" href="<?= $this->url('schools', array('action' => 'updatenews')); ?>"><?= $this->translate('Update news'); ?></a></p>
 <?php endif;
 $i = $news_max;
 foreach ($news->channel['items'] as $item) :

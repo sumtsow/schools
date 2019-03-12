@@ -10,38 +10,34 @@
 return array(
     'router' => array(
         'routes' => array(
-            
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+            /*'admin' => array(
+                'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/',
+                        'route'    => '[:controller[/:action]]',
+                        'constraints' => array(
+                            'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        ),
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\Admin',
                         'action'     => 'index',
                     ),
                 ),
-            ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            /*'application' => array(
-                'type'    => 'Literal',
+                'may_terminate' => true,
+            ),*/
+            'schools' => array(
+                'type'    => 'Segment',
                 'options' => array(
-                    //'route'    => '/application',
-                    'route'    => '[/:action][/:id][/:area][/:page][/]',
+                    'route'    => '[/:action[/:id[/:area[/:page]]]][/]',
                     'constraints' => array(
-                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
                         'area'     => '[0-9]',
                         'page'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        '__NAMESPACE__' => 'Application\Controller',
-                        'controller'    => 'Index',
-                        'route' => 'application',
-                        'action'        => 'index',
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'index',
                     ),
                 ),
                 'may_terminate' => true,
@@ -49,54 +45,16 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route'    => '[:controller[/:action]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                         'defaults' => array(
                             'controller' => 'Application\Controller\Admin',
-                            'route' => 'admin',
                             'action'     => 'index',
-                    ),
                         ),
-                    ),
-                ),
-            ),*/
-            
-            'index' => array(
-                'type'    => 'segment',
-                'options' => array(
-                    'route'    => '[/:action][/:id][/:area][/:page][/]',
-                    //'route'    => '[/:action][/:id][/:area][/:page][/]',
-                    'constraints' => array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                        'area'     => '[0-9]',
-                        'page'     => '[0-9]+',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
-                        'route' => 'schools',
-                        'action'     => 'index',
-                    ),
-                ),
-            ),
-            
-            'schools' => array(
-                'type'    => 'segment',
-                'options' => array(
-                    'route'    => '[/:action][/:id][/:area][/:page][/]',
-                    'constraints' => array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                        'area'     => '[0-9]',
-                        'page'     => '[0-9]+',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
-                        'route' => 'schools',
-                        'action'     => 'index',
+                        ),
                     ),
                 ),
             ),
@@ -125,7 +83,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            //'Application\Controller\Admin' => 'Application\Controller\AdminController',
+            'Application\Controller\Admin' => 'Application\Controller\AdminController',
         ),
     ),
     'view_manager' => array(
