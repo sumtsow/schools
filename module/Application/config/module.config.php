@@ -10,25 +10,10 @@
 return array(
     'router' => array(
         'routes' => array(
-            /*'admin' => array(
-                'type'    => 'Segment',
-                'options' => array(
-                        'route'    => '[:controller[/:action]]',
-                        'constraints' => array(
-                            'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Admin',
-                        'action'     => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-            ),*/
             'schools' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '[/:action[/:id[/:area[/:page]]]][/]',
+                    'route'    => '[/:action][/:id][/:area][/:page][/]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
@@ -36,26 +21,33 @@ return array(
                         'page'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Index',
                         'action'     => 'index',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                        'defaults' => array(
-                            'controller' => 'Application\Controller\Admin',
-                            'action'     => 'index',
-                        ),
-                        ),
+                ),
+            ),
+            'admin' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/admin[/:action][/:id][/:area][/:page][/]',
+                    'constraints' => array(
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                        'area'     => '[0-9]',
+                        'page'     => '[0-9]+',                                
                     ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Admin',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
                 ),
             ),
         ),

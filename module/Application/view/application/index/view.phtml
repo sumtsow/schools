@@ -33,7 +33,7 @@ $this->headTitle($title);
 <?php endif; ?>
         <tr>	
             <th>Район</th>
-            <td><?php echo $school->area; ?></td>
+            <td><?= $school->area; ?></td>
         </tr>	
         <tr>	
             <th>Карта</th>
@@ -52,10 +52,12 @@ foreach ($comments as $comment) :
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url(
-    'schools/admin',
+    'schools',
     array(
         'action' => 'delcomment',
         'id'     => $comment->id,
+        'area' => $school->area,
+        'page' => null,      
     )
 ));
 
@@ -70,10 +72,12 @@ $form->prepare(); ?>
 <?php
 // form $comment->visible on/off
 $form->setAttribute('action', $this->url(
-    'schools/admin',
+    'schools',
     array(
         'action' => 'view',
         'id'     => $school->id,
+        'area' => $school->area,
+        'page' => null,  
     )
 ));
 $form->setAttribute('name', 'disComment');
@@ -115,6 +119,8 @@ $form->setAttribute('action', $this->url(
     array(
         'action' => 'view',
         'id'     => $school->id,
+        'area' => $school->area,
+        'page' => null,  
     )
 ));
 $form->setAttribute('class','')

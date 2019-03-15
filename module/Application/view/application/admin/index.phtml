@@ -1,5 +1,4 @@
 <?php
-echo $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');
 $paginator = $this->paginator;
 if($this->high) :
     $title = $this->translate('Kharkov universities');
@@ -7,6 +6,7 @@ if($this->high) :
 else :
     $title = $this->translate('Kharkov schools');
     $this->headTitle($title); ?>
+<?= $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css'); ?>
     <form method="post">
         <label class="small">
         <span>Показать район</span>
@@ -29,14 +29,12 @@ else :
         <tr>
             <td class="col-md-1"><?= $item->id;?></td>
             <td class="col-md-auto">
-                <a href="<?= $this->url($this->route,array('action'=>'view','id'=>$item->id)); ?>"><?= $item->name;?></a>
+                <a href="<?= $this->url('schools', array('action'=>'view', 'id' => $item->id, 'area' => null)); ?>"><?= $item->name;?></a>
             </td>
-<?php if(isset($username)) : ?>
             <td class="col-md-2">
-                <a class="fa fa-edit pr-3" title="Редактировать" href="/edit/<?= $item->id;?>"></a>
-                <a class="fa fa-trash-alt" title="Удалить" href="/delete/<?= $item->id;?>"></a>
+                <a class="fa fa-edit pr-3" title="Редактировать" href="/admin/edit/<?= $item->id;?>"></a>
+                <a class="fa fa-trash-alt" title="Удалить" href="/admin/delete/<?= $item->id;?>"></a>
             </td>
-<?php endif; ?>
         </tr>            
 <?php endforeach;?>
     </tbody>
@@ -45,10 +43,10 @@ else :
 
 <?= $this->paginationControl($paginator,
      'Sliding',
-     'application/index/page.phtml', [
+     'application/admin/page.phtml', [
          'high' => $this->high,
          'area' => $this->area
      ]);
 if(isset($username)) : ?>
-<br /><a class="btn btn-primary my-3" href="/add/<?= $this->high; ?>">Добавить</a>
+<br /><a class="btn btn-primary my-3" href="admin/add/<?= $this->high; ?>">Добавить</a>
 <?php endif; ?>

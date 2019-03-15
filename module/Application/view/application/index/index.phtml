@@ -35,10 +35,6 @@ else {
                 <img class="card-img-top w-25" src="<?= $item->logo ?>" alt="logo" />
                 <?php endif; ?>
                     <a class="align-bottom" href="<?= $this->url($this->route, array('action'=>'view', 'id'=>$item->id)); ?>"><?= $item->name;?></a>
-                <?php if(isset($username)) : ?>
-                    <a class="edit" title="Редактировать" href="/edit/<?= $item->id;?>"></a>
-                    <a class="delete" title="Удалить" href="/delete/<?= $item->id;?>"></a>
-                <?php endif; ?>
                 </div>
             </div>
         <?php endforeach;?>
@@ -49,17 +45,11 @@ else {
          'high' => $this->high,
          'area' => $this->area
      ]); ?>
-<?php if($username) : ?>
-<br /><a class="btn btn-primary my-3" href="/add/<?= $this->high; ?>">Добавить</a>
-
-        <?php endif; ?>
     </div>    
     <div class="col-md-1"></div>
     <div class="col-md-3">
       <h3>News</h3>  
-<?php if($username) : ?>
-<p><a class="btn btn-primary" href="<?= $this->url('schools', array('action' => 'updatenews')); ?>"><?= $this->translate('Update news'); ?></a></p>
-<?php endif;
+<?php
 $i = $news_max;
 foreach ($news->channel['items'] as $item) :
     if($i>0) :

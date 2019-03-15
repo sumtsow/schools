@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Application\Model\School;
+use Application\Model\User;
 use Application\Form\SchoolForm;
 use Application\Form\CommentForm;
 
@@ -18,11 +19,11 @@ class AdminController extends AbstractActionController
     {
         $confArray = $this->getServiceLocator()->get('config');
         $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
-        $result = $this->getSchoolTable()->fetchSchools($this->params()->fromRoute('id', 0), $area);
+        $id = ($this->params()->fromRoute('id')) ? $this->params()->fromRoute('id') : 0;
+        $result = $this->getSchoolTable()->fetchSchools($id, $area);
             $paginator = new Paginator(new ArrayAdapter($result));
-            $paginator->setCurrentPageNumber(
-                    ($this->request->getPost('area')) ? 0 : $this->params()->fromRoute('page')
-                )
+            $page = ($this->request->getPost('area')) ? 0 : $this->params()->fromRoute('page');  
+            $paginator->setCurrentPageNumber($page)
                 ->setItemCountPerPage($confArray['per_page'])
                 ->setPageRange(ceil(count($result)/$confArray['per_page']));
             $user = new User();
@@ -31,7 +32,7 @@ class AdminController extends AbstractActionController
                 ->setVariable('areas', $this->getSchoolTable()->fetchAreas())
                 ->setVariable('high', $this->params()->fromRoute('id', 0))
                 ->setVariable('area', $area)
-                ->setVariable('username', ($user->isValid()) ? $user->__get('login') : null);
+                ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
     }
 	
     public function addAction()
@@ -74,7 +75,7 @@ class AdminController extends AbstractActionController
         }
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
-            return $this->redirect()->toRoute('schools', array(
+            return $this->redirect()->toRoute('admin', array(
                 'action' => 'add'
             ));
         }
@@ -89,8 +90,8 @@ class AdminController extends AbstractActionController
                 ->setData($request->getPost());
             if ($form->isValid()) {
                 $this->getSchoolTable()->saveSchool($form->getData());
-                return $this->redirect()->toRoute('schools', array(
-                    'action' => 'index', 'id'=> $school->high
+                return $this->redirect()->toRoute('admin', array(
+                    'action' => 'index'
                 ));
             }
         }
@@ -166,7 +167,23 @@ class AdminController extends AbstractActionController
             'comment' => $this->getCommentTable()->getComment($id)
         );
     }
+    
+    public function getSchoolTable()
+    {
+        if (!$this->schoolTable) {
+            $sm = $this->getServiceLocator();
+        }
+    return $sm->get('Application\Model\SchoolTable');
+    }
         
+    public function getCommentTable()
+    {
+        if (!$this->commentTable) {
+            $sm = $this->getServiceLocator();
+        }
+        return $sm->get('Application\Model\CommentTable');
+    }
+    
     public function updatenewsAction()
     {
         $user = new User();

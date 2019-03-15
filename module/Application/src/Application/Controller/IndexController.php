@@ -31,7 +31,8 @@ class IndexController extends AbstractActionController
         $confArray = $this->getServiceLocator()->get('config');
         $news = new Rss($this->request->getUri()->getScheme().'://'.$this->request->getUri()->getHost().'/'.$confArray['rss']['file']);
         $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
-        $result = $this->getSchoolTable()->fetchSchools($this->params()->fromRoute('id', 0), $area);
+        $id = ($this->params()->fromRoute('id')) ? $this->params()->fromRoute('id') : 0;
+        $result = $this->getSchoolTable()->fetchSchools($id, $area);
         $paginator = new Paginator(new ArrayAdapter($result));
         $page = ($this->request->getPost('area')) ? 0 : $this->params()->fromRoute('page');            
         $paginator->setCurrentPageNumber($page)    
@@ -41,11 +42,11 @@ class IndexController extends AbstractActionController
         $vm = new ViewModel();
         return $vm->setVariable('paginator', $paginator)
             ->setVariable('areas', $this->getSchoolTable()->fetchAreas())
-            ->setVariable('high', $this->params()->fromRoute('id', 0))
+            ->setVariable('high', $id)
             ->setVariable('area', $area)
             ->setVariable('news', $news)
             ->setVariable('news_max', $confArray['rss']['max'])
-            ->setVariable('username', ($user->isValid()) ? $user->getLogin() : '');
+            ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
     }
 	
     public function viewAction()
@@ -85,7 +86,7 @@ class IndexController extends AbstractActionController
             $form->setData($request->getPost());
             if ($form->isValid()) {
                 $result = $user->login($request->getPost('login'), $request->getPost('passwd'), User::getDocumentRoot().'/secure');
-                return $this->redirect()->toRoute('schools');
+                return $this->redirect()->toRoute('admin', array('action' => 'index'));
             }
         }
     

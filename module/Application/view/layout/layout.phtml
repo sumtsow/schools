@@ -1,4 +1,6 @@
 <?php
+use Zend\Authentication\AuthenticationService;
+
 $config = $this->__helpers->getServiceLocator()->get('config');
 echo $this->doctype();
 ?>
@@ -43,6 +45,13 @@ echo $this->doctype();
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $this->url('schools',array('action' => 'index', 'id' => 1));?>"><?= $this->translate('Universities') ?></a>
                 </li>
+                <?php
+                $auth = new AuthenticationService();
+                if($auth->hasIdentity()) : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->url('admin', array('action' => 'index'));?>">Admin</a>
+                </li>                
+                <?php endif; ?>
             </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
