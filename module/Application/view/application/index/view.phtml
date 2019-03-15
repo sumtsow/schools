@@ -52,11 +52,11 @@ foreach ($comments as $comment) :
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url(
-    'schools',
+    'admin',
     array(
         'action' => 'delcomment',
         'id'     => $comment->id,
-        'area' => $school->area,
+        'area' => null,
         'page' => null,      
     )
 ));
@@ -76,7 +76,7 @@ $form->setAttribute('action', $this->url(
     array(
         'action' => 'view',
         'id'     => $school->id,
-        'area' => $school->area,
+        'area' => null,
         'page' => null,  
     )
 ));
@@ -119,7 +119,7 @@ $form->setAttribute('action', $this->url(
     array(
         'action' => 'view',
         'id'     => $school->id,
-        'area' => $school->area,
+        'area' => null,
         'page' => null,  
     )
 ));

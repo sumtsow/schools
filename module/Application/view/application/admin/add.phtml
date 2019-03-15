@@ -5,7 +5,7 @@ $this->headTitle($title);
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <?php
 $form = $this->form;
-$form->setAttribute('action', $this->url('school',array('action' => 'add')));
+$form->setAttribute('action', $this->url('admin', array('action' => 'add')));
 $inputs = [
     'name' => $form->get('name'),
     'address' => $form->get('address'),

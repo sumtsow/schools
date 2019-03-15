@@ -9,9 +9,11 @@ $this->headTitle($title);
     '<?php echo $this->escapeHtml($school->name).'?'; ?>'
 </p>
 <?php
-$url = $this->url('schools/admin',array(
+$url = $this->url('admin',array(
     'action' => 'delete',
     'id'     => $this->id,
+    'area' => null,
+    'page' => null, 
 ));
 ?>
 <form action="<?php echo $url; ?>" method="post">
