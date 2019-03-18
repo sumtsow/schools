@@ -42,48 +42,54 @@ $this->headTitle($title);
     </tbody>
 </table>
 <h3>Отзывы пользователей</h3>
-<div class="row">
-<div class="col-md-12">    
+<div class="row"><!-- Existing comments -->
+    <div class="col-md-12">
 <?php
 foreach ($comments as $comment) :
     $text = $comment->insertSmile();
     if(isset($username)) :
 ?>
-<div class="card w-100">
+        <div class="card border border-secondary my-3">
+            <div class="card-header">
 <?php
+// Form for Comment Deletion
 $form = $this->form;
 $form->setAttribute('action', $this->url(
     'admin',
-    array(
+    [
         'action' => 'delcomment',
         'id'     => $comment->id,
         'area' => null,
-        'page' => null,      
-    )
-));
+        'page' => null,    
+    ]))
+    ->setAttribute('class', 'd-inline-flex')
+    ->setAttribute('name', 'delcomment')
+    ->setAttribute('id', 'delcomment')    ;
 
 $form->bind($comment);
 $form->get('id')->setValue($comment->id);
 $form->prepare(); ?>
 <?= $this->form()->openTag($form); ?>
-<?= $this->formSubmit($form->get('delComment')); ?>
+<?= $this->formSubmit($form->get('delComment')
+        ->setAttribute('class', 'btn btn-light font-weight-bold px-2 py-1')
+        ->setAttribute('value', 'X')); ?>
 <?= $this->form()->closeTag(); ?>
         
             
 <?php
-// form $comment->visible on/off
+// Form for $comment->visible switch on/off
 $form->setAttribute('action', $this->url(
     'schools',
-    array(
+    [
         'action' => 'view',
         'id'     => $school->id,
         'area' => null,
         'page' => null,  
-    )
-));
-$form->setAttribute('name', 'disComment');
-$form->setAttribute('id','disComment');
-$form->get('visible')->setAttribute('class', 'commentCheckbox')
+    ]))
+    ->setAttribute('class', 'd-inline-flex p-2 mr-3')
+    ->setAttribute('name', 'disComment')
+    ->setAttribute('id','disComment');
+$form->get('visible')
     ->setAttribute('onchange', 'this.form.submit();')
     ->setAttribute('title', 'Виден пользователям');
 $form->bind($comment);
@@ -96,24 +102,29 @@ $form->prepare();
 <?= $this->form()->closeTag(); ?>
 <?php $text = $comment->censorComment($text); ?>
 <?= $comment->author;?> | <?= (strftime('%d %b %Y %X ',$comment->time));?>
-</div><div class="card">
-    <?= $text; ?>
-</div>
+            </div>
+            <div class="card-body"><?= $text; ?></div>
+        </div>
 <?php
     else :
         if($comment->visible) :
             $text = $comment->censorComment($text);?>
-<li><div class="card">
-<?= $comment->author;?> | <?= (strftime('%d %b %Y %X ',$comment->time));?>
-</div><div class="card"><?=  $text; ?></div></li>
+        <div class="card border border-secondary my-3">
+            <div class="card-header">
+<?= $comment->author;?> | <?= (strftime('%d %b %Y %X ', $comment->time));?>
+            </div>
+            <div class="card-body"><?=  $text; ?></div>
+        </div>
 <?php
         endif;
     endif;
 endforeach;   
 ?>
-</div>
-</div>
-<h4>Добавить отзыв</h4>
+    </div>
+</div><!-- Existing comments END -->
+<div class="row bg-dark text-light pt-5"><!-- New comment -->
+    <div class="col-md-12">
+        <h4>Добавить отзыв</h4>
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url(
@@ -125,28 +136,30 @@ $form->setAttribute('action', $this->url(
         'page' => null,  
     )
 ));
-$form->setAttribute('class','')
+$form->setAttribute('class', 'd-block')
     ->setAttribute('name', 'comment')
-    ->setAttribute('id','comment')
+    ->setAttribute('id', 'comment')
     ->prepare();
 $form->get('id')->setValue(0);
 $form->get('text')->setValue('');
-$form->get('text')->setAttribute('class','comment');
-$form->get('submit')->setAttribute('id','submitbutton')->setValue('Сохранить');
-echo $this->form()->openTag($form);
-echo $this->formHidden($form->get('id'));
-if(isset($username)) :
-    $form->get('author')->setValue('Администратор');
-endif;
 ?>
-<?= $this->formRow($form->get('author')); ?>
-<?php include($docRoot.'/smile.html'); ?>
+<?= $this->form()->openTag($form); ?>
+        <div class="form-group">
+<?= $this->formHidden($form->get('id')); ?>
+<?php if(isset($username)) :
+    $form->get('author')->setValue('Администратор');
+endif; ?>
+<?= $this->formRow($form->get('author')->setAttribute('class', 'form-control')); ?>
+            <div class="nav bg-dark text-light border-0 nav-tabs"><div class="nav-link active py-0"><?php include($docRoot.'/smile.html'); ?></div></div>
+<?= $this->formRow($form->get('text')->setAttribute('class', 'form-control p-2 mt-0 rounded-0')->setAttribute('style', 'height: 10rem;')); ?>
 <br />
-<?= $this->formRow($form->get('text')
-    ->setAttribute('class', 'w-100')); ?>
-<br />
-<?php
-$form->get('submit')->setAttribute('title', 'Сохранить')
-        ->setAttribute('class', 'btn btn-primary my-3'); ?>
+<?php $form->get('submit')
+        ->setAttribute('title', 'Сохранить')
+        ->setAttribute('id', 'submitbutton')
+        ->setAttribute('class', 'btn btn-primary mb-3')
+        ->setValue('Сохранить'); ?>
 <?= $this->formSubmit($form->get('submit')); ?>
-<?= $this->form()->closeTag();
+        </div>
+<?= $this->form()->closeTag(); ?>
+    </div>
+</div><!-- New comment END -->

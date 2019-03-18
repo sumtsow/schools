@@ -86,7 +86,7 @@ class IndexController extends AbstractActionController
             $form->setData($request->getPost());
             if ($form->isValid()) {
                 $result = $user->login($request->getPost('login'), $request->getPost('passwd'), User::getDocumentRoot().'/secure');
-                return $this->redirect()->toRoute('admin', array('action' => 'index'));
+                return $this->redirect()->toRoute('schools', array('action' => 'index'));
             }
         }
     

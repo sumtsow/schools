@@ -3,6 +3,6 @@
 
 function write_smile(code) {
 	var currentmessage = document.comment.text.value;
-	document.comment.text.value=currentmessage+code;
+	document.comment.text.value = currentmessage+code;
 	document.comment.text.focus();
 }

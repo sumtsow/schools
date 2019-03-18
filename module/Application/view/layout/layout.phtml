@@ -23,7 +23,7 @@ echo $this->doctype();
 
 <!-- Styles -->
 <?= $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-->prependStylesheet($this->basePath() . 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')   ?>
+->prependStylesheet($this->basePath() . 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css') ?>
 <!-- Scripts -->
 <?= $this->headScript()
 ; ?>
@@ -48,8 +48,14 @@ echo $this->doctype();
                 <?php
                 $auth = new AuthenticationService();
                 if($auth->hasIdentity()) : ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= $this->url('admin', array('action' => 'index'));?>">Admin</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                    <div class="dropdown-menu navbar-inverse bg-dark">
+                        <a class="dropdown-item text-secondary" href="/admin/updateNews">Update News</a>
+                        <a class="dropdown-item text-secondary" href="<?= $this->url('admin', array('action' => 'index'));?>">Edit schools</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-secondary" href="/logout">Logout</a>
+                    </div>
                 </li>                
                 <?php endif; ?>
             </ul>

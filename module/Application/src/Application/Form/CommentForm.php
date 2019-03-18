@@ -56,7 +56,7 @@ class CommentForm extends Form
             'name' => 'submit',
             'attributes' => array(
                 'type'  => 'submit',
-                'value' => 'Сохранить',
+                'value' => 'Save',
                 'id' => 'submitbutton',
             ),
         ));
@@ -66,8 +66,7 @@ class CommentForm extends Form
                 'type'  => 'button',
                 'value' => 'Delete',
                 'id' => 'delComment',
-                'class' => 'btn btn-danger',
-                'title' => 'Удалить',
+                'title' => 'Delete',
             ),
         ));
      }

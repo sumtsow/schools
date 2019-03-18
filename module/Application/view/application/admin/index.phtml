@@ -7,20 +7,23 @@ else :
     $title = $this->translate('Kharkov schools');
     $this->headTitle($title); ?>
 <?= $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css'); ?>
+<div class="d-inline-flex form-group mt-3 small">
     <form method="post">
-        <label class="small">
+        <label for="area">
         <span>Показать район</span>
-        <select name="area" id="area" onChange="this.form.submit();">
-        <option value="0">Все</option>
+        <select class="custom-select custom-select-sm" name="area" id="area" onChange="this.form.submit();">
+            <option value="0">Все</option>
     <?php
     foreach($areas as $indx => $areaName) :
         $selected = ($this->area == ($indx+1)) ? 'selected="selected"' : '';       
-        ?>
-        <option value="<?= ($indx+1);?>" <?= $selected;?>><?= $areaName;?></option>
+    ?>
+            <option value="<?= ($indx+1);?>" <?= $selected;?>><?= $areaName;?></option>
     <?php endforeach; ?>
         </select>
         </label>
-    </form>
+    </form>        
+</div>
+
 <?php endif; ?>
 <h1><?= $title;?></h1>
 <table class="table table-striped">
