@@ -26,8 +26,9 @@ class User implements InputFilterAwareInterface
     
     static function getDocumentRoot()
     {
-         preg_match("/[^\/\/]+$/", $_SERVER['DOCUMENT_ROOT'], $matches);
-         return $matches[0];
+        //preg_match("/[^\/\/]+$/", $_SERVER['DOCUMENT_ROOT'], $matches);
+        //return $matches[0];
+        return $_SERVER['DOCUMENT_ROOT'];
     }
     
     public function login($login, $passwd, $dir) {

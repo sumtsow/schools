@@ -63,10 +63,10 @@ class CommentForm extends Form
         $this->add(array(
             'name' => 'delComment',
             'attributes' => array(
-                'type'  => 'submit',
-                'value' => ' ',
+                'type'  => 'button',
+                'value' => 'Delete',
                 'id' => 'delComment',
-                'class' => 'fa fa-trash-alt',
+                'class' => 'btn btn-danger',
                 'title' => 'Удалить',
             ),
         ));
