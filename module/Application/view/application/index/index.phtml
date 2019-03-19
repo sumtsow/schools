@@ -27,12 +27,21 @@ else {
     </form>
 </div>
 <?php endif; ?>
+<?= $this->paginationControl($paginator,
+     'Sliding',
+     'application/index/page.phtml', [
+         'high' => $this->high,
+         'area' => $this->area
+     ]); ?>
         <div class="card-columns">
         <?php foreach ($paginator as $item): ?>
             <div class="card">
-                <div class="card-body">                
-                <?php if($item->logo) : ?>
-                <img class="card-img-top w-25" src="<?= $item->logo ?>" alt="logo" />
+                <div class="card-body w-100 pt-0">
+                <?php if($item->shortname) : ?>
+                    <a class="align-bottom" href="<?= $this->url($this->route, array('action'=>'view', 'id'=>$item->id)); ?>"><h5><span class="badge badge-pill btn btn-outline-primary float-right px-3 mr-0"><?= $item->shortname ?></span></h5></a>
+                <?php endif;
+                if($item->logo) : ?>
+                    <a class="align-bottom" href="<?= $this->url($this->route, array('action'=>'view', 'id'=>$item->id)); ?>"><img class="card-img-top w-25" src="<?= $item->logo ?>" alt="logo" /></a>
                 <?php endif; ?>
                     <a class="align-bottom" href="<?= $this->url($this->route, array('action'=>'view', 'id'=>$item->id)); ?>"><?= $item->name;?></a>
                 </div>

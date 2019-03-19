@@ -74,6 +74,7 @@ class SchoolTable extends AbstractTableGateway
         $school->map = stripslashes($school->map);
 		$data = array(
             'name' => $school->name,
+            'shortname' => $school->shortname,
             'address'  => $school->address,
             'phone' => $school->phone,
             'email'  => $school->email,			

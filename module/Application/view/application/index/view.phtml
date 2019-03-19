@@ -6,13 +6,11 @@ $this->headTitle($title);
 <?= ($this->headScript()->prependFile("/js/smile.js")); ?>
 <h2 class="my-3"><?= $title; ?></h2>
 <table class="table">
-    <thead>
+    <tbody>
         <tr>
             <th>Адрес</th>
             <td><?= $school->address; ?></td>	
         </tr>
-    </thead>
-    <tbody>
         <tr>	
             <th>Телефон</th>
             <td><?= $school->phone; ?></td>

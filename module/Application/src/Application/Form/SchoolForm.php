@@ -29,6 +29,16 @@ class SchoolForm extends Form
         ));
         
         $this->add(array(
+            'name' => 'shortname',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+            'options' => array(
+                'label' => 'Номер',
+            ),
+        ));
+        
+        $this->add(array(
             'name' => 'address',
             'attributes' => array(
                 'type'  => 'text',

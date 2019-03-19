@@ -8,6 +8,7 @@ $form = $this->form;
 $form->setAttribute('action', $this->url('admin', array('action' => 'add')));
 $inputs = [
     'name' => $form->get('name'),
+    'shortname' => $form->get('shortname'),
     'address' => $form->get('address'),
     'phone' => $form->get('phone'),
     'email' => $form->get('email'),

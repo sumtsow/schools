@@ -26,6 +26,12 @@ else :
 
 <?php endif; ?>
 <h1><?= $title;?></h1>
+<?= $this->paginationControl($paginator,
+     'Sliding',
+     'application/index/page.phtml', [
+         'high' => $this->high,
+         'area' => $this->area
+     ]); ?>
 <table class="table table-striped">
     <tbody>
 <?php foreach ($paginator as $item): ?>        
@@ -51,5 +57,5 @@ else :
          'area' => $this->area
      ]);
 if(isset($username)) : ?>
-<br /><a class="btn btn-primary my-3" href="/admin/add/<?= $this->high; ?>">Добавить</a>
+<br /><a class="btn btn-primary mt-0 mb-5" href="/admin/add/<?= $this->high; ?>">Добавить</a>
 <?php endif; ?>

@@ -24,6 +24,7 @@ class School implements InputFilterAwareInterface
     {
         $this->id       = (isset($data['id'])) ? $data['id']     : null;
         $this->name     = (isset($data['name'])) ? $data['name'] : null;
+        $this->shortname     = (isset($data['shortname'])) ? $data['shortname'] : null;
         $this->address  = (isset($data['address'])) ? $data['address']  : null;
         $this->phone    = (isset($data['phone'])) ? $data['phone']     : null;
         $this->email    = (isset($data['email'])) ? $data['email'] : null;
@@ -73,6 +74,25 @@ class School implements InputFilterAwareInterface
                             'encoding' => 'UTF-8',
                             'min'      => 1,
                             'max'      => 256,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'shortname',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 0,
+                            'max'      => 16,
                         ),
                     ),
                 ),
@@ -167,7 +187,7 @@ class School implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 0,
-                            'max'      => 512,
+                            'max'      => 2048,
                         ),
                     ),
                 ),
