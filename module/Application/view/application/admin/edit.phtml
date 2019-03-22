@@ -23,7 +23,7 @@ $inputs = [
     'http' => $form->get('http'),
     'info' => $form->get('info'),
     'area' => $form->get('area'),
-    'high' => $form->get('high'),
+    'high' => $form->get('high')->setAttribute('class', 'form-check'),
     'map' => $form->get('map'),
     'logo' => $form->get('logo'),
 ];
@@ -33,7 +33,11 @@ $form->prepare(); ?>
 <?php foreach($inputs as $input) : ?>
 <div class="form-group">
     <?= $this->formLabel($input) ?>
+    <?php if($input->getAttribute('type') != 'checkbox') : ?>
     <?= $this->formElement($input->setAttribute('class', 'form-control')) ?>
+    <?php else : ?>
+    <?= $this->formElement($input->setAttribute('class', 'form-check')) ?>
+    <?php endif; ?>
     <?= $this->formElementErrors()->render($input, ['class' => 'help-block']) ?>
 </div>
 <?php endforeach; ?>

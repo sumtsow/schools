@@ -2,11 +2,13 @@
 $title = $school->name;
 $this->headTitle($title);
 ?>
-<?php /*$this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');*/ ?>
 <?= ($this->headScript()->prependFile("/js/smile.js")); ?>
-<h2 class="my-3"><?= $title; ?></h2>
 <table class="table">
     <tbody>
+        <tr>
+            <th><img style="max-width: 100px;" src="<?= $school->logo ?>" alt="logo" /></th>
+            <td class="align-middle"><h2><?= $title; ?></h2></td>	
+        </tr>        
         <tr>
             <th>Адрес</th>
             <td><?= $school->address; ?></td>	
