@@ -32,7 +32,7 @@ class IndexController extends AbstractActionController
         $news = new Rss($this->request->getUri()->getScheme().'://'.$this->request->getUri()->getHost().'/'.$confArray['rss']['file']);
         $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
         $id = ($this->params()->fromRoute('id')) ? $this->params()->fromRoute('id') : 0;
-        $result = $this->getSchoolTable()->fetchSchools($id, $area);
+        $result = ($id == 1) ? $this->getSchoolTable()->fetchUniversities() : $this->getSchoolTable()->fetchSchools($area);
         $paginator = new Paginator(new ArrayAdapter($result));
         $page = ($this->request->getPost('area')) ? 0 : $this->params()->fromRoute('page');            
         $paginator->setCurrentPageNumber($page)    
@@ -59,6 +59,7 @@ class IndexController extends AbstractActionController
             ->setVariable('comments',$this->getCommentTable()->fetchComments($id))
             ->setVariable('docRoot',User::getDocumentRoot())
             ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
+        if(!$vm->school->visible) { return $this->redirect()->toRoute('schools', ['action' => 'index']); }
         $form = new CommentForm();
         $request = $this->getRequest();
         if ($request->isPost()) {

@@ -129,6 +129,17 @@ class SchoolForm extends Form
         ));
         
         $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'visible',
+            'class' => 'high',
+             'options' => array(
+                     'label' => 'Показывать',
+                     'checked_value' => '1',
+                     'unchecked_value' => '0'
+             ),
+        ));
+        
+        $this->add(array(
             'name' => 'submit',
             'attributes' => array(
                 'type'  => 'submit',

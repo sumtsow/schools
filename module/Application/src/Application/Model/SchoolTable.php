@@ -25,17 +25,30 @@ class SchoolTable extends AbstractTableGateway
         return $resultSet = $this->select();
     }
     
-    public function fetchSchools($high, $areaIndex)
+    public function fetchSchools($areaIndex = null, $visible = 1)
     {
-    	$high = (int) $high;
         $areaIndex = (int) $areaIndex;
-        if(!$high && $areaIndex) {
+        $filter = "`high` = 0";
+        if($visible) {
+            $filter .= " AND `visible`='1'";
+        }
+        if($areaIndex) {
             $areas = $this->fetchAreas();
             $currentArea = $areas[$areaIndex-1];
-            $filter = "`high` = $high AND `area`='$currentArea'";
+            $filter .= " AND `area`='$currentArea'";
         }
-        else {
-            $filter = "`high` = $high";
+        $resultSet = $this->select($filter);
+        foreach($resultSet as $item) {
+                $result[] = $item;
+        }
+        return $result;
+    }
+    
+    public function fetchUniversities($visible = 1)
+    {
+        $filter = "`high` = 1";
+        if($visible) {
+            $filter .= " AND `visible`='1'";
         }
         $resultSet = $this->select($filter);
         foreach($resultSet as $item) {
@@ -83,7 +96,8 @@ class SchoolTable extends AbstractTableGateway
             'area'  => $school->area,
             'high' => $school->high,
             'map'  => $school->map,
-            'logo'  => $school->logo,        
+            'logo'  => $school->logo,
+            'visible'  => $school->visible,        
         );
         $data['area']++; 
         $id = (int) $school->id;

@@ -1,12 +1,12 @@
 <?php
 $paginator = $this->paginator;
+echo $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');
 if($this->high) :
     $title = $this->translate('Kharkov universities');
     $this->headTitle($title);
 else :
     $title = $this->translate('Kharkov schools');
     $this->headTitle($title); ?>
-<?= $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css'); ?>
 <div class="d-inline-flex form-group mt-3 small">
     <form method="post">
         <label for="area">

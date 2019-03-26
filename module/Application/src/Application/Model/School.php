@@ -34,6 +34,7 @@ class School implements InputFilterAwareInterface
         $this->high     = (isset($data['high'])) ? $data['high'] : null;
         $this->map      = (isset($data['map'])) ? $data['map']  : null;
         $this->logo      = (isset($data['logo'])) ? $data['logo']  : null;
+        $this->visible      = (isset($data['visible'])) ? $data['visible']  : null;        
     }
 
     public function getArrayCopy()

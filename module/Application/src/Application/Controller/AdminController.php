@@ -20,19 +20,19 @@ class AdminController extends AbstractActionController
         $confArray = $this->getServiceLocator()->get('config');
         $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
         $id = ($this->params()->fromRoute('id')) ? $this->params()->fromRoute('id') : 0;
-        $result = $this->getSchoolTable()->fetchSchools($id, $area);
-            $paginator = new Paginator(new ArrayAdapter($result));
-            $page = ($this->request->getPost('area')) ? 0 : $this->params()->fromRoute('page');  
-            $paginator->setCurrentPageNumber($page)
-                ->setItemCountPerPage($confArray['per_page'])
-                ->setPageRange(ceil(count($result)/$confArray['per_page']));
-            $user = new User();
-            $vm = new ViewModel();
-            return $vm->setVariable('paginator', $paginator)
-                ->setVariable('areas', $this->getSchoolTable()->fetchAreas())
-                ->setVariable('high', $this->params()->fromRoute('id', 0))
-                ->setVariable('area', $area)
-                ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
+        $result = ($id == 1) ? $this->getSchoolTable()->fetchUniversities(0) : $this->getSchoolTable()->fetchSchools($area, 0);
+        $paginator = new Paginator(new ArrayAdapter($result));
+        $page = ($this->request->getPost('area')) ? 0 : $this->params()->fromRoute('page');  
+        $paginator->setCurrentPageNumber($page)
+            ->setItemCountPerPage($confArray['per_page'])
+            ->setPageRange(ceil(count($result)/$confArray['per_page']));
+        $user = new User();
+        $vm = new ViewModel();
+        return $vm->setVariable('paginator', $paginator)
+            ->setVariable('areas', $this->getSchoolTable()->fetchAreas())
+            ->setVariable('high', $this->params()->fromRoute('id', 0))
+            ->setVariable('area', $area)
+            ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
     }
 	
     public function addAction()
@@ -91,7 +91,7 @@ class AdminController extends AbstractActionController
             if ($form->isValid()) {
                 $this->getSchoolTable()->saveSchool($form->getData());
                 return $this->redirect()->toRoute('admin', array(
-                    'action' => 'index'
+                    'action' => 'index', 'id'=> $school->high
                 ));
             }
         }
