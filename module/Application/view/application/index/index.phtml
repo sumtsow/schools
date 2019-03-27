@@ -35,7 +35,6 @@ else {
      ]); ?>
         <div class="card-columns">
         <?php foreach ($paginator as $item): ?>
-            <?php if($item->visible) : ?>
             <div class="card">
                 <div class="card-body w-100 pt-0">
                 <?php if($item->shortname) : ?>
@@ -47,7 +46,6 @@ else {
                     <a class="align-bottom" href="<?= $this->url($this->route, array('action'=>'view', 'id'=>$item->id)); ?>"><?= $item->name;?></a>
                 </div>
             </div>
-            <?php endif; ?>
         <?php endforeach;?>
         </div>
 <?= $this->paginationControl($paginator,

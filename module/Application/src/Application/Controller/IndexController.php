@@ -77,6 +77,19 @@ class IndexController extends AbstractActionController
         return $vm->setVariable('form', $form);
     }
     
+    public function searchAction()
+    {
+        if ($request->isPost()) {
+            $search = $request->getPost();
+            if ($form->isValid()) {
+                //
+                $this->getSchoolTable()->saveSchool($school);
+                return ['schools' => $schools, 'result' => $search];
+            }
+        return $this->redirect()->toRoute('schools', ['result' => $search]);            
+        }
+    }
+    
     public function loginAction()
     {
         $form  = new UserForm();
