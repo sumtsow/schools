@@ -5,6 +5,7 @@ namespace Application\Model;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\AbstractTableGateway;
+use Zend\Db\Sql\Sql;
 
 class SchoolTable extends AbstractTableGateway
 {
@@ -63,7 +64,30 @@ class SchoolTable extends AbstractTableGateway
         $resultArr = $resultSet->toArray();
         $resultArr = explode(',',str_replace("'","",substr($resultArr[0]['Type'],5,-1)));
         return $resultArr;
-    }   
+    }
+    
+    public function search($search = false)
+    {
+        if($search) {
+            $sql = new Sql($this->adapter);
+            $select = $sql->select();
+            $select->from($this->table)
+                ->columns(array('id', 'name'))
+                ->where->like('name', '%'.$search.'%')
+                ->OR->where->like('shortname', '%'.$search.'%')
+                ->OR->where->like('address', '%'.$search.'%')
+                ->OR->where->like('phone', '%'.$search.'%')
+                ->OR->where->like('email', '%'.$search.'%')
+                ->OR->where->like('http', '%'.$search.'%')
+                ->OR->where->like('info', '%'.$search.'%');
+            $statement = $sql->getSqlStringForSqlObject($select);
+            $result = $this->adapter->query($statement, $this->adapter::QUERY_MODE_EXECUTE);
+        }
+        else {
+            $result = false;
+        }
+        return $result;
+    } 
     
     public function getSchool($id)
     {

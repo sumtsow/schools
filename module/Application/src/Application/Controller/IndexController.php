@@ -16,8 +16,6 @@ use Zend\Paginator\Adapter\ArrayAdapter;
 use Application\Model\User;
 use Application\Form\UserForm;
 use Application\Model\Rss;
-use Application\Model\School;
-use Application\Form\SchoolForm;
 use Application\Form\CommentForm;
 
 class IndexController extends AbstractActionController
@@ -79,14 +77,14 @@ class IndexController extends AbstractActionController
     
     public function searchAction()
     {
+        $request = $this->getRequest();
         if ($request->isPost()) {
-            $search = $request->getPost();
-            if ($form->isValid()) {
-                //
-                $this->getSchoolTable()->saveSchool($school);
-                return ['schools' => $schools, 'result' => $search];
+            $search = $request->getPost('search');
+            if ($search) {
+                $results = $this->getSchoolTable()->search($search);
+                return [ 'results' => $results, 'search' => $search ];
             }
-        return $this->redirect()->toRoute('schools', ['result' => $search]);            
+        return $this->redirect()->toRoute('schools');            
         }
     }
     

@@ -1,4 +1,15 @@
-<h1>Результаты поиска</h1>
-<div class="row">
-    <div class="col-md-8"><?= $search; ?></div>    
-</div>
+<h1>Результаты поиска "<?= $search; ?>"</h1>
+<h3>Найдено результатов: <?= count($results); ?></h3>
+<?php if(count($results)) : ?>
+<table class="table table-striped">
+    <tbody>
+    <?php foreach ($results as $school): ?>        
+        <tr>
+            <td class="col-md-auto">
+                <a href="<?= $this->url('schools', array('action'=>'view', 'id' => $school->id, 'area' => null)); ?>"><?= $school->name;?></a>
+            </td>
+        </tr>            
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>
