@@ -68,11 +68,14 @@ class SchoolTable extends AbstractTableGateway
     
     public function search($search = false)
     {
+        $results = false;
         if($search) {
-            $sql = new Sql($this->adapter);
+            $adapter = $this->adapter;
+            $sql = new Sql($adapter);
             $select = $sql->select();
+            $fields = ['id', 'name', 'shortname', 'address', 'phone', 'email', 'http', 'info'];
             $select->from($this->table)
-                ->columns(array('id', 'name'))
+                ->columns($fields)
                 ->where->like('name', '%'.$search.'%')
                 ->OR->where->like('shortname', '%'.$search.'%')
                 ->OR->where->like('address', '%'.$search.'%')
@@ -80,14 +83,31 @@ class SchoolTable extends AbstractTableGateway
                 ->OR->where->like('email', '%'.$search.'%')
                 ->OR->where->like('http', '%'.$search.'%')
                 ->OR->where->like('info', '%'.$search.'%');
+            array_shift($fields);
             $statement = $sql->getSqlStringForSqlObject($select);
-            $result = $this->adapter->query($statement, $this->adapter::QUERY_MODE_EXECUTE);
+            $results = $adapter->query($statement, $adapter::QUERY_MODE_EXECUTE);
+            $results = $results->toArray();
+            $results = $this->found($results, $fields, $search);
         }
-        else {
-            $result = false;
+        return $results;
+    }
+    
+    private function found($results, $fields, $search) {
+        $found = array();
+        $replacement = '<span class="bg-success">'.$search.'</span>';
+        foreach($results as $key => $school) {
+            foreach($fields as $field) {
+                $pos = stripos($school[$field], $search);
+                if($pos) {
+                    $results[$key]['found'] = [
+                        'field' => $field,
+                        'value' => substr_replace($school[$field], $replacement, $pos, strlen($search))
+                    ];
+                }
+            }
         }
-        return $result;
-    } 
+        return $results;
+    }
     
     public function getSchool($id)
     {

@@ -76,7 +76,7 @@ echo $this->doctype();
     </div> <!-- /container-fluid -->
     
 <footer class="navbar navbar-dark bg-dark text-light fixed-bottom justify-content-center">
-    <p>&copy; <?= date('Y') ?> <a href="mailto://<?= $config['ServerAdmin'];?>">SuM</a> <?= $this->translate('All rights reserved.') ?></p>
+    <p>&copy; 2013-<?= date('Y') ?> Admin: <a href="mailto://<?= $config['ServerAdmin'];?>"><?= $config['ServerAdmin'];?></a></p>
     <p><?php /*include_once('public_html/counters.html');*/ ?></p>
 </footer>
 <?= $this->inlineScript()

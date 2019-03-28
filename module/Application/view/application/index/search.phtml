@@ -6,10 +6,12 @@
     <?php foreach ($results as $school): ?>        
         <tr>
             <td class="col-md-auto">
-                <a href="<?= $this->url('schools', array('action'=>'view', 'id' => $school->id, 'area' => null)); ?>"><?= $school->name;?></a>
+                <p><a href="<?= $this->url('schools', array('action'=>'view', 'id' => $school['id'], 'area' => null)); ?>"><?= $school['name'];?></a></p>
+                <p class="small"><?= $school['found']['value']; ?></p>
             </td>
         </tr>            
     <?php endforeach; ?>
     </tbody>
 </table>
+<br />
 <?php endif; ?>
