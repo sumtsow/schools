@@ -2,11 +2,12 @@
 $title = $school->shortname;
 $this->headTitle($title);
 ?>
-<?= ($this->headScript()->prependFile("/js/smile.js")); ?>
+<script src="/js/smile.js"></script>
+<?php /*($this->headScript()->prependFile("/js/smile.js"));*/ ?>
 <table class="table">
     <tbody>
         <tr>
-            <th><img style="max-width: 100px;" src="<?= $school->logo ?>" alt="logo" /></th>
+            <th><?php if($school->logo) : ?><img style="max-width: 100px;" src="<?= $school->logo ?>" alt="logo" /><?php endif; ?></th>
             <td class="align-middle"><h2><?= $school->name; ?></h2></td>	
         </tr>        
         <tr>
