@@ -28,7 +28,7 @@ class SchoolTable extends AbstractTableGateway
     
     public function fetchSchools($areaIndex = null, $visible = 1)
     {
-        $areaIndex = (int) $areaIndex;
+        $areaIndex = $areaIndex;
         $filter = "`high` = 0";
         if($visible) {
             $filter .= " AND `visible`='1'";
@@ -111,7 +111,7 @@ class SchoolTable extends AbstractTableGateway
     
     public function getSchool($id)
     {
-        $id  = (int) $id;
+        $id  = $id;
 
         $rowset = $this->select(array(
             'id' => $id,
@@ -144,9 +144,9 @@ class SchoolTable extends AbstractTableGateway
             'visible'  => $school->visible,        
         );
         $data['area']++; 
-        $id = (int) $school->id;
+        $id = $school->id;
 
-        if ($id == 0) {
+        if ($id === 0) {
             $this->insert($data);
         } elseif ($this->getSchool($id)) {
             $this->update(

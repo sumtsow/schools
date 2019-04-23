@@ -46,7 +46,7 @@ class Comment implements InputFilterAwareInterface
                 'name'     => 'id',
                 'required' => false,
                 'filters'  => array(
-                    array('name' => 'Int'),
+                    array('name' => 'ToInt'),
                 ),
             )));
             
@@ -54,7 +54,7 @@ class Comment implements InputFilterAwareInterface
                 'name'     => 'id_school',
                 'required' => false,
                 'filters'  => array(
-                    array('name' => 'Int'),
+                    array('name' => 'ToInt'),
                 ),
             )));
 

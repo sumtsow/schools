@@ -57,7 +57,7 @@ class School implements InputFilterAwareInterface
                 'name'     => 'id',
                 'required' => true,
                 'filters'  => array(
-                    array('name' => 'Int'),
+                    array('name' => 'ToInt'),
                 ),
             )));
 
