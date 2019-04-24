@@ -8,7 +8,7 @@ else {
     $title = $this->translate('Kharkov schools');
     $this->headTitle($title);
 } ?>
-<h1><?= $title;?></h1>
+<h1 class="text-center mt-3"><?= $title;?></h1>
 <div class="row">
     <div class="col-md-8">
 <?php if(!$this->high) :?>
@@ -63,7 +63,7 @@ $i = $news_max;
 foreach ($news->channel['items'] as $item) :
     if($i>0) :
 ?>
-<article class="card border-light rounded small my-2 p-2">
+<div class="card border-light rounded small my-2 p-2">
     <a class="h6" target="_blank" href="<?= $item['link']; ?>"><?= $item['title']; ?></a>    
 <?php if ($item['enclosure']) : ?>
     <p class="mt-2"><img class="w-75" src="<?= $item['enclosure']->url; ?>" alt="<?= $item['title']; ?>" /></p>
@@ -76,7 +76,7 @@ foreach ($news->channel['items'] as $item) :
                 IntlDateFormatter::MEDIUM,
                 Locale::getDefault()); ?> 
     <a target="_blank" href="<?= $item['link']; ?>"><?= $this->translate('Details'); ?></a></p> 
-</article>
+</div>
     <?php endif;
     $i--;
 endforeach; ?>

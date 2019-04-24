@@ -2,7 +2,7 @@
 
 if ($this->pageCount):
 ?>
-<div class="pagination mb-5 justify-content-center">
+<ul class="pagination mb-5 justify-content-center">
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
 <li class="page-item">
@@ -39,5 +39,5 @@ if ($this->pageCount):
   )); ?>">След&rarr;</a>
 </li>
 <?php endif; ?>
-</div>
+</ul>
 <?php endif; ?>

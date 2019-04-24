@@ -7,7 +7,11 @@
         <tr>
             <td class="col-md-auto">
                 <p><a href="<?= $this->url('schools', array('action'=>'view', 'id' => $school['id'], 'area' => null)); ?>"><?= $school['name'];?></a></p>
-                <p class="small"><?= $school['found']['value']; ?></p>
+                <?php if(isset($school['found'])) : ?>
+                    <?php foreach ($school['found'] as $item): ?>  
+                <p class="small"><?= $item['value']; ?></p>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </td>
         </tr>            
     <?php endforeach; ?>

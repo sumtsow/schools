@@ -2,6 +2,7 @@
 
 namespace Application\Model;
 
+use Application\Model\Mail;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\AbstractTableGateway;
@@ -67,6 +68,9 @@ class CommentTable extends AbstractTableGateway
                     'visible' => 1,
                 );
                 $this->insert($data);
+                $mail = new Mail();
+                $message = 'Новый комментарий пользователя '. $comment->author . ' к школе ' . $comment->id_school . ' http://schools.kharkov.ua/view/' . $comment->id_school . ' Текст: "' . $comment->text . '"';
+                $mail->sendMessage($message);
             }
         }
         elseif ($this->getComment($comment->id)) {

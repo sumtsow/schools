@@ -94,14 +94,15 @@ class SchoolTable extends AbstractTableGateway
     
     private function found($results, $fields, $search) {
         $found = array();
+        $search = mb_strtolower($search);
         $replacement = '<span class="bg-success">'.$search.'</span>';
         foreach($results as $key => $school) {
             foreach($fields as $field) {
-                $pos = stripos($school[$field], $search);
-                if($pos) {
-                    $results[$key]['found'] = [
+                $pos = mb_stripos($school[$field], $search);
+                if(false !== $pos) {
+                    $results[$key]['found'][] = [
                         'field' => $field,
-                        'value' => substr_replace($school[$field], $replacement, $pos, strlen($search))
+                        'value' => str_ireplace($search, $replacement, mb_strtolower($school[$field])),
                     ];
                 }
             }
