@@ -1,11 +1,11 @@
 ﻿<?php
 
-$title = 'Удалить заведение';
+$title = $this->translate('Delete institution');
 $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 
-<p>Вы действительно хотите удалить
+<p><?= $this->translate('Are you sure to delete an institution'); ?> 
     '<?php echo $this->escapeHtml($school->name).'?'; ?>'
 </p>
 <?php

@@ -9,10 +9,9 @@ else :
     $this->headTitle($title); ?>
 <div class="d-inline-flex form-group mt-3 small">
     <form method="post">
-        <label for="area">
-        <span>Показать район</span>
+        <label for="area"><?= $this->translate('Select Area'); ?></label>
         <select class="custom-select custom-select-sm" name="area" id="area" onChange="this.form.submit();">
-            <option value="0">Все</option>
+            <option value="0"><?= $this->translate('All'); ?></option>
     <?php
     foreach($areas as $indx => $areaName) :
         $selected = ($this->area == ($indx+1)) ? 'selected="selected"' : '';       
@@ -41,8 +40,8 @@ else :
                 <a href="<?= $this->url('schools', array('action'=>'view', 'id' => $item->id, 'area' => null)); ?>"><?= $item->name;?></a>
             </td>
             <td class="col-md-2">
-                <a class="fa fa-edit pr-3" title="Редактировать" href="/admin/edit/<?= $item->id;?>"></a>
-                <a class="fa fa-trash-alt" title="Удалить" href="/admin/delete/<?= $item->id;?>"></a>
+                <a class="fa fa-edit pr-3" title="Edit" href="/admin/edit/<?= $item->id;?>"></a>
+                <a class="fa fa-trash-alt" title="Delete" href="/admin/delete/<?= $item->id;?>"></a>
             </td>
         </tr>            
 <?php endforeach;?>
@@ -57,5 +56,5 @@ else :
          'area' => $this->area
      ]);
 if(isset($username)) : ?>
-<br /><a class="btn btn-primary mt-0 mb-5" href="/admin/add/<?= $this->high; ?>">Добавить</a>
+<br /><a class="btn btn-primary mt-0 mb-5" href="/admin/add/<?= $this->high; ?>"><?= $this->translate('Add school'); ?></a>
 <?php endif; ?>

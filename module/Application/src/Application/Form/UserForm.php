@@ -15,7 +15,7 @@ class UserForm extends Form
                 'type'  => 'text',                
             ),
             'options' => array(
-                'label' => 'Логин',
+                'label' => 'Login',
             ),            
         ));
         $this->add(array(
@@ -24,7 +24,7 @@ class UserForm extends Form
                 'type'  => 'password',
             ),
             'options' => array(
-                'label' => 'Пароль',
+                'label' => 'Password',
             ),
         ));
         $this->add(array(

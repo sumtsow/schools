@@ -14,9 +14,9 @@ else {
 <?php if(!$this->high) :?>
 <div class="d-inline-flex form-group mt-3 small">
     <form method="post">
-        <label for="area">Показать район</label>
+        <label for="area"><?= $this->translate('Select Area'); ?></label>
         <select class="custom-select custom-select-sm" name="area" id="area" onChange="this.form.submit();">
-        <option value="0">Все</option>
+        <option value="0"><?= $this->translate('All'); ?></option>
     <?php
     foreach($areas as $indx => $areaName) :
         $selected = ($this->area == ($indx+1)) ? ' selected="selected"' : '';       
@@ -57,7 +57,7 @@ else {
     </div>    
     <div class="col-md-1"></div>
     <div class="col-md-3">
-      <h3>Новости</h3>  
+      <h3><?= $this->translate('News'); ?></h3>  
 <?php
 $i = $news_max;
 foreach ($news->channel['items'] as $item) :

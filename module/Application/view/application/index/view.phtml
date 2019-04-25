@@ -11,11 +11,11 @@ $this->headTitle($title);
             <td class="align-middle"><h2><?= $school->name; ?></h2></td>	
         </tr>        
         <tr>
-            <th>Адрес</th>
+            <th><?= $this->translate('Address'); ?></th>
             <td><?= $school->address; ?></td>	
         </tr>
         <tr>	
-            <th>Телефон</th>
+            <th><?= $this->translate('Phone'); ?></th>
             <td><?= $school->phone; ?></td>
         </tr>	
         <tr>		
@@ -28,21 +28,21 @@ $this->headTitle($title);
         </tr>
 <?php if($school->info) : ?>
         <tr>	
-            <th>Информация</th>
+            <th><?= $this->translate('Information'); ?></th>
             <td><?= $school->info; ?></td>	
         </tr>
 <?php endif; ?>
         <tr>	
-            <th>Район</th>
+            <th><?= $this->translate('Area'); ?></th>
             <td><?= $school->area; ?></td>
         </tr>	
         <tr>	
-            <th>Карта</th>
+            <th><?= $this->translate('Map'); ?></th>
             <td><?= $school->map; ?></td>	
         </tr>
     </tbody>
 </table>
-<h3>Отзывы пользователей</h3>
+<h3><?= $this->translate('User reviews'); ?></h3>
 <div class="row"><!-- Existing comments -->
     <div class="col-md-12">
 <?php
@@ -92,7 +92,7 @@ $form->setAttribute('action', $this->url(
     ->setAttribute('id','disComment');
 $form->get('visible')
     ->setAttribute('onchange', 'this.form.submit();')
-    ->setAttribute('title', 'Виден пользователям');
+    ->setAttribute('title', $this->translate('Visible to users'));
 $form->bind($comment);
 $form->get('id')->setValue($comment->id);
 $form->prepare();
@@ -125,7 +125,7 @@ endforeach;
 </div><!-- Existing comments END -->
 <div class="row bg-dark text-light pt-5"><!-- New comment -->
     <div class="col-md-12">
-        <h4>Добавить отзыв</h4>
+        <h4><?= $this->translate('Add a review'); ?></h4>
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url(
@@ -148,17 +148,19 @@ $form->get('text')->setValue('');
         <div class="form-group">
 <?= $this->formHidden($form->get('id')); ?>
 <?php if(isset($username)) :
-    $form->get('author')->setValue('Администратор');
+    $form->get('author')
+        ->setValue($this->translate('Administrator'))
+        ->setLabel($this->translate('User'));
 endif; ?>
 <?= $this->formRow($form->get('author')->setAttribute('class', 'form-control')); ?>
             <div class="nav bg-dark text-light border-0 nav-tabs"><div class="nav-link active py-0"><?php include($docRoot.'/smile.html'); ?></div></div>
 <?= $this->formRow($form->get('text')->setAttribute('class', 'form-control p-2 mt-0 rounded-0')->setAttribute('style', 'height: 10rem;')); ?>
 <br />
 <?php $form->get('submit')
-        ->setAttribute('title', 'Сохранить')
+        ->setAttribute('title', $this->translate('Save'))
         ->setAttribute('id', 'submitbutton')
         ->setAttribute('class', 'btn btn-primary mb-3')
-        ->setValue('Сохранить'); ?>
+        ->setValue($this->translate('Save')); ?>
 <?= $this->formSubmit($form->get('submit')); ?>
         </div>
 <?= $this->form()->closeTag(); ?>

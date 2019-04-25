@@ -14,11 +14,11 @@ class AreaForm extends Form
             'name' => 'area',
             'type'  => 'Zend\Form\Element\Select',
             'options' => array(
-                     'label' => 'Показать район',
+                     'label' => 'Select Area',
                      'onchange' => 'this.form.submit();',
-                     'empty_option' => 'Все',
+                     'empty_option' => 'All',
                      'value_options' => $areas,
-                     'selected' => 'Все',
+                     'selected' => 'All',
                  ),
             )
         );

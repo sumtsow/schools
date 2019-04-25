@@ -15,44 +15,172 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../view/layout/layout.phtml:34
-msgid "Home"
-msgstr ""
-
-#: ../view/layout/layout.phtml:35
+#: ../view/layout/layout.phtml:51
 msgid "Schools"
 msgstr ""
 
-#: ../view/layout/layout.phtml:36
+#: ../view/layout/layout.phtml:54
 msgid "Universities"
 msgstr ""
 
-#: ../view/layout/layout.phtml:38
-msgid "Update news"
+#: ../view/layout/layout.phtml:60
+msgid "Adminitration"
 msgstr ""
 
 #: ../view/layout/layout.phtml:62
+msgid "Update news"
+msgstr ""
+
+#: ../view/layout/layout.phtml:63
+msgid "Edit schools"
+msgstr ""
+
+#: ../view/layout/layout.phtml:65
+msgid "Logout"
+msgstr ""
+
+#: ../view/layout/layout.phtml:72
+msgid "Search"
+msgstr ""
+
+#: ../view/layout/layout.phtml:87
 msgid "All rights reserved."
 msgstr ""
 
-#: ../../School/view/school/school/index.phtml:2
-msgid "Kharkov schools"
-msgstr ""
-
-#: ../../School/view/school/school/index.phtml:10
-msgid "Published"
-msgstr ""
-
-#: ../../School/view/school/school/index.phtml:11
-msgid "Details"
-msgstr "Details..."
-
-#: ../../School/view/school/school/schools.phtml:4
+#: ../view/application/index/index.phtml:4
 msgid "Kharkov universities"
 msgstr ""
 
-#: ../view/school/index/index.phtml:22
-msgid "Help &amp; Support"
+#: ../view/application/index/index.phtml:8
+msgid "Kharkov schools"
+msgstr ""
+
+#: ../view/application/index/index.phtml:17
+msgid "Select Area"
+msgstr ""
+
+#: ../view/application/index/index.phtml:19
+msgid "All"
+msgstr ""
+
+#: ../view/application/index/index.phtml:60
+msgid "News"
+msgstr ""
+
+#: ../view/application/index/index.phtml:73
+msgid "Published"
+msgstr ""
+
+#: ../view/application/index/index.phtml:78
+msgid "Details"
+msgstr "Details..."
+
+#: ../view/application/index/page.phtml:14
+msgid "Prev"
+msgstr ""
+
+#: ../view/application/index/page.phtml:39
+msgid "Next"
+msgstr ""
+
+#: ../view/application/index/searh.phtml:1
+msgid "Search results"
+msgstr ""
+
+#: ../view/application/index/searh.phtml:2
+msgid "Matches found"
+msgstr ""
+
+#: ../view/application/index/view.phtml:14
+msgid "Address"
+msgstr ""
+
+#: ../view/application/index/view.phtml:18
+msgid "Phone"
+msgstr ""
+
+#: ../view/application/index/view.phtml:31
+msgid "Information"
+msgstr ""
+
+#: ../view/application/index/view.phtml:36
+msgid "Area"
+msgstr ""
+
+#: ../view/application/index/view.phtml:40
+msgid "Map"
+msgstr ""
+
+#: ../view/application/index/view.phtml:45
+msgid "User reviews"
+msgstr ""
+
+#: ../view/application/index/view.phtml:95
+msgid "Visible to users"
+msgstr ""
+
+#: ../view/application/index/view.phtml:128
+msgid "Add a review"
+msgstr ""
+
+#: ../view/application/index/view.phtml:152
+msgid "Administrator"
+msgstr ""
+
+#: ../view/application/index/view.phtml:153
+msgid "User"
+msgstr ""
+
+#: ../view/application/index/view.phtml:158
+msgid "Save"
+msgstr ""
+
+#: ../view/application/admin/add.phtml:2
+msgid "Add institution"
+msgstr ""
+
+#: ../view/application/admin/add.phtml:10
+msgid "Name"
+msgstr ""
+
+#: ../view/application/admin/add.phtml:11
+msgid "Short Name"
+msgstr ""
+
+#: ../view/application/admin/add.phtml:18
+msgid "Is an University"
+msgstr ""
+
+#: ../view/application/admin/add.phtml:20
+msgid "Logo"
+msgstr ""
+
+#: ../view/application/admin/add.phtml:21
+msgid "Visible"
+msgstr ""
+
+#: ../view/application/admin/delcomment.phtml:2
+msgid "Delete comment"
+msgstr ""
+
+#: ../view/application/admin/delcomment.phtml:7
+msgid "Are you sure to delete a comment of user"
+msgstr ""
+
+#: ../view/application/admin/delete.phtml:3
+msgid "Delete institution"
+msgstr ""
+
+#: ../view/application/admin/delete.phtml:8
+msgid "Are you sure to delete an institution"
+msgstr ""
+
+#: ../view/application/admin/edit.phtml:3
+msgid "Edit school"
+msgstr ""
+
+#: ../view/application/admin/index.phtml:59
+msgid "Add school"
 msgstr ""
 
 #: ../view/error/index.phtml:1

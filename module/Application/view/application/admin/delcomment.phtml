@@ -1,11 +1,10 @@
 <?php
-
-$title = 'Удалить комментарий';
+$title = $this->translate('Delete comment');
 $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 
-<p>Вы действительно хотите удалить комментарий пользователя
+<p><?= $this->translate('Are you sure to delete a comment of user'); ?> 
     <?php
     echo $this->escapeHtml($comment->author.' - \'');
     echo $this->escapeHtml($comment->text).'?'; ?>'

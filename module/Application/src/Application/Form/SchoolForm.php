@@ -24,7 +24,7 @@ class SchoolForm extends Form
                 'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'Название',
+                'label' => 'Name',
             ),
         ));
         
@@ -34,7 +34,7 @@ class SchoolForm extends Form
                 'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'Номер',
+                'label' => 'Short Name',
             ),
         ));
         
@@ -44,7 +44,7 @@ class SchoolForm extends Form
                 'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'Адрес',
+                'label' => 'Address',
             ),
         ));
         
@@ -54,7 +54,7 @@ class SchoolForm extends Form
                 'type'  => 'tel',
             ),
             'options' => array(
-                'label' => 'Телефон',
+                'label' => 'Phone',
             ),
         ));
         
@@ -64,7 +64,7 @@ class SchoolForm extends Form
                 'type'  => 'email',
             ),
             'options' => array(
-                'label' => 'e-mail',
+                'label' => 'E-mail',
             ),
         ));
         
@@ -74,7 +74,7 @@ class SchoolForm extends Form
                 'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'http',
+                'label' => 'WWW',
             ),
         ));
         
@@ -84,7 +84,7 @@ class SchoolForm extends Form
                 'type'  => 'textarea',
             ),
             'options' => array(
-                'label' => 'Информация',
+                'label' => 'Information',
             ),
         ));
         
@@ -93,7 +93,7 @@ class SchoolForm extends Form
             'name' => 'area',
             'id' => 'area',
             'options' => array(
-                'label' => 'Район',
+                'label' => 'Area',
             ),
         ));
         
@@ -102,7 +102,7 @@ class SchoolForm extends Form
             'name' => 'high',
             'class' => 'high',
              'options' => array(
-                     'label' => 'ВУЗ',
+                     'label' => 'Is an University',
                      'checked_value' => '1',
                      'unchecked_value' => '0'
              ),
@@ -114,7 +114,7 @@ class SchoolForm extends Form
                 'type'  => 'textarea',
             ),
             'options' => array(
-                'label' => 'Карта',
+                'label' => 'Map',
             ),
         ));
         
@@ -124,7 +124,7 @@ class SchoolForm extends Form
                 'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'Логотип URL',
+                'label' => 'Logo URL',
             ),
         ));
         
@@ -133,7 +133,7 @@ class SchoolForm extends Form
             'name' => 'visible',
             'class' => 'high',
              'options' => array(
-                     'label' => 'Показывать',
+                     'label' => 'Visible',
                      'checked_value' => '1',
                      'unchecked_value' => '0'
              ),
@@ -143,7 +143,7 @@ class SchoolForm extends Form
             'name' => 'submit',
             'attributes' => array(
                 'type'  => 'submit',
-                'value' => 'Сохранить',
+                'value' => 'Save',
                 'id' => 'submitbutton',
             ),
         ));

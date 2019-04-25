@@ -23,7 +23,6 @@ echo $this->doctype();
 ->appendName('viewport', 'width=device-width, initial-scale=1.0')
 ->appendName('description', $config['description'])
 ->appendName('keywords', $config['description'])
-->appendName('viewport', 'width=device-width, initial-scale=1.0')        
 ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
 //->appendHttpEquiv('pragma', 'no-cache')
 //->appendHttpEquiv('Cache-Control', 'no-cache')
@@ -49,28 +48,28 @@ echo $this->doctype();
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= $this->url('schools',array('action' => 'index', 'id' => 0));?>"><?= $this->translate('Schools') ?></a>
+                    <a class="nav-link" href="<?= $this->url('schools',array('action' => 'index', 'id' => 0));?>"><?= $this->translate('Schools'); ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= $this->url('schools',array('action' => 'index', 'id' => 1));?>"><?= $this->translate('Universities') ?></a>
+                    <a class="nav-link" href="<?= $this->url('schools',array('action' => 'index', 'id' => 1));?>"><?= $this->translate('Universities'); ?></a>
                 </li>
                 <?php
                 $auth = new AuthenticationService();
                 if($auth->hasIdentity()) : ?>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false"><?= $this->translate('Adminitration'); ?></a>
                     <div class="dropdown-menu navbar-inverse bg-dark">
-                        <a class="dropdown-item text-secondary" href="/admin/updateNews">Update News</a>
-                        <a class="dropdown-item text-secondary" href="<?= $this->url('admin', array('action' => 'index'));?>">Edit schools</a>
+                        <a class="dropdown-item text-secondary" href="/admin/updateNews"><?= $this->translate('Update news') ?></a>
+                        <a class="dropdown-item text-secondary" href="<?= $this->url('admin', array('action' => 'index'));?>"><?= $this->translate('Edit schools'); ?></a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-secondary" href="/logout">Logout</a>
+                        <a class="dropdown-item text-secondary" href="/logout"><?= $this->translate('Logout'); ?></a>
                     </div>
                 </li>                
                 <?php endif; ?>
             </ul>
                 <form method="post" class="form-inline my-2 my-lg-0" action="/search" id="search">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search" name="search">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Поиск</button>
+                    <input class="form-control mr-sm-2" type="search" placeholder="<?= $this->translate('Search'); ?>" aria-label="Search" name="search">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><?= $this->translate('Search'); ?></button>
                 </form>
         </div>
     </nav>
@@ -85,7 +84,7 @@ echo $this->doctype();
     </div> <!-- /container-fluid -->
     
 <footer class="navbar navbar-dark bg-dark text-light fixed-bottom justify-content-center">
-    <p>&copy; 2013-<?= date('Y') ?> &copy; <a href="mailto://<?= $config['ServerAdmin'];?>"><?= $config['ServerAdmin'];?></a></p>
+    <p>&copy; 2013-<?= date('Y') ?> <?= $this->translate('All rights reserved.'); ?> <a href="mailto://<?= $config['ServerAdmin'];?>"><?= $config['ServerAdmin'];?></a></p>
     <p><?php /*include_once('public_html/counters.html');*/ ?></p>
 </footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

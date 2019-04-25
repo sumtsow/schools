@@ -11,7 +11,7 @@ if ($this->pageCount):
       'id'=>$this->high,
       'area'=>$this->area,
       'page' => $this->previous
-  )); ?>">&larr;Пред</a>
+  )); ?>">&larr; <?= $this->translate('Prev'); ?></a>
 </li>
 <?php endif; ?>
 
@@ -36,7 +36,7 @@ if ($this->pageCount):
       'id'=>$this->high,
       'area'=>$this->area,
       'page' => $this->next
-  )); ?>">След&rarr;</a>
+  )); ?>"><?= $this->translate('Next'); ?> &rarr;</a>
 </li>
 <?php endif; ?>
 </ul>

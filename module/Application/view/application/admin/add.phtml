@@ -1,5 +1,5 @@
 <?php
-$title = 'Добавить заведение';
+$title = $this->translate('Add institution');
 $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
@@ -7,18 +7,18 @@ $this->headTitle($title);
 $form = $this->form;
 $form->setAttribute('action', $this->url('admin', array('action' => 'add')));
 $inputs = [
-    'name' => $form->get('name'),
-    'shortname' => $form->get('shortname'),
-    'address' => $form->get('address'),
-    'phone' => $form->get('phone'),
+    'name' => $form->get('name')->setLabel($this->translate('Name')),
+    'shortname' => $form->get('shortname')->setLabel($this->translate('Short Name')),
+    'address' => $form->get('address')->setLabel($this->translate('Address')),
+    'phone' => $form->get('phone')->setLabel($this->translate('Phone')),
     'email' => $form->get('email'),
     'http' => $form->get('http'),
-    'info' => $form->get('info'),
-    'area' => $form->get('area'),
-    'high' => $form->get('high'),
-    'map' => $form->get('map'),
-    'logo' => $form->get('logo'),
-    'visible' => $form->get('visible'),
+    'info' => $form->get('info')->setLabel($this->translate('Information')),
+    'area' => $form->get('area')->setLabel($this->translate('Area')),
+    'high' => $form->get('high')->setLabel($this->translate('Is an University'))->setAttribute('class', 'form-check'),
+    'map' => $form->get('map')->setLabel($this->translate('Map')),
+    'logo' => $form->get('logo')->setLabel($this->translate('Logo')),
+    'visible' => $form->get('visible')->setLabel($this->translate('Visible')),
 ];
 $form->prepare();
 ?>

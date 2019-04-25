@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2014-03-26 15:18+0300\n"
+"PO-Revision-Date: 2019-04-25 22:14+0300\n"
 "Last-Translator: sumtsow <sumtsow@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: ru\n"
@@ -12,48 +12,176 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../view/layout/layout.phtml:34
-msgid "Home"
-msgstr "Главная"
-
-#: ../view/layout/layout.phtml:35
+#: ../view/layout/layout.phtml:51
 msgid "Schools"
 msgstr "Школы"
 
-#: ../view/layout/layout.phtml:36
+#: ../view/layout/layout.phtml:54
 msgid "Universities"
 msgstr "ВУЗы"
 
-#: ../view/layout/layout.phtml:38
+#: ../view/layout/layout.phtml:60
+msgid "Adminitration"
+msgstr "Администрирование"
+
+#: ../view/layout/layout.phtml:62
 msgid "Update news"
 msgstr "Обновить новости"
 
-#: ../view/layout/layout.phtml:62
+#: ../view/layout/layout.phtml:63
+msgid "Edit schools"
+msgstr "Редактировать школы"
+
+#: ../view/layout/layout.phtml:65
+msgid "Logout"
+msgstr "Выйти"
+
+#: ../view/layout/layout.phtml:72
+msgid "Search"
+msgstr "Поиск"
+
+#: ../view/layout/layout.phtml:87
 msgid "All rights reserved."
 msgstr "Все права защищены."
 
-#: ../../School/view/school/school/index.phtml:2
-msgid "Kharkov schools"
-msgstr "Школы Харькова"
-
-#: ../../School/view/school/school/index.phtml:10
-msgid "Published"
-msgstr "Опубликовано"
-
-#: ../../School/view/school/school/index.phtml:11
-msgid "Details"
-msgstr "Подробнее..."
-
-#: ../../School/view/school/school/schools.phtml:4
+#: ../view/application/index/index.phtml:4
 msgid "Kharkov universities"
 msgstr "ВУЗы Харькова"
 
-#: ../view/application/index/index.phtml:22
-msgid "Help &amp; Support"
-msgstr "Помощь и Поддержка"
+#: ../view/application/index/index.phtml:8
+msgid "Kharkov schools"
+msgstr "Школы Харькова"
+
+#: ../view/application/index/index.phtml:17
+msgid "Select Area"
+msgstr "Выбрать район"
+
+#: ../view/application/index/index.phtml:19
+msgid "All"
+msgstr "Все"
+
+#: ../view/application/index/index.phtml:60
+msgid "News"
+msgstr "Новости"
+
+#: ../view/application/index/index.phtml:73
+msgid "Published"
+msgstr "Опубликовано"
+
+#: ../view/application/index/index.phtml:78
+msgid "Details"
+msgstr "Подробнее..."
+
+#: ../view/application/index/page.phtml:14
+msgid "Prev"
+msgstr "Пред"
+
+#: ../view/application/index/page.phtml:39
+msgid "Next"
+msgstr "След"
+
+#: ../view/application/index/searh.phtml:1
+msgid "Search results"
+msgstr "Результаты поиска"
+
+#: ../view/application/index/searh.phtml:2
+msgid "Matches found"
+msgstr "Найдено совпадений"
+
+#: ../view/application/index/view.phtml:14
+msgid "Address"
+msgstr "Адрес"
+
+#: ../view/application/index/view.phtml:18
+msgid "Phone"
+msgstr "Телефон"
+
+#: ../view/application/index/view.phtml:31
+msgid "Information"
+msgstr "Информация"
+
+#: ../view/application/index/view.phtml:36
+msgid "Area"
+msgstr "Район"
+
+#: ../view/application/index/view.phtml:40
+msgid "Map"
+msgstr "Карта"
+
+#: ../view/application/index/view.phtml:45
+msgid "User reviews"
+msgstr "Отзывы пользователей"
+
+#: ../view/application/index/view.phtml:95
+msgid "Visible to users"
+msgstr "Виден пользователям"
+
+#: ../view/application/index/view.phtml:128
+msgid "Add a review"
+msgstr "Добавить отзыв"
+
+#: ../view/application/index/view.phtml:152
+msgid "Administrator"
+msgstr "Администратор"
+
+#: ../view/application/index/view.phtml:153
+msgid "User"
+msgstr "Пользователь"
+
+#: ../view/application/index/view.phtml:158
+msgid "Save"
+msgstr "Сохранить"
+
+#: ../view/application/admin/add.phtml:2
+msgid "Add institution"
+msgstr "Добавить заведение"
+
+#: ../view/application/admin/add.phtml:10
+msgid "Name"
+msgstr "Название"
+
+#: ../view/application/admin/add.phtml:11
+msgid "Short Name"
+msgstr "Краткое название"
+
+#: ../view/application/admin/add.phtml:18
+msgid "Is an University"
+msgstr "Университет"
+
+#: ../view/application/admin/add.phtml:20
+msgid "Logo"
+msgstr "Логотип"
+
+#: ../view/application/admin/add.phtml:21
+msgid "Visible"
+msgstr "Виден"
+
+#: ../view/application/admin/delcomment.phtml:2
+msgid "Delete comment"
+msgstr "Удалить комментарий"
+
+#: ../view/application/admin/delcomment.phtml:7
+msgid "Are you sure to delete a comment of user"
+msgstr "Вы уверены, что хотите удалить комментарий пользователя"
+
+#: ../view/application/admin/delete.phtml:3
+msgid "Delete institution"
+msgstr "Удалить заведение"
+
+#: ../view/application/admin/delete.phtml:8
+msgid "Are you sure to delete an institution"
+msgstr "Вы уверены, что хотите удалить заведение"
+
+#: ../view/application/admin/edit.phtml:3
+msgid "Edit school"
+msgstr "Редактировать школу"
+
+#: ../view/application/admin/index.phtml:59
+msgid "Add school"
+msgstr "Добавить школу"
 
 #: ../view/error/index.phtml:1
 msgid "An error occurred"
@@ -63,18 +191,15 @@ msgstr "Произошла ошибка"
 msgid "Additional information"
 msgstr "Дополнительная информация"
 
-#: ../view/error/index.phtml:11
-#: ../view/error/index.phtml:35
+#: ../view/error/index.phtml:11 ../view/error/index.phtml:35
 msgid "File"
 msgstr "Файл"
 
-#: ../view/error/index.phtml:15
-#: ../view/error/index.phtml:39
+#: ../view/error/index.phtml:15 ../view/error/index.phtml:39
 msgid "Message"
 msgstr "Сообщение"
 
-#: ../view/error/index.phtml:19
-#: ../view/error/index.phtml:43
+#: ../view/error/index.phtml:19 ../view/error/index.phtml:43
 #: ../view/error/404.phtml:55
 msgid "Stack trace"
 msgstr "Развертывание стека"
@@ -123,4 +248,3 @@ msgstr "разрешает для %s"
 #: ../view/error/404.phtml:51
 msgid "Exception"
 msgstr "Исключение"
-

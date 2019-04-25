@@ -44,7 +44,6 @@ class AdminController extends AbstractActionController
             ));
         }
         $form = new SchoolForm();
-        $form->get('submit')->setValue('Добавить');
         $form->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
         $form->get('high')->setChecked($this->params()->fromRoute('id', 0));
         $request = $this->getRequest();

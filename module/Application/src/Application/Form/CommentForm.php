@@ -28,7 +28,7 @@ class CommentForm extends Form
                 'value' => 'Гость',
             ),
             'options' => array(
-                'label' => 'Пользователь',
+                'label' => 'User',
             ),
         ));
         $this->add(array(
@@ -37,7 +37,7 @@ class CommentForm extends Form
                 'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'Дата и время',
+                'label' => 'Date & Time',
             ),
         ));        
         $this->add(array(
