@@ -10,9 +10,10 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Zend\I18n\Translator\Translator;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
+use Zend\View\Model\ViewModel;
 use Application\Model\User;
 use Application\Form\UserForm;
 use Application\Model\Rss;
@@ -27,6 +28,11 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $confArray = $this->getServiceLocator()->get('config');
+        $translator = $this->getServiceLocator()->get('translator');
+        if( $translator != null )
+        {
+            $translator->setLocale('ru');
+        }
         $news = new Rss($this->request->getUri()->getScheme().'://'.$this->request->getUri()->getHost().'/'.$confArray['rss']['file']);
         $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
         $id = ($this->params()->fromRoute('id')) ? $this->params()->fromRoute('id') : 0;
