@@ -13,6 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\I18n\Translator\Translator;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
+
 use Zend\View\Model\ViewModel;
 use Application\Model\User;
 use Application\Form\UserForm;
@@ -31,7 +32,7 @@ class IndexController extends AbstractActionController
         $translator = $this->getServiceLocator()->get('translator');
         if( $translator != null )
         {
-            $translator->setLocale('ru');
+            $translator->setLocale('uk');
         }
         $news = new Rss($this->request->getUri()->getScheme().'://'.$this->request->getUri()->getHost().'/'.$confArray['rss']['file']);
         $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
@@ -118,6 +119,13 @@ class IndexController extends AbstractActionController
     public function logoutAction()
     {
         $user = new User();
+        $user->logout();
+        return $this->redirect()->toRoute('schools');
+    } 
+     
+    public function localeAction()
+    {
+        $locale = new User();
         $user->logout();
         return $this->redirect()->toRoute('schools');
     } 

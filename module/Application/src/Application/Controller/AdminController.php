@@ -8,7 +8,6 @@ use Zend\Paginator\Adapter\ArrayAdapter;
 use Application\Model\School;
 use Application\Model\User;
 use Application\Form\SchoolForm;
-use Application\Form\CommentForm;
 
 class AdminController extends AbstractActionController
 {
