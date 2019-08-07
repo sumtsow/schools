@@ -69,8 +69,8 @@ class CommentTable extends AbstractTableGateway
                 );
                 $this->insert($data);
                 $mail = new Mail();
-                $message = 'Новый комментарий пользователя '. $comment->author . ' к школе ' . $comment->id_school . ' http://schools.kharkov.ua/view/' . $comment->id_school . ' Текст: "' . $comment->text . '"'.PHP_EOL;
-                //$mail->sendMessage($message);
+                $message = 'Новый комментарий пользователя '. $comment->author . ' к школе ' . $comment->id_school . ' http://schools.kharkov.ua/view/' . $comment->id_school . ' Текст: "' . $comment->text . '"';
+                $mail->sendMessage($message);
             }
         }
         elseif ($this->getComment($comment->id)) {

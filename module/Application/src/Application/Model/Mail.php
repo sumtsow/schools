@@ -11,9 +11,9 @@ class Mail extends Message {
     public function sendMessage($text) {
         
        
-        $this->addFrom('admin@schools.kharkov.ua', 'Школы Харькова')
+        $this->addFrom('admin@schools.kharkov.ua')
         ->addTo('sumtsow@gmail.com')
-        ->setSubject('Новый комментарий на сайте Школы Харькова');
+        ->setSubject('Message from schools.kharkov.ua');
         
         $this->setBody($text);
         
