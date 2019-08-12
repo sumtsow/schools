@@ -57,17 +57,17 @@ return array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
             'Zend\Log\LoggerAbstractServiceFactory',
         ),
-        /*'aliases' => array(
+       'aliases' => array(
             'translator' => 'MvcTranslator',
-        ),*/
-        'factories' => array(
-            'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
         ),
+        /*'factories' => array(
+            'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
+        ),*/
     ),
     'translator' => array(
         //'locale' => 'en',
         'defaultlocale' => 'en_US',
-        'locale' => 'ru',
+        'locale' => 'uk',
         'translation_file_patterns' => array(
             array(
                 'type'     => 'gettext',

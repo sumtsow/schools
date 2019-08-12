@@ -29,11 +29,6 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $confArray = $this->getServiceLocator()->get('config');
-        $translator = $this->getServiceLocator()->get('translator');
-        if( $translator != null )
-        {
-            $translator->setLocale('uk');
-        }
         $news = new Rss($this->request->getUri()->getScheme().'://'.$this->request->getUri()->getHost().'/'.$confArray['rss']['file']);
         $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
         $id = ($this->params()->fromRoute('id')) ? $this->params()->fromRoute('id') : 0;

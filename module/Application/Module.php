@@ -11,6 +11,7 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\Session\SessionManager;
 use Application\Model\SchoolTable;
 use Application\Model\CommentTable;
 
@@ -21,6 +22,23 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        
+        /* Define app locale */
+        session_start();        
+        $query = $e->getApplication()->getRequest()->getQuery();
+        if(null != $query->locale) {
+            $locale = $query->locale;
+            $_SESSION['locale'] = $locale;
+        }
+        elseif(null != $_SESSION['locale']) {
+            $locale = $_SESSION['locale'];
+        }
+        else {
+            $config = $e->getApplication()->getServiceManager()->get('config');
+            $locale = $config['translator']['locale'];
+        }
+        $translator = $e->getApplication()->getServiceManager()->get('translator');
+        $translator->setLocale($locale);
     }
 
     public function getConfig()

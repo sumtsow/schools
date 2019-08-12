@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-05 22:34+0700\n"
-"PO-Revision-Date: 2019-08-05 22:49+0300\n"
+"PO-Revision-Date: 2019-08-13 01:54+0300\n"
 "Last-Translator: sumtsow <sumtsow@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: uk\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: ../view/layout/layout.phtml:51
 msgid "Schools"
-msgstr "Школы"
+msgstr "Школи"
 
 #: ../view/layout/layout.phtml:54
 msgid "Universities"
