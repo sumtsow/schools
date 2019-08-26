@@ -9,7 +9,9 @@ use Zend\InputFilter\InputFilterInterface;
 class School implements InputFilterAwareInterface
 {
 	public $id;
-	public $name;	
+                    public $name_uk;
+	public $name_en; 
+	public $name_ru;          
 	public $address;
 	public $phone;
 	public $email;
@@ -23,7 +25,9 @@ class School implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
         $this->id       = (isset($data['id'])) ? $data['id']     : null;
-        $this->name     = (isset($data['name'])) ? $data['name'] : null;
+        $this->name_uk     = (isset($data['name_uk'])) ? $data['name_uk'] : null;
+        $this->name_en    = (isset($data['name_en'])) ? $data['name_en'] : null;
+        $this->name_ru     = (isset($data['name_ru'])) ? $data['name_ru'] : null;
         $this->shortname     = (isset($data['shortname'])) ? $data['shortname'] : null;
         $this->address  = (isset($data['address'])) ? $data['address']  : null;
         $this->phone    = (isset($data['phone'])) ? $data['phone']     : null;
@@ -62,7 +66,7 @@ class School implements InputFilterAwareInterface
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'name',
+                'name'     => 'name_uk',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -80,6 +84,44 @@ class School implements InputFilterAwareInterface
                 ),
             )));
 
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'name_en',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 256,
+                        ),
+                    ),
+                ),
+            )));
+            
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'name_ru',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 256,
+                        ),
+                    ),
+                ),
+            )));
+            
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'shortname',
                 'required' => false,

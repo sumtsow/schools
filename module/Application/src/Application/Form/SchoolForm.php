@@ -19,12 +19,23 @@ class SchoolForm extends Form
         ));
         
         $this->add(array(
-            'name' => 'name',
+            'name' => 'name_uk',
             'attributes' => array(
                 'type'  => 'text',
             ),
-            'options' => array(
-                'label' => 'Name',
+        ));
+                
+        $this->add(array(
+            'name' => 'name_en',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+        ));
+                
+        $this->add(array(
+            'name' => 'name_ru',
+            'attributes' => array(
+                'type'  => 'text',
             ),
         ));
         

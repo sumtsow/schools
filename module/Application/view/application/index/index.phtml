@@ -43,7 +43,7 @@ else {
                 if($item->logo) : ?>
                     <a class="align-bottom" href="<?= $this->url($this->route, array('action'=>'view', 'id'=>$item->id)); ?>"><img class="card-img-top w-25" src="<?= $item->logo ?>" alt="logo" /></a>
                 <?php endif; ?>
-                    <a class="align-bottom" href="<?= $this->url($this->route, array('action'=>'view', 'id'=>$item->id)); ?>"><?= $item->name;?></a>
+                    <a class="align-bottom" href="<?= $this->url($this->route, array('action'=>'view', 'id'=>$item->id)); ?>"><?= $item->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()};?></a>
                 </div>
             </div>
         <?php endforeach;?>

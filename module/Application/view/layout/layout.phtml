@@ -57,7 +57,7 @@ echo $this->doctype();
                 $auth = new AuthenticationService();
                 if($auth->hasIdentity()) : ?>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false"><?= $this->translate('Adminitration'); ?></a>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false"><?= $this->translate('Administration'); ?></a>
                     <div class="dropdown-menu navbar-inverse bg-dark">
                         <a class="dropdown-item text-secondary" href="/admin/updateNews"><?= $this->translate('Update news') ?></a>
                         <a class="dropdown-item text-secondary" href="<?= $this->url('admin', array('action' => 'index'));?>"><?= $this->translate('Edit schools'); ?></a>

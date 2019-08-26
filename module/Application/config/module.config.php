@@ -65,9 +65,9 @@ return array(
         ),*/
     ),
     'translator' => array(
-        //'locale' => 'en',
+        'locale' => 'en',
         'defaultlocale' => 'en_US',
-        'locale' => 'uk',
+        //'locale' => 'uk',
         'translation_file_patterns' => array(
             array(
                 'type'     => 'gettext',

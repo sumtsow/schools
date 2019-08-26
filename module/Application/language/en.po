@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2014-03-26 15:18+0300\n"
+"POT-Creation-Date: 2019-08-26 22:58+0300\n"
+"PO-Revision-Date: 2019-08-26 22:58+0300\n"
 "Last-Translator: sumtsow <sumtsow@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en\n"
@@ -12,243 +12,246 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SearchPath-0: ..\n"
-
-#: ../view/layout/layout.phtml:51
-msgid "Schools"
-msgstr ""
-
-#: ../view/layout/layout.phtml:54
-msgid "Universities"
-msgstr ""
-
-#: ../view/layout/layout.phtml:60
-msgid "Adminitration"
-msgstr ""
-
-#: ../view/layout/layout.phtml:62
-msgid "Update news"
-msgstr ""
-
-#: ../view/layout/layout.phtml:63
-msgid "Edit schools"
-msgstr ""
-
-#: ../view/layout/layout.phtml:65
-msgid "Logout"
-msgstr ""
-
-#: ../view/layout/layout.phtml:72
-msgid "Search"
-msgstr ""
-
-#: ../view/layout/layout.phtml:87
-msgid "All rights reserved."
-msgstr ""
-
-#: ../view/application/index/index.phtml:4
-msgid "Kharkov universities"
-msgstr ""
-
-#: ../view/application/index/index.phtml:8
-msgid "Kharkov schools"
-msgstr ""
-
-#: ../view/application/index/index.phtml:17
-msgid "Select Area"
-msgstr ""
-
-#: ../view/application/index/index.phtml:19
-msgid "All"
-msgstr ""
-
-#: ../view/application/index/index.phtml:60
-msgid "News"
-msgstr ""
-
-#: ../view/application/index/index.phtml:73
-msgid "Published"
-msgstr ""
-
-#: ../view/application/index/index.phtml:78
-msgid "Details"
-msgstr "Details..."
-
-#: ../view/application/index/page.phtml:14
-msgid "Prev"
-msgstr ""
-
-#: ../view/application/index/page.phtml:39
-msgid "Next"
-msgstr ""
-
-#: ../view/application/index/searh.phtml:1
-msgid "Search results"
-msgstr ""
-
-#: ../view/application/index/searh.phtml:2
-msgid "Matches found"
-msgstr ""
-
-#: ../view/application/index/view.phtml:14
-msgid "Address"
-msgstr ""
-
-#: ../view/application/index/view.phtml:18
-msgid "Phone"
-msgstr ""
-
-#: ../view/application/index/view.phtml:31
-msgid "Information"
-msgstr ""
-
-#: ../view/application/index/view.phtml:36
-msgid "Area"
-msgstr ""
-
-#: ../view/application/index/view.phtml:40
-msgid "Map"
-msgstr ""
-
-#: ../view/application/index/view.phtml:45
-msgid "User reviews"
-msgstr ""
-
-#: ../view/application/index/view.phtml:95
-msgid "Visible to users"
-msgstr ""
-
-#: ../view/application/index/view.phtml:128
-msgid "Add a review"
-msgstr ""
-
-#: ../view/application/index/view.phtml:152
-msgid "Administrator"
-msgstr ""
-
-#: ../view/application/index/view.phtml:153
-msgid "User"
-msgstr ""
-
-#: ../view/application/index/view.phtml:158
-msgid "Save"
-msgstr ""
 
 #: ../view/application/admin/add.phtml:2
 msgid "Add institution"
-msgstr ""
+msgstr "Add institution"
 
 #: ../view/application/admin/add.phtml:10
-msgid "Name"
-msgstr ""
-
 #: ../view/application/admin/add.phtml:11
-msgid "Short Name"
-msgstr ""
-
-#: ../view/application/admin/add.phtml:18
-msgid "Is an University"
-msgstr ""
-
-#: ../view/application/admin/add.phtml:20
-msgid "Logo"
-msgstr ""
-
-#: ../view/application/admin/add.phtml:21
-msgid "Visible"
-msgstr ""
+#: ../view/application/admin/add.phtml:12
+#: ../view/application/admin/edit.phtml:18
+#: ../view/application/admin/edit.phtml:19
+#: ../view/application/admin/edit.phtml:20
+msgid "Name"
+msgstr "Name"
 
 #: ../view/application/admin/delcomment.phtml:2
 msgid "Delete comment"
-msgstr ""
+msgstr "Delete comment"
 
 #: ../view/application/admin/delcomment.phtml:7
 msgid "Are you sure to delete a comment of user"
-msgstr ""
+msgstr "Are you sure to delete a comment of user"
 
 #: ../view/application/admin/delete.phtml:3
 msgid "Delete institution"
-msgstr ""
+msgstr "Delete institution"
 
 #: ../view/application/admin/delete.phtml:8
 msgid "Are you sure to delete an institution"
-msgstr ""
+msgstr "Are you sure to delete an institution"
 
 #: ../view/application/admin/edit.phtml:3
 msgid "Edit school"
-msgstr ""
+msgstr "Edit school"
+
+#: ../view/application/admin/index.phtml:5
+#: ../view/application/index/index.phtml:4
+msgid "Kharkov universities"
+msgstr "Kharkov universities"
+
+#: ../view/application/admin/index.phtml:8
+#: ../view/application/index/index.phtml:8
+msgid "Kharkov schools"
+msgstr "Kharkov schools"
+
+#: ../view/application/admin/index.phtml:12
+#: ../view/application/index/index.phtml:17
+msgid "Select Area"
+msgstr "Select Area"
+
+#: ../view/application/admin/index.phtml:14
+#: ../view/application/index/index.phtml:19
+msgid "All"
+msgstr "All"
 
 #: ../view/application/admin/index.phtml:59
 msgid "Add school"
-msgstr ""
+msgstr "Add school"
 
-#: ../view/error/index.phtml:1
-msgid "An error occurred"
-msgstr ""
+#: ../view/application/index/index.phtml:60
+msgid "News"
+msgstr "News"
 
-#: ../view/error/index.phtml:8
-msgid "Additional information"
-msgstr ""
+#: ../view/application/index/index.phtml:73
+msgid "Published"
+msgstr "Published"
 
-#: ../view/error/index.phtml:11
-#: ../view/error/index.phtml:35
-msgid "File"
-msgstr ""
+#: ../view/application/index/index.phtml:78
+msgid "Details"
+msgstr "Details"
 
-#: ../view/error/index.phtml:15
-#: ../view/error/index.phtml:39
-msgid "Message"
-msgstr ""
+#: ../view/application/index/page.phtml:14
+msgid "Prev"
+msgstr "Prev"
 
-#: ../view/error/index.phtml:19
-#: ../view/error/index.phtml:43
-#: ../view/error/404.phtml:55
-msgid "Stack trace"
-msgstr ""
+#: ../view/application/index/page.phtml:39
+msgid "Next"
+msgstr "Next"
 
-#: ../view/error/index.phtml:29
-msgid "Previous exceptions"
-msgstr ""
+#: ../view/application/index/search.phtml:1
+msgid "Search results"
+msgstr "Search results"
 
-#: ../view/error/index.phtml:58
-msgid "No Exception available"
-msgstr ""
+#: ../view/application/index/search.phtml:2
+msgid "Matches found"
+msgstr "Matches found"
+
+#: ../view/application/index/view.phtml:14
+msgid "Address"
+msgstr "Address"
+
+#: ../view/application/index/view.phtml:18
+msgid "Phone"
+msgstr "Phone"
+
+#: ../view/application/index/view.phtml:31
+msgid "Information"
+msgstr "Information"
+
+#: ../view/application/index/view.phtml:36
+msgid "Area"
+msgstr "Area"
+
+#: ../view/application/index/view.phtml:40
+msgid "Map"
+msgstr "Map"
+
+#: ../view/application/index/view.phtml:45
+msgid "User reviews"
+msgstr "User reviews"
+
+#: ../view/application/index/view.phtml:95
+msgid "Visible to users"
+msgstr "Visible to users"
+
+#: ../view/application/index/view.phtml:128
+msgid "Add a review"
+msgstr "Add a review"
+
+#: ../view/application/index/view.phtml:152
+msgid "Administrator"
+msgstr "Administrator"
+
+#: ../view/application/index/view.phtml:153
+msgid "User"
+msgstr "User"
+
+#: ../view/application/index/view.phtml:160
+#: ../view/application/index/view.phtml:163
+msgid "Save"
+msgstr "Save"
 
 #: ../view/error/404.phtml:1
 msgid "A 404 error occurred"
-msgstr ""
+msgstr "A 404 error occurred"
 
 #: ../view/error/404.phtml:10
 msgid "The requested controller was unable to dispatch the request."
-msgstr ""
+msgstr "The requested controller was unable to dispatch the request."
 
 #: ../view/error/404.phtml:13
 msgid "The requested controller could not be mapped to an existing controller class."
-msgstr ""
+msgstr "The requested controller could not be mapped to an existing controller class."
 
 #: ../view/error/404.phtml:16
 msgid "The requested controller was not dispatchable."
-msgstr ""
+msgstr "The requested controller was not dispatchable."
 
 #: ../view/error/404.phtml:19
 msgid "The requested URL could not be matched by routing."
-msgstr ""
+msgstr "The requested URL could not be matched by routing."
 
 #: ../view/error/404.phtml:22
 msgid "We cannot determine at this time why a 404 was generated."
-msgstr ""
+msgstr "We cannot determine at this time why a 404 was generated."
 
 #: ../view/error/404.phtml:34
 msgid "Controller"
-msgstr ""
+msgstr "Controller"
 
 #: ../view/error/404.phtml:41
 #, php-format
 msgid "resolves to %s"
-msgstr ""
+msgstr "resolves to %s"
 
-#: ../view/error/404.phtml:51
-msgid "Exception"
-msgstr ""
+#: ../view/error/404.phtml:53 ../view/error/index.phtml:8
+msgid "Additional information"
+msgstr "Additional information"
 
+#: ../view/error/404.phtml:56 ../view/error/404.phtml:80
+#: ../view/error/index.phtml:11 ../view/error/index.phtml:35
+msgid "File"
+msgstr "File"
+
+#: ../view/error/404.phtml:60 ../view/error/404.phtml:84
+#: ../view/error/index.phtml:15 ../view/error/index.phtml:39
+msgid "Message"
+msgstr "Message"
+
+#: ../view/error/404.phtml:64 ../view/error/404.phtml:88
+#: ../view/error/index.phtml:19 ../view/error/index.phtml:43
+msgid "Stack trace"
+msgstr "Stack trace"
+
+#: ../view/error/404.phtml:74 ../view/error/index.phtml:29
+msgid "Previous exceptions"
+msgstr "Previous exceptions"
+
+#: ../view/error/404.phtml:103 ../view/error/index.phtml:58
+msgid "No Exception available"
+msgstr "No Exception available"
+
+#: ../view/error/index.phtml:1
+msgid "An error occurred"
+msgstr "An error occurred"
+
+#: ../view/layout/layout.phtml:51
+msgid "Schools"
+msgstr "Schools"
+
+#: ../view/layout/layout.phtml:54
+msgid "Universities"
+msgstr "Universities"
+
+#: ../view/layout/layout.phtml:60
+msgid "Administration"
+msgstr "Administration"
+
+#: ../view/layout/layout.phtml:62
+msgid "Update news"
+msgstr "Update news"
+
+#: ../view/layout/layout.phtml:63
+msgid "Edit schools"
+msgstr "Edit schools"
+
+#: ../view/layout/layout.phtml:65
+msgid "Logout"
+msgstr "Logout"
+
+#: ../view/layout/layout.phtml:71 ../view/layout/layout.phtml:72
+msgid "Search"
+msgstr "Search"
+
+#: ../view/layout/layout.phtml:87
+msgid "All rights reserved."
+msgstr "All rights reserved."
+
+#~ msgid "Short Name"
+#~ msgstr "Short Name"
+
+#~ msgid "Is an University"
+#~ msgstr "Is an University"
+
+#~ msgid "Logo"
+#~ msgstr "Logo"
+
+#~ msgid "Visible"
+#~ msgstr "Visible"
+
+#~ msgid "Exception"
+#~ msgstr "Exception"

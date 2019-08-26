@@ -6,7 +6,7 @@
     <?php foreach ($results as $school): ?>        
         <tr>
             <td class="col-md-auto">
-                <p><a href="<?= $this->url('schools', array('action'=>'view', 'id' => $school['id'], 'area' => null)); ?>"><?= $school['name'];?></a></p>
+                <p><a href="<?= $this->url('schools', array('action'=>'view', 'id' => $school['id'], 'area' => null)); ?>"><?= $school['name_'.$this->plugin('translate')->getTranslator()->getLocale()];?></a></p>
                 <?php if(isset($school['found'])) : ?>
                     <?php foreach ($school['found'] as $item): ?>  
                 <p class="small"><?= $item['value']; ?></p>

@@ -30,7 +30,7 @@ class Module
             $locale = $query->locale;
             $_SESSION['locale'] = $locale;
         }
-        elseif(null != $_SESSION['locale']) {
+        elseif(array_key_exists('locale', $_SESSION)) {
             $locale = $_SESSION['locale'];
         }
         else {

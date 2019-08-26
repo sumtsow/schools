@@ -37,7 +37,7 @@ else :
         <tr>
             <td class="col-md-1"><?= $item->id;?></td>
             <td class="col-md-auto">
-                <a href="<?= $this->url('schools', array('action'=>'view', 'id' => $item->id, 'area' => null)); ?>"><?= $item->name;?></a>
+                <a href="<?= $this->url('schools', array('action'=>'view', 'id' => $item->id, 'area' => null)); ?>"><?= $item->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()};?></a>
             </td>
             <td class="col-md-2">
                 <a class="fa fa-edit pr-3" title="Edit" href="/admin/edit/<?= $item->id;?>"></a>

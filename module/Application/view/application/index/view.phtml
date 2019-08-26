@@ -8,7 +8,7 @@ $this->headTitle($title);
     <tbody>
         <tr>
             <th><?php if($school->logo) : ?><img style="max-width: 100px;" src="<?= $school->logo ?>" alt="logo" /><?php endif; ?></th>
-            <td class="align-middle"><h2><?= $school->name; ?></h2></td>	
+            <td class="align-middle"><h2><?= $school->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()}; ?></h2></td>	
         </tr>        
         <tr>
             <th><?= $this->translate('Address'); ?></th>

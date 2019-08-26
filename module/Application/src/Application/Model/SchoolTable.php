@@ -73,10 +73,12 @@ class SchoolTable extends AbstractTableGateway
             $adapter = $this->adapter;
             $sql = new Sql($adapter);
             $select = $sql->select();
-            $fields = ['id', 'name', 'shortname', 'address', 'phone', 'email', 'http', 'info'];
+            $fields = ['id', 'name_uk', 'name_en', 'name_ru', 'shortname', 'address', 'phone', 'email', 'http', 'info'];
             $select->from($this->table)
                 ->columns($fields)
-                ->where->like('name', '%'.$search.'%')
+                ->where->like('name_uk', '%'.$search.'%')
+                ->OR->where->like('name_en', '%'.$search.'%')
+                ->OR->where->like('name_ru', '%'.$search.'%')    
                 ->OR->where->like('shortname', '%'.$search.'%')
                 ->OR->where->like('address', '%'.$search.'%')
                 ->OR->where->like('phone', '%'.$search.'%')
@@ -130,8 +132,10 @@ class SchoolTable extends AbstractTableGateway
     public function saveSchool(School $school)
     {
         $school->map = stripslashes($school->map);
-		$data = array(
-            'name' => $school->name,
+        $data = array(
+            'name_uk' => $school->name_uk,
+            'name_en' => $school->name_en,
+            'name_ru' => $school->name_ru,
             'shortname' => $school->shortname,
             'address'  => $school->address,
             'phone' => $school->phone,

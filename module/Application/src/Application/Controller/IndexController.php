@@ -51,7 +51,7 @@ class IndexController extends AbstractActionController
 	
     public function viewAction()
     {
-	$id = (int) $this->params()->fromRoute('id', 0);
+        $id = (int) $this->params()->fromRoute('id', 0);
         $area = $this->params()->fromRoute('area', 0);
         $vm = new ViewModel();
         $user = new User();        

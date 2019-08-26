@@ -24,7 +24,7 @@ msgid "Universities"
 msgstr "Виші"
 
 #: ../view/layout/layout.phtml:60
-msgid "Adminitration"
+msgid "Administration"
 msgstr "Адміністрування"
 
 #: ../view/layout/layout.phtml:62
