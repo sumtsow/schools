@@ -16,6 +16,12 @@ class AdminController extends AbstractActionController
 	
     public function indexAction()
     {
+        $user = new User();
+        if (!$user->isValid()) {
+            return $this->redirect()->toRoute('schools', array(
+                'action' => 'index'
+            ));
+        }
         $confArray = $this->getServiceLocator()->get('config');
         $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
         $id = ($this->params()->fromRoute('id')) ? $this->params()->fromRoute('id') : 0;
