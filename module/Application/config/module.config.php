@@ -50,6 +50,24 @@ return array(
                 'child_routes' => array(
                 ),
             ),
+            'search' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/search[/:action][/:id][/]',
+                    'constraints' => array(
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Search',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                ),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -65,9 +83,9 @@ return array(
         ),*/
     ),
     'translator' => array(
-        'locale' => 'en',
+        //'locale' => 'en',
         'defaultlocale' => 'en_US',
-        //'locale' => 'uk',
+        'locale' => 'uk',
         'translation_file_patterns' => array(
             array(
                 'type'     => 'gettext',
@@ -80,6 +98,7 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Admin' => 'Application\Controller\AdminController',
+            'Application\Controller\Search' => 'Application\Controller\SearchController',
         ),
     ),
     'view_manager' => array(

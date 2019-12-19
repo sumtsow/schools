@@ -6,7 +6,7 @@ echo $this->doctype();
 ?>
 
 <html lang="<?= $config['language']; ?>">
-<head>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137600283-1"></script>
 <script>
@@ -18,7 +18,7 @@ echo $this->doctype();
 
 <?= $this->headTitle('')->setSeparator(' - ')->setAutoEscape(false) ?>
     
-<meta charset="utf-8">    
+    
 <?= $this->headMeta()
 ->appendName('viewport', 'width=device-width, initial-scale=1.0')
 ->appendName('description', $config['description'])
@@ -52,6 +52,9 @@ echo $this->doctype();
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $this->url('schools',array('action' => 'index', 'id' => 1));?>"><?= $this->translate('Universities'); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->url('search',array('action' => 'index'));?>"><?= $this->translate('Entrant\'s calculator'); ?></a>
                 </li>
                 <?php
                 $auth = new AuthenticationService();

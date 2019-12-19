@@ -14,6 +14,8 @@ use Zend\Mvc\MvcEvent;
 use Zend\Session\SessionManager;
 use Application\Model\SchoolTable;
 use Application\Model\CommentTable;
+use Application\Model\LevelTable;
+use Application\Model\SubjectTable;
 
 class Module
 {
@@ -30,7 +32,7 @@ class Module
             $locale = $query->locale;
             $_SESSION['locale'] = $locale;
         }
-        elseif(array_key_exists('locale', $_SESSION)) {
+        elseif(null != $_SESSION['locale']) {
             $locale = $_SESSION['locale'];
         }
         else {
@@ -69,6 +71,16 @@ class Module
                 'Application\Model\CommentTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table     = new CommentTable($dbAdapter);
+                    return $table;
+                },
+                'Application\Model\LevelTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new LevelTable($dbAdapter);
+                    return $table;
+                },
+				'Application\Model\SubjectTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new SubjectTable($dbAdapter);
                     return $table;
                 },
             ),
