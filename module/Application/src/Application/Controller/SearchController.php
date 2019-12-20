@@ -9,12 +9,15 @@
 
 namespace Application\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\RowGateway\RowGateway;
 use Zend\I18n\Translator\Translator;
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Paginator\Adapter\ArrayAdapter;
-
 use Zend\View\Model\ViewModel;
+
 use Application\Model\Level;
+use Application\Model\Search;
 use Application\Model\Subject;
 use Application\Model\User;
 
@@ -23,6 +26,7 @@ class SearchController extends AbstractActionController
     
     protected $levelTable;
 	protected $subjectTable;
+	protected $searchTable;
 
     public function indexAction()
     {
@@ -36,18 +40,12 @@ class SearchController extends AbstractActionController
     {
         $request = $this->getRequest();
         if ($request->isPost()) {
-			$id_subject = $request->getPost()->subject;
-			$id_level = $request->getPost()->level;
-            //$subject = new Subject();
-			//$level = new Level();
-            /*$form->setInputFilter([
-				$subject->getInputFilter(),
-				$level->getInputFilter(),
-			]);*/
+            $subjects = $request->getPost()->subjects;
+            $level = $request->getPost()->level;
+			$result = $this->getSearchTable()->getPrograms($subjects);
 			$vm = new ViewModel();
 			return $vm->setVariable('title', 'University search')
-				->setVariable('level', $id_level)
-				->setVariable('subject', $id_subject);			
+				->setVariable('search', $result);			
         }
 		return $this->redirect()->toRoute('search');
     }
@@ -73,5 +71,13 @@ class SearchController extends AbstractActionController
             $sm = $this->getServiceLocator();
         }
         return $sm->get('Application\Model\SubjectTable');
+    }
+	    
+    public function getSearchTable()
+    {
+        if (!$this->searchTable) {
+            $sm = $this->getServiceLocator();
+        }
+        return $sm->get('Application\Model\SearchTable');
     }
 }

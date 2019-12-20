@@ -1,6 +1,6 @@
 <?php $locale = $this->plugin('translate')->getTranslator()->getLocale(); ?>
 <h1 class="text-center mt-3"><?= $this->title; ?></h1>
-	<form method="post" action="/search/view">
+	<form method="post" action="/search/view" enctype="multipart/form-data">
 		<label for="level"><?= $this->translate('Select Level'); ?></label>
 		<select class="custom-select custom-select-md" name="level" id="level">
 			<?php foreach($this->levels as $index => $level) :
@@ -11,7 +11,7 @@
 		</select>
 		<div class="form-group">
 			<label class="form-check-label" for="subject">Select your subjects</label>
-			<select name="subject" id="subject" class="custom-select" size="<?= count($this->subjects); ?>" multiple>
+			<select name="subjects[]" id="subjects" class="custom-select" size="<?= count($this->subjects); ?>" multiple>
 			<?php foreach($this->subjects as $index => $subject) : ?>	
 				<option value="<?= $index; ?>"><?= $subject->title; ?></option>
 			<?php endforeach; ?>

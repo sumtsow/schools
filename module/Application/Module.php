@@ -16,6 +16,7 @@ use Application\Model\SchoolTable;
 use Application\Model\CommentTable;
 use Application\Model\LevelTable;
 use Application\Model\SubjectTable;
+use Application\Model\SearchTable;
 
 class Module
 {
@@ -78,6 +79,11 @@ class Module
                     $table     = new LevelTable($dbAdapter);
                     return $table;
                 },
+				'Application\Model\SearchTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new SearchTable($dbAdapter);
+                    return $table;
+                },				
 				'Application\Model\SubjectTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table     = new SubjectTable($dbAdapter);
