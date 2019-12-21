@@ -6,7 +6,13 @@
 <h1 class="text-center mt-3"><?= $this->title; ?></h1>
 <?php if($this->search && is_array($this->search)) :
 foreach($this->search as $program) : ?>
-<p><b><?= $program['title']; ?></b> (<?= $program['form_title']; ?>) - Spec: <?= $program['speciality_title']; ?></p>
+<div>
+	<b><?= $program['title']; ?></b>
+	(<?= $program['form_title']; ?>) - Spec: <?= $program['speciality_title']; ?>
+	<?php foreach($program['universities'] as $university) : ?>
+	<p><a target="_blank" href="/view/<?= $university['id']; ?>"><?= $university['name_'.$locale]; ?></a></p>
+	<?php endforeach; ?>
+</div>
 <?php endforeach;
 else : ?>
 <?= $this->translate('Not found'); ?>

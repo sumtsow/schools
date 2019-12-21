@@ -32,21 +32,26 @@ class SearchTable extends AbstractTableGateway
     {
 		if(!$subjects || !is_array($subjects)) { return false; }		
         $result = $this->findProgramsBySubjectId($subjects);
-        $cond = $this->parseToStringArray($result, 'id_program');
+        $cond = $this->parseToStringArray($result, $level);
         $programs = $this->fetchPrograms($cond, $level);
         foreach($programs as $key => $program) {
             $programs[$key]['form_title'] = $this->getFormTitle($program['id_form']);
             $programs[$key]['speciality_title'] = $this->getSpecialityTitle($program['id_speciality']);
+			$programs[$key]['universities'] = $this->getUniversitiesByProgramId($program['id']);
         }
         return $programs;
     }
     
-    public function parseToStringArray($params, $fieldName)
+    public function parseToStringArray($params, $level)
     {
-        $columnArray = array_column($params, $fieldName);
+        $columnArray = array_column($params, 'id_program');
         $strArray = [];
+		$and = '';
+		if($level) {
+			$and = ' AND id_level=' . $level;
+		}
         foreach($columnArray as $item) {
-            $strArray[] = 'id='.$item;
+            $strArray[] = 'id=' . $item . $and;
 		}
         return $strArray;
     }
@@ -69,7 +74,6 @@ class SearchTable extends AbstractTableGateway
         $select = $sql->select();
         $select->from('program');
         $select->where($cond, 'OR');
-        ($level) ? $select->where('id_level=' .$level) : false;		
         $selectString = $sql->buildSqlString($select);
         $result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
         return $result->toArray();
@@ -99,5 +103,34 @@ class SearchTable extends AbstractTableGateway
         $result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
 		$result = $result->toArray();
         return $result[0]['title'];
+    }
+	    
+    public function getUniversitiesByProgramId($id)
+    {
+        $sql = new Sql($this->adapter);
+        $select = $sql->select();
+        $select->from('school_has_program');
+		$select->columns(['id_school']);
+        $select->where(['id_program' => $id]);
+        $selectString = $sql->buildSqlString($select);
+        $result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+        $ids = $result->toArray();
+		$schools = [];
+		foreach($ids as $id_school) {
+			$schools[] = $this->getUniversityById($id_school['id_school'])[0];
+		}
+		return $schools;
+    }
+	
+	public function getUniversityById($id)
+    {
+        $sql = new Sql($this->adapter);
+        $select = $sql->select();
+        $select->from('school');
+		$select->columns(['id', 'name_uk', 'name_en', 'name_ru', 'shortname', 'http']);
+        $select->where('id=' . $id . ' AND high=1');
+        $selectString = $sql->buildSqlString($select);
+        $result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		return $result->toArray();
     }
 }
