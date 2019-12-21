@@ -23,7 +23,7 @@ use Application\Model\User;
 
 class SearchController extends AbstractActionController
 {
-    
+    protected $formTable;
     protected $levelTable;
 	protected $subjectTable;
 	protected $searchTable;
@@ -32,6 +32,7 @@ class SearchController extends AbstractActionController
     {
         $vm = new ViewModel();
         return $vm->setVariable('title', 'University search')
+        	->setVariable('forms', $this->getFormTable()->fetchAll())
 			->setVariable('levels', $this->getLevelTable()->fetchAll())
 			->setVariable('subjects', $this->getSubjectTable()->fetchAll());
     }
@@ -42,10 +43,10 @@ class SearchController extends AbstractActionController
         if ($request->isPost()) {
             $subjects = $request->getPost()->subjects;
             $level = $request->getPost()->level;
-			$result = $this->getSearchTable()->getPrograms($subjects);
+            $form = ($request->getPost()->form) ? $request->getPost()->form : false;
+			$result = $this->getSearchTable()->getPrograms($subjects, $level, $form);
 			$vm = new ViewModel();
-			return $vm->setVariable('title', 'University search')
-				->setVariable('search', $result);			
+			return $vm->setVariable('search', $result);			
         }
 		return $this->redirect()->toRoute('search');
     }
@@ -55,6 +56,14 @@ class SearchController extends AbstractActionController
         $locale = new User();
         $user->logout();
         return $this->redirect()->toRoute('schools');
+    }
+        	    
+    public function getFormTable()
+    {
+        if (!$this->formTable) {
+            $sm = $this->getServiceLocator();
+        }
+        return $sm->get('Application\Model\FormTable');
     }
     
     public function getLevelTable()

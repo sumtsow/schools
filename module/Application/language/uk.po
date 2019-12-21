@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-05 22:34+0700\n"
-"PO-Revision-Date: 2019-08-13 01:54+0300\n"
+"POT-Creation-Date: 2019-12-21 21:26+0200\n"
+"PO-Revision-Date: 2019-12-21 21:38+0200\n"
 "Last-Translator: sumtsow <sumtsow@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: uk\n"
@@ -15,53 +15,62 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../view/layout/layout.phtml:51
-msgid "Schools"
-msgstr "Школи"
+#: ../view/application/admin/add.phtml:2
+msgid "Add institution"
+msgstr "Додати заклад"
 
-#: ../view/layout/layout.phtml:54
-msgid "Universities"
-msgstr "Виші"
+#: ../view/application/admin/add.phtml:10
+#: ../view/application/admin/add.phtml:11
+#: ../view/application/admin/add.phtml:12
+#: ../view/application/admin/edit.phtml:18
+#: ../view/application/admin/edit.phtml:19
+#: ../view/application/admin/edit.phtml:20
+msgid "Name"
+msgstr "Назва"
 
-#: ../view/layout/layout.phtml:60
-msgid "Administration"
-msgstr "Адміністрування"
+#: ../view/application/admin/delcomment.phtml:2
+msgid "Delete comment"
+msgstr "Видалити коментар"
 
-#: ../view/layout/layout.phtml:62
-msgid "Update news"
-msgstr "Оновити новини"
+#: ../view/application/admin/delcomment.phtml:7
+msgid "Are you sure to delete a comment of user"
+msgstr "Ви певні, що хочете видалити коментар користувача"
 
-#: ../view/layout/layout.phtml:63
-msgid "Edit schools"
-msgstr "Редагувати школи"
+#: ../view/application/admin/delete.phtml:3
+msgid "Delete institution"
+msgstr "Видалити заклад"
 
-#: ../view/layout/layout.phtml:65
-msgid "Logout"
-msgstr "Вийти"
+#: ../view/application/admin/delete.phtml:8
+msgid "Are you sure to delete an institution"
+msgstr "Ви певні, що хочете видалити заклад"
 
-#: ../view/layout/layout.phtml:72
-msgid "Search"
-msgstr "Пошук"
+#: ../view/application/admin/edit.phtml:3
+msgid "Edit school"
+msgstr "Редагувати школу"
 
-#: ../view/layout/layout.phtml:87
-msgid "All rights reserved."
-msgstr "Всі права захищені."
-
+#: ../view/application/admin/index.phtml:5
 #: ../view/application/index/index.phtml:4
 msgid "Kharkov universities"
 msgstr "Виші Харкова"
 
+#: ../view/application/admin/index.phtml:8
 #: ../view/application/index/index.phtml:8
 msgid "Kharkov schools"
 msgstr "Школи Харкова"
 
+#: ../view/application/admin/index.phtml:12
 #: ../view/application/index/index.phtml:17
 msgid "Select Area"
 msgstr "Обрати район"
 
+#: ../view/application/admin/index.phtml:14
 #: ../view/application/index/index.phtml:19
 msgid "All"
 msgstr "Всі"
+
+#: ../view/application/admin/index.phtml:59
+msgid "Add school"
+msgstr "Додати школу"
 
 #: ../view/application/index/index.phtml:60
 msgid "News"
@@ -83,11 +92,11 @@ msgstr "Назад"
 msgid "Next"
 msgstr "Вперед"
 
-#: ../view/application/index/searh.phtml:1
+#: ../view/application/index/search.phtml:1
 msgid "Search results"
 msgstr "Результати пошуку"
 
-#: ../view/application/index/searh.phtml:2
+#: ../view/application/index/search.phtml:2
 msgid "Matches found"
 msgstr "Знайдено співпадінь"
 
@@ -131,86 +140,34 @@ msgstr "Адміністратор"
 msgid "User"
 msgstr "Користувач"
 
-#: ../view/application/index/view.phtml:158
+#: ../view/application/index/view.phtml:160
+#: ../view/application/index/view.phtml:163
 msgid "Save"
 msgstr "Зберегти"
 
-#: ../view/application/admin/add.phtml:2
-msgid "Add institution"
-msgstr "Додати заклад"
+#: ../view/application/search/index.phtml:2
+msgid "University search"
+msgstr "Пошук університету"
 
-#: ../view/application/admin/add.phtml:10
-msgid "Name"
-msgstr "Назва"
+#: ../view/application/search/index.phtml:8
+msgid "Select Level"
+msgstr "Оберіть бажаний рівень освіти"
 
-#: ../view/application/admin/add.phtml:11
-msgid "Short Name"
-msgstr "Коротка назва"
+#: ../view/application/search/index.phtml:16
+msgid "Select Learning Form"
+msgstr "Оберіть форму навчання"
 
-#: ../view/application/admin/add.phtml:18
-msgid "Is an University"
-msgstr "Університет"
+#: ../view/application/search/index.phtml:18
+msgid "Any"
+msgstr "Будь-яка"
 
-#: ../view/application/admin/add.phtml:20
-msgid "Logo"
-msgstr "Логотип"
+#: ../view/search/index.phtml:26
+msgid "Select your subjects"
+msgstr "Оберіть предмети ЗНО"
 
-#: ../view/application/admin/add.phtml:21
-msgid "Visible"
-msgstr "Видний"
-
-#: ../view/application/admin/delcomment.phtml:2
-msgid "Delete comment"
-msgstr "Видалити коментар"
-
-#: ../view/application/admin/delcomment.phtml:7
-msgid "Are you sure to delete a comment of user"
-msgstr "Ви певні, що хочете видалити коментар користувача"
-
-#: ../view/application/admin/delete.phtml:3
-msgid "Delete institution"
-msgstr "Видалити заклад"
-
-#: ../view/application/admin/delete.phtml:8
-msgid "Are you sure to delete an institution"
-msgstr "Ви певні, що хочете видалити заклад"
-
-#: ../view/application/admin/edit.phtml:3
-msgid "Edit school"
-msgstr "Редагувати школу"
-
-#: ../view/application/admin/index.phtml:59
-msgid "Add school"
-msgstr "Додати школу"
-
-#: ../view/error/index.phtml:1
-msgid "An error occurred"
-msgstr "Виникла помилка"
-
-#: ../view/error/index.phtml:8
-msgid "Additional information"
-msgstr "Додаткова інформація"
-
-#: ../view/error/index.phtml:11 ../view/error/index.phtml:35
-msgid "File"
-msgstr "Файл"
-
-#: ../view/error/index.phtml:15 ../view/error/index.phtml:39
-msgid "Message"
-msgstr "Повідомлення"
-
-#: ../view/error/index.phtml:19 ../view/error/index.phtml:43
-#: ../view/error/404.phtml:55
-msgid "Stack trace"
-msgstr "Розгортання стека"
-
-#: ../view/error/index.phtml:29
-msgid "Previous exceptions"
-msgstr "Попередні винятки"
-
-#: ../view/error/index.phtml:58
-msgid "No Exception available"
-msgstr "Немає наявних винятків"
+#: ../view/search/index.phtml:33
+msgid "Find"
+msgstr "Знайти"
 
 #: ../view/error/404.phtml:1
 msgid "A 404 error occurred"
@@ -245,6 +202,85 @@ msgstr "Контролер"
 msgid "resolves to %s"
 msgstr "дозволяє для %s"
 
-#: ../view/error/404.phtml:51
-msgid "Exception"
-msgstr "Виняток"
+#: ../view/error/404.phtml:53 ../view/error/index.phtml:8
+msgid "Additional information"
+msgstr "Додаткова інформація"
+
+#: ../view/error/404.phtml:56 ../view/error/404.phtml:80
+#: ../view/error/index.phtml:11 ../view/error/index.phtml:35
+msgid "File"
+msgstr "Файл"
+
+#: ../view/error/404.phtml:60 ../view/error/404.phtml:84
+#: ../view/error/index.phtml:15 ../view/error/index.phtml:39
+msgid "Message"
+msgstr "Повідомлення"
+
+#: ../view/error/404.phtml:64 ../view/error/404.phtml:88
+#: ../view/error/index.phtml:19 ../view/error/index.phtml:43
+msgid "Stack trace"
+msgstr "Розгортання стека"
+
+#: ../view/error/404.phtml:74 ../view/error/index.phtml:29
+msgid "Previous exceptions"
+msgstr "Попередні винятки"
+
+#: ../view/error/404.phtml:103 ../view/error/index.phtml:58
+msgid "No Exception available"
+msgstr "Немає наявних винятків"
+
+#: ../view/error/index.phtml:1
+msgid "An error occurred"
+msgstr "Виникла помилка"
+
+#: ../view/layout/layout.phtml:51
+msgid "Schools"
+msgstr "Школи"
+
+#: ../view/layout/layout.phtml:54
+msgid "Universities"
+msgstr "Виші"
+
+#: ../view/layout/layout.phtml:57
+msgid "Entrants calculator"
+msgstr "Калькулятор абітурієнта"
+
+#: ../view/layout/layout.phtml:63
+msgid "Administration"
+msgstr "Адміністрування"
+
+#: ../view/layout/layout.phtml:65
+msgid "Update news"
+msgstr "Оновити новини"
+
+#: ../view/layout/layout.phtml:66
+msgid "Edit schools"
+msgstr "Редагувати школи"
+
+#: ../view/layout/layout.phtml:68
+msgid "Logout"
+msgstr "Вийти"
+
+#: ../view/layout/layout.phtml:74 ../view/layout/layout.phtml:75
+msgid "Search"
+msgstr "Пошук"
+
+#: ../view/layout/layout.phtml:90
+msgid "All rights reserved."
+msgstr "Всі права захищені"
+
+#~ msgid "Short Name"
+#~ msgstr "Коротка назва"
+
+#~ msgid "Is an University"
+#~ msgstr "Університет"
+
+#~ msgid "Logo"
+#~ msgstr "Логотип"
+
+#~ msgid "Visible"
+#~ msgstr "Видний"
+
+#~ msgid "Exception"
+#~ msgstr "Виняток"
+

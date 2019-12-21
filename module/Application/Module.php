@@ -12,11 +12,12 @@ namespace Application;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\SessionManager;
-use Application\Model\SchoolTable;
 use Application\Model\CommentTable;
+use Application\Model\FormTable;
 use Application\Model\LevelTable;
-use Application\Model\SubjectTable;
+use Application\Model\SchoolTable;
 use Application\Model\SearchTable;
+use Application\Model\SubjectTable;
 
 class Module
 {
@@ -27,7 +28,11 @@ class Module
         $moduleRouteListener->attach($eventManager);
         
         /* Define app locale */
-        session_start();        
+		
+        session_start();
+		if(!in_array('locale', $_SESSION)) {
+			$_SESSION['locale'] = false;
+		}
         $query = $e->getApplication()->getRequest()->getQuery();
         if(null != $query->locale) {
             $locale = $query->locale;
@@ -64,9 +69,9 @@ class Module
     {
         return array(
             'factories' => array(
-                'Application\Model\SchoolTable' =>  function($sm) {
+                'Application\Model\FormTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table     = new SchoolTable($dbAdapter);
+                    $table     = new FormTable($dbAdapter);
                     return $table;
                 },
                 'Application\Model\CommentTable' =>  function($sm) {
@@ -79,16 +84,21 @@ class Module
                     $table     = new LevelTable($dbAdapter);
                     return $table;
                 },
-				'Application\Model\SearchTable' =>  function($sm) {
+                'Application\Model\SchoolTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table     = new SearchTable($dbAdapter);
+                    $table     = new SchoolTable($dbAdapter);
                     return $table;
-                },				
+                },                
 				'Application\Model\SubjectTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table     = new SubjectTable($dbAdapter);
                     return $table;
                 },
+				'Application\Model\SearchTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new SearchTable($dbAdapter);
+                    return $table;
+                },   
             ),
         );
     }

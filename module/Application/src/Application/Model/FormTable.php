@@ -6,9 +6,9 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\AbstractTableGateway;
 
-class LevelTable extends AbstractTableGateway
+class FormTable extends AbstractTableGateway
 {
-    protected $table ='level';
+    protected $table ='form';
 
     public function __construct(Adapter $adapter)
     {
@@ -20,5 +20,10 @@ class LevelTable extends AbstractTableGateway
     public function fetchAll()
     {
         return $this->select();
+    }
+    
+    public function find($id)
+    {
+        return $this->select(['id' => $id]);
     }
 }

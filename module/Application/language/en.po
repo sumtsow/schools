@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-26 22:58+0300\n"
-"PO-Revision-Date: 2019-08-26 22:58+0300\n"
+"PO-Revision-Date: 2019-12-21 21:36+0200\n"
 "Last-Translator: sumtsow <sumtsow@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en\n"
@@ -240,6 +240,34 @@ msgstr "Search"
 #: ../view/layout/layout.phtml:87
 msgid "All rights reserved."
 msgstr "All rights reserved."
+
+#: ../view/search/index.phtml:4
+msgid "University search"
+msgstr "University search"
+
+#: ../view/search/index.phtml:8
+msgid "Select Level"
+msgstr "Select wanted education level"
+
+#: ../view/search/index.phtml:16
+msgid "Select Learning Form"
+msgstr "Select Learning Form"
+
+#: ../view/search/index.phtml:18
+msgid "Any"
+msgstr "Any"
+
+#: ../view/search/index.phtml:26
+msgid "Select your subjects"
+msgstr "Select your extrenal evaluated subjects"
+
+#: ../view/search/index.phtml:33
+msgid "Find"
+msgstr "Find"
+
+#: ../view/layout/layout.phtml:57
+msgid "Entrants calculator"
+msgstr "Entrant's calculator"
 
 #~ msgid "Short Name"
 #~ msgstr "Short Name"

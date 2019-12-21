@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2019-04-25 22:14+0300\n"
+"PO-Revision-Date: 2019-12-21 21:26+0200\n"
 "Last-Translator: sumtsow <sumtsow@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: ru\n"
@@ -248,3 +248,31 @@ msgstr "разрешает для %s"
 #: ../view/error/404.phtml:51
 msgid "Exception"
 msgstr "Исключение"
+
+#: ../view/search/index.phtml:4
+msgid "University search"
+msgstr "Поиск университета"
+
+#: ../view/search/index.phtml:8
+msgid "Select Level"
+msgstr "Выберите желаемый уровень образования"
+
+#: ../view/search/index.phtml:16
+msgid "Select Learning Form"
+msgstr "Выберите форму обучения"
+
+#: ../view/search/index.phtml:18
+msgid "Any"
+msgstr "Любая"
+
+#: ../view/search/index.phtml:26
+msgid "Select your subjects"
+msgstr "Выберите предметы ВНО"
+
+#: ../view/search/index.phtml:33
+msgid "Find"
+msgstr "Найти"
+
+#: ../view/layout/layout.phtml:57
+msgid "Entrants calculator"
+msgstr "Калькулятор абитуриента"
