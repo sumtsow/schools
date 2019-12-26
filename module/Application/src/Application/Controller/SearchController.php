@@ -31,20 +31,33 @@ class SearchController extends AbstractActionController
     public function indexAction()
     {
         $vm = new ViewModel();
-        return $vm->setVariable('title', 'University search')
-        	->setVariable('forms', $this->getFormTable()->fetchAll())
+        return $vm->setVariable('forms', $this->getFormTable()->fetchAll())
 			->setVariable('levels', $this->getLevelTable()->fetchAll())
 			->setVariable('subjects', $this->getSubjectTable()->fetchAll());
+    }
+	
+	public function ratingAction()
+    {
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+			$id_subject = $request->getPost()->subjects;
+			$subjects = $this->getSubjectTable()->fetch($id_subject);
+			$vm = new ViewModel();			
+			return $vm->setVariable('subjects', $subjects)
+				->setVariable('level', $request->getPost()->level)
+				->setVariable('form', ($request->getPost()->form) ? $request->getPost()->form : false);			
+        }
+		return $this->redirect()->toRoute('search');
     }
 	
 	public function viewAction()
     {
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $subjects = $request->getPost()->subjects;
+            $rating = $request->getPost()->subject;
             $level = $request->getPost()->level;
             $form = ($request->getPost()->form) ? $request->getPost()->form : false;
-			$result = $this->getSearchTable()->getPrograms($subjects, $level, $form);
+			$result = $this->getSearchTable()->getPrograms($rating, $level, $form);
 			$vm = new ViewModel();
 			return $vm->setVariable('search', $result);			
         }

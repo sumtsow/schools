@@ -28,11 +28,12 @@ class SearchTable extends AbstractTableGateway
         return $this->select();
     }
 	
-    public function getPrograms($subjects, $level, $form = false)
+    public function getPrograms($rating, $level, $form = false)
     {
-		if(!$subjects || !is_array($subjects)) { return false; }		
-        $result = $this->findProgramsBySubjectId($subjects);
-        $cond = $this->parseToStringArray($result, $level);
+		if(!$rating || !is_array($rating)) { return false; }
+        $result = $this->findProgramsByRating($rating);
+        if(!$result) return false;
+		$cond = $this->parseToStringArray($result, $level);
         $programs = $this->fetchPrograms($cond, $level);
         foreach($programs as $key => $program) {
             $programs[$key]['form_title'] = $this->getFormTitle($program['id_form']);
@@ -51,21 +52,29 @@ class SearchTable extends AbstractTableGateway
 			$and = ' AND id_level=' . $level;
 		}
         foreach($columnArray as $item) {
-            $strArray[] = 'id=' . $item . $and;
+            $strArray[] = '(id=' . $item . $and . ')';
 		}
         return $strArray;
     }
     
-    public function findProgramsBySubjectId($subjects)
+    public function findProgramsByRating($rating)
     {
-		$sql = '';
-		$union = '';
-		foreach($subjects as $id) {
-			$sql .= $union . 'SELECT `id_program` FROM `' . $this->table . '` WHERE `id_subject`=' . intval($id);			
-			if(!$union) { $union = ' UNION '; }
-		}
-        $resultSet = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
-        return $resultSet->toArray();
+		$id_subject = array_keys($rating);
+		$key_str = implode(',', $id_subject);
+		$sql = 'SELECT `id_program` FROM `program_has_subject` WHERE `id_subject` IN (' . $key_str . ') GROUP BY `id_program`';
+		$resultSet = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
+        $result = $resultSet->toArray();		
+		foreach($rating as $id => $value) {
+			$sql = 'SELECT `id_program` FROM `' . $this->table . '` WHERE `id_subject`=' . intval($id) . ' AND `rating`<=' . intval($value);			
+			$resultSet = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
+			$passed = $resultSet->toArray();
+			if(!$passed) {
+				return false;
+			} else {
+				$result = array_intersect($result, $passed);
+			}
+		}		
+        return $result;
     }
     
     public function fetchPrograms($cond, $level = 0)

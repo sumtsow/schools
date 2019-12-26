@@ -22,4 +22,10 @@ class SubjectTable extends AbstractTableGateway
     {
         return $this->select();
     }
+	
+	public function fetch($id)
+    {
+        $subjects = $id;
+		return $this->select(['id' => $id]);
+    }
 }
