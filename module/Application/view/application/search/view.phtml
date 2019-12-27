@@ -6,14 +6,20 @@
 <h1 class="text-center mt-3"><?= $this->title; ?></h1>
 <?php if($this->search && is_array($this->search)) :
 foreach($this->search as $program) : ?>
-<div>
-	<b><?= $program['title']; ?></b>
-	(<?= $program['form_title']; ?>) - Spec: <?= $program['speciality_title']; ?>
-	<?php foreach($program['universities'] as $university) : ?>
-	<p><a target="_blank" href="/view/<?= $university['id']; ?>"><?= $university['name_'.$locale]; ?></a></p>
-	<?php endforeach; ?>
+<div class="card border-secondary mb-3">
+    <div class="card-header text-white bg-secondary"><?= $this->translate('Specialty'); ?>: <?= $program['speciality_title']; ?></div>
+	<div class="card-body">
+	    <h5 class="card-title"><?= $this->translate('Education Program'); ?>: <?= $program['title']; ?></h5>
+	    <p class="card-text">
+<?= $this->translate('Education Form'); ?>: <?= $program['form_title']; ?></p>
+	    <h5 class="card-title"><?= $this->translate('Universities'); ?>:</h5>
+	    <?php foreach($program['universities'] as $university) : ?>
+	    <p class="card-text"><a target="_blank" href="/view/<?= $university['id']; ?>"><?= $university['name_'.$locale]; ?></a></p>
+	    <?php endforeach; ?>
+	</div>
 </div>
 <?php endforeach;
 else : ?>
-<?= $this->translate('Not found'); ?>
-<?php endif;
+<p><?= $this->translate('Not found'); ?></p>
+<?php endif; ?>
+	<a class="btn btn-info mr-3" href="/search">&laquo; <?= $this->translate('Back'); ?></a>

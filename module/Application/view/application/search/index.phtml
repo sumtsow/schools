@@ -4,7 +4,7 @@
 	$locale = $this->plugin('translate')->getTranslator()->getLocale();
 ?>
 <h1 class="text-center mt-3"><?= $this->translate('University search'); ?></h1>
-	<form method="post" action="/search/rating" enctype="multipart/form-data">
+	<form class="border border-light p-3" method="post" action="/search/rating" enctype="multipart/form-data">
 		<label for="level"><?= $this->translate('Select Level'); ?></label>
 		<select class="custom-select custom-select-md" name="level" id="level">
 			<?php foreach($this->levels as $level) :
@@ -31,4 +31,8 @@
 		</div>
 		<button type="submit" class="btn btn-primary"><?= $this->translate('Next'); ?> &raquo;</button>
 	</form>
-
+	<?php if($this->error) : ?>
+    <div class="alert alert-danger" role="alert">
+    <?= $this->error; ?>
+    </div>
+    <?php endif; ?>

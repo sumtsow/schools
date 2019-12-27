@@ -276,3 +276,23 @@ msgstr "Найти"
 #: ../view/layout/layout.phtml:57
 msgid "Entrants calculator"
 msgstr "Калькулятор абитуриента"
+
+#: ../view/search/rating.phtml:6
+msgid "Enter your rating"
+msgstr "Введите баллы ЗНО"
+
+#: ../view/search/rating.phtml:19
+msgid "Back"
+msgstr "Назад"
+
+#: ../view/search/rating.phtml:19
+msgid "Specialty"
+msgstr "Специальность"
+
+#: ../view/search/view.phtml:12
+msgid "Education Program"
+msgstr "Образовательная программа"
+
+#: ../view/search/view.phtml:14
+msgid "Education Form"
+msgstr "Форма обучения"

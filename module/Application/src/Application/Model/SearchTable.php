@@ -33,8 +33,8 @@ class SearchTable extends AbstractTableGateway
 		if(!$rating || !is_array($rating)) { return false; }
         $result = $this->findProgramsByRating($rating);
         if(!$result) return false;
-		$cond = $this->parseToStringArray($result, $level);
-        $programs = $this->fetchPrograms($cond, $level);
+		$cond = $this->parseToStringArray($result, $level, $form);
+        $programs = $this->fetchPrograms($cond);
         foreach($programs as $key => $program) {
             $programs[$key]['form_title'] = $this->getFormTitle($program['id_form']);
             $programs[$key]['speciality_title'] = $this->getSpecialityTitle($program['id_speciality']);
@@ -43,15 +43,17 @@ class SearchTable extends AbstractTableGateway
         return $programs;
     }
     
-    public function parseToStringArray($params, $level)
+    public function parseToStringArray($params, $level, $form = false)
     {
-        $columnArray = array_column($params, 'id_program');
         $strArray = [];
 		$and = '';
 		if($level) {
 			$and = ' AND id_level=' . $level;
 		}
-        foreach($columnArray as $item) {
+		if($form) {
+			$and .= ' AND id_form=' . $form;
+		}
+        foreach($params as $item) {
             $strArray[] = '(id=' . $item . $and . ')';
 		}
         return $strArray;
@@ -61,23 +63,32 @@ class SearchTable extends AbstractTableGateway
     {
 		$id_subject = array_keys($rating);
 		$key_str = implode(',', $id_subject);
-		$sql = 'SELECT `id_program` FROM `program_has_subject` WHERE `id_subject` IN (' . $key_str . ') GROUP BY `id_program`';
+		$sql = 'SELECT `id_program` FROM `program_has_subject` WHERE `id_subject` IN (' . $key_str . ')  GROUP BY `id_program`';
 		$resultSet = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
-        $result = $resultSet->toArray();		
-		foreach($rating as $id => $value) {
-			$sql = 'SELECT `id_program` FROM `' . $this->table . '` WHERE `id_subject`=' . intval($id) . ' AND `rating`<=' . intval($value);			
+        $programs = $resultSet->toArray();
+        $result = [];
+        foreach($programs as $program) {
+			$sql = 'SELECT `id_subject`,`rating`,`required` FROM `' . $this->table . '` WHERE `id_program`=' . $program['id_program'];
 			$resultSet = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
-			$passed = $resultSet->toArray();
-			if(!$passed) {
-				return false;
-			} else {
-				$result = array_intersect($result, $passed);
+			$subjects = $resultSet->toArray();
+			$passed = 0;
+			$required = 0;
+		    foreach($subjects as $subject) {
+				if(array_key_exists($subject['id_subject'], $rating) && $rating[$subject['id_subject']] >= $subject['rating']) {
+				    $passed++;
+			    }
+				if($subject['required']) {
+					$required++;
+				}
+		    }
+		    if($passed > 2 && $required == 2) {
+			     $result[] = $program['id_program'];
 			}
-		}		
+        }
         return $result;
     }
     
-    public function fetchPrograms($cond, $level = 0)
+    public function fetchPrograms($cond)
     {
         $sql = new Sql($this->adapter);
         $select = $sql->select();

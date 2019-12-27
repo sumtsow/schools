@@ -15,11 +15,14 @@ use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\View\Model\ViewModel;
+use Zend\Http\Request;
+use Zend\Http\Response;
 
 use Application\Model\Level;
 use Application\Model\Search;
 use Application\Model\Subject;
 use Application\Model\User;
+use Application\Form\UserForm;
 
 class SearchController extends AbstractActionController
 {
@@ -33,7 +36,8 @@ class SearchController extends AbstractActionController
         $vm = new ViewModel();
         return $vm->setVariable('forms', $this->getFormTable()->fetchAll())
 			->setVariable('levels', $this->getLevelTable()->fetchAll())
-			->setVariable('subjects', $this->getSubjectTable()->fetchAll());
+			->setVariable('subjects', $this->getSubjectTable()->fetchAll())
+			->setVariable('error', null);
     }
 	
 	public function ratingAction()
@@ -42,10 +46,12 @@ class SearchController extends AbstractActionController
         if ($request->isPost()) {
 			$id_subject = $request->getPost()->subjects;
 			$subjects = $this->getSubjectTable()->fetch($id_subject);
-			$vm = new ViewModel();			
-			return $vm->setVariable('subjects', $subjects)
-				->setVariable('level', $request->getPost()->level)
-				->setVariable('form', ($request->getPost()->form) ? $request->getPost()->form : false);			
+			if(count($subjects) > 2) {
+			    $vm = new ViewModel();			
+			    return $vm->setVariable('subjects', $subjects)
+				    ->setVariable('level', $request->getPost()->level)
+				    ->setVariable('form', ($request->getPost()->form) ? $request->getPost()->form : false);
+			}
         }
 		return $this->redirect()->toRoute('search');
     }
@@ -68,7 +74,7 @@ class SearchController extends AbstractActionController
     {
         $locale = new User();
         $user->logout();
-        return $this->redirect()->toRoute('schools');
+        return $this->redirect()->toRoute('search');
     }
         	    
     public function getFormTable()

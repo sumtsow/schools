@@ -269,6 +269,26 @@ msgstr "Find"
 msgid "Entrants calculator"
 msgstr "Entrant's calculator"
 
+#: ../view/search/rating.phtml:6
+msgid "Enter your rating"
+msgstr "Enter your extrenal evaluated ratings"
+
+#: ../view/search/rating.phtml:19
+msgid "Back"
+msgstr "Back"
+
+#: ../view/search/view.phtml:10
+msgid "Specialty"
+msgstr "Specialty"
+
+#: ../view/search/view.phtml:12
+msgid "Education Program"
+msgstr "Education Program"
+
+#: ../view/search/view.phtml:14
+msgid "Education Form"
+msgstr "Education Form"
+
 #~ msgid "Short Name"
 #~ msgstr "Short Name"
 

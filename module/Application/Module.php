@@ -30,7 +30,7 @@ class Module
         /* Define app locale */
 		
         session_start();
-		if(!in_array('locale', $_SESSION)) {
+		if(empty($_SESSION['locale'])) {
 			$_SESSION['locale'] = false;
 		}
         $query = $e->getApplication()->getRequest()->getQuery();
