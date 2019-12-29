@@ -3,11 +3,11 @@
     $this->headTitle($title);
 	$locale = $this->plugin('translate')->getTranslator()->getLocale();
 ?>
-<h1 class="text-center mt-3"><?= $this->title; ?></h1>
+<h2 class="text-center mt-3"><?= $this->title; ?></h2>
 <?php if($this->search && is_array($this->search)) :
 foreach($this->search as $program) : ?>
 <div class="card border-secondary mb-3">
-    <div class="card-header text-white bg-secondary"><?= $this->translate('Specialty'); ?>: <?= $program['speciality_title']; ?></div>
+    <div class="card-header text-white bg-secondary"><?= $this->translate('Specialty'); ?>: <?= $program['specialty_title']; ?></div>
 	<div class="card-body">
 	    <h5 class="card-title"><?= $this->translate('Education Program'); ?>: <?= $program['title']; ?></h5>
 	    <p class="card-text">

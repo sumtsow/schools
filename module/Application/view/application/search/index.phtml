@@ -3,7 +3,7 @@
     $this->headTitle($title);
 	$locale = $this->plugin('translate')->getTranslator()->getLocale();
 ?>
-<h1 class="text-center mt-3"><?= $this->translate('University search'); ?></h1>
+<h2 class="text-center mt-3"><?= $this->translate('University search'); ?></h2>
 	<form class="border border-light p-3" method="post" action="/search/rating" enctype="multipart/form-data">
 		<label for="level"><?= $this->translate('Select Level'); ?></label>
 		<select class="custom-select custom-select-md" name="level" id="level">

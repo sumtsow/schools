@@ -53,14 +53,32 @@ return array(
             'search' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/search[/:action][/:id][/]',
+                    'route'    => '/search[/:action][/]',
                     'constraints' => array(
                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller' => 'Search',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                ),
+            ),
+            'specialty' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/specialty[/:action][/:branch][/:code][/]',
+                    'constraints' => array(
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+						'branch'     => '[0-9]+',
+						'code'     => '[0-9]',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Specialty',
                         'action'     => 'index',
                     ),
                 ),
@@ -99,6 +117,7 @@ return array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Admin' => 'Application\Controller\AdminController',
             'Application\Controller\Search' => 'Application\Controller\SearchController',
+			'Application\Controller\Specialty' => 'Application\Controller\SpecialtyController',
         ),
     ),
     'view_manager' => array(

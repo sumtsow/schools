@@ -24,7 +24,6 @@ class SearchTable extends AbstractTableGateway
 	    
     public function fetchAll()
     {
-        $this->table = 'program_has_subject';
         return $this->select();
     }
 	
@@ -37,7 +36,7 @@ class SearchTable extends AbstractTableGateway
         $programs = $this->fetchPrograms($cond);
         foreach($programs as $key => $program) {
             $programs[$key]['form_title'] = $this->getFormTitle($program['id_form']);
-            $programs[$key]['speciality_title'] = $this->getSpecialityTitle($program['id_speciality']);
+            $programs[$key]['specialty_title'] = $this->getSpecialtyTitle($program['id_specialty']);
 			$programs[$key]['universities'] = $this->getUniversitiesByProgramId($program['id']);
         }
         return $programs;
@@ -112,11 +111,11 @@ class SearchTable extends AbstractTableGateway
         return $result[0]['title'];
     }
     
-    public function getSpecialityTitle($id)
+    public function getSpecialtyTitle($id)
     {
         $sql = new Sql($this->adapter);
         $select = $sql->select();
-        $select->from('speciality');
+        $select->from('specialty');
 		$select->columns(['title']);
 		$select->where(['id' => $id]);
         $selectString = $sql->buildSqlString($select);

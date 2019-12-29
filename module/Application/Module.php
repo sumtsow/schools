@@ -17,6 +17,7 @@ use Application\Model\FormTable;
 use Application\Model\LevelTable;
 use Application\Model\SchoolTable;
 use Application\Model\SearchTable;
+use Application\Model\SpecialtyTable;
 use Application\Model\SubjectTable;
 
 class Module
@@ -98,7 +99,12 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table     = new SearchTable($dbAdapter);
                     return $table;
-                },   
+                },
+				'Application\Model\SpecialtyTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new SpecialtyTable($dbAdapter);
+                    return $table;
+                },
             ),
         );
     }

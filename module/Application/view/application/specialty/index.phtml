@@ -1,0 +1,21 @@
+<?php
+    $title = $this->translate('Specialties');
+    $this->headTitle($title);
+	$locale = $this->plugin('translate')->getTranslator()->getLocale();
+?>
+<h2 class="text-center mt-3"><?= $this->translate('Branches'); ?></h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"><?= $this->translate('Branch Code'); ?></th>
+      <th scope="col"><?= $this->translate('Branch'); ?></th>
+      <th scope="col"><?= $this->translate('Specialty Code'); ?></th>
+      <th scope="col"><?= $this->translate('Specialty'); ?></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+	<?= $this->html->saveXML(); ?>
+    </tr>
+  </tbody>
+</table>

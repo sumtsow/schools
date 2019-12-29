@@ -81,31 +81,35 @@ class SearchController extends AbstractActionController
     {
         if (!$this->formTable) {
             $sm = $this->getServiceLocator();
+			$this->formTable = $sm->get('Application\Model\FormTable');
         }
-        return $sm->get('Application\Model\FormTable');
+        return $this->formTable;
     }
     
     public function getLevelTable()
     {
         if (!$this->levelTable) {
             $sm = $this->getServiceLocator();
+			$this->levelTable = $sm->get('Application\Model\LevelTable');
         }
-        return $sm->get('Application\Model\LevelTable');
+        return $this->levelTable;
     }
     
     public function getSubjectTable()
     {
         if (!$this->subjectTable) {
             $sm = $this->getServiceLocator();
+			$this->subjectTable = $sm->get('Application\Model\SubjectTable');
         }
-        return $sm->get('Application\Model\SubjectTable');
+        return $this->subjectTable;
     }
 	    
     public function getSearchTable()
     {
         if (!$this->searchTable) {
             $sm = $this->getServiceLocator();
+			$this->searchTable = $sm->get('Application\Model\SearchTable');
         }
-        return $sm->get('Application\Model\SearchTable');
+        return $this->searchTable;
     }
 }

@@ -129,15 +129,17 @@ class IndexController extends AbstractActionController
     {
         if (!$this->schoolTable) {
             $sm = $this->getServiceLocator();
+			$this->schoolTable = $sm->get('Application\Model\SchoolTable');
         }
-    return $sm->get('Application\Model\SchoolTable');
+    return $this->schoolTable;
     }
         
     public function getCommentTable()
     {
         if (!$this->commentTable) {
             $sm = $this->getServiceLocator();
+			$this->commentTable = $sm->get('Application\Model\CommentTable');
         }
-        return $sm->get('Application\Model\CommentTable');
+        return $this->commentTable;
     }
 }
