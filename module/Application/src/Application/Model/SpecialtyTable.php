@@ -40,11 +40,11 @@ class SpecialtyTable extends AbstractTableGateway
 	public function getBranchesDOM()
     {
         $domDocument = new \DomDocument('1.0', 'utf-8');
-        $domRoot = $domDocument->createElement('ul');
+        $domRoot = $domDocument->createElement('branches');
         $domDocument->appendChild($domRoot);
-		$specialities = self::fetchAll();
+		$specialties = self::fetchAll();
 		foreach(self::fetchBranches() as $branch) {
-			$domElement = $domDocument->createElement('li', sprintf("%02d", $branch->code) . ': ' . $branch->title);
+			$domElement = $domDocument->createElement('branch', sprintf("%02d", $branch->code) . ': ' . $branch->title);
 			$domRoot->appendChild($domElement);
 			$domAttribute = $domDocument->createAttribute('id');
             $domAttribute->value = 'branch_' . $branch->id;
@@ -53,13 +53,13 @@ class SpecialtyTable extends AbstractTableGateway
             $domAttribute->value = $branch->code;
 			$domElement->appendChild($domAttribute);
 			$domElement->setIdAttribute('id', true);
-			$child = $domDocument->createElement('ul');
+			$child = $domDocument->createElement('specialties');
 			$domElement->appendChild($child);
 		}
-		foreach($specialities as $specialty) {
+		foreach($specialties as $specialty) {
 			$branch = $domDocument->getElementById('branch_' . $specialty->id_branch);
-			$parent = $branch->getElementsByTagName('ul')[0];
-			$domElement = $domDocument->createElement('li', sprintf("%03d", $branch->getAttribute('code') . $specialty->code) . ': ' . $specialty->title);
+			$parent = $branch->getElementsByTagName('specialties')[0];
+			$domElement = $domDocument->createElement('specialty', sprintf("%03d", $branch->getAttribute('code') . $specialty->code) . ': ' . $specialty->title);
 			$parent->appendChild($domElement);
 			$domAttribute = $domDocument->createAttribute('id');
 			$domAttribute->value = $specialty->id;
