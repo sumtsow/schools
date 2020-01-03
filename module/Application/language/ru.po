@@ -296,3 +296,27 @@ msgstr "Образовательная программа"
 #: ../view/search/view.phtml:14
 msgid "Education Form"
 msgstr "Форма обучения"
+
+#: ../view/specialty/index.phtml:2
+msgid "Specialties"
+msgstr "Специальности"
+
+#: ../view/specialty/index.phtml:6
+msgid "Branches"
+msgstr "Перечень отраслей знаний и специальностей, по которым осуществляется подготовка соискателей высшего образования"
+
+#: ../view/specialty/index.phtml:11
+msgid "Branch Code"
+msgstr "Шифр отрасли"
+
+#: ../view/specialty/index.phtml:12
+msgid "Branch Title"
+msgstr "Отрасль знаний"
+
+#: ../view/specialty/index.phtml:13
+msgid "Specialty Code"
+msgstr "Код специальности"
+
+#: ../view/specialty/index.phtml:14
+msgid "Specialty Title"
+msgstr "Наименование специальности"

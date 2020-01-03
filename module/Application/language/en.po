@@ -289,6 +289,30 @@ msgstr "Education Program"
 msgid "Education Form"
 msgstr "Education Form"
 
+#: ../view/specialty/index.phtml:2
+msgid "Specialties"
+msgstr "Specialties"
+
+#: ../view/specialty/index.phtml:6
+msgid "Branches"
+msgstr "The list of branches of knowledge and specialties by which the students of higher education are trained"
+
+#: ../view/specialty/index.phtml:11
+msgid "Branch Code"
+msgstr "Branch Code"
+
+#: ../view/specialty/index.phtml:12
+msgid "Branch Title"
+msgstr "Branch of knowledge"
+
+#: ../view/specialty/index.phtml:13
+msgid "Specialty Code"
+msgstr "Код специальности"
+
+#: ../view/specialty/index.phtml:14
+msgid "Specialty Title"
+msgstr "Name of specialty"
+
 #~ msgid "Short Name"
 #~ msgstr "Short Name"
 

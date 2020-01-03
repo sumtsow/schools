@@ -289,6 +289,30 @@ msgstr "Освітня програма"
 msgid "Education Form"
 msgstr "Форма навчання"
 
+#: ../view/specialty/index.phtml:2
+msgid "Specialties"
+msgstr "Спеціальності"
+
+#: ../view/specialty/index.phtml:6
+msgid "Branches"
+msgstr "Перелік галузей знань і спеціальностей, за якими здійснюється підготовка здобувачів вищої освіти"
+
+#: ../view/specialty/index.phtml:11
+msgid "Branch Code"
+msgstr "Шифр галузі"
+
+#: ../view/specialty/index.phtml:12
+msgid "Branch Title"
+msgstr "Галузь знань"
+
+#: ../view/specialty/index.phtml:13
+msgid "Specialty Code"
+msgstr "Код спеціальності"
+
+#: ../view/specialty/index.phtml:14
+msgid "Specialty Title"
+msgstr "Найменування спеціальності"
+
 #~ msgid "Short Name"
 #~ msgstr "Коротка назва"
 

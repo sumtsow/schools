@@ -21,7 +21,7 @@ class SpecialtyController extends AbstractActionController
     public function indexAction()
     {
         $vm = new ViewModel();
-        return $vm->setVariable('html', $this->getSpecialtyTable()->getBranchesDOM());
+        return $vm->setVariable('dom', $this->getSpecialtyTable()->getBranchesDOM());
     }
 	
     public function viewAction()

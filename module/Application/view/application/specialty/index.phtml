@@ -3,19 +3,37 @@
     $this->headTitle($title);
 	$locale = $this->plugin('translate')->getTranslator()->getLocale();
 ?>
-<h2 class="text-center mt-3"><?= $this->translate('Branches'); ?></h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col"><?= $this->translate('Branch Code'); ?></th>
-      <th scope="col"><?= $this->translate('Branch'); ?></th>
-      <th scope="col"><?= $this->translate('Specialty Code'); ?></th>
-      <th scope="col"><?= $this->translate('Specialty'); ?></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-	<?= $this->html->saveHTML(); ?>
-    </tr>
-  </tbody>
+<h2 class="text-center my-3 mx-5"><?= $this->translate('Branches'); ?></h2>
+
+<table class="table table-sm table-striped">
+	<thead>
+		<tr>
+			<th scope="col"><?= $this->translate('Branch Code'); ?></th>
+			<th scope="col"><?= $this->translate('Branch Title'); ?></th>
+			<th scope="col"><?= $this->translate('Specialty Code'); ?></th>
+			<th scope="col"><?= $this->translate('Specialty Title'); ?></th>
+		</tr>
+	</thead>
+<?php
+$branches = $this->dom->getElementsByTagName('branch');
+foreach($branches as $branch) :
+	$specialties = $branch->getElementsByTagName('specialty');
+	$rowspan = $specialties->count();
+	$counter = 0;
+	foreach($specialties as $specialty) :
+?>
+		<tr>
+	<?php if(!$counter) : ?>
+			<td rowspan="<?= $rowspan; ?>"><?= $branch->getAttribute('code'); ?></td>
+			<td rowspan="<?= $rowspan; ?>"><?= $branch->firstChild->textContent; ?></td>		
+	<?php endif; ?>
+	<?php $counter++; ?>	
+			<td><?= $specialty->getAttribute('code'); ?></td>
+			<td><a href="#"><?= $specialty->textContent; ?></a></td>
+		</tr>
+<?php
+	endforeach;
+endforeach;
+?>
+	</tbody>	
 </table>
