@@ -35,7 +35,7 @@ class ProgramTable extends AbstractTableGateway
     {
 		if(!$id_specialty) { return false; }
 		$programs = $this->select(['id_specialty' => $id_specialty])->toArray();
-		if(!$programs) { return false; }
+		if(!count($programs)) { return false; }
 		$ids = [];
 		foreach($programs as $program) {
 			$ids[] = $program['id'];
@@ -49,6 +49,17 @@ class ProgramTable extends AbstractTableGateway
 			if(!in_array($school['id_school'], $ids)) {
 				$ids[] = $school['id_school'];
 			}
+		}
+		return $ids;
+    }
+	
+	public function getSpecialtiesId($id)
+    {
+		$programs = $this->select(['id' => $id]);
+		if(!count($programs)) { return false; }
+		$ids = [];
+		foreach($programs as $program) {
+			$ids[] = $program['id_specialty'];
 		}
 		return $ids;
     }	

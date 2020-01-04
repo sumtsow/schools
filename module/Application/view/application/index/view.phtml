@@ -9,7 +9,19 @@ $this->headTitle($title);
         <tr>
             <th><?php if($school->logo) : ?><img style="max-width: 100px;" src="<?= $school->logo ?>" alt="logo" /><?php endif; ?></th>
             <td class="align-middle"><h2><?= $school->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()}; ?></h2></td>	
-        </tr>        
+        </tr>
+		<?php if($school->high && isset($this->specialties)) : ?>
+		<tr>
+            <th><?= $this->translate('Specialties'); ?></th>
+            <td>
+				<ul class="nav flex-column">
+			<?php foreach($this->specialties as $specialty) : ?>
+					<li class="nav-item"><a class="nav-link" href="<?= $this->url('specialty', ['action' => 'view', 'id' => $specialty->id]);?>"><?= $specialty->title; ?></a></li>
+			<?php endforeach; ?>
+				</ul>
+			</td>
+        </tr>
+		<?php endif; ?>
         <tr>
             <th><?= $this->translate('Address'); ?></th>
             <td><?= $school->address; ?></td>	

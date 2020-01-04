@@ -27,6 +27,11 @@ class SpecialtyTable extends AbstractTableGateway
 		return $this->select();
     }
 	
+	public function fetch($id)
+    {
+        return $this->select(['id' => $id]);
+    }
+	
 	public function fetchOne($id)
     {
 		return $this->select(['id' => $id])->current();

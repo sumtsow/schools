@@ -10,7 +10,6 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\I18n\Translator\Translator;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
 
@@ -22,9 +21,11 @@ use Application\Form\CommentForm;
 
 class IndexController extends AbstractActionController
 {
-    
+
+	protected $commentTable;
+    protected $programTable;	
     protected $schoolTable;
-    protected $commentTable;
+    protected $specialtyTable;
     
     public function indexAction()
     {
@@ -52,13 +53,20 @@ class IndexController extends AbstractActionController
     public function viewAction()
     {
         $id = (int) $this->params()->fromRoute('id', 0);
-        $area = $this->params()->fromRoute('area', 0);
         $vm = new ViewModel();
-        $user = new User();        
-	$vm->setVariable('school',$this->getSchoolTable()->getSchool($id))
+        $user = new User();
+		$vm->setVariable('school',$this->getSchoolTable()->getSchool($id))
             ->setVariable('comments',$this->getCommentTable()->fetchComments($id))
             ->setVariable('docRoot',User::getDocumentRoot())
             ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
+		if($vm->school->high) {
+			$programs = $this->getSchoolTable()->getProgramsId($id);
+			if($programs) {
+				$id_specialties = $this->getProgramTable()->getSpecialtiesId($programs);
+				$specialties = $this->getSpecialtyTable()->fetch($id_specialties);
+				$vm->setVariable('specialties', $specialties);
+			}
+		}
         if(!$vm->school->visible) { return $this->redirect()->toRoute('schools', ['action' => 'index']); }
         $form = new CommentForm();
         $request = $this->getRequest();
@@ -124,7 +132,16 @@ class IndexController extends AbstractActionController
         $user->logout();
         return $this->redirect()->toRoute('schools');
     } 
-    
+	
+    public function getCommentTable()
+    {
+        if (!$this->commentTable) {
+            $sm = $this->getServiceLocator();
+			$this->commentTable = $sm->get('Application\Model\CommentTable');
+        }
+        return $this->commentTable;
+    }
+	
     public function getSchoolTable()
     {
         if (!$this->schoolTable) {
@@ -133,13 +150,22 @@ class IndexController extends AbstractActionController
         }
     return $this->schoolTable;
     }
-        
-    public function getCommentTable()
+	
+    public function getProgramTable()
     {
-        if (!$this->commentTable) {
+        if (!$this->programTable) {
             $sm = $this->getServiceLocator();
-			$this->commentTable = $sm->get('Application\Model\CommentTable');
+			$this->programTable = $sm->get('Application\Model\ProgramTable');
         }
-        return $this->commentTable;
+    return $this->programTable;
+    }
+
+    public function getSpecialtyTable()
+    {
+        if (!$this->specialtyTable) {
+            $sm = $this->getServiceLocator();
+			$this->specialtyTable = $sm->get('Application\Model\SpecialtyTable');
+        }
+    return $this->specialtyTable;
     }
 }
