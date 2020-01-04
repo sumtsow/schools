@@ -1,0 +1,21 @@
+<?php
+    $title = $this->translate('Specialty');
+    $this->headTitle($title);
+	$locale = $this->plugin('translate')->getTranslator()->getLocale();
+?>
+<h2 class="text-center my-3 mx-5"><?= $title ?> <?= sprintf("%02d", $this->branch->code); ?><?= $this->specialty->code; ?> <?= $this->specialty->title; ?></h2>
+<h3 class="text-center"><?= $this->translate('Branch Title'); ?> <?= sprintf("%02d", $this->branch->code); ?> <?= $this->branch->title; ?></h3>
+<?php if($this->schools) : ?>
+<h3 class="text-center"><?= $this->translate('Universities'); ?>:</h3>
+<div class="card-columns">
+	<?php foreach($this->schools as $university) : ?>
+	<div class="card">
+		<div class="card-body w-100 pt-0">
+			<a class="align-bottom" href="<?= $this->url('schools', ['action' => 'view', 'id' => $university->id]); ?>"><h5><span class="badge badge-pill btn btn-outline-primary float-right px-3 mr-0"><?= $university->shortname; ?></span></h5></a>
+			<a class="align-bottom" href="<?= $this->url('schools', ['action' => 'view', 'id' => $university->id]); ?>"><img class="card-img-top w-25" src="<?= $university->logo; ?>" alt="logo" /></a>
+			<a class="align-bottom" href="<?= $this->url('schools', ['action' => 'view', 'id' => $university->id]); ?>"><?= $university->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()}; ?></a>
+		</div>
+	</div>
+	<?php endforeach; ?>
+</div>
+<?php endif; ?>

@@ -90,9 +90,7 @@ class SearchTable extends AbstractTableGateway
     public function fetchPrograms($cond)
     {
         $sql = new Sql($this->adapter);
-        $select = $sql->select();
-        $select->from('program');
-        $select->where($cond, 'OR');
+        $select = $sql->select()->from('program')->where($cond, 'OR');
         $selectString = $sql->buildSqlString($select);
         $result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
         return $result->toArray();
@@ -102,9 +100,7 @@ class SearchTable extends AbstractTableGateway
     {
         $sql = new Sql($this->adapter);
         $select = $sql->select();
-        $select->from('form');
-		$select->columns(['title']);
-		$select->where(['id' => $id]);
+        $select->from('form')->columns(['title'])->where(['id' => $id]);
         $selectString = $sql->buildSqlString($select);
         $result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
 		$result = $result->toArray();
@@ -115,9 +111,7 @@ class SearchTable extends AbstractTableGateway
     {
         $sql = new Sql($this->adapter);
         $select = $sql->select();
-        $select->from('specialty');
-		$select->columns(['title']);
-		$select->where(['id' => $id]);
+        $select->from('specialty')->columns(['title'])->where(['id' => $id]);
         $selectString = $sql->buildSqlString($select);
         $result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
 		$result = $result->toArray();
@@ -128,9 +122,7 @@ class SearchTable extends AbstractTableGateway
     {
         $sql = new Sql($this->adapter);
         $select = $sql->select();
-        $select->from('school_has_program');
-		$select->columns(['id_school']);
-        $select->where(['id_program' => $id]);
+        $select->from('school_has_program')->columns(['id_school'])->where(['id_program' => $id]);
         $selectString = $sql->buildSqlString($select);
         $result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
         $ids = $result->toArray();
@@ -145,9 +137,7 @@ class SearchTable extends AbstractTableGateway
     {
         $sql = new Sql($this->adapter);
         $select = $sql->select();
-        $select->from('school');
-		$select->columns(['id', 'name_uk', 'name_en', 'name_ru', 'shortname', 'http']);
-        $select->where('id=' . $id . ' AND high=1');
+        $select->from('school')->columns(['id', 'name_uk', 'name_en', 'name_ru', 'shortname', 'http'])->where('id=' . $id . ' AND high=1');
         $selectString = $sql->buildSqlString($select);
         $result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
 		return $result->toArray();

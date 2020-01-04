@@ -55,7 +55,7 @@ return array(
                 'options' => array(
                     'route'    => '/search[/:action][/]',
                     'constraints' => array(
-                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action'     => '[a-z]*',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
@@ -70,11 +70,10 @@ return array(
             'specialty' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/specialty[/:action][/:branch][/:code][/]',
+                    'route'    => '/specialty[/:action][/:id][/]',
                     'constraints' => array(
                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-						'branch'     => '[0-9]+',
-						'code'     => '[0-9]',
+						'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',

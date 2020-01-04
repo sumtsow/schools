@@ -11,10 +11,11 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-use Zend\Session\SessionManager;
+use Application\Model\BranchTable;
 use Application\Model\CommentTable;
 use Application\Model\FormTable;
 use Application\Model\LevelTable;
+use Application\Model\ProgramTable;
 use Application\Model\SchoolTable;
 use Application\Model\SearchTable;
 use Application\Model\SpecialtyTable;
@@ -70,19 +71,29 @@ class Module
     {
         return array(
             'factories' => array(
-                'Application\Model\FormTable' =>  function($sm) {
+                'Application\Model\BranchTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table     = new FormTable($dbAdapter);
+                    $table     = new BranchTable($dbAdapter);
                     return $table;
                 },
                 'Application\Model\CommentTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table     = new CommentTable($dbAdapter);
                     return $table;
+                },						
+                'Application\Model\FormTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new FormTable($dbAdapter);
+                    return $table;
                 },
                 'Application\Model\LevelTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table     = new LevelTable($dbAdapter);
+                    return $table;
+                },
+                'Application\Model\ProgramTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new ProgramTable($dbAdapter);
                     return $table;
                 },
                 'Application\Model\SchoolTable' =>  function($sm) {

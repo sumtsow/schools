@@ -25,6 +25,11 @@ class SchoolTable extends AbstractTableGateway
     {
         return $resultSet = $this->select();
     }
+	
+	public function fetch($id)
+    {
+        return $this->select(['id' => $id]);
+    }
     
     public function fetchSchools($areaIndex = null, $visible = 1)
     {
@@ -114,18 +119,13 @@ class SchoolTable extends AbstractTableGateway
     
     public function getSchool($id)
     {
-        $id  = $id;
-
         $rowset = $this->select(array(
             'id' => $id,
         ));
-
         $row = $rowset->current();
-
         if (!$row) {
             throw new \Exception("Could not find row $id");
         }
-
         return $row;
     }
 
