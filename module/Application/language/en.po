@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-26 22:58+0300\n"
-"PO-Revision-Date: 2019-12-21 21:36+0200\n"
+"PO-Revision-Date: 2020-01-04 02:04+0200\n"
 "Last-Translator: sumtsow <sumtsow@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en\n"
@@ -307,7 +307,7 @@ msgstr "Branch of knowledge"
 
 #: ../view/specialty/index.phtml:13
 msgid "Specialty Code"
-msgstr "Код специальности"
+msgstr "Specialty Code"
 
 #: ../view/specialty/index.phtml:14
 msgid "Specialty Title"
