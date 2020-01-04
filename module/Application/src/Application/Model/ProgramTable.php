@@ -41,12 +41,14 @@ class ProgramTable extends AbstractTableGateway
 			$ids[] = $program['id'];
 		}
 		$sql = new Sql($this->adapter);
-        $select = $sql->select()->from('school_has_program')->columns(['id_school'])->where(['id_program' => $ids])->group('id_school');
+        $select = $sql->select()->from('school_has_program')->columns(['id_school'])->where(['id_program' => $ids]);
         $selectString = $sql->buildSqlString($select);
         $schools = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
 		$ids = [];
 		foreach($schools as $school) {
-			$ids[] = $school['id_school'];
+			if(!in_array($school['id_school'], $ids)) {
+				$ids[] = $school['id_school'];
+			}
 		}
 		return $ids;
     }	
