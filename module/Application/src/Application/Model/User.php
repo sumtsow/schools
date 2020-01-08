@@ -11,15 +11,15 @@ use Zend\Authentication\AuthenticationService as AuthService;
 class User implements InputFilterAwareInterface
 {
 	const FNAME = '.htaccess';
-        const REALM = 'admin';
-        protected $login;
-        protected $realm;        
-        protected $auth;
-        protected $inputFilter;
+	const REALM = 'admin';
+	protected $login;
+	protected $realm;        
+	protected $auth;
+	protected $inputFilter;
 
     public function __construct() {
         $this->auth = new AuthService();
-	$identity = $this->auth->getIdentity();
+		$identity = $this->auth->getIdentity();
         $this->login = $identity['username'];
         $this->realm = $identity['realm'];
     }
@@ -62,10 +62,10 @@ class User implements InputFilterAwareInterface
     public function logout()
     {
         $this->auth->clearIdentity();
-	session_unset();
-	session_destroy();
-	session_start();
-	setcookie('PHPSESSID', NULL, 0, '/');
+		session_unset();
+		session_destroy();
+		session_start();
+		setcookie('PHPSESSID', NULL, 0, '/');
         return true;
     }
     

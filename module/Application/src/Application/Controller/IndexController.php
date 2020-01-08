@@ -142,15 +142,6 @@ class IndexController extends AbstractActionController
         return $this->commentTable;
     }
 	
-    public function getSchoolTable()
-    {
-        if (!$this->schoolTable) {
-            $sm = $this->getServiceLocator();
-			$this->schoolTable = $sm->get('Application\Model\SchoolTable');
-        }
-    return $this->schoolTable;
-    }
-	
     public function getProgramTable()
     {
         if (!$this->programTable) {
@@ -160,7 +151,16 @@ class IndexController extends AbstractActionController
     return $this->programTable;
     }
 
-    public function getSpecialtyTable()
+    public function getSchoolTable()
+    {
+        if (!$this->schoolTable) {
+            $sm = $this->getServiceLocator();
+			$this->schoolTable = $sm->get('Application\Model\SchoolTable');
+        }
+    return $this->schoolTable;
+    }
+
+	public function getSpecialtyTable()
     {
         if (!$this->specialtyTable) {
             $sm = $this->getServiceLocator();

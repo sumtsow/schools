@@ -17,7 +17,14 @@ class SchoolForm extends Form
                 'type'  => 'hidden',
             ),
         ));
-        
+		
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'program',
+            'id' => 'program',
+			'multiple' => 'multiple',
+        ));
+		
         $this->add(array(
             'name' => 'name_uk',
             'attributes' => array(

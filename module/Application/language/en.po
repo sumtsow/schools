@@ -46,7 +46,7 @@ msgstr "Are you sure to delete an institution"
 
 #: ../view/application/admin/edit.phtml:3
 msgid "Edit school"
-msgstr "Edit school"
+msgstr "Edit institution"
 
 #: ../view/application/admin/index.phtml:5
 #: ../view/application/index/index.phtml:4

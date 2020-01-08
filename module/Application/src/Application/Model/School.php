@@ -9,7 +9,8 @@ use Zend\InputFilter\InputFilterInterface;
 class School implements InputFilterAwareInterface
 {
 	public $id;
-                    public $name_uk;
+	public $programs;
+    public $name_uk;
 	public $name_en; 
 	public $name_ru;          
 	public $address;
@@ -24,21 +25,22 @@ class School implements InputFilterAwareInterface
 
     public function exchangeArray($data)
     {
-        $this->id       = (isset($data['id'])) ? $data['id']     : null;
-        $this->name_uk     = (isset($data['name_uk'])) ? $data['name_uk'] : null;
-        $this->name_en    = (isset($data['name_en'])) ? $data['name_en'] : null;
-        $this->name_ru     = (isset($data['name_ru'])) ? $data['name_ru'] : null;
-        $this->shortname     = (isset($data['shortname'])) ? $data['shortname'] : null;
-        $this->address  = (isset($data['address'])) ? $data['address']  : null;
-        $this->phone    = (isset($data['phone'])) ? $data['phone']     : null;
-        $this->email    = (isset($data['email'])) ? $data['email'] : null;
-        $this->http     = (isset($data['http'])) ? $data['http']  : null;
-        $this->info     = (isset($data['info'])) ? $data['info']  : null;
-        $this->area     = (isset($data['area'])) ? $data['area']     : null;
-        $this->high     = (isset($data['high'])) ? $data['high'] : null;
-        $this->map      = (isset($data['map'])) ? $data['map']  : null;
-        $this->logo      = (isset($data['logo'])) ? $data['logo']  : null;
-        $this->visible      = (isset($data['visible'])) ? $data['visible']  : null;        
+        $this->id        = (isset($data['id'])) ? $data['id'] : null;
+		$this->program  = (isset($data['program'])) ? $data['program'] : null;
+        $this->name_uk   = (isset($data['name_uk'])) ? $data['name_uk'] : null;
+        $this->name_en   = (isset($data['name_en'])) ? $data['name_en'] : null;
+        $this->name_ru   = (isset($data['name_ru'])) ? $data['name_ru'] : null;
+        $this->shortname = (isset($data['shortname'])) ? $data['shortname'] : null;
+        $this->address   = (isset($data['address'])) ? $data['address'] : null;
+        $this->phone     = (isset($data['phone'])) ? $data['phone'] : null;
+        $this->email     = (isset($data['email'])) ? $data['email'] : null;
+        $this->http      = (isset($data['http'])) ? $data['http'] : null;
+        $this->info      = (isset($data['info'])) ? $data['info'] : null;
+        $this->area      = (isset($data['area'])) ? $data['area'] : null;
+        $this->high      = (isset($data['high'])) ? $data['high'] : null;
+        $this->map       = (isset($data['map'])) ? $data['map'] : null;
+        $this->logo      = (isset($data['logo'])) ? $data['logo'] : null;
+        $this->visible   = (isset($data['visible'])) ? $data['visible'] : null;        
     }
 
     public function getArrayCopy()
@@ -64,7 +66,25 @@ class School implements InputFilterAwareInterface
                     array('name' => 'ToInt'),
                 ),
             )));
-
+			
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'program',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'ToInt'),
+                ),
+                /*'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 256,
+                        ),
+                    ),
+                ),*/
+            )));
+			
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'name_uk',
                 'required' => true,

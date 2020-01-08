@@ -177,7 +177,7 @@ msgstr "Вы уверены, что хотите удалить заведени
 
 #: ../view/application/admin/edit.phtml:3
 msgid "Edit school"
-msgstr "Редактировать школу"
+msgstr "Редактировать заведение"
 
 #: ../view/application/admin/index.phtml:59
 msgid "Add school"

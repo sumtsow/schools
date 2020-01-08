@@ -11,8 +11,10 @@ use Application\Form\SchoolForm;
 
 class AdminController extends AbstractActionController
 {
-    protected $schoolTable;
     protected $commentTable;
+	protected $programTable;	
+    protected $schoolTable;
+    protected $specialtyTable;
 	
     public function indexAction()
     {
@@ -87,6 +89,13 @@ class AdminController extends AbstractActionController
         $form  = new SchoolForm();
         $form->bind($school);
         $form->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
+		if($school->high) {
+			$id_program = $this->getSchoolTable()->getProgramsId($id);
+			if($id_program) {
+				$program = $this->getProgramTable()->getPrograms($id_program);
+				$form->get('program')->setValueOptions($program)->setOption('length', count($program));
+			}
+		}
         $form->get('area')->setValue(array_search($school->area,$form->get('area')->getValueOptions()));
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -171,15 +180,6 @@ class AdminController extends AbstractActionController
             'comment' => $this->getCommentTable()->getComment($id)
         );
     }
-    
-    public function getSchoolTable()
-    {
-        if (!$this->schoolTable) {
-            $sm = $this->getServiceLocator();
-			$this->schoolTable = $sm->get('Application\Model\SchoolTable');
-        }
-    return $this->schoolTable;
-    }
         
     public function getCommentTable()
     {
@@ -188,8 +188,35 @@ class AdminController extends AbstractActionController
 			$this->commentTable = $sm->get('Application\Model\CommentTable');
         }
         return $this->commentTable;
+    } 
+	
+    public function getProgramTable()
+    {
+        if (!$this->programTable) {
+            $sm = $this->getServiceLocator();
+			$this->programTable = $sm->get('Application\Model\ProgramTable');
+        }
+    return $this->programTable;
     }
-    
+	
+    public function getSchoolTable()
+    {
+        if (!$this->schoolTable) {
+            $sm = $this->getServiceLocator();
+			$this->schoolTable = $sm->get('Application\Model\SchoolTable');
+        }
+    return $this->schoolTable;
+    }
+
+    public function getSpecialtyTable()
+    {
+        if (!$this->specialtyTable) {
+            $sm = $this->getServiceLocator();
+			$this->specialtyTable = $sm->get('Application\Model\SpecialtyTable');
+        }
+    return $this->specialtyTable;
+    }
+
     public function updatenewsAction()
     {
         $user = new User();

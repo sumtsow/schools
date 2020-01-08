@@ -46,7 +46,7 @@ msgstr "Ви певні, що хочете видалити заклад"
 
 #: ../view/application/admin/edit.phtml:3
 msgid "Edit school"
-msgstr "Редагувати школу"
+msgstr "Редагувати заклад"
 
 #: ../view/application/admin/index.phtml:5
 #: ../view/application/index/index.phtml:4

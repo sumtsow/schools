@@ -30,7 +30,24 @@ class ProgramTable extends AbstractTableGateway
     {
 		return $this->select(['id' => $id])->current();
     }
-		
+	
+	public function fetch($id)
+    {
+		return $this->select(['id' => $id]);
+    }
+	
+	public function getPrograms($id)
+    {
+		$titles = [];
+		$programs = $this->fetch($id);
+		$levels = $this->getLevels('uk');
+		$forms = $this->getForms();
+		foreach($programs as $program) {
+			$titles[$program->id] = $program->title . ', ' . $levels[$program->id_level] . ', '. $forms[$program->id_form];
+		}
+		return $titles;
+    }
+	
 	public function getSchools($id_specialty)
     {
 		if(!$id_specialty) { return false; }
@@ -62,5 +79,33 @@ class ProgramTable extends AbstractTableGateway
 			$ids[] = $program['id_specialty'];
 		}
 		return $ids;
-    }	
+    }
+	
+	public function getLevels($lang)
+    {
+		//$this->getServiceLocator()->get('translator')->getLocale();
+		//$lang = $this->getApplication()->getServiceManager()->get('translator')->getLocale();
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->columns(['id', 'title_' . $lang])->from('level');
+        $selectString = $sql->buildSqlString($select);
+		$levels = [];
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		foreach($resultSet as $result) {
+			$levels[$result->id] = $result->{'title_'.$lang};
+		}
+        return $levels;
+    }
+		
+	public function getForms()
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->from('form');
+        $selectString = $sql->buildSqlString($select);
+		$forms = [];
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		foreach($resultSet as $result) {
+			$forms[$result->id] = $result->title;
+		}
+        return $forms;
+    }
 }

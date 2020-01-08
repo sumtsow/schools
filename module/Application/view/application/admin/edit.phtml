@@ -7,6 +7,7 @@ $this->headTitle($title);
 
 <?php
 $form = $this->form;
+$formLabel = $this->plugin('formLabel');
 $form->setAttribute('action', $this->url(
     'admin',
     array(
@@ -30,9 +31,16 @@ $inputs = [
     'logo' => $form->get('logo')->setLabel('Logo'),
     'visible' => $form->get('visible')->setLabel('Visible'),
 ];
+$program = $form->get('program')->setLabel($this->translate('Education Program'));
 $form->prepare(); ?>
 <?= $this->form()->openTag($form); ?>
 <?= $this->formHidden($form->get('id'));?>
+
+<div class="form-group">
+<?= $this->formLabel($program); ?>	
+<?= $this->formElement($program->setAttribute('class', 'custom-select')->setAttribute('size', $program->getOption('length'))->setAttribute('multiple', 'multiple'));?>
+<?= $this->formElementErrors($program); ?>
+</div>
 <?php foreach($inputs as $input) : ?>
 <div class="form-group">
     <?= $this->formLabel($input) ?>

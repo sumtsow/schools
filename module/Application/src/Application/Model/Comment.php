@@ -14,7 +14,7 @@ class Comment implements InputFilterAwareInterface
 	public $time;
 	public $text;
 	public $visible;	
-        protected $inputFilter;
+    protected $inputFilter;
 
     public function exchangeArray($data)
     {
