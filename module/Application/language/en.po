@@ -48,6 +48,14 @@ msgstr "Are you sure to delete an institution"
 msgid "Edit school"
 msgstr "Edit institution"
 
+#: ../view/application/admin/edit.phtml:78
+msgid "Add Program"
+msgstr "Add Education Program"
+
+#: ../view/application/admin/edit.phtml:79
+msgid "Close"
+msgstr "Close"
+
 #: ../view/application/admin/index.phtml:5
 #: ../view/application/index/index.phtml:4
 msgid "Kharkov universities"
@@ -229,6 +237,10 @@ msgstr "Update news"
 msgid "Edit schools"
 msgstr "Edit schools"
 
+#: ../view/layout/layout.phtml:66
+msgid "Edit universities"
+msgstr "Edit universities"
+
 #: ../view/layout/layout.phtml:65
 msgid "Logout"
 msgstr "Logout"
@@ -247,7 +259,7 @@ msgstr "University search"
 
 #: ../view/search/index.phtml:8
 msgid "Select Level"
-msgstr "Select wanted education level"
+msgstr "Select education level"
 
 #: ../view/search/index.phtml:16
 msgid "Select Learning Form"

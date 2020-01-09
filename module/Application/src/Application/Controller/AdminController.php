@@ -5,9 +5,11 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
+use Application\Model\Program;
 use Application\Model\School;
 use Application\Model\User;
 use Application\Form\SchoolForm;
+use Application\Form\ProgramForm;
 
 class AdminController extends AbstractActionController
 {
@@ -35,6 +37,7 @@ class AdminController extends AbstractActionController
             ->setPageRange(ceil(count($result)/$confArray['per_page']));
         $user = new User();
         $vm = new ViewModel();
+		$this->layout()->setVariable('high', $id);
         return $vm->setVariable('paginator', $paginator)
             ->setVariable('areas', $this->getSchoolTable()->fetchAreas())
             ->setVariable('high', $this->params()->fromRoute('id', 0))
@@ -50,27 +53,54 @@ class AdminController extends AbstractActionController
                 'action' => 'index'
             ));
         }
-        $form = new SchoolForm();
-        $form->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
-        $form->get('high')->setChecked($this->params()->fromRoute('id', 0));
+        $schoolForm = new SchoolForm();
+        $schoolForm->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
+        $schoolForm->get('high')->setChecked($this->params()->fromRoute('id', 0));
         $request = $this->getRequest();
         if ($request->isPost()) {
             $school = new School();
-            $form->setInputFilter($school->getInputFilter());
-            $form->setData($request->getPost());
+            $schoolForm->setInputFilter($school->getInputFilter());
+            $schoolForm->setData($request->getPost());
 
-            if ($form->isValid()) {
-                $school->exchangeArray($form->getData());
+            if ($schoolForm->isValid()) {
+                $school->exchangeArray($schoolForm->getData());
                 $this->getSchoolTable()->saveSchool($school);
                 return $this->redirect()->toRoute('schools', array(
                     'action' => 'index', 'id'=> $school->high
                 ));
             }
         }
-        return array('form' => $form);
+        return array('form' => $schoolForm);
 
     }
+	
+    public function programAction()
+    {
+        $user = new User();
+        if (!$user->isValid()) {
+            return $this->redirect()->toRoute('schools', array(
+                'action' => 'index'
+            ));
+        }
+        $request = $this->getRequest();
+		$programForm = new ProgramForm();
+        if ($request->isPost()) {
+            $program = new Program();
+            $programForm->setInputFilter($program->getInputFilter());
+            $programForm->setData($request->getPost());
 
+            if ($programForm->isValid()) {
+                $program->exchangeArray($programForm->getData());
+                $this->getProgramTable()->saveProgram($program);
+                return $this->redirect()->toRoute('admin', [
+                    'action' => 'edit', 'id'=> $program->id_school
+                ]);
+            }
+        }
+        return $this->redirect()->goBack();
+
+    }
+	
     public function editAction()
     {
         $user = new User();
@@ -85,33 +115,38 @@ class AdminController extends AbstractActionController
                 'action' => 'add'
             ));
         }
+		$locale = $this->getServiceLocator()->get('translator')->getLocale();
         $school = $this->getSchoolTable()->getSchool($id);
-        $form  = new SchoolForm();
-        $form->bind($school);
-        $form->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
+        $schoolForm  = new SchoolForm();
+        $schoolForm->bind($school);
+        $schoolForm->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
 		if($school->high) {
 			$id_program = $this->getSchoolTable()->getProgramsId($id);
 			if($id_program) {
-				$program = $this->getProgramTable()->getPrograms($id_program);
-				$form->get('program')->setValueOptions($program)->setOption('length', count($program));
+				$programForm  = new ProgramForm();
+				$programs = $this->getProgramTable()->getPrograms($id_program);
+				$programForm->get('id_specialty')->setValueOptions($this->getSpecialtyTable()->getSpecialties());
+				$programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale));
+				$programForm->get('id_form')->setValueOptions($this->getProgramTable()->getForms($locale));
 			}
 		}
-        $form->get('area')->setValue(array_search($school->area,$form->get('area')->getValueOptions()));
+        $schoolForm->get('area')->setValue(array_search($school->area, $schoolForm->get('area')->getValueOptions()));
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setInputFilter($school->getInputFilter())
+            $schoolForm->setInputFilter($school->getInputFilter())
                 ->setData($request->getPost());
-            if ($form->isValid()) {
-                $this->getSchoolTable()->saveSchool($form->getData());
+            if ($schoolForm->isValid()) {
+                $this->getSchoolTable()->saveSchool($schoolForm->getData());
                 return $this->redirect()->toRoute('admin', array(
                     'action' => 'index', 'id'=> $school->high
                 ));
             }
         }
-
         return array(
             'id' => $id,
-            'form' => $form,
+            'schoolForm' => $schoolForm,
+			'programForm' => $programForm,
+            'programs' => $programs,
         );
     }
 

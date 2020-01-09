@@ -83,8 +83,6 @@ class ProgramTable extends AbstractTableGateway
 	
 	public function getLevels($lang)
     {
-		//$this->getServiceLocator()->get('translator')->getLocale();
-		//$lang = $this->getApplication()->getServiceManager()->get('translator')->getLocale();
 		$sql = new Sql($this->adapter);
         $select = $sql->select()->columns(['id', 'title_' . $lang])->from('level');
         $selectString = $sql->buildSqlString($select);

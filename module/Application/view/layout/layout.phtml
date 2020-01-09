@@ -66,7 +66,7 @@ echo $this->doctype();
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false"><?= $this->translate('Administration'); ?></a>
                     <div class="dropdown-menu navbar-inverse bg-dark">
                         <a class="dropdown-item text-secondary" href="/admin/updateNews"><?= $this->translate('Update news') ?></a>
-                        <a class="dropdown-item text-secondary" href="<?= $this->url('admin', array('action' => 'index'));?>"><?= $this->translate('Edit schools'); ?></a>
+                        <a class="dropdown-item text-secondary" href="<?= $this->url('admin', ['action' => 'index', 'id' => intval(!$this->high) ]);?>"><?= $this->high ? $this->translate('Edit schools') : $this->translate('Edit universities') ?></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-secondary" href="/logout"><?= $this->translate('Logout'); ?></a>
                     </div>

@@ -6,9 +6,8 @@ $this->headTitle($title);
 <h1><?= $this->escapeHtml($title); ?></h1>
 
 <?php
-$form = $this->form;
-$formLabel = $this->plugin('formLabel');
-$form->setAttribute('action', $this->url(
+$schoolForm = $this->schoolForm;
+$schoolForm->setAttribute('action', $this->url(
     'admin',
     array(
         'action' => 'edit',
@@ -16,31 +15,38 @@ $form->setAttribute('action', $this->url(
     )
 ));
 $inputs = [
-    'name_uk' => $form->get('name_uk')->setLabel($this->translate('Name', null, 'uk').' (uk)'),
-    'name_en' => $form->get('name_en')->setLabel($this->translate('Name', null, 'en').' (en)'),
-    'name_ru' => $form->get('name_ru')->setLabel($this->translate('Name', null, 'ru').' (ru)'),
-    'shortname' => $form->get('shortname')->setLabel('Short Name'),
-    'address' => $form->get('address')->setLabel('Address'),
-    'phone' => $form->get('phone')->setLabel('Phone'),
-    'email' => $form->get('email'),
-    'http' => $form->get('http'),
-    'info' => $form->get('info')->setLabel('Information'),
-    'area' => $form->get('area')->setLabel('Area'),
-    'high' => $form->get('high')->setLabel('Is an University'),
-    'map' => $form->get('map')->setLabel('Map'),
-    'logo' => $form->get('logo')->setLabel('Logo'),
-    'visible' => $form->get('visible')->setLabel('Visible'),
+    'name_uk' => $schoolForm->get('name_uk')->setLabel($this->translate('Name', null, 'uk').' (uk)'),
+    'name_en' => $schoolForm->get('name_en')->setLabel($this->translate('Name', null, 'en').' (en)'),
+    'name_ru' => $schoolForm->get('name_ru')->setLabel($this->translate('Name', null, 'ru').' (ru)'),
+    'shortname' => $schoolForm->get('shortname')->setLabel('Short Name'),
+    'address' => $schoolForm->get('address')->setLabel('Address'),
+    'phone' => $schoolForm->get('phone')->setLabel('Phone'),
+    'email' => $schoolForm->get('email'),
+    'http' => $schoolForm->get('http'),
+    'info' => $schoolForm->get('info')->setLabel('Information'),
+    'area' => $schoolForm->get('area')->setLabel('Area'),
+    'high' => $schoolForm->get('high')->setLabel('Is an University'),
+    'map' => $schoolForm->get('map')->setLabel('Map'),
+    'logo' => $schoolForm->get('logo')->setLabel('Logo'),
+    'visible' => $schoolForm->get('visible')->setLabel('Visible'),
 ];
-$program = $form->get('program')->setLabel($this->translate('Education Program'));
-$form->prepare(); ?>
-<?= $this->form()->openTag($form); ?>
-<?= $this->formHidden($form->get('id'));?>
-
-<div class="form-group">
-<?= $this->formLabel($program); ?>	
-<?= $this->formElement($program->setAttribute('class', 'custom-select')->setAttribute('size', $program->getOption('length'))->setAttribute('multiple', 'multiple'));?>
-<?= $this->formElementErrors($program); ?>
+$schoolForm->prepare();
+if($inputs['high']->getValue()) :
+?>
+<h5><?= $this->translate('Education Program'); ?></h5>
+<div class="row m-1 p-3 border border-light">
+<?php foreach($programs as $id => $program) : ?>
+<div class="col-2 mx-2 alert alert-primary alert-dismissible fade show" role="alert">
+	<a href="/program/<?= $id; ?>"><?= $program; ?></a>
+	<a type="button" class="close" href="/program/<?= $id; ?>">×</a>
 </div>
+<?php endforeach; ?>
+<div class="w-100"></div>
+<button type="button" class="btn btn-primary ml-auto mr-5 px-3 d-flex" data-toggle="modal" data-target="#addProgram"><?= $this->translate('Add Program'); ?></button>
+</div>
+<?php endif; ?>
+<?= $this->form()->openTag($schoolForm); ?>
+<?= $this->formHidden($schoolForm->get('id'));?>
 <?php foreach($inputs as $input) : ?>
 <div class="form-group">
     <?= $this->formLabel($input) ?>
@@ -52,5 +58,53 @@ $form->prepare(); ?>
     <?= $this->formElementErrors()->render($input, ['class' => 'help-block']) ?>
 </div>
 <?php endforeach; ?>
-<?= $this->formSubmit($form->get('submit')->setAttribute('class', 'btn btn-primary my-3'));?>
-<?= $this->form()->closeTag(); 
+<?= $this->formSubmit($schoolForm->get('submit')->setAttribute('class', 'btn btn-primary my-3'));?>
+<?= $this->form()->closeTag(); ?>
+
+<?php
+$programForm = $this->programForm;
+$programForm->setAttribute('action', $this->url('admin', ['action' => 'program']))->setAttribute('id', 'program');
+$id_school = $programForm->get('id_school')->setValue($this->id);
+$program = $programForm->get('title')->setLabel('Education Program')->setAttribute('class', 'form-control');
+$specialty = $programForm->get('id_specialty')->setLabel('Specialty')->setAttribute('class', 'form-control');
+$level = $programForm->get('id_level')->setLabel('Select Level')->setAttribute('class', 'form-control');
+$form = $programForm->get('id_form')->setLabel('Education Form')->setAttribute('class', 'form-control');
+$schoolForm->prepare();
+?>
+<div class="modal fade" id="addProgram" tabindex="-1" role="dialog" aria-labelledby="addProgramLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="addProgramLabel"><?= $this->translate('Add Program'); ?></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="<?= $this->translate('Close'); ?>">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<?= $this->form()->openTag($programForm); ?>
+					<?= $this->formHidden($id_school);?>
+					<div class="form-group">
+					<?= $this->formLabel($program) ?>
+					<?= $this->formElement($program); ?>
+					</div>
+					<div class="form-group">
+					<?= $this->formLabel($specialty) ?>
+					<?= $this->formElement($specialty); ?>
+					</div>
+					<div class="form-group">
+					<?= $this->formLabel($level) ?>
+					<?= $this->formElement($level); ?>
+					</div>
+					<div class="form-group">
+					<?= $this->formLabel($form) ?>
+					<?= $this->formElement($form) ?>
+					</div>
+				<?= $this->form()->closeTag(); ?>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?= $this->translate('Back'); ?></button>
+				<button form="program" type="submit" class="btn btn-primary"><?= $this->translate('Save'); ?></button>
+			</div>
+		</div>
+	</div>
+</div>

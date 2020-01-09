@@ -35,6 +35,10 @@ msgstr "Обновить новости"
 msgid "Edit schools"
 msgstr "Редактировать школы"
 
+#: ../view/layout/layout.phtml:66
+msgid "Edit universities"
+msgstr "Редактировать универститеты"
+
 #: ../view/layout/layout.phtml:65
 msgid "Logout"
 msgstr "Выйти"
@@ -179,6 +183,14 @@ msgstr "Вы уверены, что хотите удалить заведени
 msgid "Edit school"
 msgstr "Редактировать заведение"
 
+#: ../view/application/admin/edit.phtml:78
+msgid "Add Program"
+msgstr "Создать образовательную программу"
+
+#: ../view/application/admin/edit.phtml:79
+msgid "Close"
+msgstr "Закрыть"
+
 #: ../view/application/admin/index.phtml:59
 msgid "Add school"
 msgstr "Добавить школу"
@@ -255,7 +267,7 @@ msgstr "Поиск университета"
 
 #: ../view/search/index.phtml:8
 msgid "Select Level"
-msgstr "Выберите желаемый уровень образования"
+msgstr "Выберите уровень образования"
 
 #: ../view/search/index.phtml:16
 msgid "Select Learning Form"
