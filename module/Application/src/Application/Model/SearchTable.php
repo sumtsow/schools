@@ -37,7 +37,7 @@ class SearchTable extends AbstractTableGateway
         foreach($programs as $key => $program) {
             $programs[$key]['form_title'] = $this->getFormTitle($program['id_form']);
             $programs[$key]['specialty_title'] = $this->getSpecialtyTitle($program['id_specialty']);
-			$programs[$key]['universities'] = $this->getUniversitiesByProgramId($program['id']);
+			$programs[$key]['schools'] = $this->getSchoolById($program['id_school']);
         }
         return $programs;
     }
@@ -117,23 +117,8 @@ class SearchTable extends AbstractTableGateway
 		$result = $result->toArray();
         return $result[0]['title'];
     }
-	    
-    public function getUniversitiesByProgramId($id)
-    {
-        $sql = new Sql($this->adapter);
-        $select = $sql->select();
-        $select->from('school_has_program')->columns(['id_school'])->where(['id_program' => $id]);
-        $selectString = $sql->buildSqlString($select);
-        $result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
-        $ids = $result->toArray();
-		$schools = [];
-		foreach($ids as $id_school) {
-			$schools[] = $this->getUniversityById($id_school['id_school'])[0];
-		}
-		return $schools;
-    }
 	
-	public function getUniversityById($id)
+	public function getSchoolById($id)
     {
         $sql = new Sql($this->adapter);
         $select = $sql->select();

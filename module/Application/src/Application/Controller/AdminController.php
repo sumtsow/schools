@@ -35,7 +35,6 @@ class AdminController extends AbstractActionController
         $paginator->setCurrentPageNumber($page)
             ->setItemCountPerPage($confArray['per_page'])
             ->setPageRange(ceil(count($result)/$confArray['per_page']));
-        $user = new User();
         $vm = new ViewModel();
 		$this->layout()->setVariable('high', $id);
         return $vm->setVariable('paginator', $paginator)
@@ -74,33 +73,6 @@ class AdminController extends AbstractActionController
 
     }
 	
-    public function programAction()
-    {
-        $user = new User();
-        if (!$user->isValid()) {
-            return $this->redirect()->toRoute('schools', array(
-                'action' => 'index'
-            ));
-        }
-        $request = $this->getRequest();
-		$programForm = new ProgramForm();
-        if ($request->isPost()) {
-            $program = new Program();
-            $programForm->setInputFilter($program->getInputFilter());
-            $programForm->setData($request->getPost());
-
-            if ($programForm->isValid()) {
-                $program->exchangeArray($programForm->getData());
-                $this->getProgramTable()->saveProgram($program);
-                return $this->redirect()->toRoute('admin', [
-                    'action' => 'edit', 'id'=> $program->id_school
-                ]);
-            }
-        }
-        return $this->redirect()->goBack();
-
-    }
-	
     public function editAction()
     {
         $user = new User();
@@ -120,10 +92,11 @@ class AdminController extends AbstractActionController
         $schoolForm  = new SchoolForm();
         $schoolForm->bind($school);
         $schoolForm->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
+		$programForm  = new ProgramForm();
+		$programs = false;
 		if($school->high) {
-			$id_program = $this->getSchoolTable()->getProgramsId($id);
+			$id_program = $this->getProgramTable()->getProgramsByIdSchool($id);
 			if($id_program) {
-				$programForm  = new ProgramForm();
 				$programs = $this->getProgramTable()->getPrograms($id_program);
 				$programForm->get('id_specialty')->setValueOptions($this->getSpecialtyTable()->getSpecialties());
 				$programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale));
@@ -231,7 +204,7 @@ class AdminController extends AbstractActionController
             $sm = $this->getServiceLocator();
 			$this->programTable = $sm->get('Application\Model\ProgramTable');
         }
-    return $this->programTable;
+		return $this->programTable;
     }
 	
     public function getSchoolTable()
@@ -240,7 +213,7 @@ class AdminController extends AbstractActionController
             $sm = $this->getServiceLocator();
 			$this->schoolTable = $sm->get('Application\Model\SchoolTable');
         }
-    return $this->schoolTable;
+		return $this->schoolTable;
     }
 
     public function getSpecialtyTable()
@@ -249,7 +222,7 @@ class AdminController extends AbstractActionController
             $sm = $this->getServiceLocator();
 			$this->specialtyTable = $sm->get('Application\Model\SpecialtyTable');
         }
-    return $this->specialtyTable;
+		return $this->specialtyTable;
     }
 
     public function updatenewsAction()
@@ -262,6 +235,6 @@ class AdminController extends AbstractActionController
         }
         $confRow = $this->getServiceLocator()->get('config')['rss'];
         file_put_contents(User::getDocumentRoot().'/'.$confRow['file'], file_get_contents($confRow['url'].'/'.$confRow['file']));
-    return $this->redirect()->toRoute('schools');
+		return $this->redirect()->toRoute('schools');
     }        
 }

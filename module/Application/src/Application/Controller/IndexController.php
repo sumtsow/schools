@@ -60,7 +60,7 @@ class IndexController extends AbstractActionController
             ->setVariable('docRoot',User::getDocumentRoot())
             ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
 		if($vm->school->high) {
-			$programs = $this->getSchoolTable()->getProgramsId($id);
+			$programs = $this->getProgramTable()->getProgramsByIdSchool($id);
 			if($programs) {
 				$id_specialties = $this->getProgramTable()->getSpecialtiesId($programs);
 				$specialties = $this->getSpecialtyTable()->fetch($id_specialties);
@@ -111,11 +111,10 @@ class IndexController extends AbstractActionController
                 return $this->redirect()->toRoute('schools', array('action' => 'index'));
             }
         }
-    
-    return array(
-        'form' => $form,
-        'username' => $user->getLogin(),
-    );
+		return array(
+			'form' => $form,
+			'username' => $user->getLogin(),
+		);
     
     }
     

@@ -13,8 +13,8 @@ foreach($this->search as $program) : ?>
 	    <p class="card-text">
 <?= $this->translate('Education Form'); ?>: <?= $program['form_title']; ?></p>
 	    <h5 class="card-title"><?= $this->translate('Universities'); ?>:</h5>
-	    <?php foreach($program['universities'] as $university) : ?>
-	    <p class="card-text"><a target="_blank" href="/view/<?= $university['id']; ?>"><?= $university['name_'.$locale]; ?></a></p>
+	    <?php foreach($program['schools'] as $school) : ?>
+	    <p class="card-text"><a target="_blank" href="/view/<?= $school['id']; ?>"><?= $school['name_'.$locale]; ?></a></p>
 	    <?php endforeach; ?>
 	</div>
 </div>
@@ -23,3 +23,4 @@ else : ?>
 <p><?= $this->translate('Not found'); ?></p>
 <?php endif; ?>
 	<a class="btn btn-info mr-3" href="/search">&laquo; <?= $this->translate('Back'); ?></a>
+<p class="my-4">&nbsp;</p>

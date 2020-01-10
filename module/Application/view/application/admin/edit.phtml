@@ -36,9 +36,9 @@ if($inputs['high']->getValue()) :
 <h5><?= $this->translate('Education Program'); ?></h5>
 <div class="row m-1 p-3 border border-light">
 <?php foreach($programs as $id => $program) : ?>
-<div class="col-2 mx-2 alert alert-primary alert-dismissible fade show" role="alert">
+<div class="col mx-2 alert alert-primary alert-dismissible fade show" role="alert">
 	<a href="/program/<?= $id; ?>"><?= $program; ?></a>
-	<a type="button" class="close" href="/program/<?= $id; ?>">×</a>
+	<a type="button" class="close" href="/program/delete/<?= $id; ?>">×</a>
 </div>
 <?php endforeach; ?>
 <div class="w-100"></div>
@@ -58,18 +58,20 @@ if($inputs['high']->getValue()) :
     <?= $this->formElementErrors()->render($input, ['class' => 'help-block']) ?>
 </div>
 <?php endforeach; ?>
-<?= $this->formSubmit($schoolForm->get('submit')->setAttribute('class', 'btn btn-primary my-3'));?>
+<?= $this->formSubmit($schoolForm->get('submit')->setAttribute('class', 'btn btn-primary mt-3 mb-5'));?>
 <?= $this->form()->closeTag(); ?>
-
+<p>&nbsp;</p>
 <?php
 $programForm = $this->programForm;
-$programForm->setAttribute('action', $this->url('admin', ['action' => 'program']))->setAttribute('id', 'program');
+$programForm->setAttribute('action', $this->url('program', ['action' => 'add', 'id' => $this->id]))->setAttribute('id', 'program');
 $id_school = $programForm->get('id_school')->setValue($this->id);
 $program = $programForm->get('title')->setLabel('Education Program')->setAttribute('class', 'form-control');
+$period = $programForm->get('period')->setLabel('Learning Period')->setAttributes(['class' => 'form-control', 'placeholder' => '4.5']);
+$year = $programForm->get('year')->setLabel('Year')->setAttributes(['class' => 'form-control', 'placeholder' => date('Y')]);
 $specialty = $programForm->get('id_specialty')->setLabel('Specialty')->setAttribute('class', 'form-control');
 $level = $programForm->get('id_level')->setLabel('Select Level')->setAttribute('class', 'form-control');
 $form = $programForm->get('id_form')->setLabel('Education Form')->setAttribute('class', 'form-control');
-$schoolForm->prepare();
+$programForm->prepare();
 ?>
 <div class="modal fade" id="addProgram" tabindex="-1" role="dialog" aria-labelledby="addProgramLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -86,6 +88,14 @@ $schoolForm->prepare();
 					<div class="form-group">
 					<?= $this->formLabel($program) ?>
 					<?= $this->formElement($program); ?>
+					</div>
+					<div class="form-group">
+					<?= $this->formLabel($period) ?>
+					<?= $this->formElement($period); ?>
+					</div>
+					<div class="form-group">
+					<?= $this->formLabel($year) ?>
+					<?= $this->formElement($year); ?>
 					</div>
 					<div class="form-group">
 					<?= $this->formLabel($specialty) ?>

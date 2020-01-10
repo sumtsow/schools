@@ -46,13 +46,24 @@ class SpecialtyTable extends AbstractTableGateway
         $resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
         return $resultSet;
     }
-		
+	
+	public function getBranchCodes()
+    {
+        $resultSet = $this->fetchBranches();
+		$codes = [];
+			foreach($resultSet as $result) {
+			$codes[$result->id] = $result->code;
+		}	
+        return $codes;
+    }
+	
 	public function getSpecialties()
     {
 		$resultSet = $this->fetchAll();
+		$branches = $this->getBranchCodes();
 		$specialties = [];
 		foreach($resultSet as $result) {
-			$specialties[$result->id] = $result->{'title'};
+			$specialties[$result->id] = sprintf("%02d", $branches[$result->id_branch]) . $result->code . ' ' . $result->title;
 		}
         return $specialties;
     }

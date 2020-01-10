@@ -31,15 +31,16 @@ else :
          'high' => $this->high,
          'area' => $this->area
      ]); ?>
+<div class="table-responsive">
 <table class="table table-striped">
     <tbody>
 <?php foreach ($paginator as $item): ?>        
         <tr>
-            <td class="col-md-1"><?= $item->id;?></td>
-            <td class="col-md-auto">
+            <td><?= $item->id;?></td>
+            <td>
                 <a href="<?= $this->url('schools', array('action'=>'view', 'id' => $item->id, 'area' => null)); ?>"><?= $item->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()};?></a>
             </td>
-            <td class="col-md-2">
+            <td>
                 <a class="fa fa-edit pr-3" title="Edit" href="/admin/edit/<?= $item->id;?>"></a>
                 <a class="fa fa-trash-alt" title="Delete" href="/admin/delete/<?= $item->id;?>"></a>
             </td>
@@ -47,7 +48,7 @@ else :
 <?php endforeach;?>
     </tbody>
 </table>
-
+</div>
 
 <?= $this->paginationControl($paginator,
      'Sliding',

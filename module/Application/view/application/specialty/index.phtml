@@ -4,7 +4,7 @@
 	$locale = $this->plugin('translate')->getTranslator()->getLocale();
 ?>
 <h2 class="text-center my-3 mx-5"><?= $this->translate('Branches'); ?></h2>
-
+<div class="table-responsive">
 <table class="table table-sm table-striped">
 	<thead>
 		<tr>
@@ -37,3 +37,4 @@ endforeach;
 ?>
 	</tbody>	
 </table>
+</div>

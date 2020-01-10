@@ -128,19 +128,6 @@ class SchoolTable extends AbstractTableGateway
         }
         return $row;
     }
-		
-	public function getProgramsId($id_school)
-    {
-		$sql = new Sql($this->adapter);
-        $select = $sql->select()->from('school_has_program')->columns(['id_program'])->where(['id_school' => $id_school]);
-        $selectString = $sql->buildSqlString($select);
-        $programs = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
-		$ids = [];
-		foreach($programs as $program) {
-			$ids[] = $program['id_program'];
-		}
-		return (count($ids)) ? $ids : false;
-    }
 
     public function saveSchool(School $school)
     {

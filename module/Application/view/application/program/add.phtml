@@ -1,0 +1,50 @@
+<?php
+
+$title = $this->translate('Add Program');
+$this->headTitle($title);
+$programForm = $this->programForm;
+$programForm->setAttribute('action', $this->url('program', ['action' => 'add', 'id' => $this->id]))->setAttribute('id', 'program');
+$id_school = $programForm->get('id_school')->setValue($this->id);
+$program = $programForm->get('title')->setLabel('Education Program')->setAttribute('class', 'form-control');
+$period = $programForm->get('period')->setLabel('Learning Period')->setAttributes(['class' => 'form-control', 'placeholder' => '4.5']);
+$year = $programForm->get('year')->setLabel('Year')->setAttributes(['class' => 'form-control', 'placeholder' => date('Y')]);
+$specialty = $programForm->get('id_specialty')->setLabel('Specialty')->setAttribute('class', 'form-control');
+$level = $programForm->get('id_level')->setLabel('Select Level')->setAttribute('class', 'form-control');
+$form = $programForm->get('id_form')->setLabel('Education Form')->setAttribute('class', 'form-control');
+$programForm->prepare();
+?>
+<div class="content">
+	<div class="row justify-content-center">
+		<h1><?= $this->escapeHtml($title); ?></h1>	
+		<div class="col-10">
+			<?= $this->form()->openTag($programForm); ?>
+				<?= $this->formHidden($id_school);?>
+				<div class="form-group">
+				<?= $this->formLabel($program) ?>
+				<?= $this->formElement($program); ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($period) ?>
+				<?= $this->formElement($period); ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($year) ?>
+				<?= $this->formElement($year); ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($specialty) ?>
+				<?= $this->formElement($specialty); ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($level) ?>
+				<?= $this->formElement($level); ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($form) ?>
+				<?= $this->formElement($form) ?>
+				</div>
+				<?= $this->formSubmit($programForm->get('submit')->setAttribute('class', 'btn btn-primary mt-3 mb-5'));?>
+			<?= $this->form()->closeTag(); ?>
+		</div>
+	</div>
+</div>

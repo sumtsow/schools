@@ -1,0 +1,21 @@
+ <?php
+
+ $title = 'Delete program';
+ $this->headTitle($title);
+ ?>
+ <h1><?= $this->escapeHtml($title); ?></h1>
+
+ <p>Are you sure that you want to delete this Program?</p>
+ <?php
+ $url = $this->url('program', [
+     'action' => 'delete',
+     'id'     => $this->program->id,
+ ]);
+ ?>
+ <form action="<?php echo $url; ?>" method="post">
+ <div>
+     <input type="hidden" name="id" value="<?php echo (int) $this->program->id; ?>" />
+     <input type="submit" name="del" value="Yes" />
+     <input type="submit" name="del" value="No" />
+ </div>
+ </form>

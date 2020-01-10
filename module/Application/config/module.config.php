@@ -50,6 +50,24 @@ return array(
                 'child_routes' => array(
                 ),
             ),
+			'program' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/program[/:action][/:id][/]',
+                    'constraints' => array(
+                        'action'     => '[a-z]*',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Program',
+                        'action'     => 'index',
+						'id'     => '[0-9]+',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                ),
+            ),
             'search' => array(
                 'type'    => 'Segment',
                 'options' => array(
@@ -113,8 +131,9 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
+            'Application\Controller\Admin' => 'Application\Controller\AdminController',			
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Admin' => 'Application\Controller\AdminController',
+            'Application\Controller\Program' => 'Application\Controller\ProgramController',
             'Application\Controller\Search' => 'Application\Controller\SearchController',
 			'Application\Controller\Specialty' => 'Application\Controller\SpecialtyController',
         ),

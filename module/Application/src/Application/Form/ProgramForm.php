@@ -27,21 +27,58 @@ class ProgramForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'period',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'year',
+            'attributes' => array(
+                'type'  => 'number',
+				'min'  => 2000,
+				'max'  => date('Y'),
+            ),
+			'options' => [
+				'disable_inarray_validator' => true,
+			]
+        ));
+		
+        $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'id_specialty',
             'id' => 'id_specialty',
+			'options' => [
+				'disable_inarray_validator' => true,
+			]
         ));
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'id_level',
             'id' => 'id_level',
+			'options' => [
+				'disable_inarray_validator' => true,
+			]
         ));
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'id_form',
             'id' => 'id_form',
+			'options' => [
+				'disable_inarray_validator' => true,
+			]
+        ));
+        
+        $this->add(array(
+            'name' => 'submit',
+            'attributes' => array(
+                'type'  => 'submit',
+                'value' => 'Save',
+                'id' => 'submitbutton',
+            ),
         ));
     }
 }

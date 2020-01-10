@@ -5,6 +5,7 @@ namespace Application\Model;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\AbstractTableGateway;
+//use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Sql;
 
 class ProgramTable extends AbstractTableGateway
@@ -51,16 +52,11 @@ class ProgramTable extends AbstractTableGateway
 	public function getSchools($id_specialty)
     {
 		if(!$id_specialty) { return false; }
-		$programs = $this->select(['id_specialty' => $id_specialty])->toArray();
-		if(!count($programs)) { return false; }
-		$ids = [];
-		foreach($programs as $program) {
-			$ids[] = $program['id'];
-		}
 		$sql = new Sql($this->adapter);
-        $select = $sql->select()->from('school_has_program')->columns(['id_school'])->where(['id_program' => $ids]);
+        $select = $sql->select()->from('program')->columns(['id_school'])->where(['id_specialty' => $id_specialty]);
         $selectString = $sql->buildSqlString($select);
-        $schools = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+        $schools = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE)->toArray();
+		if(!$schools) { return false; }
 		$ids = [];
 		foreach($schools as $school) {
 			if(!in_array($school['id_school'], $ids)) {
@@ -70,13 +66,24 @@ class ProgramTable extends AbstractTableGateway
 		return $ids;
     }
 	
-	public function getSpecialtiesId($id)
+	public function getSpecialtiesId($id_specialty)
     {
-		$programs = $this->select(['id' => $id]);
+		$programs = $this->select(['id' => $id_specialty]);
 		if(!count($programs)) { return false; }
 		$ids = [];
 		foreach($programs as $program) {
 			$ids[] = $program['id_specialty'];
+		}
+		return $ids;
+    }
+			
+	public function getProgramsByIdSchool($id_school)
+    {
+        $programs = $this->select(['id_school' => $id_school]);
+		if(!count($programs)) { return false; }
+		$ids = [];
+		foreach($programs as $program) {
+			$ids[] = $program['id'];
 		}
 		return $ids;
     }
@@ -106,4 +113,33 @@ class ProgramTable extends AbstractTableGateway
 		}
         return $forms;
     }
+
+	public function saveProgram(Program $program)
+	{
+		$data = [
+			'title' => $program->title,
+			'period' => $program->period,
+			'year' => $program->year,
+			'id_level' => $program->id_level,
+			'id_specialty' => $program->id_specialty,
+			'id_form' => $program->id_form,
+			'id_school' => $program->id_school,
+		];
+		$id = intval($program->id);
+		if ($id == 0) {
+			$this->insert($data);
+		} else {
+			if ($this->fetchOne($id)) {
+				$this->update($data, ['id' => $id]);
+			} else {
+				throw new \Exception('Program id does not exist');
+			}
+		}
+		return true;
+	}
+	 
+     public function deleteProgram($id)
+     {
+         $this->delete(['id' => (int) $id]);
+     }
 }
