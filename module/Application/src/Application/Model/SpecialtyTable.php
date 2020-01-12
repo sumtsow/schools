@@ -37,10 +37,11 @@ class SpecialtyTable extends AbstractTableGateway
 		return $this->select(['id' => $id])->current();
     }
 	
-	public function fetchBranches()
+	public function fetchBranches($id = false)
     {
-        $sql = new Sql($this->adapter);
-        $select = $sql->select();
+        $filter = $id ? ['id' => $id] : null;
+		$sql = new Sql($this->adapter);
+        $select = $sql->select($filter);
         $select->from('branch');
         $selectString = $sql->buildSqlString($select);
         $resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
@@ -78,7 +79,7 @@ class SpecialtyTable extends AbstractTableGateway
 			$domElement = $domDocument->createElement('branch', $branch->title);
 			$domRoot->appendChild($domElement);
 			$domAttribute = $domDocument->createAttribute('id');
-            $domAttribute->value = $branch->id;
+            $domAttribute->value = 'branch_' . $branch->id;
 			$domElement->appendChild($domAttribute);
 			$domAttribute = $domDocument->createAttribute('code');
             $domAttribute->value = sprintf("%02d", $branch->code);
@@ -88,12 +89,12 @@ class SpecialtyTable extends AbstractTableGateway
 			$domElement->appendChild($child);
 		}
 		foreach($specialties as $specialty) {
-			$branch = $domDocument->getElementById($specialty->id_branch);
+			$branch = $domDocument->getElementById('branch_' . $specialty->id_branch);
 			$parent = $branch->getElementsByTagName('specialties')[0];
 			$domElement = $domDocument->createElement('specialty', $specialty->title);
 			$parent->appendChild($domElement);
 			$domAttribute = $domDocument->createAttribute('id');
-			$domAttribute->value = $specialty->id;
+			$domAttribute->value = 'specialty_' . $specialty->id;
 			$domElement->appendChild($domAttribute);
 			$domAttribute = $domDocument->createAttribute('code');
 			$domAttribute->value = sprintf("%03d", $branch->getAttribute('code') . $specialty->code);

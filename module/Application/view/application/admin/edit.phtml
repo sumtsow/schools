@@ -3,7 +3,7 @@
 $title = $this->translate('Edit school');
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title); ?></h1>
+<h1 class='text-center'><?= $this->escapeHtml($title); ?></h1>
 
 <?php
 $schoolForm = $this->schoolForm;
@@ -35,10 +35,10 @@ if($inputs['high']->getValue()) :
 ?>
 <h5><?= $this->translate('Education Program'); ?></h5>
 <div class="row m-1 p-3 border border-light">
-<?php foreach($programs as $id => $program) : ?>
+<?php foreach($programs as $key => $program) : ?>
 <div class="col mx-2 alert alert-primary alert-dismissible fade show" role="alert">
-	<a href="/program/<?= $id; ?>"><?= $program; ?></a>
-	<a type="button" class="close" href="/program/delete/<?= $id; ?>">×</a>
+	<a href="<?= $this->url('program', ['action' => 'edit', 'id' => $key]) ?>"><?= $program; ?></a>
+	<a type="button" class="close" href="/program/delete/<?= $key; ?>">×</a>
 </div>
 <?php endforeach; ?>
 <div class="w-100"></div>

@@ -76,6 +76,14 @@ msgstr "Select Area"
 msgid "All"
 msgstr "All"
 
+#: ../view/application/index/index.phtml:44
+msgid "Education Level"
+msgstr "Education Level"
+
+#: ../view/application/index/index.phtml:46
+msgid "Education Period"
+msgstr "Education Period"
+
 #: ../view/application/admin/index.phtml:59
 msgid "Add school"
 msgstr "Add school"

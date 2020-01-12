@@ -76,6 +76,14 @@ msgstr "Обрати район"
 msgid "All"
 msgstr "Всі"
 
+#: ../view/application/index/index.phtml:44
+msgid "Education Level"
+msgstr "Рівень освіти"
+
+#: ../view/application/index/index.phtml:46
+msgid "Education Period"
+msgstr "Термін навчання"
+
 #: ../view/application/admin/index.phtml:59
 msgid "Add school"
 msgstr "Додати школу"

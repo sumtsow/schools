@@ -13,6 +13,13 @@ class ProgramForm extends Form
         $this->setAttribute('method', 'post');
 
         $this->add(array(
+            'name' => 'id',
+            'attributes' => array(
+                'type'  => 'hidden',
+            ),
+        ));
+		
+        $this->add(array(
             'name' => 'id_school',
             'attributes' => array(
                 'type'  => 'hidden',

@@ -67,6 +67,14 @@ msgstr "Выбрать район"
 msgid "All"
 msgstr "Все"
 
+#: ../view/application/index/index.phtml:44
+msgid "Education Level"
+msgstr "Уровень образования"
+
+#: ../view/application/index/index.phtml:46
+msgid "Education Period"
+msgstr "Срок обучения"
+
 #: ../view/application/index/index.phtml:60
 msgid "News"
 msgstr "Новости"

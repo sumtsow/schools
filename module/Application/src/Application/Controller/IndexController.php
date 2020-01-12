@@ -55,16 +55,19 @@ class IndexController extends AbstractActionController
         $id = (int) $this->params()->fromRoute('id', 0);
         $vm = new ViewModel();
         $user = new User();
+		$locale = $this->getServiceLocator()->get('translator')->getLocale();
 		$vm->setVariable('school',$this->getSchoolTable()->getSchool($id))
             ->setVariable('comments',$this->getCommentTable()->fetchComments($id))
-            ->setVariable('docRoot',User::getDocumentRoot())
+            ->setVariable('docRoot', User::getDocumentRoot())
             ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
 		if($vm->school->high) {
 			$programs = $this->getProgramTable()->getProgramsByIdSchool($id);
 			if($programs) {
 				$id_specialties = $this->getProgramTable()->getSpecialtiesId($programs);
 				$specialties = $this->getSpecialtyTable()->fetch($id_specialties);
-				$vm->setVariable('specialties', $specialties);
+				$specialtyDOM = $this->getProgramTable()->getSpecialtyDOM($id, $locale);
+				$vm->setVariable('specialties', $specialties)
+					->setVariable('specialtyDOM', $specialtyDOM);
 			}
 		}
         if(!$vm->school->visible) { return $this->redirect()->toRoute('schools', ['action' => 'index']); }
@@ -82,7 +85,7 @@ class IndexController extends AbstractActionController
                 return $this->redirect()->toRoute('schools', array('action' => 'view', 'id' => $id));
             }
         }
-        return $vm->setVariable('form', $form);
+		return $vm->setVariable('form', $form);
     }
     
     public function searchAction()

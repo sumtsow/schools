@@ -7,18 +7,56 @@ $this->headTitle($title);
 <table class="table">
     <tbody>
         <tr>
-            <th><?php if($school->logo) : ?><img style="max-width: 100px;" src="<?= $school->logo ?>" alt="logo" /><?php endif; ?></th>
+            <th><?php if($school->logo) : ?><img style="max-width: 100px;" src="<?= $school->logo; ?>" alt="logo" /><?php endif; ?></th>
             <td class="align-middle"><h2><?= $school->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()}; ?></h2></td>	
         </tr>
 		<?php if($school->high && isset($this->specialties)) : ?>
 		<tr>
             <th><?= $this->translate('Specialties'); ?></th>
             <td>
-				<ul class="nav flex-column">
-			<?php foreach($this->specialties as $specialty) : ?>
-					<li class="nav-item"><a class="nav-link" href="<?= $this->url('specialty', ['action' => 'view', 'id' => $specialty->id]);?>"><?= $specialty->title; ?></a></li>
-			<?php endforeach; ?>
-				</ul>
+				<div class="accordion" id="specialities">				
+			<?php
+			$branches = $this->specialtyDOM->getElementsByTagName('branch');
+			foreach($branches as $branch) :
+			?>
+				<h4><?= $this->translate('Branch Title'); ?>: <?= $branch->getAttribute('code'); ?> <?= $branch->firstChild->textContent; ?></h4>
+			<?php
+				$specialties = $branch->getElementsByTagName('specialty');
+				foreach($specialties as $specialty) :
+			?>				
+					<div class="card">
+						<div class="card-header" id="<?= $specialty->getAttribute('id') ?>">
+							<h4 class="mb-0">
+								<button class="btn btn-link p-0 text-decoration-none" role="button" type="button" data-toggle="collapse" data-target="#collapse_<?= $specialty->getAttribute('id') ?>" aria-expanded="false" aria-controls="collapse_<?= $specialty->getAttribute('id') ?>">
+									<?= $this->translate('Specialty Title'); ?>: <?= $specialty->getAttribute('code'); ?> <?= $specialty->firstChild->textContent; ?>
+								</button>
+							</h4>
+						</div>
+
+						<div id="collapse_<?= $specialty->getAttribute('id') ?>" class="collapse" aria-labelledby="<?= $specialty->getAttribute('id') ?>" data-parent="#specialities">
+							<div class="card-body">
+				<?php
+					$programs = $specialty->getElementsByTagName('program');
+					foreach($programs as $program) :
+				?>
+								<div class="card-text">
+									<h5><?= $this->translate('Education Program'); ?>: <?= $program->firstChild->textContent; ?></h5>
+									<p><?= $this->translate('Education Level'); ?>: <?= $program->getAttribute('level_title'); ?></p>
+									<p><?= $this->translate('Education Form'); ?>: <?= $program->getAttribute('form_title'); ?></p>
+									<p><?= $this->translate('Education Period'); ?>: <?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?></p>
+									<hr/>
+								</div>
+				<?php
+					endforeach;
+				?>
+							</div>
+						</div>
+					</div>
+			<?php
+				endforeach;
+			endforeach;
+			?>
+				</div>
 			</td>
         </tr>
 		<?php endif; ?>
