@@ -9,11 +9,15 @@
 		<div class="col">
 			<form class="border border-light p-3" method="post" action="/search/view" id="subjects" enctype="multipart/form-data">
 				<?php foreach($this->subjects as $subject) : ?>
-<div class="form-group">		
+				<div class="form-group">		
 					<label for="subject[<?= $subject->id ?>]"><?= $subject->title; ?></label>
-					<input type="number" min="0" max="200" placeholder="<?= $this->translate('Enter your rating'); ?>" class="custom-select custom-select-md" id="subject[<?= $subject->id ?>]" name="subject[<?= $subject->id ?>]" />
+					<input type="number" min="100" max="200" placeholder="<?= $this->translate('Enter your rating'); ?>" class="custom-select custom-select-md" id="subject[<?= $subject->id ?>]" name="subject[<?= $subject->id ?>]" />
 				</div>
 				<?php endforeach; ?>
+				<div class="form-group">		
+					<label for="mean_score"><?= $this->translate('The mean score of the document on education'); ?></label>
+					<input type="number" min="100" max="200" placeholder="<?= $this->translate('Enter your rating'); ?>" class="custom-select custom-select-md" id="mean_score" name="mean_score" />
+				</div>
 <input type="hidden" id="form" value="<?= $this->form; ?>" name="form" />
 				<input type="hidden" id="level" value="<?= $this->level; ?>" name="level" />
 				<button class="btn btn-info mr-3" onclick="window.history.back();">&laquo; <?= $this->translate('Back'); ?></button>

@@ -98,9 +98,12 @@ class AdminController extends AbstractActionController
 			$id_program = $this->getProgramTable()->getProgramsByIdSchool($id);
 			if($id_program) {
 				$programs = $this->getProgramTable()->getPrograms($id_program);
-				$programForm->get('id_specialty')->setValueOptions($this->getSpecialtyTable()->getSpecialties());
-				$programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale));
-				$programForm->get('id_form')->setValueOptions($this->getProgramTable()->getForms($locale));
+				if($programs) {
+				    $programForm->get('id_specialty')->setValueOptions($this->getSpecialtyTable()->getSpecialties());
+				    $programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale));
+				    $programForm->get('id_form')->setValueOptions($this->getProgramTable()->getForms($locale));
+				    $specialtyDOM = $this->getProgramTable()->getSpecialtyDOM($id, $locale);
+			    }
 			}
 		}
         $schoolForm->get('area')->setValue(array_search($school->area, $schoolForm->get('area')->getValueOptions()));
@@ -120,6 +123,7 @@ class AdminController extends AbstractActionController
             'schoolForm' => $schoolForm,
 			'programForm' => $programForm,
             'programs' => $programs,
+            'specialtyDOM' => $specialtyDOM,
         );
     }
 

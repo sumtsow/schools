@@ -4,27 +4,31 @@ $this->headTitle($title);
 ?>
 <script src="/js/smile.js"></script>
 <?php /*($this->headScript()->prependFile("/js/smile.js"));*/ ?>
-<table class="table">
+<table class="table table-striped">
     <tbody>
         <tr>
-            <th><?php if($school->logo) : ?><img style="max-width: 100px;" src="<?= $school->logo; ?>" alt="logo" /><?php endif; ?></th>
-            <td class="align-middle"><h2><?= $school->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()}; ?></h2></td>	
+            <td class="align-middle">
+                <h4><?php if($school->logo) : ?>
+                <img style="max-width: 100px;" src="<?= $school->logo; ?>" alt="logo" />
+                <?php endif; ?>
+                <?= $school->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()}; ?></h4>
+            </td>	
         </tr>
 		<?php if($school->high && isset($this->specialties)) : ?>
 		<tr>
-            <th><?= $this->translate('Specialties'); ?></th>
-            <td>
+            <td class="px-0">		    
+                <h4 class="m-3"><?= $this->translate('Specialties'); ?></h4>
 				<div class="accordion" id="specialities">				
 			<?php
 			$branches = $this->specialtyDOM->getElementsByTagName('branch');
 			foreach($branches as $branch) :
 			?>
-				<h4><?= $this->translate('Branch Title'); ?>: <?= $branch->getAttribute('code'); ?> <?= $branch->firstChild->textContent; ?></h4>
+				<h5 class="m-3"><?= $this->translate('Branch Title'); ?>: <?= $branch->getAttribute('code'); ?> <?= $branch->firstChild->textContent; ?></h5>
 			<?php
 				$specialties = $branch->getElementsByTagName('specialty');
 				foreach($specialties as $specialty) :
 			?>				
-					<div class="card">
+					<div class="card mt-2">
 						<div class="card-header" id="<?= $specialty->getAttribute('id') ?>">
 							<h4 class="mb-0">
 								<button class="btn btn-link p-0 text-decoration-none" role="button" type="button" data-toggle="collapse" data-target="#collapse_<?= $specialty->getAttribute('id') ?>" aria-expanded="false" aria-controls="collapse_<?= $specialty->getAttribute('id') ?>">
@@ -39,56 +43,79 @@ $this->headTitle($title);
 					$programs = $specialty->getElementsByTagName('program');
 					foreach($programs as $program) :
 				?>
-								<div class="card-text">
-									<h5><?= $this->translate('Education Program'); ?>: <?= $program->firstChild->textContent; ?></h5>
-									<p><?= $this->translate('Education Level'); ?>: <?= $program->getAttribute('level_title'); ?></p>
-									<p><?= $this->translate('Education Form'); ?>: <?= $program->getAttribute('form_title'); ?></p>
-									<p><?= $this->translate('Education Period'); ?>: <?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?></p>
-									<hr/>
-								</div>
+								<div class="card-text border border-top-0 border-right-0 border-left-0 border-light pt-3">
+									<div class="row">
+										<div class="col">
+											<p><span class=" font-weight-bold"><?= $this->translate('Education Program'); ?>: </span><?= $program->firstChild->textContent; ?></p>
+										</div>
+										<div class="col">
+											<p><span class=" font-weight-bold"><?= $this->translate('Education Level'); ?>: </span><?= $program->getAttribute('level_title'); ?></p>
+										</div>
+										<div class="col">
+											<p><span class=" font-weight-bold"><?= $this->translate('Education Form'); ?>: </span><?= $program->getAttribute('form_title'); ?></p>
+										</div>
+										<div class="col">
+											<p><span class=" font-weight-bold"><?= $this->translate('Education Period'); ?>: </span><?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?></p>
+										</div>
+									</div>
+								</div>									
 				<?php
 					endforeach;
 				?>
 							</div>
 						</div>
-					</div>
 			<?php
 				endforeach;
 			endforeach;
 			?>
-				</div>
+					</div>
+			
 			</td>
         </tr>
 		<?php endif; ?>
         <tr>
-            <th><?= $this->translate('Address'); ?></th>
-            <td><?= $school->address; ?></td>	
+            <td>
+                <span class="font-weight-bold"><?= $this->translate('Address'); ?>: </span>
+                <?= $school->address; ?>
+            </td>	
         </tr>
         <tr>	
-            <th><?= $this->translate('Phone'); ?></th>
-            <td><?= $school->phone; ?></td>
+            <td>
+                <span class="font-weight-bold"><?= $this->translate('Phone'); ?>: </span>
+            <?= $school->phone; ?>
+            </td>
         </tr>	
         <tr>		
-            <th>E-mail</th>	
-            <td><a target="_blank" href="mailto://<?= $school->email;?>"><?= $school->email;?></a></td>
+            <td>
+                <span class="font-weight-bold">E-mail: </span>
+                <a target="_blank" href="mailto://<?= $school->email;?>"><?= $school->email;?></a>
+            </td>
         </tr>	
         <tr>		
-            <th>WWW</th>
-            <td><a target="_blank" href="<?= $school->http;?>"><?= parse_url($school->http, PHP_URL_HOST);?></a></td>	
+            <td>
+                <span class="font-weight-bold">WWW: </span>
+                <a target="_blank" href="<?= $school->http;?>"><?= parse_url($school->http, PHP_URL_HOST);?></a>
+            </td>	
         </tr>
 <?php if($school->info) : ?>
         <tr>	
-            <th><?= $this->translate('Information'); ?></th>
-            <td><?= $school->info; ?></td>	
+            <td>
+                <span class="font-weight-bold"><?= $this->translate('Information'); ?>: </span>
+                <?= $school->info; ?>
+            </td>	
         </tr>
 <?php endif; ?>
         <tr>	
-            <th><?= $this->translate('Area'); ?></th>
-            <td><?= $school->area; ?></td>
+            <td>
+                <span class="font-weight-bold"><?= $this->translate('Area'); ?></span>
+                <?= $school->area; ?>
+            </td>
         </tr>	
         <tr>	
-            <th><?= $this->translate('Map'); ?></th>
-            <td><?= $school->map; ?></td>	
+            <td>
+                <span class="font-weight-bold"><?= $this->translate('Map'); ?></span>
+                <?= $school->map; ?>
+            </td>	
         </tr>
     </tbody>
 </table>
@@ -173,7 +200,7 @@ endforeach;
 ?>
     </div>
 </div><!-- Existing comments END -->
-<div class="row bg-dark text-light pt-5"><!-- New comment -->
+<div class="row bg-dark text-light py-5"><!-- New comment -->
     <div class="col-md-12">
         <h4><?= $this->translate('Add a review'); ?></h4>
 <?php

@@ -12,10 +12,8 @@ foreach($this->search as $program) : ?>
 	    <h5 class="card-title"><?= $this->translate('Education Program'); ?>: <?= $program['title']; ?></h5>
 	    <p class="card-text">
 <?= $this->translate('Education Form'); ?>: <?= $program['form_title']; ?></p>
-	    <h5 class="card-title"><?= $this->translate('Universities'); ?>:</h5>
-	    <?php foreach($program['schools'] as $school) : ?>
-	    <p class="card-text"><a target="_blank" href="/view/<?= $school['id']; ?>"><?= $school['name_'.$locale]; ?></a></p>
-	    <?php endforeach; ?>
+		<p class="card-text"><?= $this->translate('Rating'); ?>: <?= $program['mean_score']; ?></p>
+		<p class="card-text"><span class="font-weight-bold"><?= $this->translate('University'); ?>: </span><a target="_blank" href="/view/<?= $program['schools'][0]['id']; ?>"><?= $program['schools'][0]['name_'.$locale] ?></a></p>
 	</div>
 </div>
 <?php endforeach;

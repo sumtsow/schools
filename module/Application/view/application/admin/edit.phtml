@@ -33,17 +33,54 @@ $inputs = [
 $schoolForm->prepare();
 if($inputs['high']->getValue()) :
 ?>
-<h5><?= $this->translate('Education Program'); ?></h5>
-<div class="row m-1 p-3 border border-light">
-<?php foreach($programs as $key => $program) : ?>
-<div class="col mx-2 alert alert-primary alert-dismissible fade show" role="alert">
-	<a href="<?= $this->url('program', ['action' => 'edit', 'id' => $key]) ?>"><?= $program; ?></a>
-	<a type="button" class="close" href="/program/delete/<?= $key; ?>">×</a>
-</div>
+<div class="container-fluid m-1 p-3 border border-light">
+	<div class="row">	
+		<div class="col">
+			<h3><?= $this->translate('Specialties'); ?></h3>
+		</div>
+	</div>
+	
+<?php
+$branches = $this->specialtyDOM->getElementsByTagName('branch');
+foreach($branches as $branch) :
+?>
+	<div class="row" id="specialities">		
+		<div class="col">
+			<h4><?= $this->translate('Branch Title'); ?>: <?= $branch->getAttribute('code'); ?> <?= $branch->firstChild->textContent; ?></h4>
+		</div>			
+	<?php
+	$specialties = $branch->getElementsByTagName('specialty');
+	foreach($specialties as $specialty) :
+	?>				
+		<h5 class="d-block w-100 mx-3"><?= $this->translate('Specialty Title'); ?>: <?= $specialty->getAttribute('code'); ?> <?= $specialty->firstChild->textContent; ?></h5>
+			<div class="card-columns">
+					
+		<?php
+		$programs = $specialty->getElementsByTagName('program');
+		foreach($programs as $program) :
+		?>
+				<div class="card mx-2 alert alert-primary alert-dismissible fade show" role="alert">
+					<div class="card-body">
+						<h5 class="card-title">
+							<?php $id = explode('_', $program->getAttribute('id'))[1]; ?>
+							<a href="<?= $this->url('program', ['action' => 'edit', 'id' => explode('program_', $program->getAttribute('id'))[1]]) ?>"><?= $this->translate('Education Program'); ?>: <?= $program->firstChild->textContent; ?></a>
+						</h5>
+						<a type="button" class="close font-weight-bold" href="/program/delete/<?= intval($program->getAttribute('level_title')); ?>">×</a>
+						<p class="card-text"><span class="font-weight-bold"><?= $this->translate('Education Level'); ?>: </span><?= $program->getAttribute('level_title'); ?></p>
+						<p class="card-text"><span class="font-weight-bold"><?= $this->translate('Education Form'); ?>: </span><?= $program->getAttribute('form_title'); ?></p>
+						<p class="card-text"><span class="font-weight-bold"><?= $this->translate('Education Period'); ?>: </span><?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?></p>
+					</div>
+			</div>					
+		<?php endforeach; ?>
+		</div>		
+	<?php endforeach; ?>
+	</div>	
 <?php endforeach; ?>
-<div class="w-100"></div>
-<button type="button" class="btn btn-primary ml-auto mr-5 px-3 d-flex" data-toggle="modal" data-target="#addProgram"><?= $this->translate('Add Program'); ?></button>
-</div>
+</div>		
+	<div class="w-100"></div>
+	<button type="button" class="btn btn-primary ml-auto mr-5 px-3 d-flex" data-toggle="modal" data-target="#addProgram"><?= $this->translate('Add Program'); ?></button>
+	</div>
+	
 <?php endif; ?>
 <?= $this->form()->openTag($schoolForm); ?>
 <?= $this->formHidden($schoolForm->get('id'));?>
