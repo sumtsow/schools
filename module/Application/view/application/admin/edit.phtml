@@ -60,15 +60,15 @@ foreach($branches as $branch) :
 		foreach($programs as $program) :
 		?>
 				<div class="card mx-2 alert alert-primary alert-dismissible fade show" role="alert">
-					<div class="card-body">
+					<div class="card-body p-0">
 						<h5 class="card-title">
 							<?php $id = explode('_', $program->getAttribute('id'))[1]; ?>
-							<a href="<?= $this->url('program', ['action' => 'edit', 'id' => explode('program_', $program->getAttribute('id'))[1]]) ?>"><?= $this->translate('Education Program'); ?>: <?= $program->firstChild->textContent; ?></a>
+							<a href="<?= $this->url('program', ['action' => 'edit', 'id' => $id]) ?>"><?= $this->translate('Education Program'); ?>: <?= $program->firstChild->textContent; ?></a>
 						</h5>
-						<a type="button" class="close font-weight-bold" href="/program/delete/<?= intval($program->getAttribute('level_title')); ?>">×</a>
-						<p class="card-text"><span class="font-weight-bold"><?= $this->translate('Education Level'); ?>: </span><?= $program->getAttribute('level_title'); ?></p>
-						<p class="card-text"><span class="font-weight-bold"><?= $this->translate('Education Form'); ?>: </span><?= $program->getAttribute('form_title'); ?></p>
-						<p class="card-text"><span class="font-weight-bold"><?= $this->translate('Education Period'); ?>: </span><?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?></p>
+						<a type="button" class="close font-weight-bold" href="/program/delete/<?= $id ?>">×</a>
+						<p class="card-text m-0"><span class="font-weight-bold"><?= $this->translate('Education Level'); ?>: </span><?= $program->getAttribute('level_title'); ?></p>
+						<p class="card-text m-0"><span class="font-weight-bold"><?= $this->translate('Education Form'); ?>: </span><?= $program->getAttribute('form_title'); ?></p>
+						<p class="card-text m-0"><span class="font-weight-bold"><?= $this->translate('Education Period'); ?>: </span><?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?></p>
 					</div>
 			</div>					
 		<?php endforeach; ?>

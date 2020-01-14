@@ -98,7 +98,7 @@ class ProgramController extends AbstractActionController
 		$programForm->get('id_specialty')->setValueOptions($this->getSpecialtyTable()->getSpecialties())->setValue($program->id_specialty);
 		$programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale))->setValue($program->id_level);
 		$programForm->get('id_form')->setValueOptions($this->getProgramTable()->getForms())->setValue($program->id_form);
-		//$school = $this->getSchoolTable()->getSchool($program->id_school);	
+		$subjects = $this->getProgramTable()->getExamSubjects($id);
 		$request = $this->getRequest();
         if ($request->isPost()) {
             $program = new Program();
@@ -118,6 +118,7 @@ class ProgramController extends AbstractActionController
         return array(
 			'id' => $id,
 			'programForm' => $programForm,
+			'subjects' => $subjects,
         );
     }
 

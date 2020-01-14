@@ -9,13 +9,23 @@ use Zend\InputFilter\InputFilterInterface;
 class Subject implements InputFilterAwareInterface
 {
 	public $id;
-	public $title;	
+	public $title;
+	public $required;
+	public $coefficient;
+	public $rating;
+	public $id_program;
+	public $id_subject;	
     protected $inputFilter;
 
     public function exchangeArray($data)
     {
-        $this->id    = (isset($data['id']))    ? $data['id']    : null;
-        $this->title = (isset($data['title'])) ? $data['title'] : null;
+        $this->id          = (isset($data['id']))          ? $data['id']          : null;
+        $this->title       = (isset($data['title']))       ? $data['title']       : null;
+        $this->required    = (isset($data['required']))    ? $data['required']    : null;
+        $this->coefficient = (isset($data['coefficient'])) ? $data['coefficient'] : null;
+        $this->rating      = (isset($data['rating']))      ? $data['rating']      : null;
+        $this->id_program  = (isset($data['id_program']))  ? $data['id_program']  : null;
+        $this->id_subject  = (isset($data['id_subject']))  ? $data['id_subject']  : null;
     }
 
     public function getArrayCopy()

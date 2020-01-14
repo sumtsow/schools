@@ -50,4 +50,33 @@ $programForm->prepare();
 			<?= $this->form()->closeTag(); ?>
 		</div>
 	</div>
+	<h3 class="text-center"><?= $this->translate('Subjects'); ?></h3>
+
+	<div class="row justify-content-center">
+		<div class="col-10">
+			<form id="subjects">				
+<?php foreach($this->subjects as $id => $subject) : ?>				
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="title[<?= $id; ?>]"><?= $this->translate('Title'); ?></label>
+						<input type="text" class="form-control" id="title[<?= $id; ?>]" value="<?= $subject['title']; ?>" readonly="readonly">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="required[<?= $id; ?>]"><?= $this->translate('Required'); ?></label>
+						<input type="text" class="form-control" id="required[<?= $id; ?>]" value="<?= $subject['required']; ?>">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="coefficient[<?= $id; ?>]"><?= $this->translate('Coefficient'); ?></label>
+						<input type="text" class="form-control" id="coefficient[<?= $id; ?>]" value="<?= $subject['coefficient']; ?>">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="rating[<?= $id; ?>]"><?= $this->translate('Rating'); ?></label>
+						<input type="text" class="form-control" id="rating[<?= $id; ?>]" value="<?= $subject['rating']; ?>">
+					</div>
+				</div>
+<?php endforeach; ?>
+			<button type="submit" class="btn btn-primary mt-2 mb-3"><?= $this->translate('Save'); ?></button>
+			</form>				
+		</div>
+	</div>
 </div>

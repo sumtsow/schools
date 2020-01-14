@@ -152,6 +152,53 @@ class ProgramTable extends AbstractTableGateway
         return $forms;
     }
 
+	// return All Subjects
+	public function getSubjects()
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->from('subject');
+        $selectString = $sql->buildSqlString($select);
+		$subjects = [];
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		foreach($resultSet as $result) {
+			$subjects[$result->id] = $result;
+		}
+        return $subjects;
+    }
+	
+	// return Options of Subjects needed to this Program
+	public function getExamSubjectOptions($id_program)
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->from('program_has_subject')->where(['id_program' => $id_program])->order(['id_subject']);
+        $selectString = $sql->buildSqlString($select);
+		$subjects = [];
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		foreach($resultSet as $result) {
+			$subjects[$result->id_subject] = $result;
+		}
+        return $subjects;
+    }
+	
+	// return Subjects needed to this Program
+	public function getExamSubjects($id_program)
+    {
+		$options = $this->getExamSubjectOptions($id_program);
+		$ids = array_keys($options);
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->from('subject')->where(['id' => $ids])->order(['title']);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		$subjects = [];
+		foreach($resultSet as $result) {
+			$subjects[$result->id]['title'] = $result->title;
+			$subjects[$result->id]['required'] = $options[$result->id]['required'];
+			$subjects[$result->id]['coefficient'] = $options[$result->id]['coefficient'];
+			$subjects[$result->id]['rating'] = $options[$result->id]['rating'];
+		}
+        return $subjects;
+    }
+	
 	public function getSpecialtyDOM($id_school = false, $locale)
     {
 		$domDocument = new \DomDocument('1.0', 'utf-8');
@@ -182,6 +229,7 @@ class ProgramTable extends AbstractTableGateway
 		$specialties = $this->getSpecialties($id_specialties);
 		$forms = $this->getForms();
 		$levels = $this->getLevels($locale);
+		$subjects = $this->getSubjects();
 		$id_branch = [];
 		foreach($specialties as $specialty) {
 			if(!in_array($specialty->id_branch, $id_branch)) {
@@ -244,7 +292,27 @@ class ProgramTable extends AbstractTableGateway
 			$domAttribute = $domDocument->createAttribute('level_title');
 			$domAttribute->value = $levels[$program->id_level];
 			$domElement->appendChild($domAttribute);
-			$domElement->setIdAttribute('id', true);			
+			$examSubjects = $this->getExamSubjectOptions($program->id);
+			if($examSubjects) {
+				$child = $domDocument->createElement('subjects');
+				$domElement->appendChild($child);
+				foreach($examSubjects as $id_subject => $subject) {
+					$domElement = $domDocument->createElement('subject', $subjects[$id_subject]['title']);
+					$child->appendChild($domElement);
+					$domAttribute = $domDocument->createAttribute('id');
+					$domAttribute->value = 'subject_' . $id_subject;
+					$domElement->appendChild($domAttribute);
+					$domAttribute = $domDocument->createAttribute('required');
+					$domAttribute->value = $subject['required'];
+					$domElement->appendChild($domAttribute);
+					$domAttribute = $domDocument->createAttribute('coefficient');
+					$domAttribute->value = $subject['coefficient'];
+					$domElement->appendChild($domAttribute);
+					$domAttribute = $domDocument->createAttribute('rating');
+					$domAttribute->value = $subject['rating'];
+					$domElement->appendChild($domAttribute);				
+				}
+			}
 		}
 		return $domDocument;
 	}

@@ -37,32 +37,48 @@ $this->headTitle($title);
 							</h4>
 						</div>
 
-						<div id="collapse_<?= $specialty->getAttribute('id') ?>" class="collapse" aria-labelledby="<?= $specialty->getAttribute('id') ?>" data-parent="#specialities">
-							<div class="card-body">
+						<div id="collapse_<?= $specialty->getAttribute('id') ?>" class="collapse p-1" aria-labelledby="<?= $specialty->getAttribute('id') ?>" data-parent="#specialities">
+							<div class="card-columns">
 				<?php
 					$programs = $specialty->getElementsByTagName('program');
 					foreach($programs as $program) :
+						$subjects = $program->getElementsByTagName('subject');
 				?>
-								<div class="card-text border border-top-0 border-right-0 border-left-0 border-light pt-3">
-									<div class="row">
-										<div class="col">
-											<p><span class=" font-weight-bold"><?= $this->translate('Education Program'); ?>: </span><?= $program->firstChild->textContent; ?></p>
-										</div>
-										<div class="col">
-											<p><span class=" font-weight-bold"><?= $this->translate('Education Level'); ?>: </span><?= $program->getAttribute('level_title'); ?></p>
-										</div>
-										<div class="col">
-											<p><span class=" font-weight-bold"><?= $this->translate('Education Form'); ?>: </span><?= $program->getAttribute('form_title'); ?></p>
-										</div>
-										<div class="col">
-											<p><span class=" font-weight-bold"><?= $this->translate('Education Period'); ?>: </span><?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?></p>
+
+								<div class="card border border-primary p-0">
+									<div class="card-header text-white bg-primary">
+										<h6 class="card-title"><span class=" font-weight-bold"><?= $this->translate('Education Program'); ?>: </span><?= $program->firstChild->textContent; ?></h6>
+									</div>
+									<div class="card-body p-0">
+										<div class="card-text">
+											<ul class="list-group list-group-flush my-0">
+												<li class="list-group-item">
+													<span class=" font-weight-bold"><?= $this->translate('Education Level'); ?>: </span><?= $program->getAttribute('level_title'); ?><br/>
+													<span class=" font-weight-bold"><?= $this->translate('Education Form'); ?>: </span><?= $program->getAttribute('form_title'); ?><br/>
+													<span class=" font-weight-bold"><?= $this->translate('Education Period'); ?>: </span><?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?>
+												</li>
+						<?php if($subjects) : ?>
+												<li class="list-group-item">
+													<span class=" font-weight-bold"><?= $this->translate('Subjects'); ?>:</span>
+												</li>
+							<?php foreach($subjects as $subject) : ?>
+												<li class="list-group-item"><span class=" font-weight-bold"><?= $this->translate('Title'); ?>: </span><?= $subject->firstChild->textContent; ?>
+													<span class=" font-weight-bold"><?= $this->translate('Rating'); ?>: </span><?= $subject->getAttribute('rating'); ?> 
+													<span class=" font-weight-bold"><?= $this->translate('Coefficient'); ?>: </span><?= $subject->getAttribute('coefficient'); ?> 
+													<span class=" font-weight-bold"><?= $this->translate('Required'); ?>: </span><?= $subject->getAttribute('required'); ?></li>
+							<?php endforeach; ?>	
+						<?php endif; ?>
+											</ul>
 										</div>
 									</div>
-								</div>									
+									<div class="card-footer">
+										<a href="#" class="card-link"><?= $this->translate('Details'); ?></a>
+									</div>
+								</div>	
 				<?php
 					endforeach;
 				?>
-							</div>
+							</div>							
 						</div>
 			<?php
 				endforeach;

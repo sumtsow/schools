@@ -78,7 +78,16 @@ class ProgramForm extends Form
 				'disable_inarray_validator' => true,
 			]
         ));
-        
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'subject',
+            'id' => 'subject',
+			'options' => [
+				'disable_inarray_validator' => true,
+			]
+        ));
+		
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
