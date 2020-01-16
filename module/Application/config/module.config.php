@@ -103,6 +103,24 @@ return array(
                 'child_routes' => array(
                 ),
             ),
+            'subject' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/subject[/:action][/:id][/]',
+                    'constraints' => array(
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+						'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Subject',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                ),
+            ),			
         ),
     ),
     'service_manager' => array(
@@ -136,6 +154,7 @@ return array(
             'Application\Controller\Program' => 'Application\Controller\ProgramController',
             'Application\Controller\Search' => 'Application\Controller\SearchController',
 			'Application\Controller\Specialty' => 'Application\Controller\SpecialtyController',
+			'Application\Controller\Subject' => 'Application\Controller\SubjectController',
         ),
     ),
     'view_manager' => array(

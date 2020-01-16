@@ -5,6 +5,7 @@ use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
+use Zend\Filter\Boolean;
 
 class Subject implements InputFilterAwareInterface
 {
@@ -44,13 +45,21 @@ class Subject implements InputFilterAwareInterface
             $inputFilter = new InputFilter();
             $factory     = new InputFactory();
 
-            $inputFilter->add($factory->createInput(array(
+			/*$inputFilter->add($factory->createInput(array(
+				'name' => 'required',
+				'filters' => array(
+					array(
+						'name' => 'Boolean',
+					),
+				),
+			)));*/
+            /*$inputFilter->add($factory->createInput(array(
                 'name'     => 'id',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'ToInt'),
                 ),
-            )));
+            )));*/
 
             /*$inputFilter->add($factory->createInput(array(
                 'name'     => 'title',

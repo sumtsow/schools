@@ -45,7 +45,7 @@ class SearchController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
 			$id_subject = $request->getPost()->subjects;
-			$subjects = $this->getSubjectTable()->fetch($id_subject);
+			$subjects = $this->getSubjectTable()->fetchOne($id_subject);
 			if(count($subjects) > 2) {
 			    $vm = new ViewModel();			
 			    return $vm->setVariable('subjects', $subjects)

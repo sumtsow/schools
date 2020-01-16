@@ -184,6 +184,7 @@ class ProgramTable extends AbstractTableGateway
 	public function getExamSubjects($id_program)
     {
 		$options = $this->getExamSubjectOptions($id_program);
+		if(!count($options)) { return; }		
 		$ids = array_keys($options);
 		$sql = new Sql($this->adapter);
         $select = $sql->select()->from('subject')->where(['id' => $ids])->order(['title']);
@@ -191,6 +192,7 @@ class ProgramTable extends AbstractTableGateway
 		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
 		$subjects = [];
 		foreach($resultSet as $result) {
+			$subjects[$result->id]['id'] = $options[$result->id]['id'];
 			$subjects[$result->id]['title'] = $result->title;
 			$subjects[$result->id]['required'] = $options[$result->id]['required'];
 			$subjects[$result->id]['coefficient'] = $options[$result->id]['coefficient'];
