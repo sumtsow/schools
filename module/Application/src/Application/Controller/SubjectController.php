@@ -13,12 +13,45 @@ class SubjectController extends AbstractActionController
 	
     public function indexAction()
     {
-		return new ViewModel();
+		$id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('admin', ['action' => 'program']);
+        }		
+		$user = new User();
+        if (!$user->isValid()) {
+            return $this->redirect()->toRoute('index', ['action' => 'view', 'id' => $id]);
+        }
+        $request = $this->getRequest();
+        $vm = new ViewModel();
+		return $vm->setVariable('data',  $request->getPost());
     }
 	
     public function addAction()
     {
-		return new ViewModel();
+        $id_program = (int) $this->params()->fromRoute('id', 0);
+        if (!$id_program) {
+            return $this->redirect()->toRoute('admin', ['action' => 'program']);
+        }		
+		$user = new User();
+        if (!$user->isValid()) {
+            return $this->redirect()->toRoute('index', ['action' => 'view', 'id' => $id_program]);
+        }
+		$subjectForm  = new SubjectForm();
+		$request = $this->getRequest();
+        if ($request->isPost()) {
+            $subject = new Subject();
+            $subjectForm->setInputFilter($subject->getInputFilter());
+            $subjectForm->setData($request->getPost());
+			$result = false;
+            if ($subjectForm->isValid()) {
+                $subject->exchangeArray($subjectForm->getData());
+                $result = $this->getSubjectTable()->save($subject);
+            }
+			/*if($result) {
+				return $this->redirect()->toRoute('program', ['action' => 'edit', 'id' => $id_program]);					
+			}*/
+        }
+		return $this->redirect()->toRoute('program', ['action' => 'edit', 'id' => $id_program]);
     }
 	
     public function editAction()
@@ -31,7 +64,6 @@ class SubjectController extends AbstractActionController
         if (!$user->isValid()) {
             return $this->redirect()->toRoute('index', ['action' => 'view', 'id' => $id]);
         }
-		$locale = $this->getServiceLocator()->get('translator')->getLocale();
 		$subjectForm  = new SubjectForm();
 		$request = $this->getRequest();
         if ($request->isPost()) {
@@ -61,24 +93,23 @@ class SubjectController extends AbstractActionController
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin', [
-				'action' => 'edit', 'id' => $id
+				'action' => 'edit', 'id' => '1'
 			]);
 		}
-		/*$program = $this->getProgramTable()->fetchOne($id);
+		$subject = $this->getSubjectTable()->fetch($id);
 		$request = $this->getRequest();
 		if ($request->isPost()) {
 			$del = $request->getPost('del', 'No');
 			if ($del == 'Yes') {
-				$id = (int) $request->getPost('id');
-				$this->getProgramTable()->deleteProgram($id);
+			    $post_id = (int) $request->getPost('id');
+				$this->getSubjectTable()->deleteSubject($post_id);
 			}
-			return $this->redirect()->toRoute('admin', [
-				'action' => 'edit', 'id' => $program->id_school
-			]);			
-		}
-        return array(
-            'program' => $program,
-        );*/
+			return $this->redirect()->toRoute('program', [
+				'action' => 'edit', 'id' => $id
+			]);	
+		};
+		$vm = new ViewModel();
+        return $vm->setVariable('id_program',  $subject->id_program)->setVariable('id',  $id);
 	}
 
     public function getSubjectTable()
