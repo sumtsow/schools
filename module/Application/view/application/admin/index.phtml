@@ -1,6 +1,8 @@
 <?php
 $paginator = $this->paginator;
 echo $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');
+$this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js', 'text/javascript', []);
+$this->headScript()->appendFile('/js/ajax.js', 'text/javascript', []);
 if($this->high) :
     $title = $this->translate('Kharkov universities');
     $this->headTitle($title);
@@ -19,11 +21,15 @@ else :
             <option value="<?= ($indx+1);?>" <?= $selected;?>><?= $areaName;?></option>
     <?php endforeach; ?>
         </select>
-        </label>
     </form>        
 </div>
-
 <?php endif; ?>
+<div class="d-inline-flex form-group mt-3 small">
+	<button id="ajax" class="btn btn-success">Send AJAX</button>
+	<div id="edbo_url" class="d-none"><?= $this->edbo_params['url'] ?></div>
+	<div id="university-name" class="d-none">Харківський національний університет імені В. Н. Каразіна</div>
+	<div id="ajax_result" class="d-none"></div>
+</div>	
 <h1 class="text-center"><?= $title;?></h1>
 <?= $this->paginationControl($paginator,
      'Sliding',
@@ -40,7 +46,9 @@ else :
             <td>
                 <a href="<?= $this->url('schools', array('action'=>'view', 'id' => $item->id, 'area' => null)); ?>"><?= $item->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()};?></a>
             </td>
+			<td><?= $item->id_edbo;?></td>
             <td>
+				<a class="fas fa-sync pr-3" title="Sycnchronize with EDBO" href="/admin/sync/<?= $item->id;?>"></a>
                 <a class="fa fa-edit pr-3" title="Edit" href="/admin/edit/<?= $item->id;?>"></a>
                 <a class="fa fa-trash-alt" title="Delete" href="/admin/delete/<?= $item->id;?>"></a>
             </td>

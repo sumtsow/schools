@@ -19,6 +19,13 @@ class SchoolForm extends Form
         ));
 		
         $this->add(array(
+            'name' => 'id_edbo',
+            'attributes' => array(
+                'type'  => 'number',
+            ),
+        ));
+		
+        $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'program',
             'id' => 'program',

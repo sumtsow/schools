@@ -15,6 +15,7 @@ $schoolForm->setAttribute('action', $this->url(
     )
 ));
 $inputs = [
+	'id_edbo' => $schoolForm->get('id_edbo')->setLabel('ID EDBO'),
     'name_uk' => $schoolForm->get('name_uk')->setLabel($this->translate('Name', null, 'uk').' (uk)'),
     'name_en' => $schoolForm->get('name_en')->setLabel($this->translate('Name', null, 'en').' (en)'),
     'name_ru' => $schoolForm->get('name_ru')->setLabel($this->translate('Name', null, 'ru').' (ru)'),

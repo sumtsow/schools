@@ -128,11 +128,39 @@ class SchoolTable extends AbstractTableGateway
         }
         return $row;
     }
-
+    
+    public function syncSchool($id, $edbo_params)
+    {
+		$school = $this->getSchool($id);
+		//$university_name = urlencode($school->name_uk);
+		//$data = 'qualification=1&education-base=40&university-name=' . $university_name;
+		$params = [
+			'qualification' => '1',
+			'education-base' => '40',
+			'university-name' => $school->name_uk,
+		];
+		$data = http_build_query($params);
+		$referer = 'Referer: ' . $edbo_params['url'];
+		$host = parse_url($edbo_params['url'])['host'];
+		$opts = [
+			'http' => [
+				'method' => 'POST',
+				'header'=> 'Accept: application/json, text/javascript, */*; q=0.01\r\n' .
+							'Content-Type: application/json\r\n' .
+							$referer . '\r\n',
+				//'content' => $data
+			]
+		];
+		$context = stream_context_create($opts);
+		$file = file_get_contents($edbo_params['url'], false, $context);
+        return $file;
+    }
+	
     public function saveSchool(School $school)
     {
         $school->map = stripslashes($school->map);
         $data = array(
+			'id_edbo' => $school->id_edbo,
             'name_uk' => $school->name_uk,
             'name_en' => $school->name_en,
             'name_ru' => $school->name_ru,

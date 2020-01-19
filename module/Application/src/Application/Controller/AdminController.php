@@ -41,7 +41,8 @@ class AdminController extends AbstractActionController
             ->setVariable('areas', $this->getSchoolTable()->fetchAreas())
             ->setVariable('high', $this->params()->fromRoute('id', 0))
             ->setVariable('area', $area)
-            ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
+            ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null)
+			->setVariable('edbo_params', $this->getServiceLocator()->get('config')['edbo']);
     }
 	
     public function addAction()
@@ -126,7 +127,26 @@ class AdminController extends AbstractActionController
             'specialtyDOM' => $specialtyDOM,
         );
     }
-
+	
+    public function syncAction()
+    {
+        $user = new User();
+        if (!$user->isValid()) {
+            return $this->redirect()->toRoute('schools', array(
+                'action' => 'index'
+            ));
+        }
+		$id = (int) $this->params()->fromRoute('id', 0);
+		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
+		$sync_data = $this->getSchoolTable()->syncSchool($id, $edbo_params);
+		return [
+			'sync_data' => $sync_data
+		];
+		/*return $this->redirect()->toRoute('admin', array(
+            'action' => 'index', 'id' => '1'
+        ));*/
+	}
+	
     public function deleteAction()
     {
         $user = new User();
