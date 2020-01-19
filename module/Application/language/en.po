@@ -140,6 +140,46 @@ msgstr "Map"
 msgid "User reviews"
 msgstr "User reviews"
 
+#: ../view/application/index/view.phtml:57
+msgid "year(s)"
+msgstr "year(s)"
+
+#: ../view/application/index/view.phtml:58
+msgid "Competition scores"
+msgstr "Competition scores"
+
+#: ../view/application/index/view.phtml:58
+msgid "min"
+msgstr "min"
+
+#: ../view/application/index/view.phtml:58
+msgid "ave"
+msgstr "ave"
+
+#: ../view/application/index/view.phtml:58
+msgid "max"
+msgstr "max"
+
+#: ../view/application/index/view.phtml:62
+msgid "Subjects"
+msgstr "Extrenal evaluated subjects"
+
+#: ../view/application/index/view.phtml:65
+msgid "Subject Title"
+msgstr "Title"
+
+#: ../view/application/index/view.phtml:66
+msgid "Subject Rating"
+msgstr "Needed rating"
+
+#: ../view/application/index/view.phtml:67
+msgid "Subject Coefficient"
+msgstr "Coefficient"
+
+#: ../view/application/index/view.phtml:68
+msgid "is required"
+msgstr "required"
+
 #: ../view/application/index/view.phtml:95
 msgid "Visible to users"
 msgstr "Visible to users"
@@ -285,6 +325,10 @@ msgstr "Select your extrenal evaluated subjects"
 msgid "Find"
 msgstr "Find"
 
+#: ../view/search/rating.phtml:18
+msgid "The mean score of the document on education"
+msgstr "The mean score of the document on education"
+
 #: ../view/layout/layout.phtml:57
 msgid "Entrants calculator"
 msgstr "Entrant's calculator"
@@ -332,6 +376,22 @@ msgstr "Specialty Code"
 #: ../view/specialty/index.phtml:14
 msgid "Specialty Title"
 msgstr "Name of specialty"
+
+#: ../view/progarm/edit.phtml:3
+msgid "Edit Program"
+msgstr "Edit Education Program"
+
+#: ../view/progarm/edit.phtml:11
+msgid "Learning Period"
+msgstr "Learning Period"
+
+#: ../view/progarm/edit.phtml:12
+msgid "Year"
+msgstr "Entrance year"
+
+#: ../view/progarm/edit.phtml:105
+msgid "Add Subject"
+msgstr "Add Subject"
 
 #~ msgid "Short Name"
 #~ msgstr "Short Name"

@@ -24,8 +24,8 @@
 			<label class="form-check-label" for="subject"><?= $this->translate('Select your subjects'); ?></label>
 			<select name="subjects[]" id="subjects" class="custom-select" size="<?= count($this->subjects); ?>" multiple>
 			<?php foreach($this->subjects as $subject) : 	
-				$selected = ($subject->id == 6) ? ' selected="selected"' : ''; ?>
-				<option value="<?= $subject->id; ?>"<?= $selected; ?>><?= $subject->title; ?></option>
+				$selected = ($subject['id'] == 6) ? ' selected="selected"' : ''; ?>
+				<option value="<?= $subject['id']; ?>"<?= $selected; ?>><?= $subject['title']; ?></option>
 			<?php endforeach; ?>
 			</select>
 		</div>

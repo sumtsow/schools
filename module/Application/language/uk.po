@@ -140,9 +140,45 @@ msgstr "Мапа"
 msgid "User reviews"
 msgstr "Відгуки користувачів"
 
-#: ../view/application/index/view.phtml:95
-msgid "Visible to users"
-msgstr "Видний користувачам"
+#: ../view/application/index/view.phtml:57
+msgid "year(s)"
+msgstr "рок(и)"
+
+#: ../view/application/index/view.phtml:58
+msgid "Competition scores"
+msgstr "Конкурсний бал"
+
+#: ../view/application/index/view.phtml:58
+msgid "min"
+msgstr "мін"
+
+#: ../view/application/index/view.phtml:58
+msgid "ave"
+msgstr "сер"
+
+#: ../view/application/index/view.phtml:58
+msgid "max"
+msgstr "макс"
+
+#: ../view/application/index/view.phtml:62
+msgid "Subjects"
+msgstr "Предмети ЗНО"
+
+#: ../view/application/index/view.phtml:65
+msgid "Subject Title"
+msgstr "Назва"
+
+#: ../view/application/index/view.phtml:66
+msgid "Subject Rating"
+msgstr "Мін бал"
+
+#: ../view/application/index/view.phtml:67
+msgid "Subject Coefficient"
+msgstr "Коефіцієнт"
+
+#: ../view/application/index/view.phtml:68
+msgid "is required"
+msgstr "обов'язковий"
 
 #: ../view/application/index/view.phtml:128
 msgid "Add a review"
@@ -184,6 +220,10 @@ msgstr "Оберіть предмети ЗНО"
 #: ../view/search/index.phtml:33
 msgid "Find"
 msgstr "Знайти"
+
+#: ../view/search/rating.phtml:18
+msgid "The mean score of the document on education"
+msgstr "Середній бал документа про освіту"
 
 #: ../view/error/404.phtml:1
 msgid "A 404 error occurred"
@@ -332,6 +372,22 @@ msgstr "Код спеціальності"
 #: ../view/specialty/index.phtml:14
 msgid "Specialty Title"
 msgstr "Найменування спеціальності"
+
+#: ../view/progarm/edit.phtml:3
+msgid "Edit Program"
+msgstr "Редагувати освітню програму"
+
+#: ../view/progarm/edit.phtml:11
+msgid "Learning Period"
+msgstr "Термін навчання"
+
+#: ../view/progarm/edit.phtml:12
+msgid "Year"
+msgstr "Рік вступу"
+
+#: ../view/progarm/edit.phtml:105
+msgid "Add Subject"
+msgstr "Додати предмет ЗНО"
 
 #~ msgid "Short Name"
 #~ msgstr "Коротка назва"

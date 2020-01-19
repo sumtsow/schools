@@ -12,6 +12,7 @@ class ProgramController extends AbstractActionController
 	protected $programTable;	
     protected $schoolTable;
     protected $specialtyTable;
+    protected $subjectTable;
 	
     public function indexAction()
     {
@@ -95,10 +96,14 @@ class ProgramController extends AbstractActionController
 		$programForm->get('period')->setValue($program->period);
 		$programForm->get('year')->setValue($program->year);
 		$programForm->get('id_school')->setValue($program->id_school);
+		$programForm->get('min_rate')->setValue($program->min_rate);
+		$programForm->get('ave_rate')->setValue($program->ave_rate);
+		$programForm->get('max_rate')->setValue($program->max_rate);
 		$programForm->get('id_specialty')->setValueOptions($this->getSpecialtyTable()->getSpecialties())->setValue($program->id_specialty);
 		$programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale))->setValue($program->id_level);
 		$programForm->get('id_form')->setValueOptions($this->getProgramTable()->getForms())->setValue($program->id_form);
 		$subjects = $this->getProgramTable()->getExamSubjects($id);
+		$allSubjects = $this->getSubjectTable()->fetchAll();
 		$request = $this->getRequest();
         if ($request->isPost()) {
             $program = new Program();
@@ -110,8 +115,8 @@ class ProgramController extends AbstractActionController
                 $result = $this->getProgramTable()->saveProgram($program);
             }
 			if($result) {
-				return $this->redirect()->toRoute('admin', [
-					'action' => 'edit', 'id' => $program->id_school
+				return $this->redirect()->toRoute('program', [
+					'action' => 'edit', 'id' => $id
 				]);					
 			}
         }
@@ -119,6 +124,7 @@ class ProgramController extends AbstractActionController
 			'id' => $id,
 			'programForm' => $programForm,
 			'subjects' => $subjects,
+			'allSubjects' => $allSubjects,
         );
     }
 
@@ -178,5 +184,14 @@ class ProgramController extends AbstractActionController
 			$this->specialtyTable = $sm->get('Application\Model\SpecialtyTable');
         }
 		return $this->specialtyTable;
-    }       
+    }
+
+    public function getSubjectTable()
+    {
+        if (!$this->subjectTable) {
+            $sm = $this->getServiceLocator();
+			$this->subjectTable = $sm->get('Application\Model\SubjectTable');
+        }
+		return $this->subjectTable;
+    } 
 }

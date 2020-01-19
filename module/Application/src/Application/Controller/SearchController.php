@@ -34,9 +34,11 @@ class SearchController extends AbstractActionController
     public function indexAction()
     {
         $vm = new ViewModel();
+		$subjects = $this->getSubjectTable()->fetchAll();
+		array_pop($subjects);
         return $vm->setVariable('forms', $this->getFormTable()->fetchAll())
 			->setVariable('levels', $this->getLevelTable()->fetchAll())
-			->setVariable('subjects', $this->getSubjectTable()->fetchAll())
+			->setVariable('subjects', $subjects)
 			->setVariable('error', null);
     }
 	

@@ -13,6 +13,9 @@ $year = $programForm->get('year')->setLabel('Year')->setAttributes(['class' => '
 $specialty = $programForm->get('id_specialty')->setLabel('Specialty')->setAttribute('class', 'form-control');
 $level = $programForm->get('id_level')->setLabel('Select Level')->setAttribute('class', 'form-control');
 $form = $programForm->get('id_form')->setLabel('Education Form')->setAttribute('class', 'form-control');
+$min_rate = $programForm->get('min_rate')->setLabel('min')->setAttribute('class', 'form-control');
+$ave_rate = $programForm->get('ave_rate')->setLabel('ave')->setAttribute('class', 'form-control');
+$max_rate = $programForm->get('max_rate')->setLabel('max')->setAttribute('class', 'form-control');
 $programForm->prepare();
 ?>
 <div class="content pb-3">
@@ -46,6 +49,19 @@ $programForm->prepare();
 				<?= $this->formLabel($form) ?>
 				<?= $this->formElement($form) ?>
 				</div>
+				<h5><?= $this->translate('Competition scores'); ?></h5>
+				<div class="form-group">
+				<?= $this->formLabel($min_rate) ?>
+				<?= $this->formElement($min_rate) ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($ave_rate) ?>
+				<?= $this->formElement($ave_rate) ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($max_rate) ?>
+				<?= $this->formElement($max_rate) ?>
+				</div>
 				<button class="btn btn-info mt-3 mb-5 mr-3" onclick="window.history.back();">&laquo; <?= $this->translate('Back'); ?></button>			
 				<?= $this->formSubmit($programForm->get('submit')->setAttribute('class', 'btn btn-primary mt-3 mb-5'));?>
 			<?= $this->form()->closeTag(); ?>
@@ -57,27 +73,27 @@ $programForm->prepare();
 		<div class="col-10">
 			<form method="post" id="subjects" action="/subject/edit/<?= $this->id; ?>">
 				<input type="hidden" name="id_program" id="id_program" value="<?= $this->id; ?>" />
-	<?php foreach($this->subjects as $id => $subject) : ?>				
-				<div class="form-row form-inline my-2">
-					<input type="hidden" name="id[<?= $id; ?>]" id="id[<?= $id; ?>]" value="<?= $subject['id']; ?>" />
-					<input type="hidden" name="id_subject[<?= $id; ?>]" id="subject[<?= $id; ?>]" value="<?= $id; ?>" />
+	<?php foreach($this->subjects as $subject) : ?>				
+				<div class="form-row my-2">
+					<input type="hidden" name="id[<?= $subject['id_row']; ?>]" id="id[<?= $subject['id_row']; ?>]" value="<?= $subject['id_row']; ?>" />
+					<input type="hidden" name="id_subject[<?= $subject['id_row']; ?>]" id="subject[<?= $subject['id_row']; ?>]" value="<?= $subject['id']; ?>" />
 					<div class="form-group col-md-4">
-						<input type="text" class="form-control w-100" name="title[<?= $id; ?>]" id="title[<?= $id; ?>]" value="<?= $subject['title']; ?>" readonly="readonly">
+						<input type="text" class="form-control w-100" name="title[<?= $subject['id_row']; ?>]" id="title[<?= $subject['id_row']; ?>]" value="<?= $subject['title']; ?>" readonly="readonly">
 					</div>
-					<div class="col-md-1">
-						<a class="fa fa-trash-alt" title="Delete" href="/subject/delete/<?= $subject['id']; ?>"> </a>
+					<div class="form-group col-md-1 mx-3">
+						<a class="fa fa-trash-alt" title="Delete" href="/subject/delete/<?= $subject['id_row']; ?>"> </a>
 					</div>						
-					<div class="form-group col-md-1 custom-control custom-switch">
-						<input type="checkbox" class="custom-control-input" name="required[<?= $id; ?>]" id="required[<?= $id; ?>]" <?= ($subject['required']) ? 'checked' : 'unchecked'; ?>/>
-						<label class="custom-control-label" for="required[<?= $id; ?>]"><?= $this->translate('Required'); ?></label>						    
+					<div class="form-group col-md-1 custom-control custom-switch mr-4 px-4">
+						<input type="checkbox" class="custom-control-input" name="required[<?= $subject['id_row']; ?>]" id="required[<?= $subject['id_row']; ?>]" <?= ($subject['required']) ? 'checked' : 'unchecked'; ?>/>
+						<label class="custom-control-label" for="required[<?= $subject['id_row']; ?>]"><?= $this->translate('is required'); ?></label>						    
 					</div>
-					<div class="form-group col-md-3">
-						<label class="mr-2" for="coefficient[<?= $id; ?>]"><?= $this->translate('Coefficient'); ?></label> 
-						<input type="text" class="form-control" name="coefficient[<?= $id; ?>]" id="coefficient[<?= $id; ?>]" value="<?= $subject['coefficient']; ?>">
+					<div class="form-group col-md-2 pl-5">
+						<label class="mr-2" for="coefficient[<?= $subject['id_row']; ?>]"><?= $this->translate('Subject Coefficient'); ?></label> 
+						<input type="text" class="form-control" name="coefficient[<?= $subject['id_row']; ?>]" id="coefficient[<?= $subject['id_row']; ?>]" value="<?= $subject['coefficient']; ?>">
 					</div>
-					<div class="form-group col-md-3">
-						<label class="mr-2" for="rating[<?= $id; ?>]"><?= $this->translate('Rating'); ?></label> 
-						<input type="number" min="100" max="200" class="form-control" name="rating[<?= $id; ?>]" id="rating[<?= $id; ?>]" value="<?= $subject['rating']; ?>">
+					<div class="form-group col-md-2 pl-4">
+						<label class="mr-2" for="rating[<?= $subject['id_row']; ?>]"><?= $this->translate('Subject Rating'); ?></label> 
+						<input type="number" min="100" max="200" class="form-control" name="rating[<?= $subject['id_row']; ?>]" id="rating[<?= $subject['id_row']; ?>]" value="<?= $subject['rating']; ?>">
 					</div>
 				</div>
 <?php endforeach; ?>
@@ -92,25 +108,25 @@ $programForm->prepare();
 			<form method="post" id="addSubject" action="/subject/add/<?= $this->id; ?>">
 			    <input type="hidden" name="id" id="id" value="0" />
 				<input type="hidden" name="id_program" id="id_program" value="<?= $this->id; ?>" />
-				<div class="form-row form-inline my-2">
-					<div class="form-group col-md-4">
+				<div class="form-row my-2 pr-3">
+					<div class="form-group col-md-3">
 						<label class="form-check-label" for="id_subject"> <?= $this->translate('Select your subjects'); ?> </label>
-			            <select name="id_subject" id="id_subject" class="custom-select mx-2">
+			            <select name="id_subject" id="id_subject" class="form-control custom-select">
 <?php foreach($this->allSubjects as $subject) : ?>
-				            <option value="<?= $subject->id; ?>"><?= $subject->title; ?></option>
+				            <option value="<?= $subject['id']; ?>"><?= $subject['title']; ?></option>
 <?php endforeach; ?>
 			            </select>
 					</div>
-					<div class="form-group col-md-1 custom-control custom-switch">
+					<div class="form-group col-md-3 custom-control custom-switch ml-5 pl-5">
 						<input type="checkbox" class="custom-control-input" name="required" id="required" />
-						<label class="custom-control-label" for="required"><?= $this->translate('Required'); ?></label>	    
+						<label class="custom-control-label mx-3" for="required"><?= $this->translate('is required'); ?></label>	    
 					</div>
-					<div class="form-group col-md-3">
-						<label class="mr-2" for="coefficient"><?= $this->translate('Coefficient'); ?></label> 
+					<div class="form-group col-md-2">
+						<label class="mr-2" for="coefficient"><?= $this->translate('Subject Coefficient'); ?></label> 
 						<input type="text" class="form-control" name="coefficient" id="coefficient" value="0.20">
 					</div>
-					<div class="form-group col-md-3">
-						<label class="mr-2" for="rating"><?= $this->translate('Rating'); ?></label> 
+					<div class="form-group col-md-2">
+						<label class="mr-2" for="rating"><?= $this->translate('Subject Rating'); ?></label> 
 						<input type="number" min="100" max="200" class="form-control" name="rating" id="rating" value="100">
 					</div>
 				</div>

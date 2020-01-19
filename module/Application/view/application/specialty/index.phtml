@@ -29,7 +29,7 @@ foreach($branches as $branch) :
 	<?php endif; ?>
 	<?php $counter++; ?>	
 			<td><?= $specialty->getAttribute('code'); ?></td>
-			<td><a href="<?= $this->url('specialty', ['action' => 'view', 'id' => $specialty->getAttribute('id')]);?>"><?= $specialty->textContent; ?></a></td>
+			<td><a href="<?= $this->url('specialty', ['action' => 'view', 'id' => explode('_', $specialty->getAttribute('id'))[1]]); ?>"><?= $specialty->textContent; ?></a></td>
 		</tr>
 <?php
 	endforeach;

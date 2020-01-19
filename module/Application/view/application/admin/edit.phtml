@@ -61,14 +61,14 @@ foreach($branches as $branch) :
 		?>
 				<div class="card mx-2 alert alert-primary alert-dismissible fade show" role="alert">
 					<div class="card-body p-0">
-						<h5 class="card-title">
+						<h6 class="card-title">
 							<?php $id = explode('_', $program->getAttribute('id'))[1]; ?>
-							<a href="<?= $this->url('program', ['action' => 'edit', 'id' => $id]) ?>"><?= $this->translate('Education Program'); ?>: <?= $program->firstChild->textContent; ?></a>
-						</h5>
+							<a href="<?= $this->url('program', ['action' => 'edit', 'id' => $id]) ?>"><?= $this->translate('Education Program'); ?>: <span class="font-weight-bold"><?= $program->firstChild->textContent; ?></span></a>
+						</h6>
 						<a type="button" class="close font-weight-bold" href="/program/delete/<?= $id ?>">×</a>
-						<p class="card-text m-0"><span class="font-weight-bold"><?= $this->translate('Education Level'); ?>: </span><?= $program->getAttribute('level_title'); ?></p>
-						<p class="card-text m-0"><span class="font-weight-bold"><?= $this->translate('Education Form'); ?>: </span><?= $program->getAttribute('form_title'); ?></p>
-						<p class="card-text m-0"><span class="font-weight-bold"><?= $this->translate('Education Period'); ?>: </span><?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?></p>
+						<p class="card-text m-0"><?= $this->translate('Education Level'); ?>: <span class="font-weight-bold"><?= $program->getAttribute('level_title'); ?></span></p>
+						<p class="card-text m-0"><?= $this->translate('Education Form'); ?>: <span class="font-weight-bold"><?= $program->getAttribute('form_title'); ?></span></p>
+						<p class="card-text m-0"><?= $this->translate('Education Period'); ?>: <span class="font-weight-bold"><?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?></span></p>
 					</div>
 			</div>					
 		<?php endforeach; ?>
@@ -127,14 +127,6 @@ $programForm->prepare();
 					<?= $this->formElement($program); ?>
 					</div>
 					<div class="form-group">
-					<?= $this->formLabel($period) ?>
-					<?= $this->formElement($period); ?>
-					</div>
-					<div class="form-group">
-					<?= $this->formLabel($year) ?>
-					<?= $this->formElement($year); ?>
-					</div>
-					<div class="form-group">
 					<?= $this->formLabel($specialty) ?>
 					<?= $this->formElement($specialty); ?>
 					</div>
@@ -145,6 +137,10 @@ $programForm->prepare();
 					<div class="form-group">
 					<?= $this->formLabel($form) ?>
 					<?= $this->formElement($form) ?>
+					</div>
+					<div class="form-group">
+					<?= $this->formLabel($period) ?>
+					<?= $this->formElement($period); ?>
 					</div>
 				<?= $this->form()->closeTag(); ?>
 			</div>

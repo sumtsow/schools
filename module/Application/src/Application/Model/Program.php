@@ -15,18 +15,24 @@ class Program implements InputFilterAwareInterface
 	public $id_specialty; 
 	public $id_form;          
 	public $id_school;
+	public $min_rate; 
+	public $ave_rate;          
+	public $max_rate;	
     protected $inputFilter;
 
     public function exchangeArray($data)
     {
         $this->id           = (isset($data['id']))           ? $data['id']           : null;
 		$this->title        = (isset($data['title']))        ? $data['title']        : null;
-		$this->period       = (isset($data['period']))       ? $data['period']       : null;
-		$this->year         = (isset($data['year']))         ? $data['year']         : null;
+		$this->period       = (isset($data['period']))       ? $data['period']       : 0;
+		$this->year         = (isset($data['year']))         ? $data['year']         : 0;
         $this->id_level     = (isset($data['id_level']))     ? $data['id_level']     : null;
         $this->id_specialty = (isset($data['id_specialty'])) ? $data['id_specialty'] : null;
         $this->id_form      = (isset($data['id_form']))      ? $data['id_form']      : null;
         $this->id_school    = (isset($data['id_school']))    ? $data['id_school']    : null;
+        $this->min_rate     = (isset($data['min_rate']))     ? $data['min_rate']     : 0;
+        $this->ave_rate     = (isset($data['ave_rate']))     ? $data['ave_rate']     : 0;
+        $this->max_rate     = (isset($data['max_rate']))     ? $data['max_rate']     : 0;		
     }
 
     public function getArrayCopy()
@@ -75,7 +81,7 @@ class Program implements InputFilterAwareInterface
                         'name'    => 'StringLength',
                         'options' => [
                             'encoding' => 'UTF-8',
-                            'min'      => 1,
+                            'min'      => 0,
                             'max'      => 32,
                         ],
                     ],
@@ -84,7 +90,7 @@ class Program implements InputFilterAwareInterface
 			
             $inputFilter->add([
                 'name'     => 'year',
-                'required' => true,
+                'required' => false,
                 'filters'  => [
                     0 => ['name' => 'Zend\Filter\Digits'],
                 ],
@@ -98,6 +104,14 @@ class Program implements InputFilterAwareInterface
                         'options' => ['min' => 2000],
                     ],					
                 ],				
+            ]);
+			
+			$inputFilter->add([
+                'name'     => 'subject',
+                'required' => false,
+                'filters'  => [
+                    0 => ['name' => 'Zend\Filter\Digits'],
+                ],
             ]);
 			
 			$inputFilter->add([
@@ -130,6 +144,36 @@ class Program implements InputFilterAwareInterface
                 'filters'  => [
                     0 => ['name' => 'Zend\Filter\Digits'],
                 ],
+            ]);
+			
+            $inputFilter->add([
+                'name'     => 'min_rate',
+                'required' => false,
+				/*'validators' => [
+                    [
+                        'name'    => 'Zend\I18n\Validator\IsFloat',
+                    ],
+				],*/
+            ]);
+						
+            $inputFilter->add([
+                'name'     => 'ave_rate',
+                'required' => false,
+				/*'validators' => [
+                    [
+                        'name'    => 'Zend\I18n\Validator\IsFloat',
+                    ],
+				],*/
+            ]);
+						
+            $inputFilter->add([
+                'name'     => 'max_rate',
+                'required' => false,
+				/*/'validators' => [
+                    [
+                        'name'    => 'Zend\I18n\Validator\IsFloat',
+                    ],
+				],*/
             ]);
 			
             $this->inputFilter = $inputFilter;

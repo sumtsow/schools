@@ -87,6 +87,27 @@ class ProgramForm extends Form
 				'disable_inarray_validator' => true,
 			]
         ));
+
+        $this->add(array(
+            'name' => 'min_rate',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+        ));
+		
+        $this->add(array(
+            'name' => 'ave_rate',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+        ));
+		
+        $this->add(array(
+            'name' => 'max_rate',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+        ));
 		
         $this->add(array(
             'name' => 'submit',

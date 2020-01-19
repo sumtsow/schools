@@ -127,6 +127,46 @@ msgstr "Карта"
 msgid "User reviews"
 msgstr "Отзывы пользователей"
 
+#: ../view/application/index/view.phtml:57
+msgid "year(s)"
+msgstr "год(а)"
+
+#: ../view/application/index/view.phtml:58
+msgid "Competition scores"
+msgstr "Конкурсный балл"
+
+#: ../view/application/index/view.phtml:58
+msgid "min"
+msgstr "мин"
+
+#: ../view/application/index/view.phtml:58
+msgid "ave"
+msgstr "сред"
+
+#: ../view/application/index/view.phtml:58
+msgid "max"
+msgstr "макс"
+
+#: ../view/application/index/view.phtml:62
+msgid "Subjects"
+msgstr "Предметы ВНО"
+
+#: ../view/application/index/view.phtml:65
+msgid "Subject Title"
+msgstr "Наименование"
+
+#: ../view/application/index/view.phtml:66
+msgid "Subject Rating"
+msgstr "Мин балл"
+
+#: ../view/application/index/view.phtml:67
+msgid "Subject Coefficient"
+msgstr "Коэффициент"
+
+#: ../view/application/index/view.phtml:68
+msgid "is required"
+msgstr "обязательный"
+
 #: ../view/application/index/view.phtml:95
 msgid "Visible to users"
 msgstr "Виден пользователям"
@@ -293,6 +333,10 @@ msgstr "Выберите предметы ВНО"
 msgid "Find"
 msgstr "Найти"
 
+#: ../view/search/rating.phtml:18
+msgid "The mean score of the document on education"
+msgstr "Средний балл документа об образовании"
+
 #: ../view/layout/layout.phtml:57
 msgid "Entrants calculator"
 msgstr "Калькулятор абитуриента"
@@ -340,3 +384,19 @@ msgstr "Код специальности"
 #: ../view/specialty/index.phtml:14
 msgid "Specialty Title"
 msgstr "Наименование специальности"
+
+#: ../view/progarm/edit.phtml:3
+msgid "Edit Program"
+msgstr "Редактировать образовательную программу"
+
+#: ../view/progarm/edit.phtml:11
+msgid "Learning Period"
+msgstr "Период навчання"
+
+#: ../view/progarm/edit.phtml:12
+msgid "Year"
+msgstr "Год поступления"
+
+#: ../view/progarm/edit.phtml:105
+msgid "Add Subject"
+msgstr "Добавить предмет ВНО"

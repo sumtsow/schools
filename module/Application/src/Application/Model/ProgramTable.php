@@ -170,7 +170,7 @@ class ProgramTable extends AbstractTableGateway
 	public function getExamSubjectOptions($id_program)
     {
 		$sql = new Sql($this->adapter);
-        $select = $sql->select()->from('program_has_subject')->where(['id_program' => $id_program])->order(['id_subject']);
+        $select = $sql->select()->from('program_has_subject')->where(['id_program' => $id_program])->order(['required DESC']);
         $selectString = $sql->buildSqlString($select);
 		$subjects = [];
 		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
@@ -187,16 +187,24 @@ class ProgramTable extends AbstractTableGateway
 		if(!count($options)) { return; }		
 		$ids = array_keys($options);
 		$sql = new Sql($this->adapter);
-        $select = $sql->select()->from('subject')->where(['id' => $ids])->order(['title']);
+        $select = $sql->select()->from('subject')->where(['id' => $ids]);
         $selectString = $sql->buildSqlString($select);
 		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
 		$subjects = [];
 		foreach($resultSet as $result) {
-			$subjects[$result->id]['id'] = $options[$result->id]['id'];
-			$subjects[$result->id]['title'] = $result->title;
-			$subjects[$result->id]['required'] = $options[$result->id]['required'];
-			$subjects[$result->id]['coefficient'] = $options[$result->id]['coefficient'];
-			$subjects[$result->id]['rating'] = $options[$result->id]['rating'];
+			$subject = [
+				'id' => $result->id,
+				'title' => $result->title,				
+				'id_row' => $options[$result->id]['id'],
+				'required' => $options[$result->id]['required'],
+				'coefficient' => $options[$result->id]['coefficient'],
+				'rating' => $options[$result->id]['rating'],				
+			];
+			if($subject['required']) {
+				array_unshift($subjects, $subject);
+			} else {
+				array_push($subjects, $subject);
+			}
 		}
         return $subjects;
     }
@@ -294,6 +302,15 @@ class ProgramTable extends AbstractTableGateway
 			$domAttribute = $domDocument->createAttribute('level_title');
 			$domAttribute->value = $levels[$program->id_level];
 			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('min_rate');
+			$domAttribute->value = $program->min_rate;
+			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('ave_rate');
+			$domAttribute->value = $program->ave_rate;
+			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('max_rate');
+			$domAttribute->value = $program->max_rate;
+			$domElement->appendChild($domAttribute);
 			$examSubjects = $this->getExamSubjectOptions($program->id);
 			if($examSubjects) {
 				$child = $domDocument->createElement('subjects');
@@ -329,6 +346,9 @@ class ProgramTable extends AbstractTableGateway
 			'id_specialty' => $program->id_specialty,
 			'id_form' => $program->id_form,
 			'id_school' => $program->id_school,
+			'min_rate'    => $program->min_rate,
+			'ave_rate'    => $program->ave_rate,
+			'max_rate'    => $program->max_rate,
 		];
 		$id = intval($program->id);
 		if ($id == 0) {

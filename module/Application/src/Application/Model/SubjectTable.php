@@ -25,7 +25,7 @@ class SubjectTable extends AbstractTableGateway
         $select = $sql->select()->from('subject');
         $selectString = $sql->buildSqlString($select);
 		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
-		return $resultSet;
+		return $resultSet->toArray();
     }
     
     public function fetch($id)
@@ -44,22 +44,22 @@ class SubjectTable extends AbstractTableGateway
 	
 	public function save(Subject $subject)
 	{
-		if(is_array($subject->id_subject)) {
-		foreach($subject->id_subject as $id_subject) {
-		$id = $subject->id[$id_subject];
-		$data = [
-			'required'    => key_exists($id_subject, $subject->required) ? 1 : 0,
-			'coefficient' => $subject->coefficient[$id_subject],
-			'rating'      => $subject->rating[$id_subject],
-			'id_program'  => $subject->id_program,
-			'id_subject'  => $subject->id_subject[$id_subject],
-		];
-			if ($this->fetchOne($id)) {
-				$this->update($data, ['id' => $id]);
-			} else {
-				throw new \Exception('Subject id=' . $subject->id .' does not exist');
+		if(is_array($subject->id)) {
+		foreach($subject->id as $id) {
+			//$id = $subject->id[$id_subject];
+			$data = [
+				'required'    => key_exists($id, $subject->required) ? 1 : 0,
+				'coefficient' => $subject->coefficient[$id],
+				'rating'      => $subject->rating[$id],
+				'id_program'  => $subject->id_program,
+				'id_subject'  => $subject->id_subject[$id],
+			];
+				if ($this->fetchOne($id)) {
+					$this->update($data, ['id' => $id]);
+				} else {
+					throw new \Exception('Subject id=' . $subject->id .' does not exist');
+				}
 			}
-		}
 		} else {
 		    $id = intval($subject->id);
 		    $data = [

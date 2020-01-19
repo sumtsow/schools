@@ -50,25 +50,33 @@ $this->headTitle($title);
 										<h6 class="card-title"><span class=" font-weight-bold"><?= $this->translate('Education Program'); ?>: </span><?= $program->firstChild->textContent; ?></h6>
 									</div>
 									<div class="card-body p-0">
-										<div class="card-text">
-											<ul class="list-group list-group-flush my-0">
-												<li class="list-group-item">
-													<span class=" font-weight-bold"><?= $this->translate('Education Level'); ?>: </span><?= $program->getAttribute('level_title'); ?><br/>
-													<span class=" font-weight-bold"><?= $this->translate('Education Form'); ?>: </span><?= $program->getAttribute('form_title'); ?><br/>
-													<span class=" font-weight-bold"><?= $this->translate('Education Period'); ?>: </span><?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?>
-												</li>
+										<div class="card-text px-2">
+											<p>
+												<span class=" font-weight-bold"><?= $this->translate('Education Level'); ?>: </span><?= $program->getAttribute('level_title'); ?><br/>
+												<span class=" font-weight-bold"><?= $this->translate('Education Form'); ?>: </span><?= $program->getAttribute('form_title'); ?><br/>
+												<span class=" font-weight-bold"><?= $this->translate('Education Period'); ?>: </span><?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?><br/>
+												<span class=" font-weight-bold"><?= $this->translate('Competition scores'); ?>: </span><?= $this->translate('min'); ?>&nbsp;=&nbsp;<?= $program->getAttribute('min_rate'); ?>; <?= $this->translate('ave'); ?>&nbsp;=&nbsp;<?= $program->getAttribute('ave_rate'); ?>; <?= $this->translate('max'); ?>&nbsp;=&nbsp;<?= $program->getAttribute('max_rate'); ?>
+											</p>
 						<?php if($subjects) : ?>
-												<li class="list-group-item">
-													<span class=" font-weight-bold"><?= $this->translate('Subjects'); ?>:</span>
-												</li>
-							<?php foreach($subjects as $subject) : ?>
-												<li class="list-group-item"><span class=" font-weight-bold"><?= $this->translate('Title'); ?>: </span><?= $subject->firstChild->textContent; ?>
-													<span class=" font-weight-bold"><?= $this->translate('Rating'); ?>: </span><?= $subject->getAttribute('rating'); ?> 
-													<span class=" font-weight-bold"><?= $this->translate('Coefficient'); ?>: </span><?= $subject->getAttribute('coefficient'); ?> 
-													<span class=" font-weight-bold"><?= $this->translate('Required'); ?>: </span><?= $subject->getAttribute('required'); ?></li>
-							<?php endforeach; ?>	
+											<p>
+												<span class=" font-weight-bold"><?= $this->translate('Subjects'); ?>:</span><br/>
+
+							<?php
+							$i = 1;
+							foreach($subjects as $subject) :
+							?>
+												<?= $subject->firstChild->textContent; ?>
+												<span class=" font-weight-bold"><?= $subject->getAttribute('required') ? ' - ' . $this->translate('is required') : null ?></span>
+												(<?= $this->translate('Subject Rating'); ?>&nbsp;=&nbsp;<?= $subject->getAttribute('rating'); ?>;
+												K<?= $i; ?>&nbsp;=&nbsp;<?= rtrim($subject->getAttribute('coefficient'), '0'); ?>)<br/>
+							<?php
+							if($subject->getAttribute('required')) {
+								$i++;
+							}
+							endforeach;
+							?>
+											</p>											
 						<?php endif; ?>
-											</ul>
 										</div>
 									</div>
 									<div class="card-footer">
