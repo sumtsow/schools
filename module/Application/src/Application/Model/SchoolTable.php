@@ -132,27 +132,49 @@ class SchoolTable extends AbstractTableGateway
     public function syncSchool($id, $edbo_params)
     {
 		$school = $this->getSchool($id);
-		//$university_name = urlencode($school->name_uk);
-		//$data = 'qualification=1&education-base=40&university-name=' . $university_name;
-		$params = [
+		$university_name = urlencode($school->name_uk);
+		$params1 = [
+			'action' => 'universities',
+			'university-id' => '',
 			'qualification' => '1',
 			'education-base' => '40',
-			'university-name' => $school->name_uk,
+			'speciality' => '121',
+			'program' => '',
+			'education-form' => '',
+			'course' => '',
+			'region' => '',
+			'university-name' => '',
 		];
-		$data = http_build_query($params);
-		$referer = 'Referer: ' . $edbo_params['url'];
+		$params2 = [
+			'action' => 'universities',
+			'university-id' => '',
+			'qualification' => '1',
+			'education-base' => '40',
+			'speciality' => '123',
+			'program' => '',
+			'education-form' => '',
+			'course' => '',
+			'region' => '',
+			'university-name' => $school->name_uk,
+		];		
+		$data = http_build_query($params2);
 		$host = parse_url($edbo_params['url'])['host'];
 		$opts = [
 			'http' => [
-				'method' => 'POST',
-				'header'=> 'Accept: application/json, text/javascript, */*; q=0.01\r\n' .
-							'Content-Type: application/json\r\n' .
-							$referer . '\r\n',
-				//'content' => $data
+				'method' => 'post',
+				'header'=> //'Host: ' . $host . '\r\n',
+							//'Accept: application/json, text/javascript, */*; q=0.01\r\n' .
+							//'Origin: ' . $edbo_params['url'] . '\r\n',
+							//'Content-Type: application/x-www-form-urlencoded; charset=UTF-8\r\n' .
+							'Referer: ' . $edbo_params['url'],
+				'content' => $data,
+				//'options' => '{language: json}'
 			]
 		];
 		$context = stream_context_create($opts);
 		$file = file_get_contents($edbo_params['url'], false, $context);
+		//$dom = new \DomDocument('1.0', 'utf-8');
+		//$dom->loadHTML($file);
         return $file;
     }
 	
