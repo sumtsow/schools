@@ -52,7 +52,12 @@ class IndexController extends AbstractActionController
 	
     public function viewAction()
     {
-        $id = (int) $this->params()->fromRoute('id', 0);
+        $id = (int) $this->params()->fromRoute('id', false);
+		if(!$id) {
+			return $this->redirect()->toRoute('schools', array(
+                'action' => 'index'
+            ));
+		}
         $vm = new ViewModel();
         $user = new User();
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
@@ -66,8 +71,21 @@ class IndexController extends AbstractActionController
 				$id_specialties = $this->getProgramTable()->getSpecialtiesId($programs);
 				$specialties = $this->getSpecialtyTable()->fetch($id_specialties);
 				$specialtyDOM = $this->getProgramTable()->getSpecialtyDOM($id, $locale);
+				$api = $this->params()->fromRoute('api');
+				switch ($api) {
+					case 'json':
+						$data = $this->getSpecialtyTable()->saveJSON($specialtyDOM);
+						break;
+					case 'xml':
+						$data = $specialtyDOM->saveXML();
+						break;
+					default:
+						$data = $specialtyDOM;
+						break;
+				}
 				$vm->setVariable('specialties', $specialties)
-					->setVariable('specialtyDOM', $specialtyDOM);
+					->setVariable('data', $data)
+					->setVariable('api', $api);
 			}
 		}
         if(!$vm->school->visible) { return $this->redirect()->toRoute('schools', ['action' => 'index']); }

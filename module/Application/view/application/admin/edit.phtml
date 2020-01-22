@@ -1,10 +1,22 @@
-<?php
-
+<?php echo $this->headScript()->appendFile('/js/load_json.js');
 $title = $this->translate('Edit school');
 $this->headTitle($title);
 ?>
 <h1 class='text-center'><?= $this->escapeHtml($title); ?></h1>
-
+<div class="row">
+    <div id="json" class="col border border-secondary m-3 p-3" style="display: none;"></div>
+</div>
+<div class="row">
+    <div class="col">
+        <form method="post">
+            <div class="form-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="jsonFile">
+                    <label class="custom-file-label" for="jsonFile" id="jsonFile">Choose JSON file</label>
+                </div>
+            </div>
+        </form>
+</div>
 <?php
 $schoolForm = $this->schoolForm;
 $schoolForm->setAttribute('action', $this->url(

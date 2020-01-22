@@ -13,12 +13,13 @@ return array(
             'schools' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '[/:action][/:id][/:area][/:page][/]',
+                    'route'    => '[/:action][/:id][/:area][/:page][/:api][/]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
                         'area'     => '[0-9]',
                         'page'     => '[0-9]+',
+                        'api'     => '[a-zA-Z]*',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
@@ -88,10 +89,11 @@ return array(
             'specialty' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/specialty[/:action][/:id][/]',
+                    'route'    => '/specialty[/:action][/:id][/:api][/]',
                     'constraints' => array(
                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
 						'id'     => '[0-9]+',
+						'api'     => '[a-zA-Z]*',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',

@@ -1,7 +1,7 @@
 <?php
 $paginator = $this->paginator;
 echo $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');
-$this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js', 'text/javascript', []);
+//$this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js', 'text/javascript', []);
 $this->headScript()->appendFile('/js/ajax.js', 'text/javascript', []);
 if($this->high) :
     $title = $this->translate('Kharkov universities');

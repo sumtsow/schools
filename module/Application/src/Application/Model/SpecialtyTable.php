@@ -102,4 +102,22 @@ class SpecialtyTable extends AbstractTableGateway
 		}
 		return $domDocument;
     }
+	
+	public function jsonPrepareXml($domNode) {
+		foreach($domNode->childNodes as $node) {
+			if($node->hasChildNodes()) {
+			$this->jsonPrepareXml($node);
+			} else {
+				if($domNode->hasAttributes() && strlen($domNode->nodeValue)){
+					$domNode->setAttribute('nodeValue', $node->textContent);
+					$node->nodeValue = '';
+				}
+			}
+		}
+	}
+	
+	public function saveJSON($domDocument) {
+		$this->jsonPrepareXml($domDocument);
+		return json_encode( simplexml_import_dom($domDocument), JSON_UNESCAPED_UNICODE | JSON_FORCE_OBJECT );
+	}	
 }

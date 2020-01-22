@@ -23,8 +23,21 @@ class SpecialtyController extends AbstractActionController
     
     public function indexAction()
     {
+		$api = $this->params()->fromRoute('api');
+		$domDocument = $this->getSpecialtyTable()->getBranchesDOM();
+		switch ($api) {
+			case 'json':
+				$data = $this->getSpecialtyTable()->saveJSON($domDocument);
+				break;
+			case 'xml':
+				$data = $domDocument->saveXML();
+				break;
+			default:
+				$data = $domDocument;
+				break;
+		}
         $vm = new ViewModel();
-        return $vm->setVariable('dom', $this->getSpecialtyTable()->getBranchesDOM());
+        return $vm->setVariable('data', $data)->setVariable('api', $api);
     }
 	
     public function viewAction()

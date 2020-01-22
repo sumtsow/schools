@@ -1,9 +1,14 @@
 <?php
+echo $this->headScript()->appendFile('/js/smile.js');
 $title = $school->shortname;
 $this->headTitle($title);
+if($this->api) :
 ?>
-<script src="/js/smile.js"></script>
-<?php /*($this->headScript()->prependFile("/js/smile.js"));*/ ?>
+<textarea class="w-100 mt-5 p-3" rows="30">
+<?= $this->data; ?>
+</textarea>
+<?php else : ?>
+
 <table class="table table-striped">
     <tbody>
         <tr>
@@ -20,7 +25,7 @@ $this->headTitle($title);
                 <h4 class="m-3"><?= $this->translate('Specialties'); ?></h4>
 				<div class="accordion" id="specialities">				
 			<?php
-			$branches = $this->specialtyDOM->getElementsByTagName('branch');
+			$branches = $this->data->getElementsByTagName('branch');
 			foreach($branches as $branch) :
 			?>
 				<h5 class="m-3"><?= $this->translate('Branch Title'); ?>: <?= $branch->getAttribute('code'); ?> <?= $branch->firstChild->textContent; ?></h5>
@@ -267,3 +272,4 @@ endif; ?>
 <?= $this->form()->closeTag(); ?>
     </div>
 </div><!-- New comment END -->
+<?php endif; ?>

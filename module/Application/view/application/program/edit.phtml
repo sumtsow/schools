@@ -78,7 +78,7 @@ $programForm->prepare();
 					<input type="hidden" name="id[<?= $subject['id_row']; ?>]" id="id[<?= $subject['id_row']; ?>]" value="<?= $subject['id_row']; ?>" />
 					<input type="hidden" name="id_subject[<?= $subject['id_row']; ?>]" id="subject[<?= $subject['id_row']; ?>]" value="<?= $subject['id']; ?>" />
 					<div class="form-group col-md-4">
-						<input type="text" class="form-control w-100" name="title[<?= $subject['id_row']; ?>]" id="title[<?= $subject['id_row']; ?>]" value="<?= $subject['title']; ?>" readonly="readonly">
+						<input type="text" class="form-control-plaintext w-100" name="title[<?= $subject['id_row']; ?>]" id="title[<?= $subject['id_row']; ?>]" value="<?= $subject['title']; ?>" readonly="readonly">
 					</div>
 					<div class="form-group col-md-1 mx-3">
 						<a class="fa fa-trash-alt" title="Delete" href="/subject/delete/<?= $subject['id_row']; ?>"> </a>

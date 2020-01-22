@@ -2,7 +2,12 @@
     $title = $this->translate('Specialties');
     $this->headTitle($title);
 	$locale = $this->plugin('translate')->getTranslator()->getLocale();
+if($this->api) :
 ?>
+<textarea class="w-100 mt-5 p-3" rows="30">
+<?= $this->data; ?>
+</textarea>
+<?php else : ?>
 <h2 class="text-center my-3 mx-5"><?= $this->translate('Branches'); ?></h2>
 <div class="table-responsive">
 <table class="table table-sm table-striped">
@@ -15,7 +20,7 @@
 		</tr>
 	</thead>
 <?php
-$branches = $this->dom->getElementsByTagName('branch');
+$branches = $this->data->getElementsByTagName('branch');
 foreach($branches as $branch) :
 	$specialties = $branch->getElementsByTagName('specialty');
 	$rowspan = $specialties->count();
@@ -38,3 +43,4 @@ endforeach;
 	</tbody>	
 </table>
 </div>
+<?php endif;
