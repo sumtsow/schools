@@ -1,7 +1,6 @@
 <?php
 $title = $this->translate('Edit school');
 $this->headTitle($title);
-echo $this->inlineScript()->prependFile('/js/load_json.js');
 ?>
 <h1 class='text-center'><?= $this->escapeHtml($title); ?></h1>
 <div class="row">
@@ -13,11 +12,11 @@ echo $this->inlineScript()->prependFile('/js/load_json.js');
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="jsonFileUpload">Upload</span>
+                        <span class="input-group-text" id="jsonFileUpload" disabled="disabled">Upload</span>
                     </div>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="jsonFile" aria-describedby="jsonFileUpload">
-                        <label class="custom-file-label" style="font-weight: bold;" for="jsonFile" id="jsonFile">Choose JSON file</label>
+                        <label class="custom-file-label" for="jsonFile" id="jsonFile">Import program data from a file</label>
                     </div>
                 </div>
             </div>
@@ -25,13 +24,7 @@ echo $this->inlineScript()->prependFile('/js/load_json.js');
 </div>
 <?php
 $schoolForm = $this->schoolForm;
-$schoolForm->setAttribute('action', $this->url(
-    'admin',
-    array(
-        'action' => 'edit',
-        'id'     => $this->id,
-    )
-));
+$schoolForm->setAttribute('action', $this->url('admin',['action' => 'edit', 'id'     => $this->id]));
 $inputs = [
 	'id_edbo' => $schoolForm->get('id_edbo')->setLabel('ID EDBO'),
     'name_uk' => $schoolForm->get('name_uk')->setLabel($this->translate('Name', null, 'uk').' (uk)'),

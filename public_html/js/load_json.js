@@ -1,25 +1,56 @@
 $( document ).ready(function() {
-    $('#jsonFile').change( function(e) {
-        var file = e.target.files[0];        
-        $('input#jsonFile').attr('file_selected', file.name);
-        var $labelBrowse = $('label[for="jsonFile"]');
-        var $upload = $('#jsonFileUpload');
-        $labelBrowse.text(file.name);
-        $labelBrowse.css('font-weight', 'normal');
-        $upload.css('font-weight', 'bold')
-        var reader = new FileReader;
-        var json;
-        var $dataBlock = $('#json');
-        $dataBlock.empty();
-        reader.readAsText(file); 
-        reader.onloadend = function (evt) {
-            json = JSON.parse(reader.result);
-            $dataBlock.append('<p>' + json.universities[0][0] + '</p>'); // 62
-            $dataBlock.append('<p>' + json.universities[0][1] + '</p>'); // ХНУ
-            $dataBlock.append('<p>' + json.universities[0][2] + '</p>'); // 174
-            $dataBlock.append('<p>' + json.universities[0][3] + '</p>'); // offers
-            $dataBlock.append('<p>' + json.universities[0][4] + '</p>'); // Харків
-        };
-        $dataBlock.css('display', 'block');
-    });
+	
+	let $updateBtns = $('.update');
+	let $schools = $('.school');
+	let id_edbo = [];
+	let id_program;
+	let programs;
+	$schools.each(function(index, school) {
+		id_edbo[index] = $(school).attr('id_edbo');
+	});
+	
+	$updateBtns.click( function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		let id = $(this).attr('href').slice(1);
+		$.ajax({
+			url: '/secure/' + id + '/Universities.json',
+			dataType: 'text',
+			success: function(data) {
+				let json = JSON.parse(data);
+				let title_edbo = json.universities[0][1];
+				let title_local = $('[id_edbo=' + id + ']').text();
+				if(title_local != title_edbo) alert('Titles are difference');
+				id_program = json.universities[0][3];
+				console.log(json);
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus, errorThrown);
+			}
+		});
+		$.ajax({
+			
+			url: '/secure/' + id + '/Offers.json',
+			dataType: 'text',
+			success: function(data) {
+				let json = JSON.parse(data);
+				console.log(json);
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus, errorThrown);
+			}
+		});		
+		/*$.ajax({
+			url: '/admin/update/' + id_school,
+			method: 'post',
+			data: data,
+			dataType: 'json',
+			success: function(data) {
+				alert(data);
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus, errorThrown);
+			}
+		});*/
+	});
 });

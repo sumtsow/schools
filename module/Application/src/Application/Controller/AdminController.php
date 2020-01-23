@@ -128,7 +128,7 @@ class AdminController extends AbstractActionController
         );
     }
 	
-    public function syncAction()
+    public function updateAction()
     {
         $user = new User();
         if (!$user->isValid()) {
@@ -138,9 +138,13 @@ class AdminController extends AbstractActionController
         }
 		$id = (int) $this->params()->fromRoute('id', 0);
 		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
-		$sync_data = $this->getSchoolTable()->syncSchool($id, $edbo_params);
+		$request = $this->getRequest();
+		$universities = false;
+        if ($request->isPost()) {
+			$universities = $request->getPost('universities');
+		}
 		return [
-			'sync_data' => $sync_data
+			'universities' => $universities
 		];
 		/*return $this->redirect()->toRoute('admin', array(
             'action' => 'index', 'id' => '1'
