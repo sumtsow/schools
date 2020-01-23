@@ -4,8 +4,8 @@
 	$locale = $this->plugin('translate')->getTranslator()->getLocale();
 if($this->api) :
 ?>
-<textarea class="w-100 mt-5 p-3" rows="30">
-<?= $this->data; ?>
+<textarea class="w-100 mt-5 p-3" rows="24">
+<?= $this->api == 'json' ? Zend\Json\Json::prettyPrint(Zend\Json\Json::fromXml($this->branchesDOM->saveXML(), false)) : $this->branchesDOM->saveXML(); ?>
 </textarea>
 <?php else : ?>
 <h2 class="text-center my-3 mx-5"><?= $this->translate('Branches'); ?></h2>
@@ -20,7 +20,7 @@ if($this->api) :
 		</tr>
 	</thead>
 <?php
-$branches = $this->data->getElementsByTagName('branch');
+$branches = $this->branchesDOM->getElementsByTagName('branch');
 foreach($branches as $branch) :
 	$specialties = $branch->getElementsByTagName('specialty');
 	$rowspan = $specialties->count();

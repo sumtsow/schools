@@ -71,21 +71,9 @@ class IndexController extends AbstractActionController
 				$id_specialties = $this->getProgramTable()->getSpecialtiesId($programs);
 				$specialties = $this->getSpecialtyTable()->fetch($id_specialties);
 				$specialtyDOM = $this->getProgramTable()->getSpecialtyDOM($id, $locale);
-				$api = $this->params()->fromRoute('api');
-				switch ($api) {
-					case 'json':
-						$data = $this->getSpecialtyTable()->saveJSON($specialtyDOM);
-						break;
-					case 'xml':
-						$data = $specialtyDOM->saveXML();
-						break;
-					default:
-						$data = $specialtyDOM;
-						break;
-				}
 				$vm->setVariable('specialties', $specialties)
-					->setVariable('data', $data)
-					->setVariable('api', $api);
+					->setVariable('specialtyDOM', $specialtyDOM)
+					->setVariable('api', $this->params()->fromRoute('api'));
 			}
 		}
         if(!$vm->school->visible) { return $this->redirect()->toRoute('schools', ['action' => 'index']); }

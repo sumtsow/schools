@@ -2,7 +2,11 @@ $( document ).ready(function() {
     $('#jsonFile').change( function(e) {
         var file = e.target.files[0];        
         $('input#jsonFile').attr('file_selected', file.name);
-        $('label[for="jsonFile"]').text(file.name);
+        var $labelBrowse = $('label[for="jsonFile"]');
+        var $upload = $('#jsonFileUpload');
+        $labelBrowse.text(file.name);
+        $labelBrowse.css('font-weight', 'normal');
+        $upload.css('font-weight', 'bold')
         var reader = new FileReader;
         var json;
         var $dataBlock = $('#json');

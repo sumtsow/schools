@@ -1,6 +1,7 @@
-<?php echo $this->headScript()->appendFile('/js/load_json.js');
+<?php
 $title = $this->translate('Edit school');
 $this->headTitle($title);
+echo $this->inlineScript()->prependFile('/js/load_json.js');
 ?>
 <h1 class='text-center'><?= $this->escapeHtml($title); ?></h1>
 <div class="row">
@@ -10,9 +11,14 @@ $this->headTitle($title);
     <div class="col">
         <form method="post">
             <div class="form-group">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="jsonFile">
-                    <label class="custom-file-label" for="jsonFile" id="jsonFile">Choose JSON file</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="jsonFileUpload">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="jsonFile" aria-describedby="jsonFileUpload">
+                        <label class="custom-file-label" style="font-weight: bold;" for="jsonFile" id="jsonFile">Choose JSON file</label>
+                    </div>
                 </div>
             </div>
         </form>
