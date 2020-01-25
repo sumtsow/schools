@@ -25,6 +25,20 @@ else :
 </div>
 <?php endif; ?>
 <h1 class="text-center"><?= $title;?></h1>
+<div class="row d-none">
+    <div class="col">
+        <form method="post" id="jsonFileForm">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="jsonFile" aria-describedby="jsonFileUpload">
+                        <label class="custom-file-label" for="jsonFile" id="jsonFile">Import program data from a file</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <?= $this->paginationControl($paginator,
      'Sliding',
      'application/index/page.phtml', [
@@ -36,13 +50,13 @@ else :
     <tbody>
 <?php foreach ($paginator as $item): ?>        
         <tr>
-            <td><?= $item->id;?></td>
+            <td class="id_school"><?= $item->id;?></td>
             <td>
-                <a id="school_<?= $item->id; ?>" class="school" id_edbo="<?= $item->id_edbo;?>" href="<?= $this->url('schools', array('action'=>'view', 'id' => $item->id, 'area' => null)); ?>"><?= $item->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()};?></a>
+                <a class="school" href="<?= $this->url('schools', array('action'=>'view', 'id' => $item->id, 'area' => null)); ?>"><?= $item->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()};?></a>
             </td>
-			<td><?= $item->id_edbo;?></td>
+			<td class="id_edbo"><?= $item->id_edbo;?></td>
             <td>
-				<a class="fas fa-sync pr-3 update" title="Sycnchronize with EDBO" href="#<?= $item->id_edbo;?>"></a>
+				<a class="fas fa-sync pr-3 update" title="Sycnchronize with EDBO" href="#"></a>
                 <a class="fa fa-edit pr-3" title="Edit" href="/admin/edit/<?= $item->id;?>"></a>
                 <a class="fa fa-trash-alt" title="Delete" href="/admin/delete/<?= $item->id;?>"></a>
             </td>

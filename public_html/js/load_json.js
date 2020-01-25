@@ -1,56 +1,41 @@
 $( document ).ready(function() {
 	
 	let $updateBtns = $('.update');
-	let $schools = $('.school');
-	let id_edbo = [];
-	let id_program;
-	let programs;
-	$schools.each(function(index, school) {
-		id_edbo[index] = $(school).attr('id_edbo');
+	let $jsonFileInput = $('input#jsonFile');
+	let id_school;
+	//let id_program;
+	//let programs;
+
+	$jsonFileInput.change(function() {
+		return this.files[0];
+	});
+
+	$updateBtns.click( function(event) {
+		event.stopPropagation();		
+		event.preventDefault();
+		$jsonFileInput.trigger('click');
+		let file = $jsonFileInput.triggerHandler('change');
+		if(file) readFile(file);
+		id_school = $(this).parents('tr').first().find('.id_school').text();
 	});
 	
-	$updateBtns.click( function(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		let id = $(this).attr('href').slice(1);
-		$.ajax({
-			url: '/secure/' + id + '/Universities.json',
-			dataType: 'text',
-			success: function(data) {
-				let json = JSON.parse(data);
-				let title_edbo = json.universities[0][1];
-				let title_local = $('[id_edbo=' + id + ']').text();
-				if(title_local != title_edbo) alert('Titles are difference');
-				id_program = json.universities[0][3];
-				console.log(json);
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				console.log(textStatus, errorThrown);
-			}
-		});
-		$.ajax({
-			
-			url: '/secure/' + id + '/Offers.json',
-			dataType: 'text',
-			success: function(data) {
-				let json = JSON.parse(data);
-				console.log(json);
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				console.log(textStatus, errorThrown);
-			}
-		});		
-		/*$.ajax({
-			url: '/admin/update/' + id_school,
-			method: 'post',
-			data: data,
-			dataType: 'json',
-			success: function(data) {
-				alert(data);
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				console.log(textStatus, errorThrown);
-			}
-		});*/
-	});
+	function readFile(file) {
+		let reader = new FileReader();
+		reader.readAsText(file);		
+		reader.onload = function() {
+			let data = reader.result;
+			$.ajax({
+				url: '/admin/update/' + id_school,
+				method: 'post',
+				data: 'data=' + data,
+				dataType: 'json',
+				success: function(data) {
+					console.log(data);
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.log(textStatus, errorThrown);
+				}
+			});
+		}
+	};
 });

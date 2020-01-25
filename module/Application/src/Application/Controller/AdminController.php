@@ -139,13 +139,31 @@ class AdminController extends AbstractActionController
 		$id = (int) $this->params()->fromRoute('id', 0);
 		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
 		$request = $this->getRequest();
-		$universities = false;
         if ($request->isPost()) {
-			$universities = $request->getPost('universities');
+			$decodedJson = json_decode($request->getPost('data'));
+			if(property_exists($decodedJson, 'universities')) {
+				$universities = $decodedJson->universities[0];
+				$id_edbo = $universities[0];
+				$schoolTitle = $universities[1];
+				$offersNum = $universities[2];
+				$offers = explode(',', $universities[3]);
+				$city = $universities[4];
+				$isOffers = false;
+				$responseText = $schoolTitle;
+			}
+			elseif(property_exists($decodedJson, 'offers')) {
+				$offers = $decodedJson->offers;
+				$isOffers = true;
+				$responseText = 'Total offers: ' . count($offers);
+			}
 		}
-		return [
-			'universities' => $universities
-		];
+		$response = $this->getResponse();
+		$response->setStatusCode(200);
+		$response->setContent($responseText);
+		return $response;
+		/*$view = new ViewModel();
+		$view->setVariable('data', '{' . $response . '}')->setTerminal(true);
+		return $view;*/
 		/*return $this->redirect()->toRoute('admin', array(
             'action' => 'index', 'id' => '1'
         ));*/
