@@ -6,6 +6,7 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Sql;
+//use Application\Model\Program;
 
 class ProgramTable extends AbstractTableGateway
 {
@@ -27,15 +28,15 @@ class ProgramTable extends AbstractTableGateway
     {
 		return $this->select();
     }
-	
-	public function fetchOne($id)
-    {
-		return $this->select(['id' => $id])->current();
-    }
-	
+
 	public function fetch($id)
     {
 		return $this->select(['id' => $id]);
+    }
+	
+	public function fetchIdEDBO($id_edbo)
+    {
+		return $this->select(['id_edbo' => $id_edbo])->current();
     }
 	
 	public function getPrograms($id)
@@ -138,7 +139,43 @@ class ProgramTable extends AbstractTableGateway
 		}
         return $levels;
     }
-		
+
+	public function getIdLevelByIdEDBO($id_edbo)
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->columns(['id'])->from('level')->where(['id_edbo' => $id_edbo]);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+        return $resultSet->current()->id;
+    }
+
+	public function getIdSpecialtyByIdEDBO($id_edbo)
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->columns(['id'])->from('specialty')->where(['id_edbo' => $id_edbo]);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+        return $resultSet->current()->id;
+    }
+
+	public function getIdFormByIdEDBO($id_edbo)
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->columns(['id'])->from('form')->where(['id_edbo' => $id_edbo]);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+        return $resultSet->current()->id;
+    }
+
+	public function getIdBaseByIdEDBO($id_edbo)
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->columns(['id'])->from('base')->where(['id_edbo' => $id_edbo]);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+        return $resultSet->current()->id;
+    }
+	
 	public function getForms()
     {
 		$sql = new Sql($this->adapter);
@@ -336,25 +373,67 @@ class ProgramTable extends AbstractTableGateway
 		return $domDocument;
 	}
 
+    public function importProgramFromJson($id_school, $id_edbo, $json, $key)
+    {
+		$offer = $json->offers[$key];
+		$old_program = $this->fetchIdEDBO($id_edbo);
+		$program = new Program();
+		if($old_program) {
+			$program->exchangeArray($old_program);
+		} else {
+			$program->id = 0;
+		}
+		$program->id_edbo = $offer[0];
+		$program->title = $offer[20];
+		$program->type = $offer[19] + 1;
+		$program->period = $offer[9];
+		$program->year = substr($offer[10], -4);
+		$program->learning_start = \DateTime::createFromFormat('d.m.Y', $offer[10])->format('Y-m-d');
+		$program->learning_end = \DateTime::createFromFormat('d.m.Y', $offer[11])->format('Y-m-d');
+		$program->entrance_start = \DateTime::createFromFormat('d.m.Y', $offer[22])->format('Y-m-d');
+		$program->entrance_end = \DateTime::createFromFormat('d.m.Y', $offer[23])->format('Y-m-d');
+		$program->id_school = $id_school;
+		$program->min_rate = floatval($json->offers_requests_info->{$program->id_edbo}[3]); 
+		$program->ave_rate = floatval($json->offers_requests_info->{$program->id_edbo}[2]);          
+		$program->max_rate = floatval($json->offers_requests_info->{$program->id_edbo}[4]);
+		$program->id_level = $this->getIdLevelByIdEDBO($offer[3]);
+		$spec_edbo = $json->specialities->{$offer[6]};
+		$program->id_specialty = $this->getIdSpecialtyByIdEDBO($spec_edbo[0]);
+		$program->id_form = $this->getIdFormByIdEDBO($offer[5]);
+		$program->id_base = $this->getIdBaseByIdEDBO($offer[4]);
+		$this->saveProgram($program);
+		$program->id = $this->fetchIdEDBO($id_edbo)->id;
+		return $program;
+	}
+	
 	public function saveProgram(Program $program)
 	{
 		$data = [
+			'id_edbo' => $program->id_edbo,
 			'title' => $program->title,
+			'type' => $program->type,
 			'period' => $program->period,
 			'year' => $program->year,
 			'id_level' => $program->id_level,
 			'id_specialty' => $program->id_specialty,
 			'id_form' => $program->id_form,
 			'id_school' => $program->id_school,
+			'id_base' => $program->id_base,
 			'min_rate'    => $program->min_rate,
 			'ave_rate'    => $program->ave_rate,
 			'max_rate'    => $program->max_rate,
+			'learning_start' => $program->learning_start,
+			'learning_end' => $program->learning_end,
+			'entrance_start' => $program->entrance_start,
+			'entrance_end' => $program->entrance_end,
+			'updated_at' => date('Y-m-d H:i:s'),
 		];
 		$id = intval($program->id);
 		if ($id == 0) {
+			$data['created_at'] = date('Y-m-d H:i:s');
 			$this->insert($data);
 		} else {
-			if ($this->fetchOne($id)) {
+			if ($this->fetch($id)->current()) {
 				$this->update($data, ['id' => $id]);
 			} else {
 				throw new \Exception('Program id does not exist');

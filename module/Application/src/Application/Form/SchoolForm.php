@@ -27,6 +27,15 @@ class SchoolForm extends Form
 		
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
+            'name' => 'id_region',
+            'id' => 'id_region',
+			'options' => array(
+                'label' => 'Region',
+            ),
+        ));
+		
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
             'name' => 'program',
             'id' => 'program',
 			'multiple' => 'multiple',

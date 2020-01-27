@@ -70,7 +70,20 @@ class SchoolTable extends AbstractTableGateway
         $resultArr = explode(',',str_replace("'","",substr($resultArr[0]['Type'],5,-1)));
         return $resultArr;
     }
-    
+	
+     public function getRegions()
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->from('region');
+        $selectString = $sql->buildSqlString($select);
+		$regions = [];
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		foreach($resultSet as $result) {
+			$regions[$result->id] = $result->title;
+		}
+        return $regions;
+    }
+	
     public function search($search = false)
     {
         $results = false;
@@ -128,7 +141,7 @@ class SchoolTable extends AbstractTableGateway
         }
         return $row;
     }
-    
+	
     public function syncSchool($id, $edbo_params)
     {
 		$school = $this->getSchool($id);
@@ -183,6 +196,7 @@ class SchoolTable extends AbstractTableGateway
         $school->map = stripslashes($school->map);
         $data = array(
 			'id_edbo' => $school->id_edbo,
+			'id_region' => $school->id_region,
             'name_uk' => $school->name_uk,
             'name_en' => $school->name_en,
             'name_ru' => $school->name_ru,

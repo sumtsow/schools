@@ -8,12 +8,13 @@ use Zend\InputFilter\InputFilterInterface;
 class Program implements InputFilterAwareInterface
 {
 	public $id;
+	public $id_edbo;
 	public $title;
 	public $period;
 	public $year;
     public $id_level;
-	public $id_specialty; 
-	public $id_form;          
+	public $id_specialty;
+	public $id_form;
 	public $id_school;
 	public $min_rate; 
 	public $ave_rate;          
@@ -23,6 +24,7 @@ class Program implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
         $this->id           = (isset($data['id']))           ? $data['id']           : null;
+		$this->id_edbo      = (isset($data['id_edbo']))      ? $data['id_edbo']      : null;
 		$this->title        = (isset($data['title']))        ? $data['title']        : null;
 		$this->period       = (isset($data['period']))       ? $data['period']       : 0;
 		$this->year         = (isset($data['year']))         ? $data['year']         : 0;
@@ -49,6 +51,14 @@ class Program implements InputFilterAwareInterface
     {
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
+			
+            $inputFilter->add([
+                'name'     => 'id_edbo',
+                'required' => false,
+                'filters'  => [
+                    0 => ['name' => 'Zend\Filter\Digits'],
+                ],
+            ]);
 			
             $inputFilter->add([
                 'name'     => 'title',

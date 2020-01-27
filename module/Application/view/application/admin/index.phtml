@@ -47,6 +47,14 @@ else :
      ]); ?>
 <div class="table-responsive">
 <table class="table table-striped">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th><?= $this->translate('Name'); ?></th>
+			<th><?= $this->translate('ID EDBO'); ?></th>
+			<th><?= $this->translate('Edit schools'); ?></th>
+		</tr>
+	</thead>
     <tbody>
 <?php foreach ($paginator as $item): ?>        
         <tr>

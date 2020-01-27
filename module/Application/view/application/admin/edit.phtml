@@ -6,28 +6,12 @@ $this->headTitle($title);
 <div class="row">
     <div id="json" class="col border border-secondary m-3 p-3" style="display: none;"></div>
 </div>
-<div class="row">
-    <div class="col">
-        <form method="post">
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="jsonFileUpload" disabled="disabled">Upload</span>
-                    </div>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="jsonFile" aria-describedby="jsonFileUpload">
-                        <label class="custom-file-label" for="jsonFile" id="jsonFile">Import program data from a file</label>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 <?php
 $schoolForm = $this->schoolForm;
 $schoolForm->setAttribute('action', $this->url('admin',['action' => 'edit', 'id'     => $this->id]));
 $inputs = [
 	'id_edbo' => $schoolForm->get('id_edbo')->setLabel('ID EDBO'),
+	'id_region' => $schoolForm->get('id_region'),
     'name_uk' => $schoolForm->get('name_uk')->setLabel($this->translate('Name', null, 'uk').' (uk)'),
     'name_en' => $schoolForm->get('name_en')->setLabel($this->translate('Name', null, 'en').' (en)'),
     'name_ru' => $schoolForm->get('name_ru')->setLabel($this->translate('Name', null, 'ru').' (ru)'),
@@ -44,7 +28,7 @@ $inputs = [
     'visible' => $schoolForm->get('visible')->setLabel('Visible'),
 ];
 $schoolForm->prepare();
-if($inputs['high']->getValue()) :
+if($inputs['high']->getValue() && $this->specialtyDOM) :
 ?>
 <div class="container-fluid m-1 p-3 border border-light">
 	<div class="row">	

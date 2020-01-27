@@ -7,6 +7,7 @@ use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Application\Model\Program;
 use Application\Model\School;
+use Application\Model\Subject;
 use Application\Model\User;
 use Application\Form\SchoolForm;
 use Application\Form\ProgramForm;
@@ -17,6 +18,7 @@ class AdminController extends AbstractActionController
 	protected $programTable;	
     protected $schoolTable;
     protected $specialtyTable;
+	protected $subjectTable;
 	
     public function indexAction()
     {
@@ -93,8 +95,11 @@ class AdminController extends AbstractActionController
         $schoolForm  = new SchoolForm();
         $schoolForm->bind($school);
         $schoolForm->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
+		$schoolForm->get('id_region')->setValueOptions($this->getSchoolTable()->getRegions());
+		$schoolForm->get('id_region')->setValue($school->id_region);
 		$programForm  = new ProgramForm();
 		$programs = false;
+		$specialtyDOM = false;
 		if($school->high) {
 			$id_program = $this->getProgramTable()->getProgramsByIdSchool($id);
 			if($id_program) {
@@ -103,7 +108,7 @@ class AdminController extends AbstractActionController
 				    $programForm->get('id_specialty')->setValueOptions($this->getSpecialtyTable()->getSpecialties());
 				    $programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale));
 				    $programForm->get('id_form')->setValueOptions($this->getProgramTable()->getForms($locale));
-				    $specialtyDOM = $this->getProgramTable()->getSpecialtyDOM($id, $locale);
+					$specialtyDOM = $this->getProgramTable()->getSpecialtyDOM($id, $locale);
 			    }
 			}
 		}
@@ -138,35 +143,25 @@ class AdminController extends AbstractActionController
         }
 		$id = (int) $this->params()->fromRoute('id', 0);
 		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
-		$request = $this->getRequest();
-        if ($request->isPost()) {
-			$decodedJson = json_decode($request->getPost('data'));
-			if(property_exists($decodedJson, 'universities')) {
-				$universities = $decodedJson->universities[0];
-				$id_edbo = $universities[0];
-				$schoolTitle = $universities[1];
-				$offersNum = $universities[2];
-				$offers = explode(',', $universities[3]);
-				$city = $universities[4];
-				$isOffers = false;
-				$responseText = $schoolTitle;
-			}
-			elseif(property_exists($decodedJson, 'offers')) {
-				$offers = $decodedJson->offers;
-				$isOffers = true;
-				$responseText = 'Total offers: ' . count($offers);
+		$school = $this->getSchoolTable()->getSchool($id);
+		if($school->high) {
+			$path = User::getDocumentRoot() . '/secure/' . $school->id_edbo . '/';			
+			/*$filename = $edbo_params['file']['universities'];
+			$text = file_get_contents($path . $filename);
+			$jsonUniversity = json_decode($text)->universities[0];
+			$id_offers = explode(',', $jsonUniversity[3]);*/
+			$filename = $edbo_params['file']['offers'];
+			$text = file_get_contents($path . $filename);
+			$jsonOffers = json_decode($text);
+			foreach($jsonOffers->offers as $key => $offer) {
+				$program = $this->getProgramTable()->importProgramFromJson($id, $offer[0], $jsonOffers, $key);
+				$program->subjects[$program->id] = $this->getSubjectTable()->importSubjectFromJson($program->id, $program->id_edbo, $jsonOffers->offers_subjects);
 			}
 		}
-		$response = $this->getResponse();
-		$response->setStatusCode(200);
-		$response->setContent($responseText);
-		return $response;
-		/*$view = new ViewModel();
-		$view->setVariable('data', '{' . $response . '}')->setTerminal(true);
-		return $view;*/
-		/*return $this->redirect()->toRoute('admin', array(
-            'action' => 'index', 'id' => '1'
-        ));*/
+		/*$response = $this->getResponse();
+		$response->setStatusCode(200)->setContent($text);
+		return $response;*/
+		return ['data' => $program];
 	}
 	
     public function deleteAction()
@@ -271,6 +266,15 @@ class AdminController extends AbstractActionController
 		return $this->specialtyTable;
     }
 
+    public function getSubjectTable()
+    {
+        if (!$this->subjectTable) {
+            $sm = $this->getServiceLocator();
+			$this->subjectTable = $sm->get('Application\Model\SubjectTable');
+        }
+		return $this->subjectTable;
+    }
+	
     public function updatenewsAction()
     {
         $user = new User();

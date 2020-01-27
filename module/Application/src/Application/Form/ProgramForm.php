@@ -25,7 +25,14 @@ class ProgramForm extends Form
                 'type'  => 'hidden',
             ),
         ));
-
+		
+        $this->add(array(
+            'name' => 'id_edbo',
+            'attributes' => array(
+                'type'  => 'number',
+            ),
+        ));
+		
         $this->add(array(
             'name' => 'title',
             'attributes' => array(

@@ -9,7 +9,8 @@ use Zend\InputFilter\InputFilterInterface;
 class School implements InputFilterAwareInterface
 {
 	public $id;
-	public $id_edbo;	
+	public $id_edbo;
+	public $id_region;
 	public $programs;
     public $name_uk;
 	public $name_en; 
@@ -28,6 +29,7 @@ class School implements InputFilterAwareInterface
     {
         $this->id        = (isset($data['id'])) ? $data['id'] : null;
 		$this->id_edbo   = (isset($data['id_edbo'])) ? $data['id_edbo'] : null;
+		$this->id_region = (isset($data['id_region'])) ? $data['id_region'] : null;
 		$this->program   = (isset($data['program'])) ? $data['program'] : null;
         $this->name_uk   = (isset($data['name_uk'])) ? $data['name_uk'] : null;
         $this->name_en   = (isset($data['name_en'])) ? $data['name_en'] : null;
@@ -77,6 +79,14 @@ class School implements InputFilterAwareInterface
                 ),
             )));
 
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'id_region',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'ToInt'),
+                ),
+            )));
+			
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'program',
                 'required' => false,

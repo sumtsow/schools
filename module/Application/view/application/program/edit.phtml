@@ -7,6 +7,7 @@ $programForm = $this->programForm;
 $programForm->setAttribute('action', $this->url('program', ['action' => 'edit', 'id' => $this->id]))->setAttribute('id', 'program');
 $id = $programForm->get('id');
 $id_school = $programForm->get('id_school');
+$id_edbo = $programForm->get('id_edbo')->setLabel('ID EDBO')->setAttribute('class', 'form-control');
 $program = $programForm->get('title')->setLabel('Education Program')->setAttribute('class', 'form-control');
 $period = $programForm->get('period')->setLabel('Learning Period')->setAttributes(['class' => 'form-control', 'placeholder' => '4.5']);
 $year = $programForm->get('year')->setLabel('Year')->setAttributes(['class' => 'form-control', 'placeholder' => date('Y')]);
@@ -28,6 +29,10 @@ $programForm->prepare();
 				<div class="form-group">
 				<?= $this->formLabel($program) ?>
 				<?= $this->formElement($program); ?>
+				</div>			
+				<div class="form-group">
+				<?= $this->formLabel($id_edbo) ?>
+				<?= $this->formElement($id_edbo); ?>
 				</div>
 				<div class="form-group">
 				<?= $this->formLabel($period) ?>

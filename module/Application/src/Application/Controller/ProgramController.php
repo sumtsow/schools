@@ -90,15 +90,8 @@ class ProgramController extends AbstractActionController
         }
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
 		$programForm  = new ProgramForm();
-		$program = $this->getProgramTable()->fetchOne($id);
-		$programForm->get('id')->setValue($program->id);
-		$programForm->get('title')->setValue($program->title);
-		$programForm->get('period')->setValue($program->period);
-		$programForm->get('year')->setValue($program->year);
-		$programForm->get('id_school')->setValue($program->id_school);
-		$programForm->get('min_rate')->setValue($program->min_rate);
-		$programForm->get('ave_rate')->setValue($program->ave_rate);
-		$programForm->get('max_rate')->setValue($program->max_rate);
+		$program = $this->getProgramTable()->fetch($id)->current();
+		$programForm->bind($program);
 		$programForm->get('id_specialty')->setValueOptions($this->getSpecialtyTable()->getSpecialties())->setValue($program->id_specialty);
 		$programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale))->setValue($program->id_level);
 		$programForm->get('id_form')->setValueOptions($this->getProgramTable()->getForms())->setValue($program->id_form);

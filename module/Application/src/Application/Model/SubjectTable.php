@@ -42,22 +42,64 @@ class SubjectTable extends AbstractTableGateway
 		return $resultSet;
     }
 	
+	public function getIdSubjectByIdEDBO($id_edbo)
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->columns(['id'])->from('subject')->where(['id_edbo' => $id_edbo]);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+        return $resultSet->current()->id;
+    }
+	
+	public function getAllSubjects($id_program)
+    {
+		return $this->select(['id_program' => $id_program]);
+    }
+	
+	// return Options of Subject
+	public function getSubjectOptions($id_program, $id_subject)
+    {
+		return $this->select(['id_program' => $id_program, 'id_subject' => $id_subject], 'AND')->current();
+    }
+	
+	
+	public function importSubjectFromJson($id_program, $id_edbo, $offers_subjects)
+    {
+		$old_subjects = $this->getAllSubjects($id_program);
+		foreach($old_subjects as $subject) {
+			$this->deleteSubject($subject->id);
+		}
+		$key = 0;
+		$subject = new Subject();
+		$subject->id_program = intval($id_program);		
+		foreach($offers_subjects->{$id_edbo} as $offers_subject) {
+			$subject->id[$key] = 0;			
+			$subject->id_subject[$key] = intval($this->getIdSubjectByIdEDBO($offers_subject[0]));
+			if(!$offers_subject[4]) $subject->required[$key] = 1;
+			$subject->coefficient[$key] = floatval($offers_subject[3]);
+			$subject->rating[$key] = floatval($offers_subject[5]);
+			$key++;
+		}
+		$this->save($subject);
+        return $subject;
+    }
+
 	public function save(Subject $subject)
 	{
 		if(is_array($subject->id)) {
-		foreach($subject->id as $id) {
-			//$id = $subject->id[$id_subject];
+		foreach($subject->id as $key => $id) {
+			$req = $id ? $id : $key;
 			$data = [
-				'required'    => key_exists($id, $subject->required) ? 1 : 0,
-				'coefficient' => $subject->coefficient[$id],
-				'rating'      => $subject->rating[$id],
+				'required'    => key_exists($req, $subject->required) ? 1 : 0,
+				'coefficient' => $id ? $subject->coefficient[$id] : $subject->coefficient[$key],
+				'rating'      => $id ? $subject->rating[$id] : $subject->rating[$key],
 				'id_program'  => $subject->id_program,
-				'id_subject'  => $subject->id_subject[$id],
+				'id_subject'  => $id ? $subject->id_subject[$id] : $subject->id_subject[$key],
 			];
-				if ($this->fetchOne($id)) {
+				if ($this->fetchOne($id)->current()) {
 					$this->update($data, ['id' => $id]);
 				} else {
-					throw new \Exception('Subject id=' . $subject->id .' does not exist');
+					$this->insert($data);
 				}
 			}
 		} else {
@@ -79,6 +121,7 @@ class SubjectTable extends AbstractTableGateway
 			    }
 		    }
 		}
+		unset($data);
 		return true;
 	}
 	 
