@@ -16,6 +16,7 @@ use Application\Model\CommentTable;
 use Application\Model\FormTable;
 use Application\Model\LevelTable;
 use Application\Model\ProgramTable;
+use Application\Model\RegionTable;
 use Application\Model\SchoolTable;
 use Application\Model\SearchTable;
 use Application\Model\SpecialtyTable;
@@ -94,6 +95,11 @@ class Module
                 'Application\Model\ProgramTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table     = new ProgramTable($dbAdapter);
+                    return $table;
+                },
+				'Application\Model\RegionTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new RegionTable($dbAdapter);
                     return $table;
                 },
                 'Application\Model\SchoolTable' =>  function($sm) {

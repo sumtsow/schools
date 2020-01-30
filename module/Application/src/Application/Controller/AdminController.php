@@ -145,12 +145,13 @@ class AdminController extends AbstractActionController
 		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
 		$school = $this->getSchoolTable()->getSchool($id);
 		if($school->high) {
-			$path = User::getDocumentRoot() . '/secure/' . $school->id_edbo . '/';			
-			/*$filename = $edbo_params['file']['universities'];
+			$default_id = 63; // Kharkiv
+			$path = User::getDocumentRoot() . $edbo_params['local_dir'] . $default_id . '/'. $school->id_edbo . '/';			
+			/*$filename = $edbo_params['files']['universities'];
 			$text = file_get_contents($path . $filename);
 			$jsonUniversity = json_decode($text)->universities[0];
 			$id_offers = explode(',', $jsonUniversity[3]);*/
-			$filename = $edbo_params['file']['offers'];
+			$filename = $edbo_params['files']['offers'];
 			$text = file_get_contents($path . $filename);
 			$jsonOffers = json_decode($text);
 			foreach($jsonOffers->offers as $key => $offer) {

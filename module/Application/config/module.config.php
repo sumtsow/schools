@@ -69,6 +69,24 @@ return array(
                 'child_routes' => array(
                 ),
             ),
+			'import' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/import[/:action][/:id][/]',
+                    'constraints' => array(
+                        'action'     => '[a-z]*',
+						'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Import',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                ),
+            ),
             'search' => array(
                 'type'    => 'Segment',
                 'options' => array(
@@ -152,7 +170,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Admin' => 'Application\Controller\AdminController',			
-            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Import' => 'Application\Controller\ImportController',
+			'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Program' => 'Application\Controller\ProgramController',
             'Application\Controller\Search' => 'Application\Controller\SearchController',
 			'Application\Controller\Specialty' => 'Application\Controller\SpecialtyController',
