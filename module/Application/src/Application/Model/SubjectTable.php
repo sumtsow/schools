@@ -73,7 +73,7 @@ class SubjectTable extends AbstractTableGateway
 		$subject = new Subject();
 		$subject->id_program = intval($id_program);		
 		foreach($offers_subjects->{$id_edbo} as $offers_subject) {
-			$subject->id[$key] = 0;			
+			$subject->id_row[$key] = 0;			
 			$subject->id_subject[$key] = intval($this->getIdSubjectByIdEDBO($offers_subject[0]));
 			if(!$offers_subject[4]) $subject->required[$key] = 1;
 			$subject->coefficient[$key] = floatval($offers_subject[3]);
@@ -86,8 +86,8 @@ class SubjectTable extends AbstractTableGateway
 
 	public function save(Subject $subject)
 	{
-		if(is_array($subject->id)) {
-		foreach($subject->id as $key => $id) {
+		if(is_array($subject->id_row)) {
+		foreach($subject->id_row as $key => $id) {
 			$req = $id ? $id : $key;
 			$data = [
 				'required'    => key_exists($req, $subject->required) ? 1 : 0,
@@ -103,7 +103,7 @@ class SubjectTable extends AbstractTableGateway
 				}
 			}
 		} else {
-		    $id = intval($subject->id);
+		    $id = intval($subject->id_row);
 		    $data = [
 			    'required'    => $subject->required ? 1 : 0,
 			    'coefficient' => $subject->coefficient,

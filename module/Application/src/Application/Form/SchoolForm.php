@@ -26,6 +26,13 @@ class SchoolForm extends Form
         ));
 		
         $this->add(array(
+            'name' => 'id_parent',
+            'attributes' => array(
+                'type'  => 'text',
+            ),
+        ));
+
+        $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'id_region',
             'id' => 'id_region',
@@ -142,6 +149,33 @@ class SchoolForm extends Form
              ),
         ));
         
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'type',
+            'id' => 'type',
+            'options' => array(
+                'label' => 'Type',
+            ),
+        ));
+        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'ownership',
+            'id' => 'ownership',
+            'options' => array(
+                'label' => 'Ownership',
+            ),
+        ));
+		
+        $this->add(array(
+			'type' => 'Zend\Form\Element\Select',
+            'name' => 'id_owner',
+            'id' => 'id_owner',
+            'options' => array(
+                'label' => 'Owner',
+            ),
+        ));
+		
         $this->add(array(
             'name' => 'map',
             'attributes' => array(

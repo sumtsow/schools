@@ -46,12 +46,11 @@ class SubjectController extends AbstractActionController
             if ($subjectForm->isValid()) {
                 $subject->exchangeArray($subjectForm->getData());
                 $result = $this->getSubjectTable()->save($subject);
+            } else {
+                $error_input = ['field' => key($subjectForm->getMessages())];
             }
-			/*if($result) {
-				return $this->redirect()->toRoute('program', ['action' => 'edit', 'id' => $id_program]);					
-			}*/
         }
-		return $this->redirect()->toRoute('program', ['action' => 'edit', 'id' => $id_program]);
+		return $this->redirect()->toRoute('program', ['action' => 'edit', 'id' => $id_program], ['error_input' => $error_input]);
     }
 	
     public function editAction()
@@ -66,20 +65,24 @@ class SubjectController extends AbstractActionController
         }
 		$subjectForm  = new SubjectForm();
 		$request = $this->getRequest();
+		$output = null;
         if ($request->isPost()) {
             $subject = new Subject();
             $subjectForm->setInputFilter($subject->getInputFilter());
+			$checkbox = $request->getPost('required');
             $subjectForm->setData($request->getPost());
 			$result = false;
             if ($subjectForm->isValid()) {
                 $subject->exchangeArray($subjectForm->getData());
                 $result = $this->getSubjectTable()->save($subject);
+            } else {
+				$output = [
+					'error_input' => ['field' => key($subjectForm->getMessages())],
+					'errors' => $subjectForm->getMessages()
+				];
             }
-			if($result) {
-				return $this->redirect()->toRoute('program', ['action' => 'edit', 'id' => $id]);					
-			}
         }
-		return $this->redirect()->toRoute('program', ['action' => 'edit', 'id' => $id]);
+		return $this->redirect()->toRoute('program', ['action' => 'edit', 'id' => $id], $output);
     }
 
 	public function deleteAction() {

@@ -16,6 +16,7 @@ $inputs = [
     'name_en' => $schoolForm->get('name_en')->setLabel($this->translate('Name', null, 'en').' (en)'),
     'name_ru' => $schoolForm->get('name_ru')->setLabel($this->translate('Name', null, 'ru').' (ru)'),
     'shortname' => $schoolForm->get('shortname')->setLabel('Short Name'),
+	'id_parent' => $schoolForm->get('id_parent')->setLabel('Parent'),
     'address' => $schoolForm->get('address')->setLabel('Address'),
     'phone' => $schoolForm->get('phone')->setLabel('Phone'),
     'email' => $schoolForm->get('email'),
@@ -26,6 +27,9 @@ $inputs = [
     'map' => $schoolForm->get('map')->setLabel('Map'),
     'logo' => $schoolForm->get('logo')->setLabel('Logo'),
     'visible' => $schoolForm->get('visible')->setLabel('Visible'),
+	'type' => $schoolForm->get('type')->setLabel('type'),
+	'ownership' => $schoolForm->get('ownership')->setLabel('Ownership'),
+	'id_owner' => $schoolForm->get('id_owner')->setLabel('Owner'),
 ];
 $schoolForm->prepare();
 if($inputs['high']->getValue() && $this->specialtyDOM) :
@@ -63,6 +67,7 @@ foreach($branches as $branch) :
 							<a href="<?= $this->url('program', ['action' => 'edit', 'id' => $id]) ?>"><?= $this->translate('Education Program'); ?>: <span class="font-weight-bold"><?= $program->firstChild->textContent; ?></span></a>
 						</h6>
 						<a type="button" class="close font-weight-bold" href="/program/delete/<?= $id ?>">×</a>
+						<p class="card-text m-0"><?= $this->translate('ID'); ?>: <span class="font-weight-bold"><?= $id; ?></span></p>
 						<p class="card-text m-0"><?= $this->translate('Education Level'); ?>: <span class="font-weight-bold"><?= $program->getAttribute('level_title'); ?></span></p>
 						<p class="card-text m-0"><?= $this->translate('Education Form'); ?>: <span class="font-weight-bold"><?= $program->getAttribute('form_title'); ?></span></p>
 						<p class="card-text m-0"><?= $this->translate('Education Period'); ?>: <span class="font-weight-bold"><?= $program->getAttribute('period'); ?> <?= $this->translate('year(s)'); ?></span></p>

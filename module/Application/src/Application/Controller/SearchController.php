@@ -35,6 +35,8 @@ class SearchController extends AbstractActionController
     {
         $vm = new ViewModel();
 		$subjects = $this->getSubjectTable()->fetchAll();
+		array_pop($subjects); // Delete 3 last subjects
+		array_pop($subjects);
 		array_pop($subjects);
         return $vm->setVariable('forms', $this->getFormTable()->fetchAll())
 			->setVariable('levels', $this->getLevelTable()->fetchAll())

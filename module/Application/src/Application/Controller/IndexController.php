@@ -61,7 +61,7 @@ class IndexController extends AbstractActionController
         $vm = new ViewModel();
         $user = new User();
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
-		$vm->setVariable('school',$this->getSchoolTable()->getSchool($id))
+		$vm->setVariable('school',$this->getSchoolTable()->fetch($id))
             ->setVariable('comments',$this->getCommentTable()->fetchComments($id))
             ->setVariable('docRoot', User::getDocumentRoot())
             ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);

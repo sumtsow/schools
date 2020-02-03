@@ -188,7 +188,42 @@ class ProgramTable extends AbstractTableGateway
 		}
         return $forms;
     }
-
+	
+	public function getBases()
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->from('base');
+        $selectString = $sql->buildSqlString($select);
+		$bases = [];
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		foreach($resultSet as $result) {
+			$bases[$result->id] = $result->title;
+		}
+        return $bases;
+    }
+    
+    public function getTypes()
+    {
+        $resultSet = $this->adapter->query('DESCRIBE `program` `type`', Adapter::QUERY_MODE_EXECUTE);
+        $resultArr = $resultSet->toArray();
+        $resultArr = explode(',',str_replace("'","",substr($resultArr[0]['Type'],5,-1)));
+		array_unshift($resultArr, null);		
+		array_pop($resultArr);
+		unset($resultArr[0]);
+        return $resultArr;
+    }
+	
+	// return All Subjects
+	public function getSubjectTitles()
+    {
+        $subjects = $this->getSubjects();
+        $titles = [];
+		foreach($subjects as $subject) {
+			$titles[$subject->id] = $subject->title;
+		}
+        return $titles;
+    }
+    
 	// return All Subjects
 	public function getSubjects()
     {

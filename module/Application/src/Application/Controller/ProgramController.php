@@ -4,8 +4,10 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Program;
+use Application\Model\Subject;
 use Application\Model\User;
 use Application\Form\ProgramForm;
+use Application\Form\SubjectForm;
 
 class ProgramController extends AbstractActionController
 {
@@ -38,7 +40,7 @@ class ProgramController extends AbstractActionController
             return $this->redirect()->toRoute('admin', ['action' => 'index']);
         }
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
-		$school = $this->getSchoolTable()->getSchool($id);
+		$school = $this->getSchoolTable()->fetch($id);
 		$programForm  = new ProgramForm();
 		if($school->high) {
 			$id_program = $this->getProgramTable()->getProgramsByIdSchool($id);
@@ -47,6 +49,7 @@ class ProgramController extends AbstractActionController
 				$programForm->get('id_specialty')->setValueOptions($this->getSpecialtyTable()->getSpecialties());
 				$programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale));
 				$programForm->get('id_form')->setValueOptions($this->getProgramTable()->getForms());
+				$programForm->get('id_base')->setValueOptions($this->getProgramTable()->getBases());
 			}
 		}
 		$request = $this->getRequest();
@@ -91,13 +94,18 @@ class ProgramController extends AbstractActionController
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
 		$programForm  = new ProgramForm();
 		$program = $this->getProgramTable()->fetch($id)->current();
+		$school = $this->getSchoolTable()->fetch($program->id_school);		
 		$programForm->bind($program);
 		$programForm->get('id_specialty')->setValueOptions($this->getSpecialtyTable()->getSpecialties())->setValue($program->id_specialty);
 		$programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale))->setValue($program->id_level);
 		$programForm->get('id_form')->setValueOptions($this->getProgramTable()->getForms())->setValue($program->id_form);
+		$programForm->get('id_base')->setValueOptions($this->getProgramTable()->getBases())->setValue($program->id_base);
+		$types = $this->getProgramTable()->getTypes();
+		$programForm->get('type')->setValueOptions($types)->setValue(array_search($program->type, $types));
 		$subjects = $this->getProgramTable()->getExamSubjects($id);
 		$allSubjects = $this->getSubjectTable()->fetchAll();
 		$request = $this->getRequest();
+		$vm = new ViewModel();
         if ($request->isPost()) {
             $program = new Program();
             $programForm->setInputFilter($program->getInputFilter());
@@ -106,19 +114,32 @@ class ProgramController extends AbstractActionController
             if ($programForm->isValid()) {
                 $program->exchangeArray($programForm->getData());
                 $result = $this->getProgramTable()->saveProgram($program);
+			    if($result) {
+				    return $this->redirect()->toRoute('program', [
+					    'action' => 'edit', 'id' => $id
+				    ]);					
+			    }                
+            } else {
+                $vm->setVariable('error_input', [
+                    'field' => key($programForm->getMessages()),
+                ]);
             }
-			if($result) {
-				return $this->redirect()->toRoute('program', [
-					'action' => 'edit', 'id' => $id
-				]);					
-			}
         }
-        return array(
-			'id' => $id,
-			'programForm' => $programForm,
-			'subjects' => $subjects,
-			'allSubjects' => $allSubjects,
-        );
+        $subjectsForm = new SubjectForm();
+        $subject = new Subject();
+        $subjectsForm->bind($subject);
+		$addSubjectForm = new SubjectForm();
+        $addSubject = new Subject();
+        $addSubjectForm->bind($addSubject);		
+        $subs = $this->getProgramTable()->getSubjects();
+        $subjectsForm->get('id_subject')->setValueOptions($this->getProgramTable()->getSubjectTitles());
+        return $vm->setVariable('id', $id)
+            ->setVariable('school', $school)
+            ->setVariable('programForm', $programForm)
+            ->setVariable('subjects', $subjects)
+            ->setVariable('allSubjects', $allSubjects)
+            ->setVariable('subjectsForm', $subjectsForm)
+			->setVariable('addSubjectForm', $addSubjectForm);
     }
 
 	public function deleteAction() {

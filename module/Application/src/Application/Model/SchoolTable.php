@@ -28,7 +28,7 @@ class SchoolTable extends AbstractTableGateway
 	
 	public function fetch($id)
     {
-        return $this->select(['id' => $id]);
+        return $this->select(['id' => $id])->current();
     }
     
     public function fetchSchools($areaIndex = null, $visible = 1)
@@ -63,12 +63,43 @@ class SchoolTable extends AbstractTableGateway
         return $result;
     }
     
-     public function fetchAreas()
+    public function getSchoolByIdEdbo($id_edbo)
     {
-        $resultSet = $this->adapter->query('DESCRIBE `school` `area`', Adapter::QUERY_MODE_EXECUTE);
-        $resultArr = $resultSet->toArray();
+        return $this->select(['id_edbo' => $id_edbo])->current();
+    }
+	
+    public function fetchAreas()
+    {
+        $resultArr = $this->adapter->query('DESCRIBE `school` `area`', Adapter::QUERY_MODE_EXECUTE)->toArray();
         $resultArr = explode(',',str_replace("'","",substr($resultArr[0]['Type'],5,-1)));
         return $resultArr;
+    }
+	
+    public function fetchOwnerships()
+    {
+        $resultArr = $this->adapter->query('DESCRIBE `school` `ownership`', Adapter::QUERY_MODE_EXECUTE)->toArray();
+        $resultArr = explode(',',str_replace("'","",substr($resultArr[0]['Type'],5,-1)));
+        return $resultArr;
+    }
+	
+    public function fetchTypes()
+    {
+        $resultArr = $this->adapter->query('DESCRIBE `school` `type`', Adapter::QUERY_MODE_EXECUTE)->toArray();
+        $resultArr = explode(',',str_replace("'","",substr($resultArr[0]['Type'],5,-1)));
+        return $resultArr;
+    }
+	
+    public function getOwners()
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->from('owner');
+        $selectString = $sql->buildSqlString($select);
+		$owners = [];
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		foreach($resultSet as $result) {
+			$owners[$result->id] = $result->title;
+		}
+        return $owners;
     }
 	
      public function getRegions()
@@ -82,6 +113,58 @@ class SchoolTable extends AbstractTableGateway
 			$regions[$result->id] = $result->title;
 		}
         return $regions;
+    }
+	
+    public function getRegionId($region_edbo)
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->from('region')->where(['id_edbo' => $region_edbo]);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+        return $resultSet->current()->id;
+    }
+	
+    public function validateOwner($owner)
+    {
+		if(!$owner) { return null; }
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->columns(['id'])->from('owner')->where(['title' => $owner]);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		$id_owner = $resultSet->current()->id;
+		if(!$id_owner) {
+			$insert = $sql->insert()->into('owner')->columns(['title'])->values([$owner], self::VALUES_SET);
+			$insertString = $sql->buildSqlString($insert);
+			$id_owner = $this->adapter->query($insertString, $this->adapter::QUERY_MODE_EXECUTE);
+		}
+        return $id_owner;
+    }
+	
+    public function importFromJson($school, $json)
+    {
+		if(!$json) { return false; }
+		$school->id_edbo   = $json->university_id;
+		$parent = $this->getSchoolByIdEdbo($json->university_parent_id);
+		$school->id_parent = $parent ? $parent->id : null;
+        $school->name_uk   = $json->university_name;
+		$school->name_ru   = $json->university_name;
+		$school->name_en   = $json->university_name_en;
+        $school->shortname = $json->university_short_name;
+        $school->address   = $json->university_address . ', ' . $json->koatuu_name . ', ' . $json->region_name . ', ' . $json->post_index;
+        $school->phone     = $json->university_phone;
+        $school->email     = $json->university_email;
+        $school->http      = $json->university_site;
+        $school->info      = $json->university_edrpou;
+        $school->area      = null;
+        $school->high      = 1;
+        $school->map       = null;
+        $school->logo      = null;
+        $school->visible   = 1;
+		$school->type      = strtolower($json->education_type_name);
+        $school->ownership = $json->university_financing_type_name;
+        $school->id_owner  = $this->validateOwner($json->university_governance_type_name);
+		$this->saveSchool($school);
+		return true;
     }
 	
     public function search($search = false)
@@ -128,18 +211,6 @@ class SchoolTable extends AbstractTableGateway
             }
         }
         return $results;
-    }
-    
-    public function getSchool($id)
-    {
-        $rowset = $this->select(array(
-            'id' => $id,
-        ));
-        $row = $rowset->current();
-        if (!$row) {
-            throw new \Exception("Could not find row $id");
-        }
-        return $row;
     }
 	
     public function syncSchool($id, $edbo_params)
@@ -197,6 +268,7 @@ class SchoolTable extends AbstractTableGateway
         $data = array(
 			'id_edbo' => $school->id_edbo,
 			'id_region' => $school->id_region,
+			'id_parent' => $school->id_parent,
             'name_uk' => $school->name_uk,
             'name_en' => $school->name_en,
             'name_ru' => $school->name_ru,
@@ -210,20 +282,18 @@ class SchoolTable extends AbstractTableGateway
             'high' => $school->high,
             'map'  => $school->map,
             'logo'  => $school->logo,
-            'visible'  => $school->visible,        
+            'visible'  => $school->visible,
+            'type'  => $school->type,
+            'ownership'  => $school->ownership,
+            'id_owner'  => $school->id_owner,
         );
         $data['area']++; 
         $id = $school->id;
 
         if ($id === 0) {
-            $this->insert($data);
-        } elseif ($this->getSchool($id)) {
-            $this->update(
-                $data,
-                array(
-                    'id' => $id,
-                )
-            );
+            return $this->insert($data);
+        } elseif ($this->fetch($id)) {
+            return $this->update($data, ['id' => $id]);
         } else {
             throw new \Exception('Form id does not exist');
         }
@@ -231,8 +301,6 @@ class SchoolTable extends AbstractTableGateway
 
     public function deleteSchool($id)
     {
-        $this->delete(array(
-            'id' => $id,
-        ));
+        $this->delete(['id' => $id]);
     }
 }

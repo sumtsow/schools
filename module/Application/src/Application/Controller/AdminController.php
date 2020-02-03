@@ -91,10 +91,16 @@ class AdminController extends AbstractActionController
             ));
         }
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
-        $school = $this->getSchoolTable()->getSchool($id);
+        $school = $this->getSchoolTable()->fetch($id);
         $schoolForm  = new SchoolForm();
         $schoolForm->bind($school);
         $schoolForm->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
+		$schoolForm->get('type')->setValueOptions($this->getSchoolTable()->fetchTypes());
+		$schoolForm->get('type')->setValue($school->type);
+		$schoolForm->get('ownership')->setValueOptions($this->getSchoolTable()->fetchOwnerships());
+		$schoolForm->get('ownership')->setValue($school->ownership);
+		$schoolForm->get('id_owner')->setValueOptions($this->getSchoolTable()->getOwners());
+		$schoolForm->get('id_owner')->setValue($school->id_owner);		
 		$schoolForm->get('id_region')->setValueOptions($this->getSchoolTable()->getRegions());
 		$schoolForm->get('id_region')->setValue($school->id_region);
 		$programForm  = new ProgramForm();
@@ -143,7 +149,7 @@ class AdminController extends AbstractActionController
         }
 		$id = (int) $this->params()->fromRoute('id', 0);
 		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
-		$school = $this->getSchoolTable()->getSchool($id);
+		$school = $this->getSchoolTable()->fetch($id);
 		if($school->high) {
 			$default_id = 63; // Kharkiv
 			$path = User::getDocumentRoot() . $edbo_params['local_dir'] . $default_id . '/'. $school->id_edbo . '/';			
@@ -182,7 +188,7 @@ class AdminController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             $del = $request->getPost('del');
-            $school = $this->getSchoolTable()->getSchool($id);
+            $school = $this->getSchoolTable()->fetch($id);
             $high = $school->high;
             if ($del == 'Да') {
                 $id = (int) $request->getPost('id');
@@ -195,7 +201,7 @@ class AdminController extends AbstractActionController
         }
         return array(
             'id'    => $id,
-            'school' => $this->getSchoolTable()->getSchool($id)
+            'school' => $this->getSchoolTable()->fetch($id)
         );
     }
     

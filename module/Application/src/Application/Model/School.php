@@ -11,10 +11,12 @@ class School implements InputFilterAwareInterface
 	public $id;
 	public $id_edbo;
 	public $id_region;
+	public $id_parent;
 	public $programs;
     public $name_uk;
 	public $name_en; 
-	public $name_ru;          
+	public $name_ru;
+	public $shortname;
 	public $address;
 	public $phone;
 	public $email;
@@ -23,13 +25,17 @@ class School implements InputFilterAwareInterface
 	public $area;
 	public $high;
 	public $map;
-        protected $inputFilter;
+	public $type;
+	public $ownership;
+	public $id_owner;
+	protected $inputFilter;
 
     public function exchangeArray($data)
     {
         $this->id        = (isset($data['id'])) ? $data['id'] : null;
 		$this->id_edbo   = (isset($data['id_edbo'])) ? $data['id_edbo'] : null;
 		$this->id_region = (isset($data['id_region'])) ? $data['id_region'] : null;
+		$this->id_parent = (isset($data['id_parent'])) ? $data['id_parent'] : null;
 		$this->program   = (isset($data['program'])) ? $data['program'] : null;
         $this->name_uk   = (isset($data['name_uk'])) ? $data['name_uk'] : null;
         $this->name_en   = (isset($data['name_en'])) ? $data['name_en'] : null;
@@ -44,7 +50,10 @@ class School implements InputFilterAwareInterface
         $this->high      = (isset($data['high'])) ? $data['high'] : null;
         $this->map       = (isset($data['map'])) ? $data['map'] : null;
         $this->logo      = (isset($data['logo'])) ? $data['logo'] : null;
-        $this->visible   = (isset($data['visible'])) ? $data['visible'] : null;        
+        $this->visible   = (isset($data['visible'])) ? $data['visible'] : null; 
+		$this->type      = (isset($data['type'])) ? $data['type'] : null;
+		$this->ownership = (isset($data['ownership'])) ? $data['ownership'] : null;
+		$this->id_owner  = (isset($data['id_owner'])) ? $data['id_owner'] : null;
     }
 
     public function getArrayCopy()

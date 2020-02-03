@@ -22,7 +22,6 @@ if($this->api) :
 		<tr>
             <td class="px-0">		    
                 <h4 class="m-3"><?= $this->translate('Specialties'); ?></h4>
-				<div class="accordion" id="specialities">				
 			<?php
 			$branches = $this->specialtyDOM->getElementsByTagName('branch');
 			foreach($branches as $branch) :
@@ -31,7 +30,8 @@ if($this->api) :
 			<?php
 				$specialties = $branch->getElementsByTagName('specialty');
 				foreach($specialties as $specialty) :
-			?>				
+			?>
+			    <div class="accordion" id="specialities">
 					<div class="card mt-2">
 						<div class="card-header" id="<?= $specialty->getAttribute('id') ?>">
 							<h4 class="mb-0">
@@ -92,12 +92,12 @@ if($this->api) :
 				?>
 							</div>							
 						</div>
-			<?php
-				endforeach;
-			endforeach;
-			?>
-					</div>
-			
+				    </div>
+			    </div>
+		<?php
+			    endforeach;
+		    endforeach;
+		?>
 			</td>
         </tr>
 		<?php endif; ?>

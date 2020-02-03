@@ -1,6 +1,6 @@
 <?php
-
-$title = $this->translate('Edit Program');
+echo $this->inlineScript()->appendFile('/js/program.js');
+$title = $this->translate('Edit Program') . ' ' . $this->school->shortname;
 $this->headTitle($title);
 $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');
 $programForm = $this->programForm;
@@ -9,14 +9,20 @@ $id = $programForm->get('id');
 $id_school = $programForm->get('id_school');
 $id_edbo = $programForm->get('id_edbo')->setLabel('ID EDBO')->setAttribute('class', 'form-control');
 $program = $programForm->get('title')->setLabel('Education Program')->setAttribute('class', 'form-control');
+$type = $programForm->get('type')->setLabel('Program Type')->setAttributes(['class' => 'form-control'/*, 'disabled' => 'disabled'*/]);
 $period = $programForm->get('period')->setLabel('Learning Period')->setAttributes(['class' => 'form-control', 'placeholder' => '4.5']);
 $year = $programForm->get('year')->setLabel('Year')->setAttributes(['class' => 'form-control', 'placeholder' => date('Y')]);
 $specialty = $programForm->get('id_specialty')->setLabel('Specialty')->setAttribute('class', 'form-control');
 $level = $programForm->get('id_level')->setLabel('Select Level')->setAttribute('class', 'form-control');
+$base = $programForm->get('id_base')->setLabel('Select Base Education')->setAttribute('class', 'form-control');
 $form = $programForm->get('id_form')->setLabel('Education Form')->setAttribute('class', 'form-control');
 $min_rate = $programForm->get('min_rate')->setLabel('min')->setAttribute('class', 'form-control');
 $ave_rate = $programForm->get('ave_rate')->setLabel('ave')->setAttribute('class', 'form-control');
 $max_rate = $programForm->get('max_rate')->setLabel('max')->setAttribute('class', 'form-control');
+$learning_start = $programForm->get('learning_start')->setAttribute('class', 'form-control');
+$learning_end = $programForm->get('learning_end')->setAttribute('class', 'form-control');
+$entrance_start = $programForm->get('entrance_start')->setAttribute('class', 'form-control');
+$entrance_end = $programForm->get('entrance_end')->setAttribute('class', 'form-control');
 $programForm->prepare();
 ?>
 <div class="content pb-3">
@@ -29,18 +35,27 @@ $programForm->prepare();
 				<div class="form-group">
 				<?= $this->formLabel($program) ?>
 				<?= $this->formElement($program); ?>
-				</div>			
+				<?= $this->formElementErrors()->render($program, ['class' => 'help-block alert alert-danger']) ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($type) ?>
+				<?= $this->formElement($type); ?>
+				<?= $this->formElementErrors()->render($type, ['class' => 'help-block alert alert-danger']) ?>
+				</div>
 				<div class="form-group">
 				<?= $this->formLabel($id_edbo) ?>
 				<?= $this->formElement($id_edbo); ?>
+				<?= $this->formElementErrors()->render($id_edbo, ['class' => 'help-block alert alert-danger']) ?>
 				</div>
 				<div class="form-group">
 				<?= $this->formLabel($period) ?>
 				<?= $this->formElement($period); ?>
+				<?= $this->formElementErrors()->render($period, ['class' => 'help-block alert alert-danger']) ?>
 				</div>
 				<div class="form-group">
 				<?= $this->formLabel($year) ?>
 				<?= $this->formElement($year); ?>
+				<?= $this->formElementErrors()->render($year, ['class' => 'help-block alert alert-danger']) ?>
 				</div>
 				<div class="form-group">
 				<?= $this->formLabel($specialty) ?>
@@ -51,6 +66,10 @@ $programForm->prepare();
 				<?= $this->formElement($level); ?>
 				</div>
 				<div class="form-group">
+				<?= $this->formLabel($base) ?>
+				<?= $this->formElement($base); ?>
+				</div>
+				<div class="form-group">
 				<?= $this->formLabel($form) ?>
 				<?= $this->formElement($form) ?>
 				</div>
@@ -58,14 +77,37 @@ $programForm->prepare();
 				<div class="form-group">
 				<?= $this->formLabel($min_rate) ?>
 				<?= $this->formElement($min_rate) ?>
+				<?= $this->formElementErrors()->render($min_rate, ['class' => 'help-block alert alert-danger']) ?>
 				</div>
 				<div class="form-group">
 				<?= $this->formLabel($ave_rate) ?>
 				<?= $this->formElement($ave_rate) ?>
+				<?= $this->formElementErrors()->render($ave_rate, ['class' => 'help-block alert alert-danger']) ?>
 				</div>
 				<div class="form-group">
 				<?= $this->formLabel($max_rate) ?>
 				<?= $this->formElement($max_rate) ?>
+				<?= $this->formElementErrors()->render($max_rate, ['class' => 'help-block alert alert-danger']) ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($learning_start) ?>
+				<?= $this->formElement($learning_start) ?>
+				<?= $this->formElementErrors()->render($learning_start, ['class' => 'help-block alert alert-danger']) ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($learning_end) ?>
+				<?= $this->formElement($learning_end) ?>
+				<?= $this->formElementErrors()->render($learning_end, ['class' => 'help-block alert alert-danger']) ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($entrance_start) ?>
+				<?= $this->formElement($entrance_start) ?>
+				<?= $this->formElementErrors()->render($entrance_start, ['class' => 'help-block alert alert-danger']) ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($entrance_end) ?>
+				<?= $this->formElement($entrance_end) ?>
+				<?= $this->formElementErrors()->render($entrance_end, ['class' => 'help-block alert alert-danger']) ?>
 				</div>
 				<button class="btn btn-info mt-3 mb-5 mr-3" onclick="window.history.back();">&laquo; <?= $this->translate('Back'); ?></button>			
 				<?= $this->formSubmit($programForm->get('submit')->setAttribute('class', 'btn btn-primary mt-3 mb-5'));?>
@@ -76,69 +118,148 @@ $programForm->prepare();
 	<h3 class="text-center"><?= $this->translate('Subjects'); ?></h3>
 	<div class="row justify-content-center">
 		<div class="col-10">
-			<form method="post" id="subjects" action="/subject/edit/<?= $this->id; ?>">
-				<input type="hidden" name="id_program" id="id_program" value="<?= $this->id; ?>" />
-	<?php foreach($this->subjects as $subject) : ?>				
-				<div class="form-row my-2">
-					<input type="hidden" name="id[<?= $subject['id_row']; ?>]" id="id[<?= $subject['id_row']; ?>]" value="<?= $subject['id_row']; ?>" />
-					<input type="hidden" name="id_subject[<?= $subject['id_row']; ?>]" id="subject[<?= $subject['id_row']; ?>]" value="<?= $subject['id']; ?>" />
-					<div class="form-group col-md-4">
-						<input type="text" class="form-control-plaintext w-100" name="title[<?= $subject['id_row']; ?>]" id="title[<?= $subject['id_row']; ?>]" value="<?= $subject['title']; ?>" readonly="readonly">
-					</div>
-					<div class="form-group col-md-1 mx-3">
-						<a class="fa fa-trash-alt" title="Delete" href="/subject/delete/<?= $subject['id_row']; ?>"> </a>
-					</div>						
-					<div class="form-group col-md-1 custom-control custom-switch mr-4 px-4">
-						<input type="checkbox" class="custom-control-input" name="required[<?= $subject['id_row']; ?>]" id="required[<?= $subject['id_row']; ?>]" <?= ($subject['required']) ? 'checked' : 'unchecked'; ?>/>
-						<label class="custom-control-label" for="required[<?= $subject['id_row']; ?>]"><?= $this->translate('is required'); ?></label>						    
-					</div>
-					<div class="form-group col-md-2 pl-5">
-						<label class="mr-2" for="coefficient[<?= $subject['id_row']; ?>]"><?= $this->translate('Subject Coefficient'); ?></label> 
-						<input type="text" class="form-control" name="coefficient[<?= $subject['id_row']; ?>]" id="coefficient[<?= $subject['id_row']; ?>]" value="<?= $subject['coefficient']; ?>">
-					</div>
-					<div class="form-group col-md-2 pl-4">
-						<label class="mr-2" for="rating[<?= $subject['id_row']; ?>]"><?= $this->translate('Subject Rating'); ?></label> 
-						<input type="number" min="100" max="200" class="form-control" name="rating[<?= $subject['id_row']; ?>]" id="rating[<?= $subject['id_row']; ?>]" value="<?= $subject['rating']; ?>">
-					</div>
+<?php
+		$subjectsForm = $this->subjectsForm;
+		$subjectsForm->setAttributes([
+			'action' => $this->url('subject', ['action' => 'edit', 'id' => $this->id]),
+			'id' => 'subjects',
+			'name' => 'subjects',
+		]);
+		$id_program = $subjectsForm->get('id_program')->setValue($this->id);
+		$id_row = $subjectsForm->get('id_row');
+		$id_subject = $subjectsForm->get('id_subject');
+		$title = $subjectsForm->get('title');
+		$required = $subjectsForm->get('required');
+		$coefficient = $subjectsForm->get('coefficient');
+		$rating = $subjectsForm->get('rating');
+		$subjectsForm->prepare();
+		//$this->form()->openTag($subjectsForm);
+?>
+		<form method="post" action="/subject/edit/<?= $this->id; ?>" id="subjects">
+<?php
+		$this->formHidden($id_program);
+		foreach($this->subjects as $subject) :
+			$id_row->setValue($subject['id_row'])->setAttributes([
+					'name' => 'id[' . $subject['id_row'] . ']',
+					'id' => 'id[' . $subject['id_row'] . ']'
+				]);
+			$id_subject->setAttributes([
+					'name' => 'id_subject[' . $subject['id_row'] . ']',
+					'id' => 'id_subject[' . $subject['id_row'] . ']',
+				])->setValue($subject['id'])->setLabel(' ');
+			$title->setAttributes([
+				'class' => 'form-control-plaintext w-100',
+				'type' => 'text',
+				'name' => 'title[' . $subject['id_row'] . ']',
+				'id' => 'title[' . $subject['id_row'] . ']',
+				'readonly' => 'readonly'
+			])->setValue($subject['title'])->setLabel(' ');
+			$required->setLabel('is required')->setLabelAttributes(['class' => 'custom-control-label mx-3'])->setAttributes(
+			[
+				'class' => 'custom-control-input',
+				'name' => 'required[' . $subject['id_row'] . ']',
+				'id' => 'required[' . $subject['id_row'] . ']',
+				'checked' => $subject['required'] ? 'checked' : null,
+				'unchecked' => !$subject['required'] ? 'unchecked' : null,
+			]);
+			$coefficient->setLabel('Subject Coefficient')->setAttributes([
+				'class' => 'form-control',
+				'name' => 'coefficient[' . $subject['id_row'] . ']',
+				'id' => 'coefficient[' . $subject['id_row'] . ']',
+			])->setValue($subject['coefficient'])->setLabelAttributes(['class' => 'mr-2']);
+			$rating->setLabel('Subject Rating')->setAttributes([
+				'class' => 'form-control',
+				'name' => 'rating[' . $subject['id_row'] . ']',
+				'id' => 'rating[' . $subject['id_row'] . ']',
+			])->setValue($subject['rating']);
+			$this->formHidden($id_row);
+?>
+			<div class="form-row my-2">
+				<div class="form-group col-md-4 d-none">
+			<?= $this->formElement($id_subject); ?>
+			<?= $this->formLabel($id_subject) ?>					
+			<?= $this->formElementErrors()->render($id_subject, ['class' => 'help-block alert alert-danger mt-1']) ?>
+				</div>				
+				<div class="form-group col-md-4">
+			<?= $this->formElement($title); ?>
+			<?= $this->formLabel($title) ?>					
+			<?= $this->formElementErrors()->render($title, ['class' => 'help-block alert alert-danger mt-1']) ?>
 				</div>
+				<div class="form-group col-md-1 mx-3">
+					<a class="fa fa-trash-alt" title="Delete" href="/subject/delete/<?= $subject['id_row']; ?>"> </a>
+				</div>
+				<div class="form-group col-md-1 custom-control custom-switch mr-4 px-4">
+			<?= $this->formElement($required); ?>					
+			<?= $this->formLabel($required) ?>
+			<?= $this->formElementErrors()->render($required, ['class' => 'help-block alert alert-danger mt-1']) ?>
+				</div>
+				<div class="form-group col-md-2 pl-5">
+			<?= $this->formLabel($coefficient) ?>
+			<?= $this->formElement($coefficient); ?>
+			<?= $this->formElementErrors()->render($coefficient, ['class' => 'help-block alert alert-danger mt-1']) ?>
+				</div>			
+				<div class="form-group col-md-2 pl-4">
+			<?= $this->formLabel($rating) ?>
+			<?= $this->formElement($rating); ?>
+			<?= $this->formElementErrors()->render($rating, ['class' => 'help-block alert alert-danger mt-1']) ?>
+				</div>
+			</div>
 <?php endforeach; ?>
-			<button type="submit" class="btn btn-primary mt-2 mb-3"><?= $this->translate('Save'); ?></button>
-			</form>				
+		<?= $this->formSubmit($subjectsForm->get('submit')->setAttribute('class', 'btn btn-primary mt-2 mb-3'));?>
+			</form>
+	<?php /*$this->form()->closeTag();*/ ?>			
 		</div>
 	</div>
-<?php endif; ?>
+<?php
+endif;
+$addSubjectForm = $this->addSubjectForm;
+$addSubjectForm->setAttribute('action', $this->url('subject', ['action' => 'add', 'id' => $this->id]))->setAttribute('id', 'addSubject');
+$id_row = $addSubjectForm->get('id_row')->setValue(0);
+$id_program = $addSubjectForm->get('id_program')->setValue($this->id);
+$id_subject = $addSubjectForm->get('id_subject')->setLabel('Select your subjects')->setAttribute('class', 'form-control custom-select');
+$required = $addSubjectForm->get('required')->setLabel('is required')->setLabelAttributes(['class' => 'custom-control-label mx-3'])->setAttributes(['class' => 'custom-control-input', 'id' => 'required']);
+$coefficient = $addSubjectForm->get('coefficient')->setLabel('Subject Coefficient')->setAttribute('class', 'form-control')->setValue('0.20');
+$rating = $addSubjectForm->get('rating')->setLabel('Subject Rating')->setAttribute('class', 'form-control')->setValue(100);
+$addSubjectForm->prepare();
+?>
 	<h4 class="text-center"><?= $this->translate('Add Subject'); ?></h4>
 	<div class="row justify-content-center">
 		<div class="col-10">
-			<form method="post" id="addSubject" action="/subject/add/<?= $this->id; ?>">
-			    <input type="hidden" name="id" id="id" value="0" />
-				<input type="hidden" name="id_program" id="id_program" value="<?= $this->id; ?>" />
+		    <?= $this->form()->openTag($addSubjectForm); ?>
+				<?= $this->formHidden($id_row);?>
+				<?= $this->formHidden($id_program);?>
 				<div class="form-row my-2 pr-3">
 					<div class="form-group col-md-3">
-						<label class="form-check-label" for="id_subject"> <?= $this->translate('Select your subjects'); ?> </label>
-			            <select name="id_subject" id="id_subject" class="form-control custom-select">
-<?php foreach($this->allSubjects as $subject) : ?>
-				            <option value="<?= $subject['id']; ?>"><?= $subject['title']; ?></option>
-<?php endforeach; ?>
-			            </select>
+				    <?= $this->formLabel($id_subject) ?>
+				    <?= $this->formElement($id_subject); ?>
+				    <?= $this->formElementErrors()->render($id_subject, ['class' => 'help-block alert alert-danger mt-1']) ?>
 					</div>
 					<div class="form-group col-md-3 custom-control custom-switch ml-5 pl-5">
-						<input type="checkbox" class="custom-control-input" name="required" id="required" />
-						<label class="custom-control-label mx-3" for="required"><?= $this->translate('is required'); ?></label>	    
+				    <?= $this->formElement($required); ?>					    
+				    <?= $this->formLabel($required) ?>					    
+				    <?= $this->formElementErrors()->render($required, ['class' => 'help-block alert alert-danger mt-1']) ?>
 					</div>
 					<div class="form-group col-md-2">
-						<label class="mr-2" for="coefficient"><?= $this->translate('Subject Coefficient'); ?></label> 
-						<input type="text" class="form-control" name="coefficient" id="coefficient" value="0.20">
+				    <?= $this->formLabel($coefficient) ?>
+				    <?= $this->formElement($coefficient); ?>
+				    <?= $this->formElementErrors()->render($coefficient, ['class' => 'help-block alert alert-danger mt-1']) ?>
 					</div>
 					<div class="form-group col-md-2">
-						<label class="mr-2" for="rating"><?= $this->translate('Subject Rating'); ?></label> 
-						<input type="number" min="100" max="200" class="form-control" name="rating" id="rating" value="100">
+				    <?= $this->formLabel($rating) ?>
+				    <?= $this->formElement($rating); ?>
+				    <?= $this->formElementErrors()->render($rating, ['class' => 'help-block alert alert-danger mt-1']) ?>					    
 					</div>
 				</div>
-			<button type="submit" class="btn btn-primary mt-2 mb-3"><?= $this->translate('Save'); ?></button>
-			</form>				
+			<?= $this->formSubmit($addSubjectForm->get('submit')->setAttribute('class', 'btn btn-primary mt-2 mb-3'));?>
+			<?= $this->form()->closeTag(); ?>
 		</div>
 	</div>
 </div>
 
 <p>&nbsp;</p>
+
+<?php if(isset($error_input) && $error_input['parent'] == $parent->id) : ?>
+
+<script>$('#<?= $error_input["field"]; ?>').focus();</script>
+
+<?php endif;
