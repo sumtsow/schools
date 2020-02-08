@@ -45,26 +45,19 @@ class Subject implements InputFilterAwareInterface
             $inputFilter = new InputFilter();
             $factory     = new InputFactory();
 
-			$inputFilter->add($factory->createInput(array(
+			$inputFilter->add($factory->createInput([
 				'name' => 'required',
 				'required' => false,
-				'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'Zend\Validator\InArray',
-                        'options' => array('on', null),
-                    ),
-                ),
-				/*'filters' => array(
-					array(
-						'name' => 'ToInt',
-					),
-				),
-				'validators' => [],*/
-			)));
+                'filters'  => [['name' => 'StripTags'],['name' => 'StringTrim']],
+				
+                'validators' => [
+					0 => ['name' => 'Zend\Validator\NotEmpty'],
+					/*['name'    => 'StringLength',
+					'options' => ['encoding' => 'UTF-8','min' => 0,'max' => 1]
+					]*/
+				]
+			]));
+			
             /*$inputFilter->add($factory->createInput(array(
                 'name'     => 'id_row',
                 'required' => true,

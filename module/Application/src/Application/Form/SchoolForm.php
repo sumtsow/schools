@@ -142,11 +142,11 @@ class SchoolForm extends Form
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'high',
             'class' => 'high',
-             'options' => array(
+            'options' => array(
                      'label' => 'Is an University',
                      'checked_value' => '1',
                      'unchecked_value' => '0'
-             ),
+            ),
         ));
         
         $this->add(array(

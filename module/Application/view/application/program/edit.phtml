@@ -154,13 +154,14 @@ $programForm->prepare();
 				'id' => 'title[' . $subject['id_row'] . ']',
 				'readonly' => 'readonly'
 			])->setValue($subject['title'])->setLabel(' ');
-			$required->setLabel('is required')->setLabelAttributes(['class' => 'custom-control-label mx-3'])->setAttributes(
+			$required->setLabel('is required')/*->setLabelAttributes(['class' => 'custom-control-label mx-3'])*/->setAttributes(
 			[
-				'class' => 'custom-control-input',
+				//'class' => 'custom-control-input',
+				'class' => 'form-check',
 				'name' => 'required[' . $subject['id_row'] . ']',
 				'id' => 'required[' . $subject['id_row'] . ']',
 				'checked' => $subject['required'] ? 'checked' : null,
-				'unchecked' => !$subject['required'] ? 'unchecked' : null,
+				//'unchecked' => !$subject['required'] ? 'unchecked' : null,
 			]);
 			$coefficient->setLabel('Subject Coefficient')->setAttributes([
 				'class' => 'form-control',
@@ -188,7 +189,7 @@ $programForm->prepare();
 				<div class="form-group col-md-1 mx-3">
 					<a class="fa fa-trash-alt" title="Delete" href="/subject/delete/<?= $subject['id_row']; ?>"> </a>
 				</div>
-				<div class="form-group col-md-1 custom-control custom-switch mr-4 px-4">
+				<div class="form-group col-md-1 mr-4 px-4">
 			<?= $this->formElement($required); ?>					
 			<?= $this->formLabel($required) ?>
 			<?= $this->formElementErrors()->render($required, ['class' => 'help-block alert alert-danger mt-1']) ?>

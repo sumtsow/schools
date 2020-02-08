@@ -12,86 +12,61 @@ class SubjectForm extends Form
         parent::__construct('subject');
         $this->setAttribute('method', 'post');
 
-        $this->add(array(
+        $this->add([
             'name' => 'id_row',
-            'attributes' => array(
-				'id' => 'id_row',	
-                'type'  => 'hidden',
-            ),
-        ));
+            'attributes' => ['id' => 'id_row','type'  => 'hidden']
+        ]);
 		
-		$this->add(array(
+		$this->add([
             'name' => 'id_program',
-            'attributes' => array(
-				'id' => 'id_program',
-                'type'  => 'hidden',
-            ),
-        ));
+            'attributes' => ['id' => 'id_program','type'  => 'hidden'],
+        ]);
 		
-        $this->add(array(
+        $this->add([
             'type' => 'Zend\Form\Element\Select',
             'name' => 'id_subject',
-            'attributes' => array(
-				'id' => 'id_subject',
-            ),			
-			'options' => [
-				'disable_inarray_validator' => true,
-			]
-        ));
+            'attributes' => ['id' => 'id_subject'],
+			'options' => ['disable_inarray_validator' => true]
+        ]);
 
-        $this->add(array(
-            'name' => 'title',
-            'attributes' => array(
-				'id' => 'title',
-                'type'  => 'text',
-            ),
-        ));
+        $this->add(['name' => 'title','attributes' => ['id' => 'title','type'  => 'text']]);
 
-        $this->add(array(
+        $this->add([
 			'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'required',
-			'attributes' => array(
-				'id' => 'required',
-            ),
+			//'attributes' => ['id' => 'required'],
 			'options' => [
-				'use_hidden_element' => true,
-				'checked_value' => 'on',
-				'unchecked_value' => null,
+				'label' => 'is required',
+				'checked_value' => '1',
+				'unchecked_value' => '0',
 				'disable_inarray_validator' => true,
 			],
-        ));
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'coefficient',
-            'attributes' => array(
-                'id'  => 'coefficient',
-				'type'  => 'text',
-            ),
-            'options' => [
-				'disable_inarray_validator' => true,
-			]
-        ));
+            'attributes' => ['id'  => 'coefficient','type'  => 'text'],
+            'options' => ['disable_inarray_validator' => true]
+        ]);
 		
-        $this->add(array(
+        $this->add([
             'name' => 'rating',
-            'attributes' => array(
+            'attributes' => [
 				'id'  => 'rating',
                 'type'  => 'number',
 				'min'  => 100,
 				'max'  => 200,
-            ),
-            'options' => [
-				'disable_inarray_validator' => true,
-			]
-        ));
+            ],
+            'options' => ['disable_inarray_validator' => true]
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'submit',
-            'attributes' => array(
+            'attributes' => [
                 'type'  => 'submit',
                 'value' => 'Save',
                 'id' => 'subjectFormSubmit',
-            ),
-        ));
+            ],
+        ]);
     }
 }

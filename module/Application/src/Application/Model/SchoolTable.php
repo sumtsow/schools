@@ -67,7 +67,20 @@ class SchoolTable extends AbstractTableGateway
     {
         return $this->select(['id_edbo' => $id_edbo])->current();
     }
-	
+
+	// 'id_edbo' is a key, 'id' is a value
+	public function getBothIdAsJson()
+    {
+        $resultSet = $this->fetchUniversities();
+		$schools = '{';
+		foreach($resultSet as $result) {
+			$schools .= '"' . $result->id_edbo . '":"' . $result->id . '",';
+		}
+		$schools = rtrim($schools, ',');
+		$schools .= '}';
+		return $schools; 
+    }
+
     public function fetchAreas()
     {
         $resultArr = $this->adapter->query('DESCRIBE `school` `area`', Adapter::QUERY_MODE_EXECUTE)->toArray();
@@ -133,7 +146,7 @@ class SchoolTable extends AbstractTableGateway
 		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
 		$id_owner = $resultSet->current()->id;
 		if(!$id_owner) {
-			$insert = $sql->insert()->into('owner')->columns(['title'])->values([$owner], self::VALUES_SET);
+			$insert = $sql->insert()->into('owner')->values(['title' => $owner]);
 			$insertString = $sql->buildSqlString($insert);
 			$id_owner = $this->adapter->query($insertString, $this->adapter::QUERY_MODE_EXECUTE);
 		}
@@ -160,8 +173,8 @@ class SchoolTable extends AbstractTableGateway
         $school->map       = null;
         $school->logo      = null;
         $school->visible   = 1;
-		$school->type      = strtolower($json->education_type_name);
-        $school->ownership = $json->university_financing_type_name;
+		$school->type      = mb_strtolower($json->education_type_name);
+        $school->ownership = mb_strtolower($json->university_financing_type_name);
         $school->id_owner  = $this->validateOwner($json->university_governance_type_name);
 		$this->saveSchool($school);
 		return true;
