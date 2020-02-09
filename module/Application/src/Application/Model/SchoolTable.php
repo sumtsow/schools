@@ -31,7 +31,7 @@ class SchoolTable extends AbstractTableGateway
         return $this->select(['id' => $id])->current();
     }
     
-    public function fetchSchools($areaIndex = null, $visible = 1)
+    public function fetchSchools($areaIndex = false, $visible = 1)
     {
         $areaIndex = $areaIndex;
         $filter = "`high` = 0";
@@ -50,19 +50,24 @@ class SchoolTable extends AbstractTableGateway
         return $result;
     }
     
-    public function fetchUniversities($visible = 1)
+    public function fetchUniversities($id_region = false, $sort = ['field' => 'name_uk', 'order' => 'ASC'], $visible = 1)
     {
         $filter = "`high` = 1";
+        if($id_region) {
+            $filter .= " AND `id_region`='" . $id_region . "'";
+        }
         if($visible) {
             $filter .= " AND `visible`='1'";
         }
+        $filter .= " ORDER BY `" . $sort['field'] . "` " . $sort['order'];
         $resultSet = $this->select($filter);
+		$result = [];
         foreach($resultSet as $item) {
                 $result[] = $item;
         }
         return $result;
     }
-    
+
     public function getSchoolByIdEdbo($id_edbo)
     {
         return $this->select(['id_edbo' => $id_edbo])->current();
@@ -137,6 +142,31 @@ class SchoolTable extends AbstractTableGateway
         return $resultSet->current()->id;
     }
 	
+    public function getRegionIdEdbo($id)
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->from('region')->where(['id' => $id]);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+        return $resultSet->current()->id_edbo;
+    }
+
+    public function hasJsonOffersFile($schools, $edbo_params)
+    {
+		$result = [];
+		foreach ($schools as $school) {
+			$region_edbo = $this->getRegionIdEdbo($school->id_region);
+			$path = User::getDocumentRoot() . $edbo_params['local_dir'] . $region_edbo . '/'. $school->id_edbo . '/';
+			$filename = $edbo_params['files']['offers'];
+			if(file_exists($path . $filename)) {
+				$result[$school->id] = true;
+			} else {
+				$result[$school->id] = false;
+			}
+		}
+        return $result;
+    }
+	
     public function validateOwner($owner)
     {
 		if(!$owner) { return null; }
@@ -148,7 +178,11 @@ class SchoolTable extends AbstractTableGateway
 		if(!$id_owner) {
 			$insert = $sql->insert()->into('owner')->values(['title' => $owner]);
 			$insertString = $sql->buildSqlString($insert);
-			$id_owner = $this->adapter->query($insertString, $this->adapter::QUERY_MODE_EXECUTE);
+			$this->adapter->query($insertString, $this->adapter::QUERY_MODE_EXECUTE);
+			$select = $sql->select()->columns(['id'])->from('owner')->where(['title' => $owner]);
+			$selectString = $sql->buildSqlString($select);
+			$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+			$id_owner = $resultSet->current()->id;
 		}
         return $id_owner;
     }

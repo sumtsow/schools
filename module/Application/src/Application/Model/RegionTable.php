@@ -27,4 +27,9 @@ class RegionTable extends AbstractTableGateway
     {
 		return $this->select(['id' => $id])->current();
     }
+		
+    public function getIdEdbo($id)
+    {
+        return $this->select(['id' => $id])->current()->id_edbo;
+    }
 }

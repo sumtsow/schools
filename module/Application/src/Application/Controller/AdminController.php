@@ -15,7 +15,8 @@ use Application\Form\ProgramForm;
 class AdminController extends AbstractActionController
 {
     protected $commentTable;
-	protected $programTable;	
+	protected $programTable;
+	protected $regionTable;
     protected $schoolTable;
     protected $specialtyTable;
 	protected $subjectTable;
@@ -31,20 +32,36 @@ class AdminController extends AbstractActionController
         $confArray = $this->getServiceLocator()->get('config');
         $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
         $id = ($this->params()->fromRoute('id')) ? $this->params()->fromRoute('id') : 0;
-        $result = ($id == 1) ? $this->getSchoolTable()->fetchUniversities(0) : $this->getSchoolTable()->fetchSchools($area, 0);
-        $paginator = new Paginator(new ArrayAdapter($result));
+		$id_region = $this->params()->fromQuery('region');
+		$sort['field'] = $this->params()->fromQuery('field');
+		$sort['field'] = $sort['field'] ? $sort['field'] : 'id';
+		$sort['order'] = $this->params()->fromQuery('order');
+		$sort['order'] = $sort['order'] ? $sort['order'] : null;
+		if($id) {
+			$schools = $this->getSchoolTable()->fetchUniversities($id_region, $sort, 0);
+		} else {
+			$schools = $this->getSchoolTable()->fetchSchools($area, 0);
+		}
+        $paginator = new Paginator(new ArrayAdapter($schools));
         $page = ($this->request->getPost('area')) ? 0 : $this->params()->fromRoute('page');  
         $paginator->setCurrentPageNumber($page)
             ->setItemCountPerPage($confArray['per_page'])
-            ->setPageRange(ceil(count($result)/$confArray['per_page']));
+            ->setPageRange(ceil(count($schools)/$confArray['per_page']));
         $vm = new ViewModel();
 		$this->layout()->setVariable('high', $id);
+		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
+		$hasJsonOffersFile = $this->getSchoolTable()->hasJsonOffersFile($schools, $edbo_params);
+		$regions = $this->getRegionTable()->fetchAll();
         return $vm->setVariable('paginator', $paginator)
             ->setVariable('areas', $this->getSchoolTable()->fetchAreas())
             ->setVariable('high', $this->params()->fromRoute('id', 0))
             ->setVariable('area', $area)
             ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null)
-			->setVariable('edbo_params', $this->getServiceLocator()->get('config')['edbo']);
+			->setVariable('regions', $regions)
+			->setVariable('id_region', $id_region)
+			->setVariable('hasJsonOffersFile', $hasJsonOffersFile)
+			->setVariable('order', $sort['order'])
+			->setVariable('field', $sort['field']);
     }
 	
     public function addAction()
@@ -151,8 +168,10 @@ class AdminController extends AbstractActionController
 		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
 		$school = $this->getSchoolTable()->fetch($id);
 		if($school->high) {
-			$default_id = 63; // Kharkiv
-			$path = User::getDocumentRoot() . $edbo_params['local_dir'] . $default_id . '/'. $school->id_edbo . '/';			
+			$region_edbo = $this->params()->fromQuery('region');
+			$default_region = 63; // Kharkiv	
+			$region_edbo = $region_edbo ? $region_edbo : $default_region;
+			$path = User::getDocumentRoot() . $edbo_params['local_dir'] . $region_edbo . '/'. $school->id_edbo . '/';
 			/*$filename = $edbo_params['files']['universities'];
 			$text = file_get_contents($path . $filename);
 			$jsonUniversity = json_decode($text)->universities[0];
@@ -169,6 +188,35 @@ class AdminController extends AbstractActionController
 		$response->setStatusCode(200)->setContent($text);
 		return $response;*/
 		return ['data' => $program];
+	}
+	
+    public function downloadAction()
+    {
+        $user = new User();
+        if (!$user->isValid()) {
+            return $this->redirect()->toRoute('schools', array(
+                'action' => 'index'
+            ));
+        }
+		$id = (int) $this->params()->fromRoute('id', 0);
+		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
+		$school = $this->getSchoolTable()->fetch($id);
+		if($school->high) {
+			$id_region = $this->params()->fromQuery('region');
+			$default_id_region = 20; // Kharkiv
+			$id_region = $id_region ? $id_region : $default_id_region;
+			$region_edbo = $this->getRegionTable()->getIdEdbo($id_region);
+			$path = User::getDocumentRoot() . $edbo_params['local_dir'] . $region_edbo . '/'. $school->id_edbo . '/';;
+			$filename = $edbo_params['files']['universities'];
+			$text = file_get_contents($path . $filename);
+			$jsonUniversity = json_decode($text)->universities[0];
+			$id_offers = explode(',', $jsonUniversity[3]);
+			$id_offers = json_encode($id_offers);
+			/*$filename = $edbo_params['files']['offers'];
+			$text = file_get_contents($path . $filename);
+			$jsonOffers = json_decode($text);*/
+		}
+		return ['data' => $id_offers];
 	}
 	
     public function deleteAction()
@@ -253,6 +301,15 @@ class AdminController extends AbstractActionController
 			$this->programTable = $sm->get('Application\Model\ProgramTable');
         }
 		return $this->programTable;
+    }
+	
+    public function getRegionTable()
+    {
+        if (!$this->regionTable) {
+            $sm = $this->getServiceLocator();
+			$this->regionTable = $sm->get('Application\Model\RegionTable');
+        }
+		return $this->regionTable;
     }
 	
     public function getSchoolTable()

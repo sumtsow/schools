@@ -10,9 +10,9 @@ $this->headTitle($title);
         <select class="custom-select custom-select-sm" name="region" id="region" onchange="this.form.submit();">
 <?php
 foreach($this->regions as $region) :
-	$selected = ($region->id_edbo == $this->id) ? 'selected="selected"' : '';    
+	$selected = ($region->id == $this->id) ? 'selected="selected"' : '';    
 ?>
-            <option <?= $selected; ?> value="<?= $region->id_edbo; ?>" id="<?= $region->id; ?>"><?= $region->title; ?></option>
+            <option <?= $selected; ?> value="<?= $region->id; ?>"><?= $region->title; ?></option>
 <?php endforeach; ?>
         </select>
     </form>        

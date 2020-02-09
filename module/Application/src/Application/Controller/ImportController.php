@@ -21,7 +21,7 @@ class ImportController extends AbstractActionController
                 'action' => 'index'
             ));
         }
-		$default_id = 63; // Kharkiv
+		$default_id = 20; // Kharkiv
 		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
 		$regions = $this->getRegionTable()->fetchAll();
 		$request = $this->getRequest();
@@ -29,9 +29,9 @@ class ImportController extends AbstractActionController
 		if (!$id) {
 			$id = $default_id;
 		}
-		$id = sprintf("%02d", $id);
-		$url = $edbo_params['api_url'] . 'universities/?ut=high&lc=' . $id . '&exp=json';
-		$path = User::getDocumentRoot() . $edbo_params['local_dir'] . $id . '/';
+		$region_edbo = $this->getRegionTable()->getIdEdbo($id);
+		$url = $edbo_params['api_url'] . 'universities/?ut=high&lc=' . $region_edbo . '&exp=json';
+		$path = User::getDocumentRoot() . $edbo_params['local_dir'] . $region_edbo . '/';
 		if(!file_exists($path)) {
 			mkdir($path);
 		}
@@ -64,7 +64,8 @@ class ImportController extends AbstractActionController
                 'action' => 'index'
             ));
         }
-		$region_edbo = $this->params()->fromQuery('region');
+		$id_region = $this->params()->fromQuery('region');
+		$region_edbo = $this->getRegionTable()->getIdEdbo($id_region);
 		$import_all = $this->params()->fromQuery('all');
 		$id_edbo = $this->params()->fromRoute('id');
 		$request = $this->getRequest();
@@ -89,7 +90,7 @@ class ImportController extends AbstractActionController
 				}
 			}
         }
-		return $this->redirect()->toRoute('import', [], ['query' => ['region' => $region_edbo]]);
+		return $this->redirect()->toRoute('import', [], ['query' => ['region' => $id_region]]);
     }
 
 	public function importSchool($id_edbo, $region_edbo) {

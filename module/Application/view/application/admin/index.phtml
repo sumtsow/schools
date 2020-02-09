@@ -1,7 +1,6 @@
 <?php
 $paginator = $this->paginator;
 echo $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');
-//$this->headScript()->appendFile('/js/ajax.js', 'text/javascript', []);
 echo $this->inlineScript()->appendFile('/js/load_json.js');
 if($this->high) :
     $title = $this->translate('Kharkov universities');
@@ -25,11 +24,29 @@ else :
 </div>
 <?php endif; ?>
 <h1 class="text-center"><?= $title;?></h1>
+<?php if($this->high) : ?>
 <div class="row">
     <div class="col">
-        <a class="btn btn-primary" id="import" href="/import">Import Page</a>
+        <a class="btn btn-primary my-3" id="import" href="/import">Import Page</a>
     </div>
 </div>
+<div class="d-inline-flex form-group mt-3 small">
+    <form>
+        <label for="area"><?= $this->translate('Select Region'); ?></label>
+        <select class="custom-select custom-select-sm" name="region" id="region" onchange="this.form.submit();">
+			<option value="0"><?= $this->translate('All'); ?></option>
+<?php
+foreach($this->regions as $region) :
+	$selected = ($region->id == $this->id_region) ? 'selected="selected"' : '';    
+?>
+            <option <?= $selected; ?> value="<?= $region->id; ?>"><?= $region->title; ?></option>
+<?php endforeach; ?>
+        </select>
+    </form>
+	<span id="sort-field" class="d-none"><?= $this->field; ?></span>
+	<span id="sort-order" class="d-none"><?= $this->order; ?></span>
+</div>
+<?php endif; ?>
 <?= $this->paginationControl($paginator,
      'Sliding',
      'application/index/page.phtml', [
@@ -38,16 +55,19 @@ else :
      ]); ?>
 <div class="table-responsive">
 <table class="table table-striped">
-	<thead>
+	<thead class="thead-dark">
 		<tr>
-			<th>ID</th>
-			<th><?= $this->translate('Name'); ?></th>
-			<th><?= $this->translate('ID EDBO'); ?></th>
+			<th id="th-id">ID</th>
+			<th id="th-name_uk"><?= $this->translate('Name'); ?></th>
+			<th id="th-id_edbo"><?= $this->translate('ID EDBO'); ?></th>
 			<th><?= $this->translate('Edit schools'); ?></th>
 		</tr>
 	</thead>
     <tbody>
-<?php foreach ($paginator as $item): ?>        
+<?php
+		foreach ($paginator as $item):
+			$hasJson = $this->hasJsonOffersFile[$item->id];
+?>
         <tr>
             <td class="id_school"><?= $item->id;?></td>
             <td>
@@ -55,7 +75,9 @@ else :
             </td>
 			<td class="id_edbo"><?= $item->id_edbo;?></td>
             <td>
-				<a class="fas fa-sync pr-3 update" title="Sycnchronize with EDBO" href="#"></a>
+				<span class="id_region d-none"><?= $item->id_region;?></span>
+				<a class="fas fa-cloud-download-alt pr-3 download" title="Get EDBO JSON file" href="#"></a>
+				<a class="fas fa-sync pr-3 update <?= $hasJson ? 'text-primary' : 'text-secondary disabled' ?>" title="<?= $hasJson ? 'Read data from EDBO JSON file' : 'No data. Download EDBO JSON file first' ?>" href="#" disabled></a>
                 <a class="fa fa-edit pr-3" title="Edit" href="/admin/edit/<?= $item->id;?>"></a>
                 <a class="fa fa-trash-alt" title="Delete" href="/admin/delete/<?= $item->id;?>"></a>
             </td>
