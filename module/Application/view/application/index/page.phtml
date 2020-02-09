@@ -6,12 +6,12 @@ if ($this->pageCount):
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
 <li class="page-item">
-	<a class="page-link" href="<?= $this->url($this->route, array(
+	<a class="page-link" href="<?= $this->url($this->route, [
 		'action'=>'index',
 		'id'=>$this->high,
 		'area'=>$this->area,
-		'page' => $this->previous
-  )); ?>" aria-label="<?= $this->translate('Prev'); ?>" title="<?= $this->translate('Prev'); ?>">
+		'page' => $this->previous,
+  ], ['query' => ['region' => $this->id_region]]); ?>" aria-label="<?= $this->translate('Prev'); ?>" title="<?= $this->translate('Prev'); ?>">
 		<span aria-hidden="true">&laquo;</span>
 	</a>
 </li>
@@ -30,7 +30,7 @@ if ($this->pageCount):
         'id'=>$this->high,
         'area'=>$this->area,
         'page' => $page,
-    ]); ?>"><?= $page; ?></a>
+    ], ['query' => ['region' => $this->id_region]]); ?>"><?= $page; ?></a>
 </li>
 <?php
 		else :
@@ -45,12 +45,12 @@ if ($this->pageCount):
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
 <li class="page-item">
-	<a class="page-link" href="<?= $this->url($this->route, array(
+	<a class="page-link" href="<?= $this->url($this->route, [
 		'action'=>'index',
 		'id'=>$this->high,
 		'area'=>$this->area,
-		'page' => $this->next
-  )); ?>" aria-label="<?= $this->translate('Next'); ?>" title="<?= $this->translate('Next'); ?>">
+		'page' => $this->next,
+  ], ['query' => ['region' => $this->id_region]]); ?>" aria-label="<?= $this->translate('Next'); ?>" title="<?= $this->translate('Next'); ?>">
 		<span aria-hidden="true">&raquo;</span>
 	</a>
 </li>
