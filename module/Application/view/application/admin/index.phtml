@@ -51,7 +51,8 @@ foreach($this->regions as $region) :
      'Sliding',
      'application/index/page.phtml', [
          'high' => $this->high,
-         'area' => $this->area
+         'area' => $this->area,
+		 'id_region' => $this->id_region,
      ]); ?>
 <div class="table-responsive">
 <table class="table table-striped">
@@ -91,7 +92,8 @@ foreach($this->regions as $region) :
      'Sliding',
      'application/index/page.phtml', [
          'high' => $this->high,
-         'area' => $this->area
+         'area' => $this->area,
+		 'id_region' => $this->id_region,
      ]);
 if(isset($username)) : ?>
 <br /><a class="btn btn-primary mt-0 mb-5" href="/admin/add/<?= $this->high; ?>"><?= $this->translate('Add school'); ?></a>
