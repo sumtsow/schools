@@ -38,7 +38,7 @@ class AdminController extends AbstractActionController
 		$sort['order'] = $this->params()->fromQuery('order');
 		$sort['order'] = $sort['order'] ? $sort['order'] : null;
 		if($id) {
-			$schools = $this->getSchoolTable()->fetchUniversities($id_region, $sort, 0);
+			$schools = $this->getSchoolTable()->fetchUniversities($id_region, $sort, 0, 0);
 		} else {
 			$schools = $this->getSchoolTable()->fetchSchools($area, 0);
 		}
@@ -112,8 +112,10 @@ class AdminController extends AbstractActionController
         $schoolForm  = new SchoolForm();
         $schoolForm->bind($school);
         $schoolForm->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());
-		$schoolForm->get('type')->setValueOptions($this->getSchoolTable()->fetchTypes());
-		$schoolForm->get('type')->setValue($school->type);
+		$schoolForm->get('area')->setValue($school->area);
+		$types = $this->getSchoolTable()->fetchTypes();
+		$schoolForm->get('type')->setValueOptions($types);
+		$schoolForm->get('type')->setValue(array_search($school->type, $types));
 		$schoolForm->get('ownership')->setValueOptions($this->getSchoolTable()->fetchOwnerships());
 		$schoolForm->get('ownership')->setValue($school->ownership);
 		$schoolForm->get('id_owner')->setValueOptions($this->getSchoolTable()->getOwners());

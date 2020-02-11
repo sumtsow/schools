@@ -11,7 +11,7 @@ if ($this->pageCount):
 		'id'=>$this->high,
 		'area'=>$this->area,
 		'page' => $this->previous,
-  ], ['query' => ['region' => $this->id_region]]); ?>" aria-label="<?= $this->translate('Prev'); ?>" title="<?= $this->translate('Prev'); ?>">
+  ], ['query' => ['region' => $this->id_region, 'type' => $this->type]]); ?>" aria-label="<?= $this->translate('Prev'); ?>" title="<?= $this->translate('Prev'); ?>">
 		<span aria-hidden="true">&laquo;</span>
 	</a>
 </li>
@@ -30,7 +30,7 @@ if ($this->pageCount):
         'id'=>$this->high,
         'area'=>$this->area,
         'page' => $page,
-    ], ['query' => ['region' => $this->id_region]]); ?>"><?= $page; ?></a>
+    ], ['query' => ['region' => $this->id_region, 'type' => $this->type]]); ?>"><?= $page; ?></a>
 </li>
 <?php
 		else :
@@ -50,7 +50,7 @@ if ($this->pageCount):
 		'id'=>$this->high,
 		'area'=>$this->area,
 		'page' => $this->next,
-  ], ['query' => ['region' => $this->id_region]]); ?>" aria-label="<?= $this->translate('Next'); ?>" title="<?= $this->translate('Next'); ?>">
+  ], ['query' => ['region' => $this->id_region, 'type' => $this->type]]); ?>" aria-label="<?= $this->translate('Next'); ?>" title="<?= $this->translate('Next'); ?>">
 		<span aria-hidden="true">&raquo;</span>
 	</a>
 </li>

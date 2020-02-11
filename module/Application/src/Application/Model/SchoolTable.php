@@ -50,11 +50,14 @@ class SchoolTable extends AbstractTableGateway
         return $result;
     }
     
-    public function fetchUniversities($id_region = false, $sort = ['field' => 'name_uk', 'order' => 'ASC'], $visible = 1)
+    public function fetchUniversities($id_region = false, $sort = ['field' => 'name_uk', 'order' => 'ASC'], $type = 1, $visible = 1)
     {
         $filter = "`high` = 1";
         if($id_region) {
             $filter .= " AND `id_region`='" . $id_region . "'";
+        }
+		if($type) {
+            $filter .= " AND `type`=" . intval($type);
         }
         if($visible) {
             $filter .= " AND `visible`='1'";
@@ -104,6 +107,7 @@ class SchoolTable extends AbstractTableGateway
     {
         $resultArr = $this->adapter->query('DESCRIBE `school` `type`', Adapter::QUERY_MODE_EXECUTE)->toArray();
         $resultArr = explode(',',str_replace("'","",substr($resultArr[0]['Type'],5,-1)));
+		array_unshift($resultArr, null);
         return $resultArr;
     }
 	

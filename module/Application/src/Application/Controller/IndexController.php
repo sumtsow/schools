@@ -23,7 +23,8 @@ class IndexController extends AbstractActionController
 {
 
 	protected $commentTable;
-    protected $programTable;	
+    protected $programTable;
+	protected $regionTable;
     protected $schoolTable;
     protected $specialtyTable;
     
@@ -33,19 +34,30 @@ class IndexController extends AbstractActionController
         $news = new Rss($this->request->getUri()->getScheme().'://'.$this->request->getUri()->getHost().'/'.$confArray['rss']['file']);
         $area = ($this->request->getPost('area')) ? $this->request->getPost('area') : $this->params()->fromRoute('area', 0);
         $id = ($this->params()->fromRoute('id')) ? $this->params()->fromRoute('id') : 0;
-        $result = ($id == 1) ? $this->getSchoolTable()->fetchUniversities() : $this->getSchoolTable()->fetchSchools($area);
-        $paginator = new Paginator(new ArrayAdapter($result));
+		$id_region = $this->params()->fromQuery('region');
+		$id_region = $id_region ? $id_region : 0;
+		$type = $this->params()->fromQuery('type');
+		$type = $type ? $type : null;
+		$locale = $this->getServiceLocator()->get('translator')->getLocale();
+        $schools = ($id == 1) ? $this->getSchoolTable()->fetchUniversities($id_region, ['field' => 'name_'.$locale, 'order' => 'ASC'], $type, 0) : $this->getSchoolTable()->fetchSchools($area);
+        $paginator = new Paginator(new ArrayAdapter($schools));
         $page = ($this->request->getPost('area')) ? 0 : $this->params()->fromRoute('page');            
         $paginator->setCurrentPageNumber($page)    
             ->setItemCountPerPage($confArray['per_page'])
-            ->setPageRange(ceil(count($result)/$confArray['per_page']));
+            ->setPageRange(ceil(count($schools)/$confArray['per_page']));
         $user = new User();
+		$regions = $this->getRegionTable()->fetchAll();
+		$types = $this->getSchoolTable()->fetchTypes();
         $vm = new ViewModel();
         return $vm->setVariable('paginator', $paginator)
             ->setVariable('areas', $this->getSchoolTable()->fetchAreas())
             ->setVariable('high', $id)
             ->setVariable('area', $area)
             ->setVariable('news', $news)
+			->setVariable('regions', $regions)
+			->setVariable('id_region', $id_region)
+			->setVariable('types', $types)
+			->setVariable('type', $type)
             ->setVariable('news_max', $confArray['rss']['max'])
             ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
     }
@@ -157,6 +169,15 @@ class IndexController extends AbstractActionController
 			$this->programTable = $sm->get('Application\Model\ProgramTable');
         }
     return $this->programTable;
+    }
+	
+    public function getRegionTable()
+    {
+        if (!$this->regionTable) {
+            $sm = $this->getServiceLocator();
+			$this->regionTable = $sm->get('Application\Model\RegionTable');
+        }
+		return $this->regionTable;
     }
 
     public function getSchoolTable()
