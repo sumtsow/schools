@@ -39,7 +39,7 @@ class IndexController extends AbstractActionController
 		$type = $this->params()->fromQuery('type');
 		$type = $type ? $type : null;
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
-        $schools = ($id == 1) ? $this->getSchoolTable()->fetchUniversities($id_region, ['field' => 'name_'.$locale, 'order' => 'ASC'], $type, 0) : $this->getSchoolTable()->fetchSchools($area);
+        $schools = ($id == 1) ? $this->getSchoolTable()->fetchUniversities($id_region, ['field' => 'name_'.$locale, 'order' => 'ASC'], $type, 1) : $this->getSchoolTable()->fetchSchools($area);
         $paginator = new Paginator(new ArrayAdapter($schools));
         $page = ($this->request->getPost('area')) ? 0 : $this->params()->fromRoute('page');            
         $paginator->setCurrentPageNumber($page)    

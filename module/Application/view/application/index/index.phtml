@@ -36,6 +36,9 @@ foreach($this->regions as $region) :
         <select class="custom-select custom-select-sm" name="type" id="type" onchange="this.form.submit();">
 <?php
 foreach($this->types as $key => $item) :
+	if(!$item) {
+		$item = $this->translate('All');
+	}
 	$selected = ($key == $this->type) ? 'selected="selected"' : '';    
 ?>
             <option <?= $selected; ?> value="<?= $key; ?>"><?= $item; ?></option>

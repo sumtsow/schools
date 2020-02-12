@@ -27,7 +27,7 @@ else :
 <?php if($this->high) : ?>
 <div class="row">
     <div class="col">
-        <a class="btn btn-primary my-3" id="import" href="/import">Import Page</a>
+        <a class="btn btn-primary my-3" id="import" href="/import"><?= $this->translate('Import Page'); ?></a>
     </div>
 </div>
 <div class="d-inline-flex form-group mt-3 small">
@@ -77,10 +77,10 @@ foreach($this->regions as $region) :
 			<td class="id_edbo"><?= $item->id_edbo;?></td>
             <td>
 				<span class="id_region d-none"><?= $item->id_region;?></span>
-				<a class="fas fa-cloud-download-alt pr-3 download" title="Get EDBO JSON file" href="#"></a>
-				<a class="fas fa-sync pr-3 update <?= $hasJson ? 'text-primary' : 'text-secondary disabled' ?>" title="<?= $hasJson ? 'Read data from EDBO JSON file' : 'No data. Download EDBO JSON file first' ?>" href="#" disabled></a>
-                <a class="fa fa-edit pr-3" title="Edit" href="/admin/edit/<?= $item->id;?>"></a>
-                <a class="fa fa-trash-alt" title="Delete" href="/admin/delete/<?= $item->id;?>"></a>
+				<a class="fas fa-cloud-download-alt pr-3 download" title="<?= $this->translate('Get EDBO JSON file'); ?>" href="#"></a>
+				<a class="fas fa-sync pr-3 update <?= $hasJson ? 'text-primary' : 'text-secondary disabled' ?>" title="<?= $hasJson ? $this->translate('Read data from JSON file') : $this->translate('Download JSON file first') ?>" href="#" disabled></a>
+                <a class="fa fa-edit pr-3" title="<?= $this->translate('Edit'); ?>" href="/admin/edit/<?= $item->id;?>"></a>
+                <a class="fa fa-trash-alt" title="<?= $this->translate('Delete'); ?>" href="/admin/delete/<?= $item->id;?>"></a>
             </td>
         </tr>            
 <?php endforeach;?>

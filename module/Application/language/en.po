@@ -48,6 +48,38 @@ msgstr "Are you sure to delete an institution"
 msgid "Edit school"
 msgstr "Edit institution"
 
+#: ../view/application/admin/edit.phtml:18
+msgid "Short Name"
+msgstr "Short Name"
+
+#: ../view/application/admin/edit.phtml:19
+msgid "Parent"
+msgstr "Is a part of"
+
+#: ../view/application/admin/edit.phtml:20
+msgid "Region"
+msgstr "Region"
+
+#: ../view/application/admin/edit.phtml:26
+msgid "Is an University"
+msgstr "Is an University"
+
+#: ../view/application/admin/edit.phtml:28
+msgid "Logo"
+msgstr "Logo"
+
+#: ../view/application/admin/edit.phtml:29
+msgid "Visible"
+msgstr "Visible"
+
+#: ../view/application/admin/edit.phtml:31
+msgid "Ownership"
+msgstr "Ownership"
+
+#: ../view/application/admin/edit.phtml:32
+msgid "Owner"
+msgstr "Owner"
+
 #: ../view/application/admin/edit.phtml:78
 msgid "Add Program"
 msgstr "Add Education Program"
@@ -61,6 +93,11 @@ msgstr "Close"
 msgid "Kharkov universities"
 msgstr "Kharkov universities"
 
+#: ../view/application/admin/index.phtml:5
+#: ../view/application/index/index.phtml:4
+msgid "Ukraine universities"
+msgstr "Ukraine universities"
+
 #: ../view/application/admin/index.phtml:8
 #: ../view/application/index/index.phtml:8
 msgid "Kharkov schools"
@@ -69,24 +106,82 @@ msgstr "Kharkov schools"
 #: ../view/application/admin/index.phtml:12
 #: ../view/application/index/index.phtml:17
 msgid "Select Area"
-msgstr "Select Area"
+msgstr "Select area"
+
+#: ../view/application/admin/index.phtml:18
+#: ../view/application/index/index.phtml:18
+msgid "Select Region"
+msgstr "Select region"
 
 #: ../view/application/admin/index.phtml:14
 #: ../view/application/index/index.phtml:19
 msgid "All"
 msgstr "All"
 
+#: ../view/application/admin/index.phtml:30
+msgid "Import Page"
+msgstr "Import page"
+
+#: ../view/application/admin/index.phtml:35
+#: ../view/application/index/index.phtml:35
+msgid "Select Type"
+msgstr "Select type"
+
+#: ../view/application/admin/index.phtml:63
+msgid "ID EDBO"
+msgstr "ID USEEB"
+
+#: ../view/application/admin/index.phtml:80
+msgid "Get EDBO JSON file"
+msgstr "Get JSON file from USEEB"
+
+#: ../view/application/admin/index.phtml:81
+msgid "Read data from JSON file"
+msgstr "Read data from JSON file"
+
+#: ../view/application/admin/index.phtml:81
+msgid "Download JSON file first"
+msgstr "No data yet. Download JSON file first"
+
+#: ../view/application/admin/index.phtml:82
+msgid "Edit"
+msgstr "Edit"
+
+#: ../view/application/admin/index.phtml:83
+msgid "Delete"
+msgstr "Delete"
+
 #: ../view/application/index/index.phtml:44
 msgid "Education Level"
-msgstr "Education Level"
+msgstr "Education level"
 
 #: ../view/application/index/index.phtml:46
 msgid "Education Period"
-msgstr "Education Period"
+msgstr "Education period"
 
 #: ../view/application/admin/index.phtml:59
 msgid "Add school"
 msgstr "Add school"
+
+#: ../view/application/import/index.phtml:4
+msgid "Import universities"
+msgstr "Import universities from USEEB"
+
+#: ../view/application/import/index.phtml:24
+msgid "Import selected"
+msgstr "Import selected"
+
+#: ../view/application/import/index.phtml:25
+msgid "Import All"
+msgstr "Import all"
+
+#: ../view/application/import/index.phtml:35
+msgid "Action"
+msgstr "Action"
+
+#: ../view/application/import/index.phtml:37
+msgid "Type"
+msgstr "Type"
 
 #: ../view/application/index/index.phtml:60
 msgid "News"
@@ -353,6 +448,14 @@ msgstr "Education Program"
 msgid "Education Form"
 msgstr "Education Form"
 
+#: ../view/search/view.phtml:15
+msgid "Rating"
+msgstr "Rating"
+
+#: ../view/search/view.phtml:16
+msgid "Institution"
+msgstr "Institution"
+
 #: ../view/specialty/index.phtml:2
 msgid "Specialties"
 msgstr "Specialties"
@@ -377,33 +480,46 @@ msgstr "Specialty Code"
 msgid "Specialty Title"
 msgstr "Name of specialty"
 
-#: ../view/progarm/edit.phtml:3
+#: ../view/program/edit.phtml:3
 msgid "Edit Program"
 msgstr "Edit Education Program"
 
-#: ../view/progarm/edit.phtml:11
+#: ../view/program/edit.phtml:11
 msgid "Learning Period"
 msgstr "Learning Period"
 
-#: ../view/progarm/edit.phtml:12
+#: ../view/program/edit.phtml:12
 msgid "Year"
 msgstr "Entrance year"
 
-#: ../view/progarm/edit.phtml:105
+#: ../view/program/edit.phtml:13
+msgid "Program Type"
+msgstr "Educational program type"
+
+#: ../view/program/edit.phtml:17
+msgid "Select Base Education"
+msgstr "Select Base Education"
+
+#: ../view/program/edit.phtml:22
+msgid "Learning start date"
+msgstr "Learning start date"
+
+#: ../view/program/edit.phtml:23
+msgid "Learning end date"
+msgstr "Learning end date"
+
+#: ../view/program/edit.phtml:24
+msgid "Entrance start date"
+msgstr "Entrance start date"
+
+#: ../view/program/edit.phtml:25
+msgid "Entrance end date"
+msgstr "Entrance end date"
+
+#: ../view/program/edit.phtml:105
 msgid "Add Subject"
 msgstr "Add Subject"
 
-#~ msgid "Short Name"
-#~ msgstr "Short Name"
-
-#~ msgid "Is an University"
-#~ msgstr "Is an University"
-
-#~ msgid "Logo"
-#~ msgstr "Logo"
-
-#~ msgid "Visible"
-#~ msgstr "Visible"
-
-#~ msgid "Exception"
-#~ msgstr "Exception"
+#: ../view/error/404.phtml:51
+msgid "Exception"
+msgstr "Exception"

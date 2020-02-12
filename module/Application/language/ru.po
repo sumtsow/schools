@@ -51,9 +51,15 @@ msgstr "Поиск"
 msgid "All rights reserved."
 msgstr "Все права защищены."
 
+#: ../view/application/admin/index.phtml:5
 #: ../view/application/index/index.phtml:4
 msgid "Kharkov universities"
 msgstr "ВУЗы Харькова"
+
+#: ../view/application/admin/index.phtml:5
+#: ../view/application/index/index.phtml:4
+msgid "Ukraine universities"
+msgstr "ВУЗы Украины"
 
 #: ../view/application/index/index.phtml:8
 msgid "Kharkov schools"
@@ -63,9 +69,47 @@ msgstr "Школы Харькова"
 msgid "Select Area"
 msgstr "Выбрать район"
 
+#: ../view/application/admin/index.phtml:18
+#: ../view/application/index/index.phtml:18
+msgid "Select Region"
+msgstr "Выбрать область"
+
 #: ../view/application/index/index.phtml:19
 msgid "All"
 msgstr "Все"
+
+#: ../view/application/admin/index.phtml:30
+msgid "Import Page"
+msgstr "Страница импорта"
+
+#: ../view/application/admin/index.phtml:35
+#: ../view/application/index/index.phtml:35
+msgid "Select Type"
+msgstr "Выбрать тип"
+
+#: ../view/application/admin/index.phtml:63
+msgid "ID EDBO"
+msgstr "ID ЕГЭБО"
+
+#: ../view/application/admin/index.phtml:80
+msgid "Get EDBO JSON file"
+msgstr "Загрузить файл JSON из базы ЕГЭБО"
+
+#: ../view/application/admin/index.phtml:81
+msgid "Read data from JSON file"
+msgstr "Считать данные из файла JSON"
+
+#: ../view/application/admin/index.phtml:81
+msgid "Download JSON file first"
+msgstr "Данных еще нет. Загрузите сначала файл JSON"
+
+#: ../view/application/admin/index.phtml:82
+msgid "Edit"
+msgstr "Редактировать"
+
+#: ../view/application/admin/index.phtml:83
+msgid "Delete"
+msgstr "Удалить"
 
 #: ../view/application/index/index.phtml:44
 msgid "Education Level"
@@ -197,7 +241,15 @@ msgstr "Название"
 
 #: ../view/application/admin/add.phtml:11
 msgid "Short Name"
-msgstr "Краткое название"
+msgstr "Краткое наименование"
+
+#: ../view/application/admin/edit.phtml:19
+msgid "Parent"
+msgstr "Является подразделением"
+
+#: ../view/application/admin/edit.phtml:20
+msgid "Region"
+msgstr "Область"
 
 #: ../view/application/admin/add.phtml:18
 msgid "Is an University"
@@ -210,6 +262,14 @@ msgstr "Логотип"
 #: ../view/application/admin/add.phtml:21
 msgid "Visible"
 msgstr "Виден"
+
+#: ../view/application/admin/edit.phtml:31
+msgid "Ownership"
+msgstr "Форма собственности"
+
+#: ../view/application/admin/edit.phtml:32
+msgid "Owner"
+msgstr "Собственник"
 
 #: ../view/application/admin/delcomment.phtml:2
 msgid "Delete comment"
@@ -242,6 +302,26 @@ msgstr "Закрыть"
 #: ../view/application/admin/index.phtml:59
 msgid "Add school"
 msgstr "Добавить школу"
+
+#: ../view/application/import/index.phtml:4
+msgid "Import universities"
+msgstr "Импорт университетов из ЕГЭБО"
+
+#: ../view/application/import/index.phtml:24
+msgid "Import selected"
+msgstr "Импортировать помеченные"
+
+#: ../view/application/import/index.phtml:25
+msgid "Import All"
+msgstr "Импортировать все"
+
+#: ../view/application/import/index.phtml:35
+msgid "Action"
+msgstr "Действия"
+
+#: ../view/application/import/index.phtml:37
+msgid "Type"
+msgstr "Тип"
 
 #: ../view/error/index.phtml:1
 msgid "An error occurred"
@@ -361,6 +441,14 @@ msgstr "Образовательная программа"
 msgid "Education Form"
 msgstr "Форма обучения"
 
+#: ../view/search/view.phtml:15
+msgid "Rating"
+msgstr "Конкурсный балл"
+
+#: ../view/search/view.phtml:16
+msgid "Institution"
+msgstr "Заведение"
+
 #: ../view/specialty/index.phtml:2
 msgid "Specialties"
 msgstr "Специальности"
@@ -385,18 +473,42 @@ msgstr "Код специальности"
 msgid "Specialty Title"
 msgstr "Наименование специальности"
 
-#: ../view/progarm/edit.phtml:3
+#: ../view/program/edit.phtml:3
 msgid "Edit Program"
 msgstr "Редактировать образовательную программу"
 
-#: ../view/progarm/edit.phtml:11
+#: ../view/program/edit.phtml:11
 msgid "Learning Period"
 msgstr "Период навчання"
 
-#: ../view/progarm/edit.phtml:12
+#: ../view/program/edit.phtml:12
 msgid "Year"
 msgstr "Год поступления"
 
-#: ../view/progarm/edit.phtml:105
+#: ../view/program/edit.phtml:13
+msgid "Program Type"
+msgstr "Тип образовательной программы"
+
+#: ../view/program/edit.phtml:17
+msgid "Select Base Education"
+msgstr "Выбрать базу поступления"
+
+#: ../view/program/edit.phtml:22
+msgid "Learning start date"
+msgstr "Дата начала обучения"
+
+#: ../view/program/edit.phtml:23
+msgid "Learning end date"
+msgstr "Дата окончания обучения"
+
+#: ../view/program/edit.phtml:24
+msgid "Entrance start date"
+msgstr "Дата начала поступления"
+
+#: ../view/program/edit.phtml:25
+msgid "Entrance end date"
+msgstr "Дата завершения поступления"
+
+#: ../view/program/edit.phtml:105
 msgid "Add Subject"
 msgstr "Добавить предмет ВНО"

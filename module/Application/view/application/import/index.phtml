@@ -1,7 +1,7 @@
 <?php
 echo $this->headLink()->prependStylesheet($this->basePath() . 'https://use.fontawesome.com/releases/v5.7.2/css/all.css');
 echo $this->inlineScript()->appendFile('/js/import.js');
-$title = $this->translate('Kharkov universities') . ' from EDBO';
+$title = $this->translate('Import universities');
 $this->headTitle($title);
 ?>
 <div class="d-inline-flex form-group mt-3 small">
@@ -20,8 +20,8 @@ foreach($this->regions as $region) :
 <h1 class="text-center"><?= $title;?></h1>
 <div class="row mb-3">
     <div class="col">
-        <button id="select_form_submit_top" class="btn btn-primary btn-import-selected" disabled="true" form="university_select_form">Import selected</button>
-        <button id="import_all_top" class="btn btn-danger ml-3" href="">Import All</button>
+        <button id="select_form_submit_top" class="btn btn-primary btn-import-selected" disabled="true" form="university_select_form"><?= $this->translate('Import selected'); ?></button>
+        <button id="import_all_top" class="btn btn-danger ml-3" href=""><?= $this->translate('Import All'); ?></button>
     </div>
 </div>
 
