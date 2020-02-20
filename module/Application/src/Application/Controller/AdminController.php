@@ -170,9 +170,10 @@ class AdminController extends AbstractActionController
 		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
 		$school = $this->getSchoolTable()->fetch($id);
 		if($school->high) {
-			$region_edbo = $this->params()->fromQuery('region');
-			$default_region = 63; // Kharkiv	
-			$region_edbo = $region_edbo ? $region_edbo : $default_region;
+			$id_region = $this->params()->fromQuery('region');
+			$default_region = 20; // Kharkiv	
+			$id_region = $id_region ? $id_region : $default_region;
+			$region_edbo = $this->getSchoolTable()->getRegionIdEdbo($id_region);
 			$path = User::getDocumentRoot() . $edbo_params['local_dir'] . $region_edbo . '/'. $school->id_edbo . '/';
 			/*$filename = $edbo_params['files']['universities'];
 			$text = file_get_contents($path . $filename);

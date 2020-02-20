@@ -39,7 +39,7 @@ class SubjectForm extends Form
 				'label' => 'is required',
 				'checked_value' => '1',
 				'unchecked_value' => '0',
-				'disable_inarray_validator' => true,
+				//'disable_inarray_validator' => true,
 			],
         ]);
 

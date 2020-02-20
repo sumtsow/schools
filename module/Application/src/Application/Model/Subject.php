@@ -6,6 +6,8 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Filter\Boolean;
+use Zend\Validator\inArray;
+use Application\Model\isArrayValidator;
 
 class Subject implements InputFilterAwareInterface
 {
@@ -47,15 +49,15 @@ class Subject implements InputFilterAwareInterface
 
 			$inputFilter->add($factory->createInput([
 				'name' => 'required',
+				'allowEmpty' => true,
 				'required' => false,
-                'filters'  => [['name' => 'StripTags'],['name' => 'StringTrim']],
-				
-                'validators' => [
-					0 => ['name' => 'Zend\Validator\NotEmpty'],
-					/*['name'    => 'StringLength',
-					'options' => ['encoding' => 'UTF-8','min' => 0,'max' => 1]
-					]*/
-				]
+                //'filters'  => [['name' => 'StripTags'],['name' => 'StringTrim']],
+                /*'validators' => [
+					0 => ['name' => 'Application\Model\isArrayValidator'],
+					1 => ['name'    => 'StringLength',
+						'options' => ['encoding' => 'UTF-8','min' => 0,'max' => 1]
+					]
+				]*/
 			]));
 			
             /*$inputFilter->add($factory->createInput(array(

@@ -128,11 +128,11 @@ class ProgramController extends AbstractActionController
         $subjectsForm = new SubjectForm();
         $subject = new Subject();
         $subjectsForm->bind($subject);
+		$subjectsForm->get('id_subject')->setValueOptions($this->getSubjectTable()->getSubjects());
 		$addSubjectForm = new SubjectForm();
         $addSubject = new Subject();
         $addSubjectForm->bind($addSubject);		
-        $subs = $this->getProgramTable()->getSubjects();
-        $subjectsForm->get('id_subject')->setValueOptions($this->getProgramTable()->getSubjectTitles());
+        $addSubjectForm->get('id_subject')->setValueOptions($this->getSubjectTable()->getSubjects());
         return $vm->setVariable('id', $id)
             ->setVariable('school', $school)
             ->setVariable('programForm', $programForm)

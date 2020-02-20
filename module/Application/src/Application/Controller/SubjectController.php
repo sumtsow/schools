@@ -38,6 +38,7 @@ class SubjectController extends AbstractActionController
         }
 		$subjectForm  = new SubjectForm();
 		$request = $this->getRequest();
+		$error_input = null;
         if ($request->isPost()) {
             $subject = new Subject();
             $subjectForm->setInputFilter($subject->getInputFilter());
@@ -63,17 +64,24 @@ class SubjectController extends AbstractActionController
         if (!$user->isValid()) {
             return $this->redirect()->toRoute('index', ['action' => 'view', 'id' => $id]);
         }
-		$subjectForm  = new SubjectForm();
 		$request = $this->getRequest();
 		$output = null;
         if ($request->isPost()) {
             $subject = new Subject();
+			$subjectForm = new SubjectForm();
+			$subjectForm->bind($subject);
             $subjectForm->setInputFilter($subject->getInputFilter());
-			$checkbox = $request->getPost('required');
+			$required = $request->getPost('required');
+			$request->getPost()->set('required', '1');
             $subjectForm->setData($request->getPost());
 			$result = false;
             if ($subjectForm->isValid()) {
-                $subject->exchangeArray($subjectForm->getData());
+				$dataObj = $subjectForm->getData();
+				foreach($dataObj as $name => $prop) {
+					$data[$name] = $prop;
+				}
+				$data['required'] = $required;
+                $subject->exchangeArray($data);
                 $result = $this->getSubjectTable()->save($subject);
             } else {
 				$output = [

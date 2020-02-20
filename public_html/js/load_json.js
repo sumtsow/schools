@@ -21,8 +21,9 @@ $( document ).ready(function() {
 		event.stopPropagation();		
 		event.preventDefault();
 		var id_school = $(this).parents('tr').first().find('.id_school').text();
+		var id_region = $(this).parent('td').find('span.id_region').text();
 		$.ajax({
-			url: '/admin/update/' + id_school,
+			url: '/admin/update/' + id_school + '?region=' + id_region,
 			method: 'get',
 			success: function(data) {
 				console.log(data);

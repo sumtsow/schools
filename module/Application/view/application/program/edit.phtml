@@ -136,14 +136,15 @@ $programForm->prepare();
 		//$this->form()->openTag($subjectsForm);
 ?>
 		<form method="post" action="/subject/edit/<?= $this->id; ?>" id="subjects">
+<?php $this->formHidden($id_program); ?>
+		<?= $this->formElement($id_program); ?>
 <?php
-		$this->formHidden($id_program);
 		foreach($this->subjects as $subject) :
 			$id_row->setValue($subject['id_row'])->setAttributes([
-					'name' => 'id[' . $subject['id_row'] . ']',
-					'id' => 'id[' . $subject['id_row'] . ']'
+					'name' => 'id_row[' . $subject['id_row'] . ']',
+					'id' => 'id_row[' . $subject['id_row'] . ']'
 				]);
-			$id_subject->setAttributes([
+			$id_subject->setValue($subject['id'])->setAttributes([
 					'name' => 'id_subject[' . $subject['id_row'] . ']',
 					'id' => 'id_subject[' . $subject['id_row'] . ']',
 				])->setValue($subject['id'])->setLabel(' ');
@@ -176,6 +177,7 @@ $programForm->prepare();
 			$this->formHidden($id_row);
 ?>
 			<div class="form-row my-2">
+			<?= $this->formElement($id_row); ?>	
 				<div class="form-group col-md-4 d-none">
 			<?= $this->formElement($id_subject); ?>
 			<?= $this->formLabel($id_subject) ?>					

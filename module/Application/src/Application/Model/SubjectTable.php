@@ -51,6 +51,16 @@ class SubjectTable extends AbstractTableGateway
         return $resultSet->current()->id;
     }
 	
+	public function getSubjects()
+    {
+		$results = $this->fetchAll();
+		$subjects = [];
+		foreach($results as $result) {
+			$subjects[$result['id']] = $result['title'];
+		}
+		return $subjects;
+    }
+	
 	public function getAllSubjects($id_program)
     {
 		return $this->select(['id_program' => $id_program]);
@@ -88,15 +98,14 @@ class SubjectTable extends AbstractTableGateway
 	{
 		if(is_array($subject->id_row)) {
 		foreach($subject->id_row as $key => $id) {
-			$req = $id ? $id : $key;
 			$data = [
-				'required'    => key_exists($req, $subject->required) ? 1 : 0,
-				'coefficient' => $id ? $subject->coefficient[$id] : $subject->coefficient[$key],
-				'rating'      => $id ? $subject->rating[$id] : $subject->rating[$key],
+				'required'    => $subject->required[$key],
+				'coefficient' => $subject->coefficient[$key],
+				'rating'      => $subject->rating[$key],
 				'id_program'  => $subject->id_program,
-				'id_subject'  => $id ? $subject->id_subject[$id] : $subject->id_subject[$key],
+				'id_subject'  => $subject->id_subject[$key],
 			];
-				if ($this->fetchOne($id)->current()) {
+				if ($this->fetch($id)) {
 					$this->update($data, ['id' => $id]);
 				} else {
 					$this->insert($data);
@@ -105,7 +114,7 @@ class SubjectTable extends AbstractTableGateway
 		} else {
 		    $id = intval($subject->id_row);
 		    $data = [
-			    'required'    => $subject->required ? 1 : 0,
+			    'required'    => $subject->required,
 			    'coefficient' => $subject->coefficient,
 			    'rating'      => $subject->rating,
 			    'id_program'  => $subject->id_program,
@@ -114,7 +123,7 @@ class SubjectTable extends AbstractTableGateway
     		if ($id == 0) {
 	    		$this->insert($data);
 	    	} else {
-		        if ($this->fetchOne($id)) {
+		        if ($this->fetch($id)) {
 				    $this->update($data, ['id' => $id]);
 			    } else {
 				    throw new \Exception('Subject id=' . $subject->id .' does not exist');
