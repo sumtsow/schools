@@ -302,6 +302,9 @@ class ProgramTable extends AbstractTableGateway
 			$domAttribute = $domDocument->createAttribute('http');
 			$domAttribute->value = $school->http;
 			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('logo');
+			$domAttribute->value = $school->logo;
+			$domElement->appendChild($domAttribute);
 		}
 		$branches = $domDocument->createElement('branches');
 		$domElement->appendChild($branches);

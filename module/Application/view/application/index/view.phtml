@@ -1,12 +1,110 @@
 <?php
-echo $this->headScript()->appendFile('/js/smile.js');
+$this->headScript()->appendFile('/js/smile.js');
+if ($this->api == 'json') {
+	echo $this->inlineScript()->appendFile('/js/school-view.js');
+}
 $title = $school->shortname;
 $this->headTitle($title);
 if($this->api) :
 ?>
-<textarea class="w-100 mt-5 p-3" rows="24">
-<?= $this->api == 'json' ? Zend\Json\Json::prettyPrint(Zend\Json\Json::fromXml($this->specialtyDOM->saveXML(), false)) : $this->specialtyDOM->saveXML(); ?>
-</textarea>
+<div id="raw-data" class="d-none">
+<?= $this->api == 'json' ? Zend\Json\Json::fromXml($this->specialtyDOM->saveXML(), false) : $this->specialtyDOM->saveXML(); ?>
+</div>
+<?php if($this->api == 'json') : ?>
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <td class="align-middle">
+                <h4 id="school-name"><img style="max-width: 100px;" src="" alt="logo" class="mr-3" /></h4>
+            </td>	
+        </tr>
+		<tr>
+            <td class="px-0" id="branches">
+                <h4 class="m-3"><?= $this->translate('Specialties'); ?></h4>
+                <div class="branch d-none">
+				    <h5 class="branch-title m-3"><?= $this->translate('Branch Title'); ?>: </h5>
+			        <div class="accordion"></div>
+			    </div>
+				<div class="specialty d-none card mt-2">
+					<div class="card-header" id="id">
+						<h4 class="mb-0">
+							<button class="btn btn-link p-0 text-decoration-none" role="button" type="button" data-toggle="collapse" aria-expanded="false"><?= $this->translate('Specialty Title'); ?>: </button>
+						</h4>
+					</div>
+					<div class="collapse p-1">
+						<div class="card-columns">
+
+						</div>							
+					</div>
+				</div>
+				<div class="program d-none card border border-primary p-0">
+					<div class="card-header text-white bg-primary">
+						<h6 class="card-title"><span class=" font-weight-bold"><?= $this->translate('Education Program'); ?>: </span></h6>
+					</div>
+					<div class="card-body p-0">
+						<div class="card-text px-2">
+							<p>
+								<span class="font-weight-bold"><?= $this->translate('Education Level'); ?>: </span><br/>
+								<span class="font-weight-bold"><?= $this->translate('Education Form'); ?>: </span><br/>
+								<span class="font-weight-bold"><?= $this->translate('Education Period'); ?>: </span><br/>
+								<span class="font-weight-bold"><?= $this->translate('Competition scores'); ?>: </span>
+							</p>
+							<p class="subjects">
+								<span class="font-weight-bold"><?= $this->translate('Subjects'); ?>:</span><br/>
+							</p>											
+						</div>
+					</div>
+					<div class="card-footer">
+						<a href="#" class="card-link"><?= $this->translate('Details'); ?></a>
+					</div>
+				</div>
+			</td>
+        </tr>
+        <tr>
+            <td>
+                <span class="font-weight-bold">Address: </span>
+                address
+            </td>	
+        </tr>
+        <tr>	
+            <td>
+                <span class="font-weight-bold">Phone: </span>
+                phone
+            </td>
+        </tr>	
+        <tr>		
+            <td>
+                <span class="font-weight-bold">E-mail: </span>
+                <a target="_blank" href="mailto://email">email</a>
+            </td>
+        </tr>	
+        <tr>		
+            <td>
+                <span class="font-weight-bold">WWW: </span>
+                <a target="_blank" href="http://http">http</a></a>
+            </td>	
+        </tr>
+        <tr>	
+            <td>
+                <span class="font-weight-bold">Information: </span>
+                info
+            </td>	
+        </tr>
+        <tr>	
+            <td>
+                <span class="font-weight-bold">Area</span>
+                area
+            </td>
+        </tr>	
+        <tr>	
+            <td>
+                <span class="font-weight-bold">Map</span>
+                map
+            </td>	
+        </tr>
+    </tbody>
+</table>
+<?php endif; ?>
 <?php else : ?>
 <table class="table table-striped">
     <tbody>
