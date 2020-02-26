@@ -167,6 +167,15 @@ class ProgramTable extends AbstractTableGateway
         return $resultSet->current()->id;
     }
 
+	public function getRegionTitle($id_region)
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->columns(['title'])->from('region')->where(['id' => $id_region]);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+        return $resultSet->current()->title;
+    }
+	
 	public function getIdBaseByIdEDBO($id_edbo)
     {
 		$sql = new Sql($this->adapter);
@@ -299,12 +308,39 @@ class ProgramTable extends AbstractTableGateway
 			$domAttribute = $domDocument->createAttribute('shortname');
 			$domAttribute->value = $school->shortname;
 			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('email');
+			$domAttribute->value = $school->email;
+			$domElement->appendChild($domAttribute);
 			$domAttribute = $domDocument->createAttribute('http');
 			$domAttribute->value = $school->http;
 			$domElement->appendChild($domAttribute);
 			$domAttribute = $domDocument->createAttribute('logo');
 			$domAttribute->value = $school->logo;
 			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('address');
+			$domAttribute->value = $school->address;
+			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('phone');
+			$domAttribute->value = $school->phone;
+			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('info');
+			$domAttribute->value = $school->info;			
+			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('area');
+			$domAttribute->value = $school->area;			
+			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('id_region');
+			$domAttribute->value = $school->id_region;
+			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('region');
+			$domAttribute->value = $this->getRegionTitle($school->id_region);
+			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('high');
+			$domAttribute->value = $school->high;
+			$domElement->appendChild($domAttribute);
+			$domAttribute = $domDocument->createAttribute('map');
+			$domAttribute->value = $school->map;
+			$domElement->appendChild($domAttribute);			
 		}
 		$branches = $domDocument->createElement('branches');
 		$domElement->appendChild($branches);

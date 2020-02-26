@@ -15,7 +15,9 @@ if($this->api) :
     <tbody>
         <tr>
             <td class="align-middle">
-                <h4 id="school-name"><img style="max-width: 100px;" src="" alt="logo" class="mr-3" /></h4>
+                <h4 id="school-name">
+					<img style="max-width: 100px;" src="" alt="logo" class="mr-3" />
+				</h4>
             </td>	
         </tr>
 		<tr>
@@ -23,18 +25,17 @@ if($this->api) :
                 <h4 class="m-3"><?= $this->translate('Specialties'); ?></h4>
                 <div class="branch d-none">
 				    <h5 class="branch-title m-3"><?= $this->translate('Branch Title'); ?>: </h5>
-			        <div class="accordion"></div>
 			    </div>
-				<div class="specialty d-none card mt-2">
-					<div class="card-header" id="id">
-						<h4 class="mb-0">
-							<button class="btn btn-link p-0 text-decoration-none" role="button" type="button" data-toggle="collapse" aria-expanded="false"><?= $this->translate('Specialty Title'); ?>: </button>
-						</h4>
-					</div>
-					<div class="collapse p-1">
-						<div class="card-columns">
-
-						</div>							
+				<div class="specialty d-none accordion">
+					<div class="card mt-2">
+						<div class="card-header">
+							<h4 class="mb-0">
+								<button class="btn btn-link p-0 text-decoration-none" role="button" type="button" data-toggle="collapse" aria-expanded="false"><?= $this->translate('Specialty Title'); ?>: </button>
+							</h4>
+						</div>
+						<div class="collapse p-1">
+							<div class="card-columns"></div>							
+						</div>
 					</div>
 				</div>
 				<div class="program d-none card border border-primary p-0">
@@ -62,48 +63,48 @@ if($this->api) :
         </tr>
         <tr>
             <td>
-                <span class="font-weight-bold">Address: </span>
-                address
+                <span id="address" class="font-weight-bold"><?= $this->translate('Address'); ?>: </span>
             </td>	
         </tr>
         <tr>	
             <td>
-                <span class="font-weight-bold">Phone: </span>
-                phone
+                <span id="phone" class="font-weight-bold"><?= $this->translate('Phone'); ?>: </span>
             </td>
         </tr>	
         <tr>		
             <td>
                 <span class="font-weight-bold">E-mail: </span>
-                <a target="_blank" href="mailto://email">email</a>
+                <a id="email" target="_blank" href="#"></a>
             </td>
         </tr>	
         <tr>		
             <td>
                 <span class="font-weight-bold">WWW: </span>
-                <a target="_blank" href="http://http">http</a></a>
+                <a id="http" target="_blank" href="#"></a>
             </td>	
         </tr>
         <tr>	
             <td>
-                <span class="font-weight-bold">Information: </span>
-                info
+                <span id="info" class="font-weight-bold"><?= $this->translate('Information'); ?>: </span>
             </td>	
         </tr>
         <tr>	
             <td>
-                <span class="font-weight-bold">Area</span>
-                area
+				<?php if($school->high) : ?>
+                <span id="region" class="font-weight-bold"><?= $this->translate('Region'); ?>: </span>
+				<?php else : ?>
+				<span id="area" class="font-weight-bold"><?= $this->translate('Area'); ?>: </span>
+				<?php endif; ?>
             </td>
         </tr>	
         <tr>	
             <td>
-                <span class="font-weight-bold">Map</span>
-                map
+                <span id="map" class="font-weight-bold"><?= $this->translate('Map'); ?>: </span>
             </td>	
         </tr>
     </tbody>
 </table>
+<div class="mb-5">&nbsp;</div>
 <?php endif; ?>
 <?php else : ?>
 <table class="table table-striped">
@@ -111,7 +112,7 @@ if($this->api) :
         <tr>
             <td class="align-middle">
                 <h4><?php if($school->logo) : ?>
-                <img style="max-width: 100px;" src="<?= $school->logo; ?>" alt="logo" />
+                <img style="max-width: 100px;" src="<?= $school->logo; ?>" alt="logo" class="mr-3" />
                 <?php endif; ?>
                 <?= $school->{'name_'.$this->plugin('translate')->getTranslator()->getLocale()}; ?></h4>
             </td>	
@@ -233,13 +234,13 @@ if($this->api) :
 <?php endif; ?>
         <tr>	
             <td>
-                <span class="font-weight-bold"><?= $this->translate('Area'); ?></span>
-                <?= $school->area; ?>
+                <span class="font-weight-bold"><?= $school->high ? $this->translate('Region') : $this->translate('Area'); ?>: </span>
+                <?= $school->high ? $region : $school->area; ?>
             </td>
         </tr>	
         <tr>	
             <td>
-                <span class="font-weight-bold"><?= $this->translate('Map'); ?></span>
+                <span class="font-weight-bold"><?= $this->translate('Map'); ?>: </span>
                 <?= $school->map; ?>
             </td>	
         </tr>

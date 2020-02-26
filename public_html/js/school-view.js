@@ -6,7 +6,8 @@ $(document).ready(function() {
 	var $branch_tpl = $('.branch').first();
 	var $specialty_tpl = $('.specialty').first();
 	var $program_tpl = $('.program').first();
-	$header.append(contentJson.universities.university['@attributes'].name);
+	var attributes = contentJson.universities.university['@attributes'];
+	$header.append(attributes.name);
 	$header.find('img').attr('src', contentJson.universities.university['@attributes'].logo);
 	
 	var branches = [];
@@ -19,7 +20,7 @@ $(document).ready(function() {
         var $branch_div = $branch_tpl.clone();
 		var $branch_title = $branch_div.find('.branch-title');
         $branch_title.text($branch_title.text() + branch['@attributes'].code + ' ' + branch['@text']);
-        $branch_div.removeClass('d-none').addClass('d-block');
+        $branch_div.removeClass('d-none').addClass('d-block').attr('id', branch['@attributes'].id);
         $('#branches').append($branch_div);
 		
 		var specialties = [];
@@ -41,10 +42,10 @@ $(document).ready(function() {
 				'aria-labelledby': specialty['@attributes'].id,
 				'data-parent': '#' + specialty['@attributes'].id,
 			});
-			$specialty_card.find('accordion').text(specialty['@text']);
-			$specialty_card.find('.card-header').attr('id', specialty['@attributes'].id);
+			$specialty_card.find('accordion').text(specialty['@text']).attr('id', specialty['@attributes'].id);
+			//$specialty_card.find('.card-header');
 			$specialty_card.removeClass('d-none').addClass('d-block');
-			$branch_div.find('.accordion').append($specialty_card);
+			$branch_div.append($specialty_card);
 			
 			var programs = [];
 			if (!$.isArray(specialty.programs.program)) {
@@ -82,4 +83,21 @@ $(document).ready(function() {
 			});
 		});
     });
+	$('#address').after(attributes.address);
+	$('#phone').after(attributes.phone);
+	var email = attributes.email;
+	if(email.search(',')) {
+		email = email.split(',');
+		var mails = '';
+		email.forEach( function(addr, index) {
+			mails += '<a id="email' + index + '" target="_blank" href="' + 'mailto://' + addr + '">' + addr + '</a>\t';
+		});
+		$('#email').replaceWith(mails);
+	} else {
+		$('#email').html(email).attr('href', 'mailto://' + email);
+	}
+	$('#http').html(attributes.http).attr('href', attributes.http);
+	attributes.info ? $('#info').after(attributes.info) : $('#info').parents('tr').remove();
+	attributes.high ? $('#region').after(attributes.region) : $('#area').after(attributes.area);
+	attributes.map ? $('#map').after(attributes.map) : $('#map').parents('tr').remove();
 });

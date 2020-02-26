@@ -73,8 +73,9 @@ class IndexController extends AbstractActionController
         $vm = new ViewModel();
         $user = new User();
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
-		$vm->setVariable('school',$this->getSchoolTable()->fetch($id))
-            ->setVariable('comments',$this->getCommentTable()->fetchComments($id))
+		$school = $this->getSchoolTable()->fetch($id);
+		$vm->setVariable('school', $school)
+            ->setVariable('comments', $this->getCommentTable()->fetchComments($id))
             ->setVariable('docRoot', User::getDocumentRoot())
             ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
 		if($vm->school->high) {
@@ -85,10 +86,11 @@ class IndexController extends AbstractActionController
 				$specialtyDOM = $this->getProgramTable()->getSpecialtyDOM($id, $locale);
 				$vm->setVariable('specialties', $specialties)
 					->setVariable('specialtyDOM', $specialtyDOM)
+					->setVariable('region', $this->getProgramTable()->getRegionTitle($school->id_region))
 					->setVariable('api', $this->params()->fromRoute('api'));
 			}
 		}
-        if(!$vm->school->visible) { return $this->redirect()->toRoute('schools', ['action' => 'index']); }
+        if(!$school->visible) { return $this->redirect()->toRoute('schools', ['action' => 'index']); }
         $form = new CommentForm();
         $request = $this->getRequest();
         if ($request->isPost()) {
