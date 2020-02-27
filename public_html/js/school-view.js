@@ -6,6 +6,12 @@ $(document).ready(function() {
 	var $branch_tpl = $('.branch').first();
 	var $specialty_tpl = $('.specialty').first();
 	var $program_tpl = $('.program').first();
+	var $required_tpl = $program_tpl.find('.required');
+	var required_label = $required_tpl.html();
+	var $min_tpl = $program_tpl.find('.min');
+	var min_label = $min_tpl.html();
+	$required_tpl.remove();
+    $min_tpl.remove();
 	var attributes = contentJson.universities.university['@attributes'];
 	$header.append(attributes.name);
 	$header.find('img').attr('src', contentJson.universities.university['@attributes'].logo);
@@ -57,12 +63,13 @@ $(document).ready(function() {
 				var $program_card = $program_tpl.clone();
 				$program_card.removeClass('d-none').addClass('d-inline-block');
 				$program_card.find('.card-title').append(program['@text']);
-				var card_text = $program_card.find('.card-text').find('span');
+				var card_text = $program_card.find('.program-param').find('span');
 				$(card_text[0]).after(program['@attributes'].level_title);
 				$(card_text[1]).after(program['@attributes'].form_title);
 				$(card_text[2]).after(program['@attributes'].period);
-				var scores = 'мін = ' + program['@attributes'].min_rate + '; сер = ' + program['@attributes'].ave_rate + '; макс = ' + program['@attributes'].max_rate;
-				$(card_text[3]).after(scores);
+				$(card_text[4]).append(program['@attributes'].min_rate);
+				$(card_text[5]).append(program['@attributes'].ave_rate);
+                $(card_text[6]).append(program['@attributes'].max_rate);
 				
 				var subjects = [];
 				if (!$.isArray(program.subjects.subject)) {
@@ -70,14 +77,14 @@ $(document).ready(function() {
 				} else {
 					subjects = program.subjects.subject.slice();
 				}
-				i = 1;
+				var i = 1;
 				subjects.forEach( function(subject, index) {
 					var text = subject['@text'];
 					var required = (subject['@attributes'].required == 1);
-					text += required ? ' - <span class="font-weight-bold">обов&apos;язковий</span> ' : ' ';
-					text += '(Мін бал = ' + subject['@attributes'].rating +'; K' + i + ' = ' + subject['@attributes'].coefficient + ')<br/>';
+					text += required ? required_label : ' ';
+					text += min_label + subject['@attributes'].rating +'; K' + i + '&nbsp;=&nbsp;' + parseFloat(subject['@attributes'].coefficient) + ')<br/>';
 					if (required) { i++; } 
-					$program_card.find('p.subjects').append(text);
+					$program_card.find('.subjects').append(text);
 				});
 				$specialty_card.find('.card-columns').append($program_card);
 			});
