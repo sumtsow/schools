@@ -87,6 +87,25 @@ return array(
                 'child_routes' => array(
                 ),
             ),
+			'dbimport' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/dbimport[/:page][/]',
+                    'constraints' => array(
+                        //'action'     => '[a-z]*',
+						//'id'     => '[0-9]+',
+						'page'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller' => 'Dbimport',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                ),
+            ),
             'search' => array(
                 'type'    => 'Segment',
                 'options' => array(
@@ -169,7 +188,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Admin' => 'Application\Controller\AdminController',			
+            'Application\Controller\Admin' => 'Application\Controller\AdminController',
+            'Application\Controller\Dbimport' => 'Application\Controller\DbimportController',			
             'Application\Controller\Import' => 'Application\Controller\ImportController',
 			'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Program' => 'Application\Controller\ProgramController',

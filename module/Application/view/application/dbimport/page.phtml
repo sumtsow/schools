@@ -1,0 +1,51 @@
+<?php
+
+if ($this->pageCount):
+?>
+<ul class="pagination pagination-sm mb-5 justify-content-center">
+<!-- Previous page link -->
+<?php if (isset($this->previous)): ?>
+<li class="page-item">
+	<a class="page-link" href="<?= $this->url($this->route, [
+		'page' => $this->previous,
+  ]); ?>" aria-label="<?= $this->translate('Prev'); ?>" title="<?= $this->translate('Prev'); ?>">
+		<span aria-hidden="true">&laquo;</span>
+	</a>
+</li>
+<?php endif; ?>
+
+<!-- Numbered page links -->
+<?php
+	$switched = false;
+	foreach ($this->pagesInRange as $page):
+		if ($page == 1 || $page == 2 || $page == $this->previous || $page ==  $this->current || $page ==  $this->next || $page == ($this->pageCount - 1) || $page == ($this->pageCount)) :
+			$switched = true;
+			($page == $this->current) ? $active = ' active' : $active = '' ?>
+<li class="page-item<?= $active; ?>">
+    <a class="page-link" href="<?= $this->url($this->route, [
+        'page' => $page,
+    ]); ?>"><?= $page; ?></a>
+</li>
+<?php
+		else :
+			if($switched) :
+?>&nbsp;...&nbsp;<?php
+				$switched = false;
+			endif;
+		endif;
+	endforeach;
+?>
+    
+<!-- Next page link -->
+<?php if (isset($this->next)): ?>
+<li class="page-item">
+	<a class="page-link" href="<?= $this->url($this->route, [
+		'action'=>'dbimport',
+		'page' => $this->next,
+  ]); ?>" aria-label="<?= $this->translate('Next'); ?>" title="<?= $this->translate('Next'); ?>">
+		<span aria-hidden="true">&raquo;</span>
+	</a>
+</li>
+<?php endif; ?>
+</ul>
+<?php endif; ?>

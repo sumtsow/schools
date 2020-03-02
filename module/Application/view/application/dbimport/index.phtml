@@ -1,0 +1,20 @@
+<?php
+    $title = $this->translate('DB Import');
+    $this->headTitle($title);
+	$locale = $this->plugin('translate')->getTranslator()->getLocale();
+	$paginator = $this->paginator;
+?>
+<h2 class="text-center mt-3"><?= $this->translate('DB Import'); ?></h2>
+<div class="row px-5">
+    <ol class="col-10 ml-3" start="<?= (($paginator->getCurrentPageNumber() - 1) * $paginator->getItemCountPerPage()) + 1; ?>">
+<?= $this->paginationControl($paginator,
+     'Sliding',
+     'application/dbimport/page.phtml'); ?>
+        <?php foreach ($paginator as $item): ?>
+		<li><?= $item['Name']; ?> (UID = <?= $item['UniversityId']; ?>)</li>
+        <?php endforeach;?>
+<?= $this->paginationControl($paginator,
+     'Sliding',
+     'application/dbimport/page.phtml'); ?>
+    </ol>
+</div>
