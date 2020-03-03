@@ -24,7 +24,6 @@ class ProgrambachTable extends AbstractTableGateway
 
     public function fetchAll()
     {
-		//$programTable = new TableGateway('bach_programs', $adapter);
 		$rowset = $this->select(function (Select $select) {
 			$select->order('UniversityId');
 		});
@@ -36,7 +35,21 @@ class ProgrambachTable extends AbstractTableGateway
 		return $this->select(['id' => $id])->current();
     }
 	
-	public function getPrograms($id_school)
+	public function getSchoolIdEdbo()
+    {
+		$rowset = $this->select(function (Select $select) {
+			$select->columns(['UniversityId'], false);
+		});
+		$schools = [];
+		foreach($rowset as $item) {
+			if(!in_array($item->UniversityId, $schools)) {
+				$schools[] = $item->UniversityId;
+			}
+		}
+		return $schools;
+    }
+	
+	public function getProgram($id_school)
     {
 		return $this->select(['UniversityId' => $id_school]);
     }

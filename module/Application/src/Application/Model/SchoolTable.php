@@ -73,7 +73,7 @@ class SchoolTable extends AbstractTableGateway
 
     public function getSchoolByIdEdbo($id_edbo)
     {
-        return $this->select(['id_edbo' => $id_edbo])->current();
+        return $this->select(['id_edbo' => $id_edbo]);
     }
 
 	// 'id_edbo' is a key, 'id' is a value

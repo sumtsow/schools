@@ -1,0 +1,15 @@
+<?php
+    $title = $this->translate('DB Import');
+    $this->headTitle($title);
+	$locale = $this->plugin('translate')->getTranslator()->getLocale();
+?>
+<h2 class="text-center mt-3"><?= $this->school->{'name_' . $locale}; ?></h2>
+<div class="row">
+	<div class="col">
+		<ul>
+<?php foreach($this->programs as $program) : ?>
+			<li><a href="<?= $this->url($this->route, ['action' => 'show', 'id' => $program['Id']], ['query' => ['id_school' => $this->school->id_edbo]]); ?>"><?= $program->Id; ?> <?= $program->Name; ?></a></li>
+<?php endforeach; ?>
+		</ul>
+	</div>
+</div>

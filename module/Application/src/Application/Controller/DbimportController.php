@@ -28,32 +28,69 @@ class DbimportController extends AbstractActionController
     
     public function indexAction()
     {
+		$user = new User();
+		if (!$user->isValid()) {
+            return $this->redirect()->toRoute('schools', array(
+                'action' => 'index'
+            ));
+        }
 		$confArray = $this->getServiceLocator()->get('config');
         $programs = $this->getProgrambachTable()->fetchAll();
-		$paginator = new Paginator(new ArrayAdapter($programs));
+		$id_edbo = $this->getProgrambachTable()->getSchoolIdEdbo();
+		$schools = $this->getSchoolTable()->getSchoolByIdEdbo($id_edbo)->toArray();
+		$paginator = new Paginator(new ArrayAdapter($schools));
 		$page = $this->params()->fromRoute('page');
         $paginator->setCurrentPageNumber($page)    
             ->setItemCountPerPage($confArray['per_page'])
-            ->setPageRange(ceil(count($programs)/$confArray['per_page']));
+            ->setPageRange(ceil(count($schools)/$confArray['per_page']));
 		$vm = new ViewModel();
-        return $vm->setVariable('paginator', $paginator);
+        return $vm->setVariable('paginator', $paginator)
+				->setVariable('programs', $programs);
     }
 	
     public function viewAction()
     {
-        $id = (int) $this->params()->fromRoute('id', false);
-		if(!$id) {
-			return $this->redirect()->toRoute('schools', array(
+		$user = new User();
+		if (!$user->isValid()) {
+            return $this->redirect()->toRoute('schools', array(
+                'action' => 'index'
+            ));
+        }
+        $id_edbo = (int) $this->params()->fromRoute('id', false);
+		if(!$id_edbo) {
+			return $this->redirect()->toRoute('dbimport', array(
                 'action' => 'index'
             ));
 		}
-        $vm = new ViewModel();
-        $user = new User();
-		$locale = $this->getServiceLocator()->get('translator')->getLocale();
-		$school = $this->getSchoolTable()->fetch($id);
-		return $vm;
+		$school = $this->getSchoolTable()->getSchoolByIdEdbo($id_edbo)->current();
+		$programs = $this->getProgrambachTable()->getProgram($id_edbo);
+		$vm = new ViewModel();
+		return $vm->setVariable('school', $school)
+				->setVariable('programs', $programs);
     }
-
+	
+    public function showAction()
+    {
+		$user = new User();
+		if (!$user->isValid()) {
+            return $this->redirect()->toRoute('schools', array(
+                'action' => 'index'
+            ));
+        }
+        $id_edbo = (int) $this->params()->fromRoute('id', false);
+		if(!$id_edbo) {
+			return $this->redirect()->toRoute('dbimport', array(
+                'action' => 'index'
+            ));
+		}
+		$program = $this->getProgrambachTable()->fetch($id_edbo);
+		$id_school_edbo = $this->params()->fromQuery('id_school');
+		$school = $this->getSchoolTable()->getSchoolByIdEdbo($id_school_edbo)->current();
+		$vm = new ViewModel();
+		return $vm->setVariable('school', $school)
+				->setVariable('program', $program);
+    }
+	
     public function getCommentTable()
     {
         if (!$this->commentTable) {

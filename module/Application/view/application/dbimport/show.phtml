@@ -1,0 +1,28 @@
+<?php
+    $title = $this->translate('DB Import');
+    $this->headTitle($title);
+	$locale = $this->plugin('translate')->getTranslator()->getLocale();
+?>
+<h2 class="text-center mt-3"><?= $this->school->{'name_' . $locale}; ?></h2>
+<h3 class="text-center mt-3"><?= $this->program->Name; ?></h3>
+<p>Id: <?= $this->program->Id; ?></p>
+<p>Name: <?= $this->program->Name; ?></p>
+<p>Number: <?= $this->program->Number; ?></p>
+<p>EnName: <?= $this->program->EnName; ?></p>
+<p>UniversityId: <?= $this->program->UniversityId; ?></p>
+<p>ExternalId: <?= $this->program->ExternalId; ?></p>
+<p>EducationBaseId: <?= $this->program->EducationBaseId; ?></p>
+<p>FacultetId: <?= $this->program->FacultetId; ?></p>
+<p>StudyTerm: <?= $this->program->StudyTerm; ?></p>
+<p>StudyDateFrom: <?= $this->program->StudyDateFrom; ?></p>
+<p>StudyDateTo: <?= $this->program->StudyDateTo; ?></p>
+<p>OffersTotal: <?= $this->program->OffersTotal; ?></p>
+<p>OffersContract: <?= $this->program->OffersContract; ?></p>
+<p>TicketDateFrom: <?= $this->program->TicketDateFrom; ?></p>
+<p>TicketDateTo: <?= $this->program->TicketDateTo; ?></p>
+<p>CourseStart: <?= $this->program->CourseStart; ?></p>
+<p>QualificationId: <?= $this->program->QualificationId; ?></p>
+<p>SpecialityId: <?= $this->program->SpecialityId; ?></p>
+<p>ScoreAverage: <?= $this->program->ScoreAverage; ?></p>
+<p>ScoreMax: <?= $this->program->ScoreMax; ?></p>
+<p>ScoreMin: <?= $this->program->ScoreMin; ?></p>

@@ -90,11 +90,11 @@ return array(
 			'dbimport' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/dbimport[/:page][/]',
+                    'route'    => '/dbimport[/:page][/:action][/:id][/]',
                     'constraints' => array(
-                        //'action'     => '[a-z]*',
-						//'id'     => '[0-9]+',
 						'page'     => '[0-9]+',
+                        'action'     => '[a-z]*',
+						'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',

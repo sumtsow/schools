@@ -10,8 +10,8 @@
 <?= $this->paginationControl($paginator,
      'Sliding',
      'application/dbimport/page.phtml'); ?>
-        <?php foreach ($paginator as $item): ?>
-		<li><?= $item['Name']; ?> (UID = <?= $item['UniversityId']; ?>)</li>
+        <?php foreach ($paginator as $school): ?>
+		<li><a href="<?= $this->url($this->route, ['action' => 'view', 'id' => $school['id_edbo']]); ?>"><?= $school['name_' . $locale]; ?> (IdEdbo = <?= $school['id_edbo']; ?>)</a></li>
         <?php endforeach;?>
 <?= $this->paginationControl($paginator,
      'Sliding',
