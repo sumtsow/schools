@@ -63,7 +63,7 @@ class DbimportController extends AbstractActionController
             ));
 		}
 		$school = $this->getSchoolTable()->getSchoolByIdEdbo($id_edbo)->current();
-		$programs = $this->getProgrambachTable()->getProgram($id_edbo);
+		$programs = $this->getProgrambachTable()->getProgramsBySchool($id_edbo);
 		$vm = new ViewModel();
 		return $vm->setVariable('school', $school)
 				->setVariable('programs', $programs);
@@ -84,11 +84,13 @@ class DbimportController extends AbstractActionController
             ));
 		}
 		$program = $this->getProgrambachTable()->fetch($id_edbo);
+		$dbProgram = $this->getProgrambachTable()->getProgram($id_edbo);
 		$id_school_edbo = $this->params()->fromQuery('id_school');
 		$school = $this->getSchoolTable()->getSchoolByIdEdbo($id_school_edbo)->current();
 		$vm = new ViewModel();
 		return $vm->setVariable('school', $school)
-				->setVariable('program', $program);
+				->setVariable('program', $program)
+				->setVariable('dbProgram', $dbProgram);
     }
 	
     public function getCommentTable()
