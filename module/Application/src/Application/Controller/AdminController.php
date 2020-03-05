@@ -108,7 +108,7 @@ class AdminController extends AbstractActionController
             ));
         }
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
-        $school = $this->getSchoolTable()->fetch($id);
+        $school = $this->getSchoolTable()->fetchOne($id);
         $schoolForm  = new SchoolForm();
         $schoolForm->bind($school);
         $schoolForm->get('area')->setValueOptions($this->getSchoolTable()->fetchAreas());

@@ -73,11 +73,10 @@ class IndexController extends AbstractActionController
         $vm = new ViewModel();
         $user = new User();
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
-		$school = $this->getSchoolTable()->fetch($id);
+		$school = $this->getSchoolTable()->fetchOne($id);
 		$vm->setVariable('school', $school)
             ->setVariable('comments', $this->getCommentTable()->fetchComments($id))
             ->setVariable('docRoot', User::getDocumentRoot())
-			->setVariable('region', $this->getProgramTable()->getRegionTitle($school->id_region))
             ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
 		if($vm->school->high) {
 			$programs = $this->getProgramTable()->getProgramsByIdSchool($id);
@@ -87,6 +86,7 @@ class IndexController extends AbstractActionController
 				$specialtyDOM = $this->getProgramTable()->getSpecialtyDOM($id, $locale);
 				$vm->setVariable('specialties', $specialties)
 					->setVariable('specialtyDOM', $specialtyDOM)
+					->setVariable('region', $this->getProgramTable()->getRegionTitle($school->id_region))
 					->setVariable('api', $this->params()->fromRoute('api'));
 			}
 		}

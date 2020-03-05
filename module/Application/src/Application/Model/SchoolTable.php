@@ -28,6 +28,11 @@ class SchoolTable extends AbstractTableGateway
 	
 	public function fetch($id)
     {
+        return $this->select(['id' => $id]);
+    }
+	
+	public function fetchOne($id)
+    {
         return $this->select(['id' => $id])->current();
     }
     

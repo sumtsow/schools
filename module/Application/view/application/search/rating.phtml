@@ -11,12 +11,14 @@
 				<?php foreach($this->subjects as $subject) : ?>
 				<div class="form-group">		
 					<label for="subject[<?= $subject->id ?>]"><?= $subject->title; ?></label>
-					<input type="number" min="100" max="200" placeholder="<?= $this->translate('Enter your rating'); ?>" class="custom-select custom-select-md" id="subject[<?= $subject->id ?>]" name="subject[<?= $subject->id ?>]" />
+					<span class="font-weight-bold value" id="subject[<?= $subject->id ?>]_value">100</span>
+					<input type="range" class="custom-range" min="100" max="200" step="1" id="subject[<?= $subject->id ?>]" name="subject[<?= $subject->id ?>]" value="100" />
 				</div>
 				<?php endforeach; ?>
 				<div class="form-group">		
 					<label for="mean_score"><?= $this->translate('The mean score of the document on education'); ?></label>
-					<input type="number" min="100" max="200" placeholder="<?= $this->translate('Enter your rating'); ?>" class="custom-select custom-select-md" id="mean_score" name="mean_score" />
+					<span class="font-weight-bold value" id="mean_score_value">100</span>
+					<input type="range" class="custom-range" min="100" max="200" step="1" id="mean_score" name="mean_score" value="100" />
 				</div>
 <input type="hidden" id="form" value="<?= $this->form; ?>" name="form" />
 				<input type="hidden" id="level" value="<?= $this->level; ?>" name="level" />
@@ -27,3 +29,10 @@
 	</div>
 </div>
 <p class="my-4">&nbsp;</p>
+<script>
+    $( function() {
+        $('.custom-range').on('input', function() {
+            $(this).siblings('.value').text($(this).val());
+        });
+    });
+</script>
