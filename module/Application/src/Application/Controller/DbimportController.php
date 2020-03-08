@@ -14,6 +14,8 @@ use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
 
 use Zend\View\Model\ViewModel;
+use Application\Model\Program;
+use Application\Model\Subject;
 use Application\Model\User;
 
 class DbimportController extends AbstractActionController
@@ -35,7 +37,7 @@ class DbimportController extends AbstractActionController
             ));
         }
 		$confArray = $this->getServiceLocator()->get('config');
-        $programs = $this->getProgrambachTable()->fetchAll();
+        $programs = $this->getProgrambachTable()->fetchAll()->toArray();
 		$id_edbo = $this->getProgrambachTable()->getSchoolIdEdbo();
 		$schools = $this->getSchoolTable()->getSchoolByIdEdbo($id_edbo)->toArray();
 		$paginator = new Paginator(new ArrayAdapter($schools));
@@ -85,6 +87,14 @@ class DbimportController extends AbstractActionController
 		}
 		$program = $this->getProgrambachTable()->fetch($id_edbo);
 		$dbProgram = $this->getProgrambachTable()->getProgram($id_edbo);
+		$newProgram = new Program();
+        $newProgram->exchangeArray($dbProgram);
+		$subject = new Subject();
+		$subject->exchangeArray($dbProgram['subjects']);
+		$result1 = $this->getProgramTable()->saveProgram($newProgram);
+		$id_program = $this->getProgramTable()->fetchIdEDBO($id_edbo)->id;
+		$subject->id_program = $id_program;
+		$result2 = $this->getSubjectTable()->save($subject);
 		$id_school_edbo = $this->params()->fromQuery('id_school');
 		$school = $this->getSchoolTable()->getSchoolByIdEdbo($id_school_edbo)->current();
 		$vm = new ViewModel();
@@ -92,6 +102,30 @@ class DbimportController extends AbstractActionController
 				->setVariable('program', $program)
 				->setVariable('dbProgram', $dbProgram);
     }
+	
+	public function importallAction() {
+		$user = new User();
+		if (!$user->isValid()) {
+            return $this->redirect()->toRoute('schools', array(
+                'action' => 'index'
+            ));
+        }
+        $programs = $this->getProgrambachTable()->fetchAll();
+		foreach($programs as $program) {
+			if($program->Name) {
+				$dbProgram = $this->getProgrambachTable()->getProgram($program->ExternalId);
+				$newProgram = new Program();
+				$newProgram->exchangeArray($dbProgram);
+				$subject = new Subject();
+				$subject->exchangeArray($dbProgram['subjects']);
+				$result1 = $this->getProgramTable()->saveProgram($newProgram);
+				$id_program = $this->getProgramTable()->fetchIdEDBO($program->ExternalId)->id;
+				$subject->id_program = $id_program;
+				$result2 = $this->getSubjectTable()->save($subject);
+			}
+		}
+        return $this->redirect()->toRoute('admin', ['action' => 'index', 'id' => 1]);
+	}
 	
     public function getCommentTable()
     {
@@ -145,5 +179,14 @@ class DbimportController extends AbstractActionController
 			$this->specialtyTable = $sm->get('Application\Model\SpecialtyTable');
         }
     return $this->specialtyTable;
+    }
+	
+	public function getSubjectTable()
+    {
+        if (!$this->subjectTable) {
+            $sm = $this->getServiceLocator();
+			$this->subjectTable = $sm->get('Application\Model\SubjectTable');
+        }
+    return $this->subjectTable;
     }
 }

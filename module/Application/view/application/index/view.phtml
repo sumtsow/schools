@@ -240,7 +240,7 @@ if($this->api) :
         <tr>	
             <td>
                 <span class="font-weight-bold"><?= $school->high ? $this->translate('Region') : $this->translate('Area'); ?>: </span>
-                <?= $school->high ? $region : $school->area; ?>
+                <?= $school->high ? $this->region : $school->area; ?>
             </td>
         </tr>	
         <tr>	

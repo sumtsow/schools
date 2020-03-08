@@ -31,7 +31,6 @@ class SearchTable extends AbstractTableGateway
     {
 		if(!$rating || !is_array($rating)) { return false; }
         $result = $this->findProgramsByRating($rating, $mean_score);
-		
 		if(!$result) { return false; }
 		$cond = $this->parseToStringArray($result['programs'], $level, $form);
         $programs = $this->fetchPrograms($cond);
@@ -40,6 +39,7 @@ class SearchTable extends AbstractTableGateway
             $programs[$key]['specialty_title'] = $this->getSpecialtyTitle($program['id_specialty']);
 			$programs[$key]['schools'] = $this->getSchoolById($program['id_school']);
 			$programs[$key]['mean_score'] = $result['rating'][$program['id']];
+			$programs[$key]['needed_rating'] = $result['needed_rating'][$program['id']];
         }
         return $programs;
     }
@@ -68,7 +68,8 @@ class SearchTable extends AbstractTableGateway
 		$resultSet = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
         $programs = $resultSet->toArray();
         $result = [];
-		$integrated = [];		
+		$integrated = [];
+		$needed_rating = [];
         foreach($programs as $program) {
 			$sql = 'SELECT `required`,`coefficient`,`rating`,`id_subject` FROM `' . $this->table . '` WHERE `id_program`=' . $program['id_program'];
 			$resultSet = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
@@ -89,11 +90,12 @@ class SearchTable extends AbstractTableGateway
 			    }
 		    }
 			$integrated[$program['id_program']] += $max;
-		    if($passed > 2 && $required == 2) {
+			$needed_rating[$program['id_program']] = floatval($this->fetchPrograms(['id' => $program['id_program']])[0]['min_rate']);
+		    if($passed > 2 && $required == 2 && $integrated[$program['id_program']] > $needed_rating[$program['id_program']]) {
 			     $result[] = $program['id_program'];
 			}
         }
-        return ['programs' => $result, 'rating' => $integrated];
+        return ['programs' => $result, 'rating' => $integrated, 'needed_rating' => $needed_rating];
     }
     
     public function fetchPrograms($cond)

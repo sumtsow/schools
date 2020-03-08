@@ -5,6 +5,7 @@
 	$paginator = $this->paginator;
 ?>
 <h2 class="text-center mt-3"><?= $this->translate('DB Import'); ?></h2>
+<a class="btn btn-danger" href="<?= $this->url($this->route, ['action' => 'importall']); ?>"><?= $this->translate('Import All'); ?></a>
 <div class="row px-5">
     <ol class="col-10 ml-3" start="<?= (($paginator->getCurrentPageNumber() - 1) * $paginator->getItemCountPerPage()) + 1; ?>">
 <?= $this->paginationControl($paginator,

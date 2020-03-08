@@ -27,7 +27,7 @@ class ProgrambachTable extends AbstractTableGateway
 		$rowset = $this->select(function (Select $select) {
 			$select->order('UniversityId');
 		});
-		return $rowset->toArray();
+		return $rowset;
     }
 
 	public function fetch($id)
@@ -98,7 +98,16 @@ class ProgrambachTable extends AbstractTableGateway
 		$result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
         return ($result->current()) ? $result->current()->id : false;
     }
-	
+
+	public function getIdFacultyByIdEDBO($id_edbo)
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->columns(['id'])->from('faculty')->where(['id_edbo' => $id_edbo]);
+        $selectString = $sql->buildSqlString($select);
+		$result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+        return ($result->current()) ? $result->current()->id : false;
+    }
+
 	public function getSchoolId($id_edbo)
     {
 		$sql = new Sql($this->adapter);
@@ -108,6 +117,37 @@ class ProgrambachTable extends AbstractTableGateway
 		return ($result->current()) ? $result->current()->id : false;
     }
 
+	public function getSubjectIdByEDBO($id_edbo)
+    {
+		$sql = new Sql($this->adapter);
+		$select = $sql->select()->columns(['id'])->from('subject')->where(['id_edbo' => $id_edbo])->limit(1);
+        $selectString = $sql->buildSqlString($select);
+		$result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		return ($result->current()) ? $result->current()->id : false;
+    }
+
+	public function getSubjects($id_edbo)
+    {
+		$sql = new Sql($this->adapter);
+		$select = $sql->select()->columns(['SubjectId', 'IsRequired', 'Coefficient', 'RequiredScoreMin'])->from('bach_programsubjects')->where(['ProgramId' => $id_edbo]);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		$result = $resultSet->toArray();
+		if(count($result)) {
+			$subjects = [];
+			foreach($result as $key => $subject) {
+				$subjects['id_row'][$key] = 0;
+				$subjects['required'][$key] = $subject['IsRequired'];
+				$subjects['coefficient'][$key] = $subject['Coefficient'];
+				$subjects['rating'][$key] = $subject['RequiredScoreMin'];
+				$subjects['id_subject'][$key] = $this->getSubjectIdByEDBO($subject['SubjectId']);
+			}
+		} else {
+			return false;
+		}
+		return $subjects;
+    }
+	
 	public function getProgram($id_edbo)
     {
 		if(!$id_edbo) { return; }
@@ -119,6 +159,8 @@ class ProgrambachTable extends AbstractTableGateway
 		$program['type'] = 1;
 		$program['period'] = $data->StudyTerm;
 		$program['year'] = '2019';
+		$program['license_num'] = $data->OffersTotal;
+		$program['contract_num'] = $data->OffersContract;
 		$program['learning_start'] = $data->StudyDateFrom;
 		$program['learning_end'] = $data->StudyDateTo;
 		$program['entrance_start'] = $data->TicketDateFrom;
@@ -127,10 +169,13 @@ class ProgrambachTable extends AbstractTableGateway
 		$program['id_specialty'] = $this->getIdSpecialtyByIdEDBO($data->SpecialityId);
 		$program['id_form'] = 1;
 		$program['id_school'] = $this->getSchoolId($data->UniversityId);
+		$program['id_faculty'] = $this->getIdFacultyByIdEDBO($data->FacultetId);
 		$program['id_base'] = $this->getIdBaseByIdEDBO($data->EducationBaseId);
 		$program['min_rate'] = $data->ScoreMin;
 		$program['ave_rate'] = $data->ScoreAverage;
-		$program['max_rate'] = $data->ScoreMax;	
+		$program['max_rate'] = $data->ScoreMax;
+		$subjects = $this->getSubjects($id_edbo);
+		$program['subjects'] = $subjects ? $subjects : [];
 		return $program;
     }
 }

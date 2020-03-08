@@ -8,10 +8,13 @@ $programForm->setAttribute('action', $this->url('program', ['action' => 'edit', 
 $id = $programForm->get('id');
 $id_school = $programForm->get('id_school');
 $id_edbo = $programForm->get('id_edbo')->setLabel('ID EDBO')->setAttribute('class', 'form-control');
+$id_faculty = $programForm->get('id_faculty')->setLabel('Faculty')->setAttribute('class', 'form-control');
 $program = $programForm->get('title')->setLabel('Education Program')->setAttribute('class', 'form-control');
 $type = $programForm->get('type')->setLabel('Program Type')->setAttributes(['class' => 'form-control'/*, 'disabled' => 'disabled'*/]);
 $period = $programForm->get('period')->setLabel('Learning Period')->setAttributes(['class' => 'form-control', 'placeholder' => '4.5']);
 $year = $programForm->get('year')->setLabel('Year')->setAttributes(['class' => 'form-control', 'placeholder' => date('Y')]);
+$license_num = $programForm->get('license_num')->setLabel('License quantity')->setAttribute('class', 'form-control');
+$contract_num = $programForm->get('contract_num')->setLabel('Contract quantity')->setAttribute('class', 'form-control');
 $specialty = $programForm->get('id_specialty')->setLabel('Specialty')->setAttribute('class', 'form-control');
 $level = $programForm->get('id_level')->setLabel('Select Level')->setAttribute('class', 'form-control');
 $base = $programForm->get('id_base')->setLabel('Select Base Education')->setAttribute('class', 'form-control');
@@ -56,6 +59,21 @@ $programForm->prepare();
 				<?= $this->formLabel($year) ?>
 				<?= $this->formElement($year); ?>
 				<?= $this->formElementErrors()->render($year, ['class' => 'help-block alert alert-danger']) ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($id_faculty) ?>
+				<?= $this->formElement($id_faculty); ?>
+				<?= $this->formElementErrors()->render($id_faculty, ['class' => 'help-block alert alert-danger']) ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($license_num) ?>
+				<?= $this->formElement($license_num); ?>
+				<?= $this->formElementErrors()->render($license_num, ['class' => 'help-block alert alert-danger']) ?>
+				</div>
+				<div class="form-group">
+				<?= $this->formLabel($contract_num) ?>
+				<?= $this->formElement($contract_num); ?>
+				<?= $this->formElementErrors()->render($contract_num, ['class' => 'help-block alert alert-danger']) ?>
 				</div>
 				<div class="form-group">
 				<?= $this->formLabel($specialty) ?>

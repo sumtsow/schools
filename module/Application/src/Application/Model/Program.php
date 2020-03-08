@@ -13,6 +13,9 @@ class Program implements InputFilterAwareInterface
 	public $type;
 	public $period;
 	public $year;
+	public $id_faculty;
+	public $license_num;
+	public $contract_num;
     public $id_level;
 	public $id_specialty;
 	public $id_form;
@@ -35,6 +38,9 @@ class Program implements InputFilterAwareInterface
 		$this->type           = (isset($data['type']))           ? $data['type']           : null;
 		$this->period         = (isset($data['period']))         ? $data['period']         : 0;
 		$this->year           = (isset($data['year']))           ? $data['year']           : date('Y');
+		$this->id_faculty     = (isset($data['id_faculty']))     ? $data['id_faculty']     : null;
+		$this->license_num    = (isset($data['license_num']))    ? $data['license_num']    : null;
+		$this->contract_num   = (isset($data['contract_num']))   ? $data['contract_num']   : null;
         $this->id_level       = (isset($data['id_level']))       ? $data['id_level']       : 2;
         $this->id_specialty   = (isset($data['id_specialty']))   ? $data['id_specialty']   : null;
         $this->id_form        = (isset($data['id_form']))        ? $data['id_form']        : 1;
@@ -152,6 +158,17 @@ class Program implements InputFilterAwareInterface
                         'options' => ['min' => 2000, 'max' => date('Y')],
                     ],					
                 ],				
+            ]);
+
+            $inputFilter->add([
+                'name'     => 'id_faculty',
+                'required' => true,
+                'filters'  => [
+                    0 => ['name' => 'Zend\Filter\Digits'],
+                ],
+                'validators' => [
+                    0 => ['name'    => 'Zend\I18n\Validator\IsInt'],
+                ],
             ]);
 
 			$inputFilter->add([

@@ -75,7 +75,40 @@ class ProgramForm extends Form
 				'disable_inarray_validator' => true,
 			]
         ));
-		
+
+        $this->add(array(
+            'type' => 'number', // 'Zend\Form\Element\Select',
+            'name' => 'id_faculty',
+            'attributes' => array(
+                'id'  => 'id_faculty',
+            ),
+			'options' => [
+				'disable_inarray_validator' => true,
+			]
+        ));
+
+        $this->add(array(
+            'name' => 'license_num',
+            'attributes' => array(
+				'id'  => 'license_num',
+                'type'  => 'number',
+            ),
+			'options' => [
+				'disable_inarray_validator' => true,
+			]
+        ));
+
+        $this->add(array(
+            'name' => 'contract_num',
+            'attributes' => array(
+				'id'  => 'contract_num',
+                'type'  => 'number',
+            ),
+			'options' => [
+				'disable_inarray_validator' => true,
+			]
+        ));
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'id_specialty',

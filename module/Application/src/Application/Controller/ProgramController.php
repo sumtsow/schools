@@ -40,7 +40,7 @@ class ProgramController extends AbstractActionController
             return $this->redirect()->toRoute('admin', ['action' => 'index']);
         }
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
-		$school = $this->getSchoolTable()->fetch($id);
+		$school = $this->getSchoolTable()->fetchOne($id);
 		$programForm  = new ProgramForm();
 		if($school->high) {
 			$id_program = $this->getProgramTable()->getProgramsByIdSchool($id);
@@ -94,7 +94,7 @@ class ProgramController extends AbstractActionController
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
 		$programForm  = new ProgramForm();
 		$program = $this->getProgramTable()->fetch($id)->current();
-		$school = $this->getSchoolTable()->fetch($program->id_school);		
+		$school = $this->getSchoolTable()->fetchOne($program->id_school);		
 		$programForm->bind($program);
 		$programForm->get('id_specialty')->setValueOptions($this->getSpecialtyTable()->getSpecialties())->setValue($program->id_specialty);
 		$programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale))->setValue($program->id_level);

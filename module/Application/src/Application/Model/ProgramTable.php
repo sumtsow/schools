@@ -462,6 +462,8 @@ class ProgramTable extends AbstractTableGateway
 		$program->type = $offer[19] + 1;
 		$program->period = $offer[9];
 		$program->year = substr($offer[10], -4);
+		$program->license_num = $offer[16];
+		$program->contract_num = $offer[17];
 		$program->learning_start = \DateTime::createFromFormat('d.m.Y', $offer[10])->format('Y-m-d');
 		$program->learning_end = \DateTime::createFromFormat('d.m.Y', $offer[11])->format('Y-m-d');
 		$program->entrance_start = \DateTime::createFromFormat('d.m.Y', $offer[22])->format('Y-m-d');
@@ -471,8 +473,9 @@ class ProgramTable extends AbstractTableGateway
 		$program->ave_rate = floatval($json->offers_requests_info->{$program->id_edbo}[2]);          
 		$program->max_rate = floatval($json->offers_requests_info->{$program->id_edbo}[4]);
 		$program->id_level = $this->getIdLevelByIdEDBO($offer[3]);
-		$spec_edbo = $json->specialities->{$offer[6]};
-		$program->id_specialty = $this->getIdSpecialtyByIdEDBO($spec_edbo[0]);
+		$program->id_specialty = $this->getIdSpecialtyByIdEDBO($offer[6]);
+		//$spec_edbo = $json->specialities->{$offer[6]};
+		//$program->id_specialty = $this->getIdSpecialtyByIdEDBO($spec_edbo[0]);
 		$program->id_form = $this->getIdFormByIdEDBO($offer[5]);
 		$program->id_base = $this->getIdBaseByIdEDBO($offer[4]);
 		$this->saveProgram($program);
@@ -488,6 +491,8 @@ class ProgramTable extends AbstractTableGateway
 			'type' => $program->type,
 			'period' => $program->period,
 			'year' => $program->year,
+			'license_num' => $program->license_num,
+			'contract_num' => $program->contract_num,
 			'id_level' => $program->id_level,
 			'id_specialty' => $program->id_specialty,
 			'id_form' => $program->id_form,

@@ -5,25 +5,41 @@
 ?>
 <h2 class="text-center mt-3"><?= $this->school->{'name_' . $locale}; ?></h2>
 <h3 class="text-center mt-3"><?= $this->program->Name; ?></h3>
-<p>Id: none | <?= $dbProgram['id']; ?></p>
-<p>Id EDBO: <?= $this->program->Id; ?> | <?= $dbProgram['id_edbo']; ?></p>
-<p>Name: <?= $this->program->Name; ?> | <?= $dbProgram['title']; ?></p>
-<p>Number: <?= $this->program->Number; ?> | <?= $dbProgram['id_edbo']; ?></p>
+<p>Id: none | <?= $this->dbProgram['id']; ?></p>
+<p>Id EDBO: <?= $this->program->Id; ?> | <?= $this->dbProgram['id_edbo']; ?></p>
+<p>Name: <?= $this->program->Name; ?> | <?= $this->dbProgram['title']; ?></p>
+<p>Number: <?= $this->program->Number; ?> | <?= $this->dbProgram['id_edbo']; ?></p>
 <p>EnName: <?= $this->program->EnName; ?> | none</p>
-<p>UniversityId: <?= $this->program->UniversityId; ?> | <?= $dbProgram['id_school']; ?></p>
-<p>ExternalId: <?= $this->program->ExternalId; ?> | <?= $dbProgram['id_edbo']; ?></p>
-<p>EducationBaseId: <?= $this->program->EducationBaseId; ?> | <?= $dbProgram['id_base']; ?></p>
-<p>FacultetId: <?= $this->program->FacultetId; ?> | none </p>
-<p>StudyTerm: <?= $this->program->StudyTerm; ?> | <?= $dbProgram['period']; ?></p>
-<p>StudyDateFrom: <?= $this->program->StudyDateFrom; ?> | <?= $dbProgram['learning_start']; ?></p>
-<p>StudyDateTo: <?= $this->program->StudyDateTo; ?> | <?= $dbProgram['learning_end']; ?></p>
-<p>OffersTotal: <?= $this->program->OffersTotal; ?> | none</p>
-<p>OffersContract: <?= $this->program->OffersContract; ?> | none</p>
-<p>TicketDateFrom: <?= $this->program->TicketDateFrom; ?> | <?= $dbProgram['entrance_start']; ?></p>
-<p>TicketDateTo: <?= $this->program->TicketDateTo; ?> | <?= $dbProgram['entrance_end']; ?></p>
+<p>UniversityId: <?= $this->program->UniversityId; ?> | <?= $this->dbProgram['id_school']; ?></p>
+<p>ExternalId: <?= $this->program->ExternalId; ?> | <?= $this->dbProgram['id_edbo']; ?></p>
+<p>EducationBaseId: <?= $this->program->EducationBaseId; ?> | <?= $this->dbProgram['id_base']; ?></p>
+<p>FacultetId: <?= $this->program->FacultetId; ?> | <?= $this->dbProgram['id_faculty']; ?> </p>
+<p>StudyTerm: <?= $this->program->StudyTerm; ?> | <?= $this->dbProgram['period']; ?></p>
+<p>StudyDateFrom: <?= $this->program->StudyDateFrom; ?> | <?= $this->dbProgram['learning_start']; ?></p>
+<p>StudyDateTo: <?= $this->program->StudyDateTo; ?> | <?= $this->dbProgram['learning_end']; ?></p>
+<p>OffersTotal: <?= $this->program->OffersTotal; ?> | <?= $this->dbProgram['license_num']; ?></p>
+<p>OffersContract: <?= $this->program->OffersContract; ?> | <?= $this->dbProgram['contract_num']; ?></p>
+<p>TicketDateFrom: <?= $this->program->TicketDateFrom; ?> | <?= $this->dbProgram['entrance_start']; ?></p>
+<p>TicketDateTo: <?= $this->program->TicketDateTo; ?> | <?= $this->dbProgram['entrance_end']; ?></p>
 <p>CourseStart: <?= $this->program->CourseStart; ?> | none</p>
-<p>QualificationId: <?= $this->program->QualificationId; ?> | <?= $dbProgram['id_level']; ?></p>
-<p>SpecialityId: <?= $this->program->SpecialityId; ?> | <?= $dbProgram['id_specialty']; ?></p>
-<p>ScoreAverage: <?= $this->program->ScoreAverage; ?> | <?= $dbProgram['ave_rate']; ?></p>
-<p>ScoreMax: <?= $this->program->ScoreMax; ?> | <?= $dbProgram['max_rate']; ?></p>
-<p>ScoreMin: <?= $this->program->ScoreMin; ?> | <?= $dbProgram['min_rate']; ?></p>
+<p>QualificationId: <?= $this->program->QualificationId; ?> | <?= $this->dbProgram['id_level']; ?></p>
+<p>SpecialityId: <?= $this->program->SpecialityId; ?> | <?= $this->dbProgram['id_specialty']; ?></p>
+<p>ScoreAverage: <?= $this->program->ScoreAverage; ?> | <?= $this->dbProgram['ave_rate']; ?></p>
+<p>ScoreMax: <?= $this->program->ScoreMax; ?> | <?= $this->dbProgram['max_rate']; ?></p>
+<p>ScoreMin: <?= $this->program->ScoreMin; ?> | <?= $this->dbProgram['min_rate']; ?></p>
+<h4 class="my-3"><?= $this->translate('Subjects'); ?></h3>
+<ol>
+<?php
+foreach($this->dbProgram['subjects'] as $subject) :
+	if(is_array($subject)) :
+?>
+<li><?= implode(', ', $subject); ?></li>
+<?php
+	else :
+?>
+<li><?= $subject; ?></li>
+<?php
+	endif;
+endforeach;
+?>
+</ol>

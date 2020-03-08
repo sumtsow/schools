@@ -168,7 +168,7 @@ class AdminController extends AbstractActionController
         }
 		$id = (int) $this->params()->fromRoute('id', 0);
 		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
-		$school = $this->getSchoolTable()->fetch($id);
+		$school = $this->getSchoolTable()->fetchOne($id);
 		if($school->high) {
 			$id_region = $this->params()->fromQuery('region');
 			$default_region = 20; // Kharkiv	
@@ -203,7 +203,7 @@ class AdminController extends AbstractActionController
         }
 		$id = (int) $this->params()->fromRoute('id', 0);
 		$edbo_params = $this->getServiceLocator()->get('config')['edbo'];
-		$school = $this->getSchoolTable()->fetch($id);
+		$school = $this->getSchoolTable()->fetchOne($id);
 		if($school->high) {
 			$id_region = $this->params()->fromQuery('region');
 			$default_id_region = 20; // Kharkiv
@@ -239,7 +239,7 @@ class AdminController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             $del = $request->getPost('del');
-            $school = $this->getSchoolTable()->fetch($id);
+            $school = $this->getSchoolTable()->fetchOne($id);
             $high = $school->high;
             if ($del == 'Да') {
                 $id = (int) $request->getPost('id');
@@ -252,7 +252,7 @@ class AdminController extends AbstractActionController
         }
         return array(
             'id'    => $id,
-            'school' => $this->getSchoolTable()->fetch($id)
+            'school' => $this->getSchoolTable()->fetchOne($id)
         );
     }
     

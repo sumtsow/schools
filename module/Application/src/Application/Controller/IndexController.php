@@ -75,6 +75,7 @@ class IndexController extends AbstractActionController
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
 		$school = $this->getSchoolTable()->fetchOne($id);
 		$vm->setVariable('school', $school)
+			->setVariable('region', $this->getProgramTable()->getRegionTitle($school->id_region))
             ->setVariable('comments', $this->getCommentTable()->fetchComments($id))
             ->setVariable('docRoot', User::getDocumentRoot())
             ->setVariable('username', ($user->isValid()) ? $user->getLogin() : null);
@@ -86,7 +87,6 @@ class IndexController extends AbstractActionController
 				$specialtyDOM = $this->getProgramTable()->getSpecialtyDOM($id, $locale);
 				$vm->setVariable('specialties', $specialties)
 					->setVariable('specialtyDOM', $specialtyDOM)
-					->setVariable('region', $this->getProgramTable()->getRegionTitle($school->id_region))
 					->setVariable('api', $this->params()->fromRoute('api'));
 			}
 		}

@@ -75,10 +75,6 @@ class SubjectTable extends AbstractTableGateway
 	
 	public function importSubjectFromJson($id_program, $id_edbo, $offers_subjects)
     {
-		$old_subjects = $this->getAllSubjects($id_program);
-		foreach($old_subjects as $subject) {
-			$this->deleteSubject($subject->id);
-		}
 		$key = 0;
 		$subject = new Subject();
 		$subject->id_program = intval($id_program);		
@@ -97,9 +93,13 @@ class SubjectTable extends AbstractTableGateway
 	public function save(Subject $subject)
 	{
 		if(is_array($subject->id_row)) {
+		$old_subjects = $this->getAllSubjects($subject->id_program);
+		foreach($old_subjects as $row) {
+			$this->deleteSubject($row->id);
+		}
 		foreach($subject->id_row as $key => $id) {
 			$data = [
-				'required'    => $subject->required[$key],
+				'required'    => ($subject->required[$key]) ? ($subject->required[$key]) : 0,
 				'coefficient' => $subject->coefficient[$key],
 				'rating'      => $subject->rating[$key],
 				'id_program'  => $subject->id_program,
