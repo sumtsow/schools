@@ -25,12 +25,6 @@ else :
 <?php endif; ?>
 <h1 class="text-center"><?= $title;?></h1>
 <?php if($this->high) : ?>
-<div class="row">
-    <div class="col">
-        <a class="btn btn-primary my-3" id="import" href="/import"><?= $this->translate('Import Page'); ?></a>
-		<a class="btn btn-info my-3" id="dbimport" href="/dbimport"><?= $this->translate('DB Import Page'); ?></a>
-    </div>
-</div>
 <div class="d-inline-flex form-group mt-3 small">
     <form>
         <label for="area"><?= $this->translate('Select Region'); ?></label>
@@ -78,8 +72,6 @@ foreach($this->regions as $region) :
 			<td class="id_edbo"><?= $item->id_edbo;?></td>
             <td>
 				<span class="id_region d-none"><?= $item->id_region;?></span>
-				<a class="fas fa-cloud-download-alt pr-3 download" title="<?= $this->translate('Get EDBO JSON file'); ?>" href="#"></a>
-				<a class="fas fa-sync pr-3 update <?= $hasJson ? 'text-primary' : 'text-secondary disabled' ?>" title="<?= $hasJson ? $this->translate('Read data from JSON file') : $this->translate('Download JSON file first') ?>" href="#" disabled></a>
                 <a class="fa fa-edit pr-3" title="<?= $this->translate('Edit'); ?>" href="/admin/edit/<?= $item->id;?>"></a>
                 <a class="fa fa-trash-alt" title="<?= $this->translate('Delete'); ?>" href="/admin/delete/<?= $item->id;?>"></a>
             </td>

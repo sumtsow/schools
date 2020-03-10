@@ -189,8 +189,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Admin' => 'Application\Controller\AdminController',
-            'Application\Controller\Dbimport' => 'Application\Controller\DbimportController',			
-            'Application\Controller\Import' => 'Application\Controller\ImportController',
+            //'Application\Controller\Dbimport' => 'Application\Controller\DbimportController',			
+            //'Application\Controller\Import' => 'Application\Controller\ImportController',
 			'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Program' => 'Application\Controller\ProgramController',
             'Application\Controller\Search' => 'Application\Controller\SearchController',
