@@ -116,12 +116,13 @@ class DbimportController extends AbstractActionController
 				$dbProgram = $this->getProgrambachTable()->getProgram($program->ExternalId);
 				$newProgram = new Program();
 				$newProgram->exchangeArray($dbProgram);
-				$subject = new Subject();
-				$subject->exchangeArray($dbProgram['subjects']);
 				$result1 = $this->getProgramTable()->saveProgram($newProgram);
-				$id_program = $this->getProgramTable()->fetchIdEDBO($program->ExternalId)->id;
-				$subject->id_program = $id_program;
-				$result2 = $this->getSubjectTable()->save($subject);
+				if(count($dbProgram['subjects'])) {
+					$subject = new Subject();					
+					$subject->exchangeArray($dbProgram['subjects']);
+					$subject->id_program = $this->getProgramTable()->fetchIdEDBO($program->ExternalId)->id;	
+					$result2 = $this->getSubjectTable()->save($subject);
+				}					
 			}
 		}
         return $this->redirect()->toRoute('admin', ['action' => 'index', 'id' => 1]);

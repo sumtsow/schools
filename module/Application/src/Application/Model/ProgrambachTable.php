@@ -137,7 +137,7 @@ class ProgrambachTable extends AbstractTableGateway
 			$subjects = [];
 			foreach($result as $key => $subject) {
 				$subjects['id_row'][$key] = 0;
-				$subjects['required'][$key] = $subject['IsRequired'];
+				$subjects['required'][$key] = !boolval($subject['IsRequired']);
 				$subjects['coefficient'][$key] = $subject['Coefficient'];
 				$subjects['rating'][$key] = $subject['RequiredScoreMin'];
 				$subjects['id_subject'][$key] = $this->getSubjectIdByEDBO($subject['SubjectId']);
