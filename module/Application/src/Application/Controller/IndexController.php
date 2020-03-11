@@ -108,7 +108,7 @@ class IndexController extends AbstractActionController
 		return $vm->setVariable('form', $form);
     }
     
-    public function searchAction()
+    public function findAction()
     {
         $request = $this->getRequest();
         if ($request->isPost()) {

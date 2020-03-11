@@ -4,7 +4,7 @@
 	$locale = $this->plugin('translate')->getTranslator()->getLocale();
 ?>
 <h2 class="text-center mt-3"><?= $this->translate('University search'); ?></h2>
-	<form class="border border-light p-3" method="post" action="/search/rating" enctype="multipart/form-data">
+	<form class="border border-light p-3" method="post" action="/search/subject">
 		<label for="level"><?= $this->translate('Select Level'); ?></label>
 		<select class="custom-select custom-select-md" name="level" id="level">
 			<?php foreach($this->levels as $level) :
@@ -20,16 +20,7 @@
 			<option value="<?= $form->id; ?>"><?= $form->title; ?></option>
 			<?php endforeach; ?>
 		</select>
-		<div class="form-group">
-			<label class="form-check-label" for="subject"><?= $this->translate('Select your subjects'); ?></label>
-			<select name="subjects[]" id="subjects" class="custom-select" size="<?= count($this->subjects); ?>" multiple>
-			<?php foreach($this->subjects as $subject) : 	
-				$selected = ($subject['id'] == 6) ? ' selected="selected"' : ''; ?>
-				<option value="<?= $subject['id']; ?>"<?= $selected; ?>><?= $subject['title']; ?></option>
-			<?php endforeach; ?>
-			</select>
-		</div>
-		<button type="submit" class="btn btn-primary"><?= $this->translate('Next'); ?> &raquo;</button>
+		<button type="submit" class="btn btn-primary mt-3"><?= $this->translate('Next'); ?> &raquo;</button>
 	</form>
 	<?php if($this->error) : ?>
     <div class="alert alert-danger" role="alert">

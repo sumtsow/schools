@@ -34,14 +34,24 @@ class SearchController extends AbstractActionController
     public function indexAction()
     {
         $vm = new ViewModel();
-		$subjects = $this->getSubjectTable()->fetchAll();
-		array_pop($subjects); // Delete 3 last subjects
-		array_pop($subjects);
-		array_pop($subjects);
         return $vm->setVariable('forms', $this->getFormTable()->fetchAll())
 			->setVariable('levels', $this->getLevelTable()->fetchAll())
-			->setVariable('subjects', $subjects)
 			->setVariable('error', null);
+    }
+
+    public function subjectAction()
+    {
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+			$id_level = $request->getPost()->level;
+			$subjects = $this->getSubjectTable()->fetchByLevel($id_level);
+			$vm = new ViewModel();
+			return $vm->setVariable('level', $request->getPost()->level)
+				->setVariable('form', ($request->getPost()->form) ? $request->getPost()->form : false)
+				->setVariable('subjects', $subjects)
+				->setVariable('error', null);				
+		}
+		return $this->redirect()->toRoute('search');
     }
 	
 	public function ratingAction()

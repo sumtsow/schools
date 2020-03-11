@@ -107,7 +107,7 @@ class SubjectController extends AbstractActionController
 				'action' => 'edit', 'id' => '1'
 			]);
 		}
-		$subject = $this->getSubjectTable()->fetch($id);
+		$subject = $this->getSubjectTable()->fetch(['id' => $id]);
 		$request = $this->getRequest();
 		if ($request->isPost()) {
 			$del = $request->getPost('del', 'No');

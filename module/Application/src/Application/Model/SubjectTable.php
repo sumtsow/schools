@@ -27,7 +27,16 @@ class SubjectTable extends AbstractTableGateway
 		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
 		return $resultSet->toArray();
     }
-    
+
+    public function fetchByLevel($id_level)
+    {
+        $sql = new Sql($this->adapter);
+        $select = $sql->select()->from('subject')->where(['id_level' => $id_level]);
+        $selectString = $sql->buildSqlString($select);
+		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
+		return $resultSet->toArray();
+    }
+	
     public function fetch($id)
     {
 		return $this->select(['id' => $id])->current();
