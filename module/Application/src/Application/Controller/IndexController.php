@@ -22,9 +22,9 @@ use Application\Form\CommentForm;
 class IndexController extends AbstractActionController
 {
 
-	protected $commentTable;
+    protected $commentTable;
     protected $programTable;
-	protected $regionTable;
+    protected $regionTable;
     protected $schoolTable;
     protected $specialtyTable;
     
@@ -48,6 +48,9 @@ class IndexController extends AbstractActionController
         $user = new User();
 		$regions = $this->getRegionTable()->fetchAll();
 		$types = $this->getSchoolTable()->fetchTypes();
+		array_pop($types);
+		array_pop($types);
+		array_pop($types);
         $vm = new ViewModel();
         return $vm->setVariable('paginator', $paginator)
             ->setVariable('areas', $this->getSchoolTable()->fetchAreas())

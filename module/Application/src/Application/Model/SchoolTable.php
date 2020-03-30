@@ -63,7 +63,9 @@ class SchoolTable extends AbstractTableGateway
         }
 		if($type) {
             $filter .= " AND `type`=" . intval($type);
-        }
+        } else {
+			$filter .= " AND `type`<9";
+		}
         if($visible) {
             $filter .= " AND `visible`='1'";
         }
