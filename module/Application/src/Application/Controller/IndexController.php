@@ -12,7 +12,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
-
+use Zend\Json\Json;
 use Zend\View\Model\ViewModel;
 use Application\Model\User;
 use Application\Form\UserForm;
@@ -73,6 +73,7 @@ class IndexController extends AbstractActionController
                 'action' => 'index'
             ));
 		}
+		$api = $this->params()->fromRoute('api', false);
         $vm = new ViewModel();
         $user = new User();
 		$locale = $this->getServiceLocator()->get('translator')->getLocale();
@@ -90,7 +91,7 @@ class IndexController extends AbstractActionController
 				$specialtyDOM = $this->getProgramTable()->getSpecialtyDOM($id, $locale);
 				$vm->setVariable('specialties', $specialties)
 					->setVariable('specialtyDOM', $specialtyDOM)
-					->setVariable('api', $this->params()->fromRoute('api'));
+					->setVariable('api', $api);
 			}
 		}
         if(!$school->visible) { return $this->redirect()->toRoute('schools', ['action' => 'index']); }
@@ -108,6 +109,11 @@ class IndexController extends AbstractActionController
                 return $this->redirect()->toRoute('schools', array('action' => 'view', 'id' => $id));
             }
         }
+		if($api && isset($specialtyDOM)) {
+			$data = ($api == 'json') ? Json::fromXml($specialtyDOM->saveXML(), false) : $specialtyDOM->saveXML();
+			$vm = new ViewModel();
+			return $vm->setVariable('data', $data)->setTemplate('application/index/json.phtml')->setTerminal(true);
+		}
 		return $vm->setVariable('form', $form);
     }
     

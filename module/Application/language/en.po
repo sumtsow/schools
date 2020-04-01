@@ -480,6 +480,14 @@ msgstr "Specialty Code"
 msgid "Specialty Title"
 msgstr "Name of specialty"
 
+#: ../view/specialty/index.phtml:16
+msgid "Code"
+msgstr "Code"
+
+#: ../view/specialty/index.phtml:17
+msgid "Title"
+msgstr "Title"
+
 #: ../view/program/edit.phtml:3
 msgid "Edit Program"
 msgstr "Edit Education Program"

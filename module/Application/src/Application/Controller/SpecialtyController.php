@@ -9,6 +9,7 @@
 
 namespace Application\Controller;
 
+use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\User;
@@ -23,7 +24,14 @@ class SpecialtyController extends AbstractActionController
     
     public function indexAction()
     {
-        return ['branchesDOM' => $this->getSpecialtyTable()->getBranchesDOM(),
+        $branchesDOM = $this->getSpecialtyTable()->getBranchesDOM();
+		$api = $this->params()->fromRoute('api', false);
+		if($api) {
+			$data = ($api == 'json') ? Json::fromXml($branchesDOM->saveXML(), false) : $branchesDOM->saveXML();
+			$vm = new ViewModel();
+			return $vm->setVariable('data', $data)->setTemplate('application/index/json.phtml')->setTerminal(true);
+		}
+		return ['branchesDOM' => $branchesDOM,
 				'api' => $this->params()->fromRoute('api')];
     }
 	

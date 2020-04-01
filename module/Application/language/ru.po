@@ -473,6 +473,14 @@ msgstr "Код специальности"
 msgid "Specialty Title"
 msgstr "Наименование специальности"
 
+#: ../view/specialty/index.phtml:16
+msgid "Code"
+msgstr "Шифр"
+
+#: ../view/specialty/index.phtml:17
+msgid "Title"
+msgstr "Наименование"
+
 #: ../view/program/edit.phtml:3
 msgid "Edit Program"
 msgstr "Редактировать образовательную программу"
