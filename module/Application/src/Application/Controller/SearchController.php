@@ -44,10 +44,11 @@ class SearchController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
 			$id_level = $request->getPost()->level;
-			$subjects = $this->getSubjectTable()->fetchByLevel($id_level);
+			$id_form = $request->getPost()->form;
+			$subjects = $this->getSubjectTable()->fetchByLevel($id_level, $id_form);
 			$vm = new ViewModel();
-			return $vm->setVariable('level', $request->getPost()->level)
-				->setVariable('form', ($request->getPost()->form) ? $request->getPost()->form : false)
+			return $vm->setVariable('level', $id_level)
+				->setVariable('form', $id_form ? $id_form : false)
 				->setVariable('subjects', $subjects)
 				->setVariable('error', null);				
 		}

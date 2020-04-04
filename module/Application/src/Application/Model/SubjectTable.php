@@ -28,12 +28,19 @@ class SubjectTable extends AbstractTableGateway
 		return $resultSet->toArray();
     }
 
-    public function fetchByLevel($id_level)
+    public function fetchByLevel($id_level, $id_form)
     {
         $id_level = intval($id_level);
+	$id_form = intval($id_form);
 
 	$sql1 = new Sql($this->adapter);
-        $select1 = $sql1->select()->columns(['id'])->from('program')->where(['id_level' => $id_level]);
+        $select1 = $sql1->select()->columns(['id'])->from('program');
+	if ($id_level) {
+		$select1 = $select1->where(['id_level' => $id_level]);
+	}
+	if ($id_form) {
+		$select1 = $select1->where(['id_form' => $id_form]);
+	}
 
 	$sql2 = new Sql($this->adapter);
 	$select2 = $sql2->select()->columns(['id_subject'])->from('program_has_subject')->where(['id_program IN(?)' => $select1]);
