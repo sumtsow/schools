@@ -27,10 +27,10 @@ class SearchTable extends AbstractTableGateway
         return $this->select();
     }
 	
-    public function getPrograms($rating, $mean_score, $level, $form = false)
+    public function getPrograms($rating, $level, $form = false)
     {
 		if(!$rating || !is_array($rating)) { return false; }
-        $result = $this->findProgramsByRating($rating, $mean_score);
+        $result = $this->findProgramsByRating($rating);
 		if(!$result) { return false; }
 		$cond = $this->parseToStringArray($result['programs'], $level, $form);
         $programs = $this->fetchPrograms($cond);
@@ -60,11 +60,11 @@ class SearchTable extends AbstractTableGateway
         return $strArray;
     }
     
-    public function findProgramsByRating($rating, $mean_score)
+    public function findProgramsByRating($rating)
     {
 		$id_subject = array_keys($rating);
 		$key_str = implode(',', $id_subject);
-		$sql = 'SELECT `id_program` FROM `program_has_subject` WHERE `id_subject` IN (' . $key_str . ')  GROUP BY `id_program`';
+		$sql = 'SELECT `id_program` FROM `' . $this->table . '` WHERE `id_subject` IN (' . $key_str . ')  GROUP BY `id_program`';
 		$resultSet = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
         $programs = $resultSet->toArray();
         $result = [];
@@ -77,7 +77,7 @@ class SearchTable extends AbstractTableGateway
 			$passed = 0;
 			$required = 0;
 			$max = 0;
-			$integrated[$program['id_program']] = 0.1*$mean_score;
+			$integrated[$program['id_program']] = 0;
 		    foreach($subjects as $subject) {
 				if(array_key_exists($subject['id_subject'], $rating) && $rating[$subject['id_subject']] >= $subject['rating']) {
 				    $passed++;
@@ -91,8 +91,10 @@ class SearchTable extends AbstractTableGateway
 		    }
 			$integrated[$program['id_program']] += $max;
 			$needed_rating[$program['id_program']] = floatval($this->fetchPrograms(['id' => $program['id_program']])[0]['min_rate']);
-		    if($passed > 2 && $required == 2 && $integrated[$program['id_program']] > $needed_rating[$program['id_program']]) {
+		    if($passed > 3 && $required == 3 && $integrated[$program['id_program']] > $needed_rating[$program['id_program']]) {
 			     $result[] = $program['id_program'];
+			} else {
+				unset($integrated[$program['id_program']], $needed_rating[$program['id_program']]);
 			}
         }
         return ['programs' => $result, 'rating' => $integrated, 'needed_rating' => $needed_rating];

@@ -7,6 +7,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
+			<!-- <form class="border border-light p-3" method="post" action="http://vstup/search" id="subjects" enctype="multipart/form-data">	-->
 			<form class="border border-light p-3" method="post" action="/search/view" id="subjects" enctype="multipart/form-data">
 				<?php foreach($this->subjects as $subject) : ?>
 				<div class="form-group">		
@@ -15,11 +16,6 @@
 					<input type="range" class="custom-range" min="100" max="200" step="1" id="subject[<?= $subject->id ?>]" name="subject[<?= $subject->id ?>]" value="100" />
 				</div>
 				<?php endforeach; ?>
-				<div class="form-group">		
-					<label for="mean_score"><?= $this->translate('The mean score of the document on education'); ?></label>
-					<span class="font-weight-bold value" id="mean_score_value">100</span>
-					<input type="range" class="custom-range" min="100" max="200" step="1" id="mean_score" name="mean_score" value="100" />
-				</div>
 <input type="hidden" id="form" value="<?= $this->form; ?>" name="form" />
 				<input type="hidden" id="level" value="<?= $this->level; ?>" name="level" />
 				<button class="btn btn-info mr-3" onclick="window.history.back();">&laquo; <?= $this->translate('Back'); ?></button>

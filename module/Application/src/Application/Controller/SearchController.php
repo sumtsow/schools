@@ -76,10 +76,9 @@ class SearchController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             $rating = $request->getPost()->subject;
-			$mean_score = $request->getPost()->mean_score;
             $level = $request->getPost()->level;
             $form = ($request->getPost()->form) ? $request->getPost()->form : false;
-			$result = $this->getSearchTable()->getPrograms($rating, $mean_score, $level, $form);
+			$result = $this->getSearchTable()->getPrograms($rating, $level, $form);
 			$vm = new ViewModel();
 			return $vm->setVariable('search', $result);			
         }

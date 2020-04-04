@@ -14,6 +14,8 @@
 			<?php endforeach; ?>
 			</select>
 		</div>
+		<input name="level" type="hidden" value="<?= $this->level; ?>" />
+		<input name="form" type="hidden" value="<?= $this->form; ?>" />
 		<a class="btn btn-info mr-3" href="/search">&laquo; <?= $this->translate('Back'); ?></a>		
 		<button type="submit" class="btn btn-primary"><?= $this->translate('Next'); ?> &raquo;</button>
 	</form>
