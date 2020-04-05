@@ -161,7 +161,21 @@ class SchoolTable extends AbstractTableGateway
 		$resultSet = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE);
         return $resultSet->current()->id_edbo;
     }
-
+	
+    public function getFaculties($id_school)
+    {
+		$sql = new Sql($this->adapter);
+        $select = $sql->select()->columns(['id', 'title'])->from('faculty')->where(['id_school' => $id_school]);
+        $selectString = $sql->buildSqlString($select);
+		$results = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE)->toArray();
+		if(!count($results)) { return false; }
+		$ids = [];
+		foreach($results as $result) {
+			$ids[$result['id']] = $result['title'];
+		}
+        return $ids;
+    }
+	
     public function hasJsonOffersFile($schools, $edbo_params)
     {
 		$result = [];

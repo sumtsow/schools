@@ -77,7 +77,7 @@ class ProgramForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'number', // 'Zend\Form\Element\Select',
+            'type' => 'Zend\Form\Element\Select',
             'name' => 'id_faculty',
             'attributes' => array(
                 'id'  => 'id_faculty',
@@ -167,7 +167,7 @@ class ProgramForm extends Form
         $this->add(array(
             'name' => 'min_rate',
             'attributes' => array(
-                'type'  => 'text',
+                'type'  => 'number',
 				'id'  => 'min_rate'
             ),
         ));
@@ -175,7 +175,7 @@ class ProgramForm extends Form
         $this->add(array(
             'name' => 'ave_rate',
             'attributes' => array(
-                'type'  => 'text',
+                'type'  => 'number',
 				'id'  => 'ave_rate'
             ),
         ));
@@ -183,7 +183,7 @@ class ProgramForm extends Form
         $this->add(array(
             'name' => 'max_rate',
             'attributes' => array(
-                'type'  => 'text',
+                'type'  => 'number',
 				'id'  => 'max_rate'
             ),
         ));

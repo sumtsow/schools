@@ -100,6 +100,7 @@ class ProgramController extends AbstractActionController
 		$programForm->get('id_level')->setValueOptions($this->getProgramTable()->getLevels($locale))->setValue($program->id_level);
 		$programForm->get('id_form')->setValueOptions($this->getProgramTable()->getForms())->setValue($program->id_form);
 		$programForm->get('id_base')->setValueOptions($this->getProgramTable()->getBases())->setValue($program->id_base);
+		$programForm->get('id_faculty')->setValueOptions($this->getSchoolTable()->getFaculties($program->id_school))->setValue($program->id_faculty);
 		$types = $this->getProgramTable()->getTypes();
 		$programForm->get('type')->setValueOptions($types)->setValue(array_search($program->type, $types));
 		$subjects = $this->getProgramTable()->getExamSubjects($id);
