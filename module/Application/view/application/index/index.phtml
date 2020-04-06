@@ -14,8 +14,8 @@ else {
 <?php if($this->high) :?>
 <div class="d-inline-flex form-group mt-3 small">
     <form>
-		<input type="hidden" name="type" value="<?= $this->type; ?>" />
-        <label for="area"><?= $this->translate('Select Region'); ?></label>
+	<input type="hidden" name="type" value="<?= $this->type; ?>" />
+        <label for="region"><?= $this->translate('Select Region'); ?></label>
         <select class="custom-select custom-select-sm" name="region" id="region" onchange="this.form.submit();">
 			<option value="0"><?= $this->translate('All'); ?></option>
 <?php
