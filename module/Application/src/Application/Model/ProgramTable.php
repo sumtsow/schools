@@ -498,6 +498,7 @@ class ProgramTable extends AbstractTableGateway
 			'id_form' => $program->id_form,
 			'id_school' => $program->id_school,
 			'id_base' => $program->id_base,
+			'id_faculty' => $program->id_faculty,
 			'min_rate'    => $program->min_rate,
 			'ave_rate'    => $program->ave_rate,
 			'max_rate'    => $program->max_rate,
