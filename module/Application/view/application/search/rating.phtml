@@ -7,8 +7,8 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<!-- <form class="border border-light p-3" method="post" action="http://vstup/search" id="subjects" enctype="multipart/form-data">	-->
-			<form class="border border-light p-3" method="post" action="/search/view" id="subjects" enctype="multipart/form-data">
+			<!-- <form class="border border-light p-3" method="post" action="http://vstup/search" id="subjects">	-->
+			<form class="border border-light p-3" method="post" action="/search/view" id="subjects">
 				<?php foreach($this->subjects as $subject) : ?>
 				<div class="form-group">		
 					<label for="subject[<?= $subject->id ?>]"><?= $subject->title; ?></label>
