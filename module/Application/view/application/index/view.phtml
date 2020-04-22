@@ -220,13 +220,13 @@ if($this->api) :
         <tr>		
             <td>
                 <span class="font-weight-bold">E-mail: </span>
-                <a target="_blank" href="mailto://<?= $school->email;?>"><?= $school->email;?></a>
+                <a target="_blank" href="mailto://<?= $school->email;?>"><?= $school->email; ?></a>
             </td>
         </tr>	
         <tr>		
             <td>
                 <span class="font-weight-bold">WWW: </span>
-                <a target="_blank" href="<?= $school->http;?>"><?= parse_url($school->http, PHP_URL_HOST);?></a>
+                <a target="_blank" href="http://<?= $school->http;?>"><?= $school->http; ?></a>
             </td>	
         </tr>
 <?php if($school->info) : ?>
