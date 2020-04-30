@@ -18,6 +18,7 @@ class Subject implements InputFilterAwareInterface
 	public $rating;
 	public $id_program;
 	public $id_subject;
+	public $optional;
     protected $inputFilter;
 
     public function exchangeArray($data)
@@ -29,6 +30,7 @@ class Subject implements InputFilterAwareInterface
         $this->rating      = (isset($data['rating']))      ? $data['rating']      : 100;
         $this->id_program  = (isset($data['id_program']))  ? $data['id_program']  : null;
         $this->id_subject  = (isset($data['id_subject']))  ? $data['id_subject']  : null;
+		$this->optional    = (isset($data['optional']))    ? $data['optional']    : null;
     }
 
     public function getArrayCopy()

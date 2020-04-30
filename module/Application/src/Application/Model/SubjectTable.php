@@ -129,6 +129,7 @@ class SubjectTable extends AbstractTableGateway
 				'rating'      => $subject->rating[$key],
 				'id_program'  => $subject->id_program,
 				'id_subject'  => $subject->id_subject[$key],
+				'optional'    => $subject->optional[$key],
 			];
 				if ($this->fetch($id)) {
 					$this->update($data, ['id' => $id]);
@@ -144,6 +145,7 @@ class SubjectTable extends AbstractTableGateway
 			    'rating'      => $subject->rating,
 			    'id_program'  => $subject->id_program,
 			    'id_subject'  => $subject->id_subject,
+				'optional'    => $subject->optional,
 		    ];
     		if ($id == 0) {
 	    		$this->insert($data);

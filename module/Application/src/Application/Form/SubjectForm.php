@@ -44,6 +44,16 @@ class SubjectForm extends Form
         ]);
 
         $this->add([
+			'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'optional',
+			'options' => [
+				'label' => 'optional',
+				'checked_value' => '1',
+				'unchecked_value' => '0',
+			],
+        ]);
+
+        $this->add([
             'name' => 'coefficient',
             'attributes' => ['id'  => 'coefficient','type'  => 'text'],
             'options' => ['disable_inarray_validator' => true]

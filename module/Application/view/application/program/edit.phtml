@@ -150,6 +150,7 @@ $programForm->prepare();
 		$required = $subjectsForm->get('required');
 		$coefficient = $subjectsForm->get('coefficient');
 		$rating = $subjectsForm->get('rating');
+		$optional = $subjectsForm->get('optional');
 		$subjectsForm->prepare();
 		//$this->form()->openTag($subjectsForm);
 ?>
@@ -192,6 +193,12 @@ $programForm->prepare();
 				'name' => 'rating[' . $subject['id_row'] . ']',
 				'id' => 'rating[' . $subject['id_row'] . ']',
 			])->setValue($subject['rating']);
+			$optional->setLabel('Optional')->setAttributes([
+				'class' => 'form-check',
+				'name' => 'optional[' . $subject['id_row'] . ']',
+				'id' => 'optional[' . $subject['id_row'] . ']',
+				'checked' => $subject['optional'] ? 'checked' : null,
+			]);			
 			$this->formHidden($id_row);
 ?>
 			<div class="form-row my-2">
@@ -224,6 +231,11 @@ $programForm->prepare();
 			<?= $this->formElement($rating); ?>
 			<?= $this->formElementErrors()->render($rating, ['class' => 'help-block alert alert-danger mt-1']) ?>
 				</div>
+				<div class="form-group col-md-1 mr-4 px-4">
+			<?= $this->formElement($optional); ?>					
+			<?= $this->formLabel($optional) ?>
+			<?= $this->formElementErrors()->render($optional, ['class' => 'help-block alert alert-danger mt-1']) ?>
+				</div>
 			</div>
 <?php endforeach; ?>
 		<?= $this->formSubmit($subjectsForm->get('submit')->setAttribute('class', 'btn btn-primary mt-2 mb-3'));?>
@@ -241,6 +253,7 @@ $id_subject = $addSubjectForm->get('id_subject')->setLabel('Select your subjects
 $required = $addSubjectForm->get('required')->setLabel('is required')->setLabelAttributes(['class' => 'custom-control-label mx-3'])->setAttributes(['class' => 'custom-control-input', 'id' => 'required']);
 $coefficient = $addSubjectForm->get('coefficient')->setLabel('Subject Coefficient')->setAttribute('class', 'form-control')->setValue('0.20');
 $rating = $addSubjectForm->get('rating')->setLabel('Subject Rating')->setAttribute('class', 'form-control')->setValue(100);
+$optional = $addSubjectForm->get('optional')->setLabel('Optional')->setLabelAttributes(['class' => 'custom-control-label mx-3'])->setAttributes(['class' => 'custom-control-input', 'id' => 'optional']);
 $addSubjectForm->prepare();
 ?>
 	<h4 class="text-center"><?= $this->translate('Add Subject'); ?></h4>
@@ -268,7 +281,12 @@ $addSubjectForm->prepare();
 					<div class="form-group col-md-2">
 				    <?= $this->formLabel($rating) ?>
 				    <?= $this->formElement($rating); ?>
-				    <?= $this->formElementErrors()->render($rating, ['class' => 'help-block alert alert-danger mt-1']) ?>					    
+				    <?= $this->formElementErrors()->render($rating, ['class' => 'help-block alert alert-danger mt-1']) ?>
+					</div>
+					<div class="form-group col-md-3 custom-control custom-switch ml-5 pl-5">
+				    <?= $this->formElement($optional); ?>					    
+				    <?= $this->formLabel($optional) ?>					    
+				    <?= $this->formElementErrors()->render($optional, ['class' => 'help-block alert alert-danger mt-1']) ?>
 					</div>
 				</div>
 			<?= $this->formSubmit($addSubjectForm->get('submit')->setAttribute('class', 'btn btn-primary mt-2 mb-3'));?>

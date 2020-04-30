@@ -73,6 +73,8 @@ class SubjectController extends AbstractActionController
             $subjectForm->setInputFilter($subject->getInputFilter());
 			$required = $request->getPost('required');
 			$request->getPost()->set('required', '1');
+			$optional = $request->getPost('optional');
+			$request->getPost()->set('optional', '0');
             $subjectForm->setData($request->getPost());
 			$result = false;
             if ($subjectForm->isValid()) {
@@ -81,6 +83,7 @@ class SubjectController extends AbstractActionController
 					$data[$name] = $prop;
 				}
 				$data['required'] = $required;
+				$data['optional'] = $optional;
                 $subject->exchangeArray($data);
                 $result = $this->getSubjectTable()->save($subject);
             } else {

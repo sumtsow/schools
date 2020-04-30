@@ -279,7 +279,8 @@ class ProgramTable extends AbstractTableGateway
 				'id_row' => $options[$result->id]['id'],
 				'required' => $options[$result->id]['required'],
 				'coefficient' => $options[$result->id]['coefficient'],
-				'rating' => $options[$result->id]['rating'],				
+				'rating' => $options[$result->id]['rating'],
+				'optional' => $options[$result->id]['optional'],
 			];
 			if($subject['required']) {
 				array_unshift($subjects, $subject);
@@ -440,7 +441,10 @@ class ProgramTable extends AbstractTableGateway
 					$domElement->appendChild($domAttribute);
 					$domAttribute = $domDocument->createAttribute('rating');
 					$domAttribute->value = $subject['rating'];
-					$domElement->appendChild($domAttribute);				
+					$domElement->appendChild($domAttribute);
+					$domAttribute = $domDocument->createAttribute('optional');
+					$domAttribute->value = $subject['optional'];
+					$domElement->appendChild($domAttribute);
 				}
 			}
 		}
