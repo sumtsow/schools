@@ -31,27 +31,26 @@ class SubjectTable extends AbstractTableGateway
     public function fetchByLevel($id_level, $id_form)
     {
         $id_level = intval($id_level);
-	$id_form = intval($id_form);
+		$id_form = intval($id_form);
 
-	$sql1 = new Sql($this->adapter);
+		$sql1 = new Sql($this->adapter);
         $select1 = $sql1->select()->columns(['id'])->from('program');
-	if ($id_level) {
-		$select1 = $select1->where(['id_level' => $id_level]);
-	}
-	if ($id_form) {
-		$select1 = $select1->where(['id_form' => $id_form]);
-	}
+		if ($id_level) {
+			$select1 = $select1->where(['id_level' => $id_level]);
+		}
+		if ($id_form) {
+			$select1 = $select1->where(['id_form' => $id_form]);
+		}
 
-	$sql2 = new Sql($this->adapter);
-	$select2 = $sql2->select()->columns(['id_subject'])->from('program_has_subject')->where(['id_program IN(?)' => $select1]);
+		$sql2 = new Sql($this->adapter);
+		$select2 = $sql2->select()->columns(['id_subject'])->from('program_has_subject')->where(['optional' => 0])->where(['id_program IN(?)' => $select1]);
 
+		$sql3 = new Sql($this->adapter);
+		$select3 = $sql3->select()->from('subject')->where(['id IN(?)' => $select2]);			
+		$selectString = $sql3->buildSqlString($select3);
+		$result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE)->toArray();	
 
-	$sql3 = new Sql($this->adapter);
-	$select3 = $sql3->select()->from('subject')->where(['id IN(?)' => $select2]);			
-        $selectString = $sql3->buildSqlString($select3);
-	$result = $this->adapter->query($selectString, $this->adapter::QUERY_MODE_EXECUTE)->toArray();	
-		
-	return $result;
+		return $result;
     }
 	
     public function fetch($id)
