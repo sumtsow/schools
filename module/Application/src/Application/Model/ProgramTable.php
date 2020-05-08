@@ -217,7 +217,7 @@ class ProgramTable extends AbstractTableGateway
         $resultArr = $resultSet->toArray();
         $resultArr = explode(',',str_replace("'","",substr($resultArr[0]['Type'],5,-1)));
 		array_unshift($resultArr, null);		
-		array_pop($resultArr);
+		//array_pop($resultArr);
 		unset($resultArr[0]);
         return $resultArr;
     }
